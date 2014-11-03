@@ -1,8 +1,8 @@
 {
   "name": "trucolor",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "24bit color tools for the commandline",
-  "main": "lib/trucolor.js",
+  "main": "./lib/trucolor.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,6 +12,9 @@
   },
   "bin": {
     "trucolor": "./bin/trucolor.js"
+  },
+  "engines": {
+    "node": ">= 0.10.32"
   },
   "keywords": [
     "color",
@@ -34,7 +37,8 @@
     "load-grunt-tasks": "^0.6.0"
   },
   "dependencies": {
-    "yargs": "^1.3.2",
-    "less": "^2.0.0"
+    "coffee-script": "^1.8.0",
+    "less": "^2.0.0",
+    "yargs": "^1.3.2"
   }
 }

@@ -1,9 +1,9 @@
 'use strict'
 ###
- trucolor (v0.0.2)
+ trucolor (v0.0.3)
  24bit color tools for the command line
 ###
-_version = '0.0.2'
+_version = '0.0.3'
 
 exec = require('child_process').exec
 
