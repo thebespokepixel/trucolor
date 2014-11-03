@@ -35,9 +35,14 @@ module.exports = (grunt) ->
 				options:
 					prefix: '_version\\s*=\\s*\''
 				src: ['src/lib/*.coffee']
+			readme:
+                options:
+                    prefix: 'trucolor \\(v'
+                src: ['README.md']
 		bump:
 			options:
 				updateConfigs: ['pkg']
+				commitFiles: ['-a']
 				commitMessage: 'Development Snapshot v%VERSION%'
 				tagMessage: 'Development Snapshot v%VERSION%'
 				gitDescribeOptions: '--always --dirty=-d'
