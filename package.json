@@ -1,0 +1,40 @@
+{
+  "name": "trucolor",
+  "version": "0.0.1-7",
+  "description": "24bit color tools for the commandline",
+  "main": "lib/trucolor.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MarkGriffiths/trucolor.git"
+  },
+  "bin": {
+    "trucolor": "./bin/trucolor.js"
+  },
+  "keywords": [
+    "color",
+    "24bit",
+    "command line",
+    "fish"
+  ],
+  "author": "Mark Griffiths",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MarkGriffiths/trucolor/issues"
+  },
+  "homepage": "https://github.com/MarkGriffiths/trucolor",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-bump": "0.0.16",
+    "grunt-contrib-coffee": "^0.12.0",
+    "grunt-shell": "^1.1.1",
+    "grunt-version": "^0.3.0",
+    "load-grunt-tasks": "^0.6.0"
+  },
+  "dependencies": {
+    "yargs": "^1.3.2",
+    "less": "^2.0.0"
+  }
+}
