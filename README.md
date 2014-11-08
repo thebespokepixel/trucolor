@@ -1,4 +1,4 @@
-trucolor (v0.0.4-0)
+trucolor (v0.0.4)
 =============
 
 This is still very much a work in progress.
