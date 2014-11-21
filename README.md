@@ -1,6 +1,6 @@
-trucolor (v0.0.5)
+trucolor (v0.0.6-13)
 =============
-[![Build Status](https://travis-ci.org/MarkGriffiths/trucolor.svg?branch=master)](https://travis-ci.org/MarkGriffiths/trucolor) [![Dependency Status](https://david-dm.org/MarkGriffiths/trucolor.svg)](https://david-dm.org/MarkGriffiths/trucolor) [![devDependency Status](https://david-dm.org/MarkGriffiths/trucolor/dev-status.svg)](https://david-dm.org/MarkGriffiths/trucolor#info=devDependencies)
+[![Build Status](http://img.shields.io/travis/MarkGriffiths/trucolor.svg?branch=master&style=flat)](https://travis-ci.org/MarkGriffiths/trucolor) [![Dependency Status](http://img.shields.io/david/MarkGriffiths/trucolor.svg?style=flat)](https://david-dm.org/MarkGriffiths/trucolor) [![devDependency Status](http://img.shields.io/david/dev/MarkGriffiths/trucolor.svg?style=flat)](https://david-dm.org/MarkGriffiths/trucolor#info=devDependencies)
 ---
 
 This is still very much a work in progress.

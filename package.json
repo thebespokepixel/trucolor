@@ -1,6 +1,6 @@
 {
   "name": "trucolor",
-  "version": "0.0.5",
+  "version": "0.0.6-13",
   "description": "24bit color tools for the commandline",
   "main": "./lib/trucolor.js",
   "scripts": {
