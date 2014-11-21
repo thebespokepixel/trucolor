@@ -1,9 +1,6 @@
-trucolor (v0.0.6-13)
-=============
-[![Build Status](http://img.shields.io/travis/MarkGriffiths/trucolor.svg?branch=master&style=flat)](https://travis-ci.org/MarkGriffiths/trucolor) [![Dependency Status](http://img.shields.io/david/MarkGriffiths/trucolor.svg?style=flat)](https://david-dm.org/MarkGriffiths/trucolor) [![devDependency Status](http://img.shields.io/david/dev/MarkGriffiths/trucolor.svg?style=flat)](https://david-dm.org/MarkGriffiths/trucolor#info=devDependencies)
----
+# trucolor (v0.0.6-34)<br>![Project status](http://img.shields.io/badge/status-alpha-red.svg?style=flat) [![Build Status](http://img.shields.io/travis/MarkGriffiths/trucolor.svg?style=flat)](https://travis-ci.org/MarkGriffiths/trucolor) [![Dependency Status](http://img.shields.io/david/MarkGriffiths/trucolor.svg?style=flat)](https://david-dm.org/MarkGriffiths/trucolor) [![devDependency Status](http://img.shields.io/david/dev/MarkGriffiths/trucolor.svg?style=flat)](https://david-dm.org/MarkGriffiths/trucolor#info=devDependencies)
 
-This is still very much a work in progress.
+__Work in progress.__
 
 A library that enables using 24 bit colors on the command line, from within node and in [fish](http://fishshell.com) ([source](https://github.com/fish-shell/fish-shell)). It also wraps [Less's](http://lesscss.org) ([source](https://github.com/less/less.js)) color functions to enable advanced color manipulations.
 
