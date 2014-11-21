@@ -31,7 +31,7 @@ module.exports = (grunt) ->
 				src: ['bin/*.js','src/lib/**/*.coffee']
 			readme:
                 options:
-                    prefix: 'trucolor \\(v'
+                    prefix: 'trucolor v'
                 src: ['README.md']
 		bump:
 			options:
