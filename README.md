@@ -1,5 +1,7 @@
-trucolor (v0.0.4)
+trucolor (v0.0.5)
 =============
+[![Build Status](https://travis-ci.org/MarkGriffiths/trucolor.svg?branch=master)](https://travis-ci.org/MarkGriffiths/trucolor) [![Dependency Status](https://david-dm.org/MarkGriffiths/trucolor.svg)](https://david-dm.org/MarkGriffiths/trucolor) [![devDependency Status](https://david-dm.org/MarkGriffiths/trucolor/dev-status.svg)](https://david-dm.org/MarkGriffiths/trucolor#info=devDependencies)
+---
 
 This is still very much a work in progress.
 

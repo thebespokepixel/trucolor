@@ -29,10 +29,6 @@ module.exports = (grunt) ->
 				options:
 					prefix: 'trucolor [(]v'
 				src: ['bin/*.js','src/lib/**/*.coffee']
-			index:
-				options:
-					prefix: '_version\\s*=\\s*\''
-				src: ['src/lib/*.coffee']
 			readme:
                 options:
                     prefix: 'trucolor \\(v'
