@@ -1,11 +1,11 @@
 'use strict'
 ###
- trucolor (v0.0.6-38) : 24bit color tools for the command line
+ trucolor (v0.0.6-39) : 24bit color tools for the command line
  Command line help
 ###
 
 _package = require '../../package.json'
-wrap = require 'truwrap'
+_wrap = require 'truwrap'
 
 clr =
 	example:		"\x1b[38;2;204;51;66m"
@@ -28,7 +28,7 @@ clr =
 	normal:			"\x1b[0;38;2;200;200;200m"
 
 img =
-	cc: new wrap.image
+	cc: new _wrap.image
 		name: 'logo'
 		file: __dirname + '/../../media/CCLogo.png'
 		height: 3
@@ -148,13 +148,13 @@ _pages =
 
 # Actually output a page...
 module.exports = (yargs_, helpPage_) ->
-	container = wrap
+	container = _wrap
 		mode: 'container'
 		outStream: process.stderr
 
 	windowWidth = container.getWidth()
 
-	renderer = wrap
+	renderer = _wrap
 		left: 2
 		right: -2
 		mode: 'soft'
