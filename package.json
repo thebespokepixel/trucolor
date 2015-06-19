@@ -1,6 +1,6 @@
 {
-  "name": "trucolor",
-  "version": "0.0.6-39",
+  "name": "@thebespokepixel/trucolor",
+  "version": "0.0.6-44",
   "description": "24bit color tools for the commandline",
   "main": "./lib/trucolor.js",
   "scripts": {
@@ -30,17 +30,17 @@
   "homepage": "https://github.com/MarkGriffiths/trucolor",
   "devDependencies": {
     "grunt": "^0.4.5",
-    "grunt-bump": "^0.1.0",
-    "grunt-contrib-coffee": "^0.12.0",
+    "grunt-bump": "^0.3.0",
+    "grunt-contrib-coffee": "^0.13.0",
     "grunt-shell": "^1.1.1",
-    "grunt-version": "^0.3.0",
+    "grunt-version": "^1.0.0",
     "load-grunt-tasks": "^3.1.0",
     "vows": "^0.8.0"
   },
   "dependencies": {
     "less": "^2.0.0",
     "lodash": "^3.1.0",
-    "truwrap": "git://github.com/MarkGriffiths/truwrap.git",
-    "yargs": "^2.3.0"
+    "@thebespokepixel/truwrap": "^0.1.0",
+    "yargs": "^3.7.2"
   }
 }
