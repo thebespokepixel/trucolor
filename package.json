@@ -30,7 +30,7 @@
   "homepage": "https://github.com/MarkGriffiths/trucolor",
   "devDependencies": {
     "grunt": "^0.4.5",
-    "grunt-bump": "^0.3.0",
+    "grunt-bump": "^0.5.0",
     "grunt-contrib-coffee": "^0.13.0",
     "grunt-shell": "^1.1.1",
     "grunt-version": "^1.0.0",
@@ -40,7 +40,7 @@
   "dependencies": {
     "less": "^2.0.0",
     "lodash": "^3.1.0",
-    "truwrap": "^0.1.0",
+    "truwrap": "^0.0.8",
     "yargs": "^3.7.2"
   }
 }
