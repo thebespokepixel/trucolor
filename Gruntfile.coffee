@@ -7,7 +7,7 @@ module.exports = (grunt) ->
 		coffee:
 			compile:
 				options:
-					bare: true
+					bare: false
 				files: [
 					expand: true
 					cwd: 'src/'
@@ -21,35 +21,33 @@ module.exports = (grunt) ->
 					dest: 'lib/'
 					ext: '.js'
 				]
-		shell:
-			set:
-				command: 'set'
 		version:
 			default:
 				options:
 					prefix: 'trucolor [(]v'
 				src: ['bin/*.js','src/lib/**/*.coffee']
 			readme:
-                options:
-                    prefix: 'trucolor v'
-                src: ['README.md']
+				options:
+					prefix: 'trucolor v'
+				src: ['README.md']
 		bump:
 			options:
 				updateConfigs: ['pkg']
 				commitFiles: ['-a']
+				pushTo: 'origin'
 				commitMessage: 'Development Snapshot v%VERSION%'
 				tagMessage: 'Development Snapshot v%VERSION%'
-				gitDescribeOptions: '--always --dirty=-d'
+				gitDescribeOptions: '--tags --always --dirty=-d'
 				commit: true
 				createTag: true
-				push: false
+				push: true
 
 
 	grunt.registerTask 'patch',  ['edits', 'bump-only:patch', 'version', 'bump-commit']
 	grunt.registerTask 'default', ['bump-only:prerelease', 'version', 'coffee:compile']
-	grunt.registerTask 'edits', 'Capture number of edits between commits.', (phase = 'Developement') ->
-        pkg = grunt.file.readJSON 'package.json'
-        edits = pkg.version.split('-')[1]
-        commitMessage = "#{phase} Snapshot (#{edits} edits) v%VERSION%"
-        grunt.config 'bump.options.commitMessage', commitMessage
-        grunt.log.writeln "#{@name}, #{commitMessage}"
+	grunt.registerTask 'edits', 'Capture number of edits between commits.', (phase = 'Development') ->
+		pkg = grunt.file.readJSON 'package.json'
+		edits = pkg.version.split('-')[1]
+		commitMessage = "#{phase} Snapshot (#{edits} edits) v%VERSION%"
+		grunt.config 'bump.options.commitMessage', commitMessage
+		grunt.log.writeln "#{@name}, #{commitMessage}"
