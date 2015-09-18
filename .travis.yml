@@ -1,5 +1,8 @@
-before_install: npm install npm -g
 language: node_js
 node_js:
-  - "0.11"
-  - "0.10"
+  - "0.12"
+  - "iojs"
+before_install: npm install -g grunt-cli
+install: npm install
+before_script: grunt
+sudo: false

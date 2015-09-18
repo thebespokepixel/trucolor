@@ -7,14 +7,14 @@ vows.describe('trucolor cli').addBatch({
 	'Get version': {
 		'Short version number?': {
 			topic: function() { exec('./bin/trucolor.js -v', this.callback) },
-			'results in a shrt version number in the form x.x.x-x': function (error_, stdout_) {
-				assert.match(stdout_, /^[0-9]+.[0-9]+.[0-9]+[0-9-]*/)
+			'results in a short version number in the form x.x.x-x': function (error_, stdout_) {
+				assert.match(stdout_, /[0-9]+.[0-9]+.[0-9]+[0-9-]*/)
 			}
 		},
 		'Long version number?': {
 			topic: function() { exec('./bin/trucolor.js -vv', this.callback) },
 			'results in a version message in the form trucolor vx.x.x-x': function (error_, stdout_) {
-				assert.match(stdout_, /^trucolor v[0-9]+.[0-9]+.[0-9]+[0-9-]*/)
+				assert.match(stdout_, /@thebespokepixel\/trucolor v[0-9]+.[0-9]+.[0-9]+[0-9-]*/)
 			}
 		}
 	}

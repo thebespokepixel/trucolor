@@ -14,7 +14,7 @@ vows.describe('trucolor node module').addBatch({
 		'Long version message?': {
 			topic: trucolor.getVersion(true),
 			'Should result in a version message: trucolor vx.x.x-x': function (topic) {
-				assert.match(topic, /^@thebespokepixel/trucolor v[0-9]+.[0-9]+.[0-9]+[0-9-]*/)
+				assert.match(topic, /@thebespokepixel\/trucolor v[0-9]+.[0-9]+.[0-9]+[0-9-]*/)
 			}
 		},
 	}
