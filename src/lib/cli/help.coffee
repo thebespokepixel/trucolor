@@ -1,6 +1,6 @@
 'use strict'
 ###
- trucolor (v0.0.8) : 24bit color tools for the command line
+ trucolor (v0.0.9-alpha.48) : 24bit color tools for the command line
  Command line help
 ###
 
@@ -28,7 +28,7 @@ clr =
 	normal:			"\x1b[0;38;2;200;200;200m"
 
 img =
-	cc: new _wrap.image
+	cc: new _wrap.Image
 		name: 'logo'
 		file: __dirname + '/../../media/CCLogo.png'
 		height: 3
@@ -163,6 +163,8 @@ module.exports = (yargs_, helpPage_) ->
 	contentWidth = renderer.getWidth()
 
 	page = switch helpPage_
+		when 'named' then _pages.named
+		when 'special' then _pages.special
 		when 'process' then _pages.process
 		else _pages.default
 
@@ -175,8 +177,6 @@ module.exports = (yargs_, helpPage_) ->
 	container.write "Examples:\n" + renderer.panel page.examples windowWidth if page.examples?
 
 	renderer.write "\n"
-	yargs_
-		.wrap (container.isTTY and windowWidth or 0)
-		.showHelp container.write
+	container.write yargs_.wrap(contentWidth).help()
 
 	container.write "\n"

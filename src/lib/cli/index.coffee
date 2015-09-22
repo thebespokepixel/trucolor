@@ -1,11 +1,12 @@
 'use strict'
 ###
- trucolor (v0.0.8) : 24bit color tools for the command line
+ trucolor (v0.0.9-alpha.48) : 24bit color tools for the command line
  Command line functionality
 ###
 
 _trucolor = require "../trucolor"
 _color = require "../color"
+_process = require "../process"
 
 yargs = require 'yargs'
 	.strict()
@@ -20,7 +21,7 @@ yargs = require 'yargs'
 		verbose:
 			alias: 'V'
 			boolean: true
-			describe: 'Be verbose. Useful for debugging, not great for actual use.\n'
+			describe: 'Be verbose. Useful for debugging, not great for actual use.'
 		hex:
 			alias: 'x'
 			boolean: true
@@ -33,7 +34,7 @@ yargs = require 'yargs'
 argv = yargs.argv
 
 if argv.version
-	console.log _trucolor.getVersion(argv.version > 1)
+	console.log _trucolor.getVersion(argv.version)
 	process.exit 0
 
 if argv.verbose
@@ -115,6 +116,7 @@ while commands
 				color_light: commands.shift()
 				threshold: commands.shift()
 		else
+			_batch = []
 			if nextElement.match(/^\w+:$/)
 				if current_process.haveColor
 					_batch.push current_process

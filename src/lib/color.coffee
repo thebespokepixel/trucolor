@@ -1,9 +1,9 @@
 'use strict'
 ###
- trucolor (v0.0.8) 24bit color tools for the command line
+ trucolor (v0.0.9-alpha.48) 24bit color tools for the command line
  Color Parser
 ###
-_ = require "lodash"
+_ = require "underscore"
 _named_colors = require "../node_modules/less/lib/less/data/colors"
 
 class Color

@@ -2,8 +2,6 @@ src/*
 *.sublime*
 *.map
 .editorconfig
-.jshintrc
 .travis.yml
 Gruntfile.coffee
-.esformatter
 .npmignore

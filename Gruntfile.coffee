@@ -7,19 +7,34 @@ module.exports = (grunt) ->
 		coffee:
 			compile:
 				options:
-					bare: false
+					bare: yes
 				files: [
-					expand: true
+					expand: yes
 					cwd: 'src/'
 					src: ['*.coffee']
 					dest: ''
 					ext: '.js'
 				,
-					expand: true
+					expand: yes
 					cwd: 'src/lib'
 					src: ['**/*.coffee']
 					dest: 'lib/'
 					ext: '.js'
+				]
+		standard:
+			options:
+				format: yes
+				lint: yes
+			src: [
+				'{,lib/**/}*.js'
+			]
+		replace:
+			shims:
+				src: [ 'lib/cache.js' ]
+				overwrite: true
+				replacements: [
+					from: /fs,\n.*\n/
+					to: 'fs\nvar indexOf = [].indexOf'
 				]
 		version:
 			default:
@@ -35,19 +50,40 @@ module.exports = (grunt) ->
 				updateConfigs: ['pkg']
 				commitFiles: ['-a']
 				pushTo: 'origin'
-				commitMessage: 'Development Snapshot v%VERSION%'
-				tagMessage: 'Development Snapshot v%VERSION%'
+				prereleaseName: 'alpha'
+				commitMessage: 'Snapshot v%VERSION%'
+				tagMessage: 'Snapshot v%VERSION%'
 				gitDescribeOptions: '--tags --always --dirty=-d'
-				commit: true
-				createTag: true
-				push: true
+				commit: yes
+				createTag: no
+				push: no
+		shell:
+			publish:
+				command: 'npm publish'
 
+	grunt.registerTask 'default', ['bump-only:prerelease', 'version', 'coffee:compile', 'replace', 'force:standard']
+	grunt.registerTask 'commit',  ['default', 'bump-commit']
+	grunt.registerTask 'push',    ['default', 'release', 'bump-commit']
+	grunt.registerTask 'patch',   ['bump-only:prepatch', 'version', 'coffee:compile', 'replace', 'force:standard', 'bump-commit']
+	grunt.registerTask 'minor',   ['bump-only:preminor', 'version', 'coffee:compile', 'replace', 'force:standard', 'bump-commit']
+	grunt.registerTask 'major',   ['bump-only:premajor', 'version', 'coffee:compile', 'replace', 'force:standard', 'bump-commit']
+	grunt.registerTask 'final',   ['bump-only', 'version', 'coffee:compile', 'release:final', 'replace', 'force:standard', 'bump-commit']
+	grunt.registerTask 'publish', ['shell:publish']
+	grunt.registerTask 'shipit',  ['final', 'publish']
 
-	grunt.registerTask 'patch',  ['edits', 'bump-only:patch', 'version', 'bump-commit']
-	grunt.registerTask 'default', ['bump-only:prerelease', 'version', 'coffee:compile']
-	grunt.registerTask 'edits', 'Capture number of edits between commits.', (phase = 'Development') ->
+	grunt.registerTask 'release', 'Construct commit/release logic and messaging.', (phase = 'push') ->
 		pkg = grunt.file.readJSON 'package.json'
-		edits = pkg.version.split('-')[1]
-		commitMessage = "#{phase} Snapshot (#{edits} edits) v%VERSION%"
+		prName = grunt.config 'bump.options.prereleaseName'
+
+		switch phase
+			when 'push'
+				grunt.config 'bump.options.push', true
+				commitMessage = "Snapshot v#{pkg.version}"
+			when 'final'
+				commitMessage = "Release v#{pkg.version}"
+				grunt.config 'bump.options.tagMessage', commitMessage
+				grunt.config 'bump.options.push', true
+				grunt.config 'bump.options.createTag', true
+
 		grunt.config 'bump.options.commitMessage', commitMessage
-		grunt.log.writeln "#{@name}, #{commitMessage}"
+		grunt.log.writeln "#{phase}, #{commitMessage}"
