@@ -1,8 +1,8 @@
 {
   "name": "@thebespokepixel/trucolor",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "24bit color tools for the commandline",
-  "main": "./lib/trucolor.js",
+  "main": "./index.js",
   "scripts": {
     "test": "vows test/*.coffee --spec"
   },
@@ -19,6 +19,8 @@
   "keywords": [
     "color",
     "24bit",
+    "SGR",
+    "ansi",
     "command line",
     "fish"
   ],

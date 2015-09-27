@@ -1,10 +1,11 @@
 'use strict'
 ###
- trucolor (v0.0.10) : 24bit color tools for the command line
+ trucolor (v0.0.11) : 24bit color tools for the command line
  Command line help
 ###
 
 _package = require '../../package.json'
+_trucolor = require '../..'
 _wrap = require 'truwrap'
 
 clr =
@@ -54,7 +55,7 @@ header =
 			 .replace /╶/g,  clr.dark + '╶'
 			 .replace /╴/g,  '╴' + clr.bright
 			 .replace /~/g,  '╴' + clr.blue
-	info: "24bit Color Toolkit #{clr.grey}v#{_package.version}\n"
+	info: "24bit Color Toolkit #{clr.grey}v#{_trucolor.getVersion()}\n"
 
 synopsis =
 	"""
