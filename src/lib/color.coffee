@@ -1,6 +1,6 @@
 'use strict'
 ###
- trucolor (v0.0.11) 24bit color tools for the command line
+ trucolor (v0.0.12) 24bit color tools for the command line
  Color Parser
 ###
 _ = require "underscore"

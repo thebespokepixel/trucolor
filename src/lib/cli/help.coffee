@@ -1,46 +1,54 @@
 'use strict'
 ###
- trucolor (v0.0.11) : 24bit color tools for the command line
+ trucolor (v0.0.12) : 24bit color tools for the command line
  Command line help
 ###
 
 _package = require '../../package.json'
 _trucolor = require '../..'
-_wrap = require 'truwrap'
+_truwrap = require 'truwrap'
+_24bit = (process.env.TERM_COLOR is '24 bit') or (process.env.fish_term24bit)
+_iTerm = process.env.ITERM_SESSION_ID and (process.env.TERM_PROGRAM is 'iTerm.app')
 
-clr =
-	example:		"\x1b[38;2;204;51;66m"
-	command:		"\x1b[38;2;65;135;215m"
-	argument:		"\x1b[38;2;0;175;255m"
-	option:			"\x1b[38;2;175;175;45m"
-	salmon:			"\x1b[38;2;250;128;114m"
-	red:			"\x1b[38;2;255;128;128m"
-	green:			"\x1b[38;2;128;255;128m"
-	blue:			"\x1b[38;2;128;128;255m"
-	blanchedalmond: "\x1b[38;2;255;225;200m"
-	grey:			"\x1b[38;2;100;100;100m"
-	darkbg:			"\x1b[48;2;40;40;40m"
-	dark:			"\x1b[38;2;40;40;40m"
-	bright:			"\x1b[38;2;255;255;255m"
-	negative:		"\x1b[7m"
-	positive:		"\x1b[27m"
-	bold:			"\x1b[1m"
-	medium:			"\x1b[22m"
-	normal:			"\x1b[0;38;2;200;200;200m"
+if _24bit
+	clr =
+		example        : "\x1b[38;2;178;98;255m"
+		command        : "\x1b[38;2;65;135;215m"
+		argument       : "\x1b[38;2;0;175;255m"
+		option         : "\x1b[38;2;175;175;45m"
+		operator       : "\x1b[38;2;255;255;255m"
+		salmon         : "\x1b[38;2;250;128;114m"
+		red            : "\x1b[38;2;255;128;128m"
+		green          : "\x1b[38;2;128;255;128m"
+		blue           : "\x1b[38;2;128;128;255m"
+		blanchedalmond : "\x1b[38;2;255;225;200m"
+		grey           : "\x1b[38;2;100;100;100m"
+		darkbg         : "\x1b[48;2;40;40;40m"
+		dark           : "\x1b[38;2;40;40;40m"
+		bright         : "\x1b[38;2;255;255;255m"
+		negative       : "\x1b[7m"
+		positive       : "\x1b[27m"
+		bold           : "\x1b[1m"
+		medium         : "\x1b[22m"
+		normal         : "\x1b[0;38;2;240;240;240m"
 
-img =
-	cc: new _wrap.Image
-		name: 'logo'
-		file: __dirname + '/../../media/CCLogo.png'
-		height: 3
+	img =
+		space: "\t\t"
+		cc: new _truwrap.Image
+			name: 'logo'
+			file: __dirname + '/../../media/CCLogo.png'
+			height: 3
 
-spectrum = (width_, char_) -> (for col in [0..width_-1]
-	scalar_s = Math.cos((col / width_) * (Math.PI/2))
-	scalar_c = Math.sin((col / width_) * (Math.PI))
-	red = if scalar_s > 0 then scalar_s else 0
-	green = if scalar_c > 0 then scalar_c else 0
-	blue = if scalar_s > 0 then (1 - scalar_s) else 0
-	"\x1b[38;2;#{Math.floor(red * 255)};#{Math.floor(green * 255)};#{Math.floor(blue * 255)}m#{char_}").join('') + "#{clr.normal}\n"
+	spectrum = (width_, char_) -> (for col in [0..width_-1]
+		scalar_s = Math.cos((col / width_) * (Math.PI/2))
+		scalar_c = Math.sin((col / width_) * (Math.PI))
+		red = if scalar_s > 0 then scalar_s else 0
+		green = if scalar_c > 0 then scalar_c else 0
+		blue = if scalar_s > 0 then (1 - scalar_s) else 0
+		"\x1b[38;2;#{Math.floor(red * 255)};#{Math.floor(green * 255)};#{Math.floor(blue * 255)}m#{char_}").join('') + "#{clr.normal}\n"
+else
+
+
 
 header =
 	bar: ->
@@ -149,13 +157,13 @@ _pages =
 
 # Actually output a page...
 module.exports = (yargs_, helpPage_) ->
-	container = _wrap
+	container = _truwrap
 		mode: 'container'
 		outStream: process.stderr
 
 	windowWidth = container.getWidth()
 
-	renderer = _wrap
+	renderer = _truwrap
 		left: 2
 		right: -2
 		mode: 'soft'
@@ -169,7 +177,6 @@ module.exports = (yargs_, helpPage_) ->
 		when 'process' then _pages.process
 		else _pages.default
 
-	container.write "\n"
 	container.write img.cc.render(nobreak: true, align: 2)
 	container.write header.bar() + header.info
 	container.write spectrum windowWidth, "━"
