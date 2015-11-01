@@ -146,8 +146,8 @@ class Cache
 			cache_bytes = @content().length
 
 			# clone a cache to append new data for calculate size
-			clone_q = _.cloneDeep @_queue
-			clone_c = _.cloneDeep @_cache
+			clone_q = _.map @_queue, _.clone
+			clone_c = _.map @_cache, _.clone
 			clone_q.push key
 			clone_c[key] = val
 
