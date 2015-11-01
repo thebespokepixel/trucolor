@@ -1,10 +1,10 @@
 {
   "name": "@thebespokepixel/trucolor",
-  "version": "0.0.14-alpha.558",
+  "version": "0.0.15-alpha.0",
   "description": "24bit color tools for the commandline",
   "main": "./index.js",
   "scripts": {
-    "test": "xo && vows test/*.coffee --spec"
+    "test": "vows test/*.coffee --spec"
   },
   "repository": {
     "type": "git",
