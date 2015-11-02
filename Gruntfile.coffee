@@ -21,18 +21,6 @@ module.exports = (grunt) ->
 					dest: 'lib/'
 					ext: '.js'
 				]
-		esformatter:
-			src: [
-				'{,lib/**/}*.js'
-			]
-		replace:
-			shims:
-				src: [ 'index.js', 'lib/cache.js', 'lib/process.js' ]
-				overwrite: true
-				replacements: [
-					from: /,\n\s*indexOf.*\n/
-					to: '\nvar indexOf = [].indexOf\n'
-				]
 		version:
 			default:
 				options:
@@ -60,13 +48,13 @@ module.exports = (grunt) ->
 			publish:
 				command: 'npm publish'
 
-	grunt.registerTask 'default', ['bump-only:prerelease', 'version', 'coffee:compile', 'replace', 'force:esformatter', 'force:shell:version']
+	grunt.registerTask 'default', ['bump-only:prerelease', 'version', 'coffee:compile', 'force:shell:version']
 	grunt.registerTask 'commit',  ['default', 'bump-commit']
 	grunt.registerTask 'push',    ['default', 'release', 'bump-commit']
-	grunt.registerTask 'patch',   ['bump-only:prepatch', 'version', 'coffee:compile', 'replace', 'force:esformatter', 'bump-commit']
-	grunt.registerTask 'minor',   ['bump-only:preminor', 'version', 'coffee:compile', 'replace', 'force:esformatter', 'bump-commit']
-	grunt.registerTask 'major',   ['bump-only:premajor', 'version', 'coffee:compile', 'replace', 'force:esformatter', 'bump-commit']
-	grunt.registerTask 'final',   ['bump-only', 'version', 'coffee:compile', 'release:final', 'replace', 'force:esformatter', 'bump-commit']
+	grunt.registerTask 'patch',   ['bump-only:prepatch', 'version', 'coffee:compile', 'bump-commit']
+	grunt.registerTask 'minor',   ['bump-only:preminor', 'version', 'coffee:compile', 'bump-commit']
+	grunt.registerTask 'major',   ['bump-only:premajor', 'version', 'coffee:compile', 'bump-commit']
+	grunt.registerTask 'final',   ['bump-only', 'version', 'coffee:compile', 'release:final', 'bump-commit']
 	grunt.registerTask 'publish', ['shell:publish']
 	grunt.registerTask 'shipit',  ['final', 'publish']
 
