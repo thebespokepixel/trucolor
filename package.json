@@ -1,6 +1,6 @@
 {
   "name": "@thebespokepixel/trucolor",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "24bit color tools for the commandline",
   "main": "./index.js",
   "scripts": {
@@ -43,7 +43,7 @@
     "vows": "^0.8.1"
   },
   "dependencies": {
-    "@thebespokepixel/verbosity": "0.0.20",
+    "@thebespokepixel/verbosity": "0.0.23",
     "less": "^2.5.1",
     "supports-color": "^3.1.2",
     "truwrap": "*",
