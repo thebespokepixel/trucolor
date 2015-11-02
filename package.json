@@ -47,10 +47,10 @@
     "grunt-version": "^1.0.0",
     "load-grunt-tasks": "^3.2.0",
     "vows": "^0.8.1",
-    "xo": "^0.9.0"
+    "xo": "^0.10.1"
   },
   "dependencies": {
-    "@thebespokepixel/verbosity": "0.0.20",
+    "@thebespokepixel/verbosity": "0.0.23",
     "less": "^2.5.1",
     "supports-color": "^3.1.2",
     "truwrap": "*",
