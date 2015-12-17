@@ -1,14 +1,14 @@
 'use strict'
 ###
- trucolor (v0.0.17) : 24bit color tools for the command line
+ trucolor (v0.0.18-alpha.47) : 24bit color tools for the command line
  Command line help
 ###
 
-_trucolor = require '../..'
+_trucolor = require ('../..').RGBout()
 _truwrap = require 'truwrap'
 console = global.vconsole
 
-if supportsColor.has16m
+if colorSupport.has16m
 	clr =
 		example        : '\x1b[38;2;178;98;255m'
 		command        : '\x1b[38;2;65;135;215m'
@@ -82,7 +82,7 @@ else
 		bar: -> "\n#{clr.bright}trucolor - "
 		info: "24bit Color Toolkit #{clr.grey}v#{_trucolor.getVersion()}#{clr.normal}\n"
 
-if supportsColor.has16m and _iTerm
+if colorSupport.has16m and _iTerm
 	img =
 		space : "\t"
 		cc    : new _truwrap.Image

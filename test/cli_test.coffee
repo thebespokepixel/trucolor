@@ -1,10 +1,10 @@
 'use strict'
 
 
-vows = require ('vows')
-assert = require ('assert')
+vows = require 'vows'
+assert = require 'assert'
 _package = require '../package.json'
-testSubject = require ('../../trucolor')
+testSubject = require('../../trucolor').RGBout()
 exec = require('child_process').exec
 bin = _package.bin[_package.name.split('/')[1]]
 

@@ -1,11 +1,8 @@
 'use strict'
 ###
- trucolor (v0.0.17) : 24bit color tools for the command line
+ trucolor (v0.0.18-alpha.47) : 24bit color tools for the command line
  Command line functionality
 ###
-
-_trucolor = require "../.."
-console = global.vconsole
 
 yargs = require 'yargs'
 	.strict()
@@ -31,6 +28,13 @@ yargs = require 'yargs'
 			describe: 'Output color as CSS RGB declaration, i.e. rgb(204, 51, 66)'
 	.showHelpOnFail false, "Use 'trucolor --help' for user manual"
 argv = yargs.argv
+
+_trucolor = switch
+	when argv.hex then require("../..").HEXout()
+	when argv.rgb then require("../..").RGBout()
+	else require("../..").SGRout()
+
+console = global.vconsole
 
 if argv.version
 	process.stdout.write _trucolor.getVersion(argv.version)
@@ -130,7 +134,7 @@ until commands.length == 0
 				threshold: commands.shift() if commands[0]?
 		else
 
-			if nextElement.match(/^[A-Za-z0-9_-]:$/)
+			if nextElement.match(/^[A-Za-z0-9_-]+:$/)
 				if current_processor.haveColor
 					current_processor = _trucolor.addProcessor nextElement
 				current_processor.setName nextElement[..-2]

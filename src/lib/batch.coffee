@@ -1,11 +1,11 @@
 'use strict'
 ###
- trucolor (v0.0.17) 24bit color tools for the command line
+ trucolor (v0.0.18-alpha.47) 24bit color tools for the command line
  Batch Output Processor
 ###
 _ = require 'underscore'
 _colorOut = require "./colorOut"
-_controller = require '..'
+_controller = require './core'
 console = global.vconsole
 _batch = []
 

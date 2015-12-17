@@ -1,6 +1,6 @@
 'use strict'
 ###
- trucolor (v0.0.17) 24bit color tools for the command  line
+ trucolor (v0.0.18-alpha.47) 24bit color tools for the command  line
  Color Output Parser
 ###
 console = global.vconsole
@@ -24,10 +24,10 @@ class Gamut
 	valueOf: ->
 		@distance
 
-# console.dir supportsColor
+# console.dir colorSupport
 
 switch
-	when supportsColor.has256
+	when colorSupport.has256
 		prefix=';5;'
 		ansi = [
 			new Gamut '0',   '#000000'
@@ -287,7 +287,7 @@ switch
 			new Gamut '254', '#e4e4e4'
 			new Gamut '255', '#eeeeee'
 		]
-	when supportsColor.hasBasic
+	when colorSupport.hasBasic
 		prefix = ''
 		ansi = [
 			new Gamut '30', '#000000'

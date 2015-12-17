@@ -1,7 +1,7 @@
 'use strict';
 
 /*
-	trucolor (v0.0.17)
+	trucolor (v0.0.18-alpha.47)
 	24bit color tools for the command line
 
 	Copyright (c) 2015 CryptoComposite
@@ -25,128 +25,40 @@
 	TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 	SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-var _ansiColourSpace, _basicPalette, _batch, _cache, _colorIn, _colorOut, _defined_vars, _less_package, _package, _processor, cache, console, error, error1, less, path,
-  indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+var _, _core, console, supportsColor;
+
+_ = require('underscore');
+
+supportsColor = require('supports-color');
+
+global.colorSupport = _.clone(supportsColor);
+
+if ((process.env.TERM_COLOR === '24 bit') || process.env.fish_term24bit) {
+  colorSupport.has16m = true;
+  colorSupport.level = 3;
+}
+
+global._iTerm = process.env.ITERM_SESSION_ID && (process.env.TERM_PROGRAM === 'iTerm.app');
 
 console = global.vconsole != null ? global.vconsole : global.vconsole = require('@thebespokepixel/verbosity').console({
   out: process.stderr
 });
 
-global.supportsColor = require('supports-color');
+_core = require('./lib/core');
 
-global._iTerm = process.env.ITERM_SESSION_ID && (process.env.TERM_PROGRAM === 'iTerm.app');
-
-path = require('path');
-
-less = require('less');
-
-_cache = require("./lib/cache");
-
-try {
-  cache = new _cache({
-    auto_save: true,
-    filename: path.join(process.env.HOME, '/.rgbCache')
-  });
-} catch (error1) {
-  error = error1;
-  console.log("Error Setting up new cache");
-}
-
-if (cache.load()) {
-  console.debug("Cache loaded.");
-} else {
-  console.warn("Cache cleared.");
-  cache.clear();
-}
-
-_package = require("./package.json");
-
-_less_package = require("less/package.json");
-
-_batch = require('./lib/batch');
-
-_colorIn = require("./lib/colorIn");
-
-_colorOut = require("./lib/colorOut");
-
-_processor = require("./lib/processor");
-
-_ansiColourSpace = require("./lib/ANSIPalette");
-
-_basicPalette = require("./lib/palette");
-
-_defined_vars = [];
-
-exports.getName = function() {
-  return _package.name;
+exports.SGRout = function() {
+  _core.setMode('SGR');
+  return _core;
 };
 
-exports.getVersion = function(long_) {
-  switch (long_) {
-    case 3:
-      return _package.name + " v" + _package.version + " (lessc v" + _less_package.version + ")";
-    case 2:
-      return _package.name + " v" + _package.version;
-    default:
-      return "" + _package.version;
-  }
+exports.RGBout = function() {
+  _core.setMode('RGB');
+  return _core;
 };
 
-exports.cacheGet = function(name_) {
-  return cache.get(name_);
+exports.HEXout = function() {
+  _core.setMode('HEX');
+  return _core;
 };
 
-exports.cachePut = function(name_, value_) {
-  return cache.set(name_, value_);
-};
-
-exports.addProcessor = function(name_) {
-  var colorProcess;
-  colorProcess = new _processor(name_);
-  _batch.add(colorProcess);
-  return colorProcess;
-};
-
-exports.basicPalette = function() {
-  return _basicPalette;
-};
-
-exports.addColor = function(color_) {
-  var error2;
-  try {
-    return new _colorIn(color_);
-  } catch (error2) {
-    error = error2;
-    if (console.canWrite(4)) {
-      console.trace(error.message);
-    } else {
-      console.error(error.message);
-    }
-    return process.exit(1);
-  }
-};
-
-exports.setColor = function(color_) {
-  var error2;
-  try {
-    return new colorOut(color_);
-  } catch (error2) {
-    error = error2;
-    if (console.canWrite(4)) {
-      console.trace(error.message);
-    } else {
-      console.error(error.message);
-    }
-    return process.exit(1);
-  }
-};
-
-exports.trackVar = function(varname_) {
-  return _defined_vars.push(varname_);
-};
-
-exports.hasVar = function(varname_) {
-  return indexOf.call(_defined_vars, varname_) >= 0;
-};
-
-exports.runBatch = _batch.run;
+exports.simplePalette = require('./lib/simple');
