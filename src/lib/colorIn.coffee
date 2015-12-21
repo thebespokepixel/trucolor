@@ -1,10 +1,10 @@
 'use strict'
 ###
- trucolor (v0.0.19) 24bit color tools for the command line
+ trucolor (v0.0.20) 24bit color tools for the command line
  Color Demand Parser
 ###
 console = global.vconsole
-_named_colors = require "../node_modules/less/lib/less/data/colors"
+_named_colors = require "./named"
 
 class ColorIn
 	constructor: (raw) ->

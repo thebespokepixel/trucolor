@@ -1,6 +1,6 @@
 'use strict'
 ###
-	trucolor (v0.0.19)
+	trucolor (v0.0.20)
 	Core logic
 ###
 
