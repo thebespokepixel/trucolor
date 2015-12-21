@@ -1,6 +1,6 @@
 {
   "name": "@thebespokepixel/trucolor",
-  "version": "0.0.18-alpha.47",
+  "version": "0.0.18",
   "description": "24bit color tools for the commandline",
   "main": "./index.js",
   "scripts": {
@@ -43,26 +43,14 @@
     "vows": "^0.8.1"
   },
   "dependencies": {
-    "@thebespokepixel/verbosity": "0.0.23",
+    "@thebespokepixel/verbosity": "^0.1.0",
     "less": "^2.5.1",
     "supports-color": "^3.1.2",
-    "truwrap": "*",
+    "truwrap": "^0.1.25",
     "underscore": "^1.8.3",
     "yargs": "^3.25.0"
   },
   "xo": {
     "semicolon": false
-  },
-  "esformatter": {
-    "plugins": [
-      "esformatter-quotes",
-      "esformatter-asi",
-      "esformatter-spaced-lined-comment",
-      "esformatter-use-strict",
-      "esformatter-literal-notation"
-    ],
-    "quotes": {
-      "type": "single"
-    }
   }
 }

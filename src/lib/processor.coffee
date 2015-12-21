@@ -1,6 +1,6 @@
 'use strict'
 ###
- trucolor (v0.0.18-alpha.47) 24bit color tools for the command line
+ trucolor (v0.0.18) 24bit color tools for the command line
  Color process object
 ###
 console = global.vconsole

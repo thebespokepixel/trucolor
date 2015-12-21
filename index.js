@@ -1,7 +1,7 @@
 'use strict';
 
 /*
-	trucolor (v0.0.18-alpha.47)
+	trucolor (v0.0.18)
 	24bit color tools for the command line
 
 	Copyright (c) 2015 CryptoComposite
@@ -31,9 +31,22 @@ _ = require('underscore');
 
 supportsColor = require('supports-color');
 
+global.colorSupport = {
+  hasBasic: false
+};
+
+if (supportsColor.hasBasic) {
+  global.colorSupport = {
+    hasBasic: true,
+    level: supportsColor.level,
+    has256: supportsColor.level >= 2,
+    has16m: supportsColor.level >= 3
+  };
+}
+
 global.colorSupport = _.clone(supportsColor);
 
-if ((process.env.TERM_COLOR === '24 bit') || process.env.fish_term24bit) {
+if ((process.env.TERM_COLORS === '16m') || process.env.fish_term24bit) {
   colorSupport.has16m = true;
   colorSupport.level = 3;
 }

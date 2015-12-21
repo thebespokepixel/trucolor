@@ -1,10 +1,10 @@
 'use strict'
 ###
- trucolor (v0.0.18-alpha.47) : 24bit color tools for the command line
+ trucolor (v0.0.18) : 24bit color tools for the command line
  Command line help
 ###
 
-_trucolor = require ('../..').RGBout()
+_trucolor = require('../..').RGBout()
 _truwrap = require 'truwrap'
 console = global.vconsole
 
