@@ -1,6 +1,6 @@
 {
   "name": "@thebespokepixel/trucolor",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "description": "24bit color tools for the commandline",
   "main": "./index.js",
   "scripts": {

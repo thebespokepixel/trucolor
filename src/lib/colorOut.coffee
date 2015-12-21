@@ -1,6 +1,6 @@
 'use strict'
 ###
- trucolor (v0.0.20) 24bit color tools for the command line
+ trucolor (v0.0.21) 24bit color tools for the command line
  Color Output Parser
 ###
 console = global.vconsole
