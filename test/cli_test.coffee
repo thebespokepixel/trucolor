@@ -4,7 +4,7 @@
 vows = require 'vows'
 assert = require 'assert'
 _package = require '../package.json'
-testSubject = require('../../trucolor').RGBout()
+testSubject = require('../../trucolor')
 exec = require('child_process').exec
 bin = _package.bin[_package.name.split('/')[1]]
 
