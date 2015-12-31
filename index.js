@@ -1,7 +1,7 @@
 'use strict';
 
 /*
-	trucolor (v0.0.21)
+	trucolor (v0.0.22)
 	24bit color tools for the command line
 
 	Copyright (c) 2015 CryptoComposite
@@ -25,53 +25,81 @@
 	TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 	SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-var _, _core, console, supportsColor;
+var _, _cache, _convert_package, _interpreter, _less_package, _output, _package, _processor, _router, cache, console, path, terminalFeatures;
 
-_ = require('underscore');
+terminalFeatures = require('@thebespokepixel/term-ng');
 
-supportsColor = require('supports-color');
-
-global.colorSupport = {
-  hasBasic: false
-};
-
-if (supportsColor.hasBasic) {
-  global.colorSupport = {
-    hasBasic: true,
-    level: supportsColor.level,
-    has256: supportsColor.level >= 2,
-    has16m: supportsColor.level >= 3
-  };
-}
-
-global.colorSupport = _.clone(supportsColor);
-
-if ((process.env.TERM_COLORS === '16m') || process.env.fish_term24bit) {
-  colorSupport.has16m = true;
-  colorSupport.level = 3;
-}
-
-global._iTerm = process.env.ITERM_SESSION_ID && (process.env.TERM_PROGRAM === 'iTerm.app');
-
-console = global.vconsole != null ? global.vconsole : global.vconsole = require('@thebespokepixel/verbosity').console({
+console = global.vConsole != null ? global.vConsole : global.vConsole = require('@thebespokepixel/verbosity').console({
   out: process.stderr
 });
 
-_core = require('./lib/core');
+path = require("path");
 
-exports.SGRout = function() {
-  _core.setMode('SGR');
-  return _core;
+_ = require('underscore');
+
+cache = require("./lib/cache");
+
+_package = require('./package.json');
+
+_less_package = require('less/package.json');
+
+_convert_package = require('color-convert/package.json');
+
+_interpreter = require('./lib/interpreter');
+
+_processor = require('./lib/processor');
+
+_router = require('./lib/router');
+
+_output = require('./lib/output');
+
+_cache = new cache({
+  auto_save: true,
+  filename: path.join(process.env.HOME, '/.rgbCache')
+});
+
+if (_cache.load()) {
+  console.debug("Cache loaded.");
+} else {
+  console.warn("Cache invalidated.");
+  _cache.clear();
+}
+
+exports.getName = function() {
+  return _package.name;
 };
 
-exports.RGBout = function() {
-  _core.setMode('RGB');
-  return _core;
+exports.getVersion = function(long_) {
+  switch (long_) {
+    case 3:
+      return _package.name + " v" + _package.version + " (color-convert v" + _convert_package.version + ", less v" + _less_package.version + ")";
+    case 2:
+      return _package.name + " v" + _package.version;
+    default:
+      return "" + _package.version;
+  }
 };
 
-exports.HEXout = function() {
-  _core.setMode('HEX');
-  return _core;
+exports.simplePalette = require('./lib/palettes/simple');
+
+exports.cacheGet = function(name_) {
+  return _cache.get(name_);
 };
 
-exports.simplePalette = require('./lib/simple');
+exports.cachePut = function(name_, value_) {
+  return _cache.set(name_, value_);
+};
+
+exports.cacheClear = function(name_) {
+  return _cache.clear(name_);
+};
+
+exports.newProcessor = function(name_) {
+  return _router.add(new _processor(name_));
+};
+
+exports.interpret = function(input_) {
+  return new _interpreter(input_);
+};
+
+exports.route = _router.run;

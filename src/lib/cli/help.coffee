@@ -1,26 +1,23 @@
 'use strict'
 ###
- trucolor (v0.0.21) : 24bit color tools for the command line
+ trucolor (v0.0.22) : 24bit color tools for the command line
  Command line help
 ###
 
-_trucolor = require('../..').RGBout()
-_truwrap = require 'truwrap'
+_trucolor = require('../..')
 console = global.vconsole
+_truwrap = require 'truwrap'
+terminalFeatures = require '@thebespokepixel/term-ng'
+deepAssign = require 'deep-assign'
+converter = require 'color-convert'
 
-if colorSupport.has16m
-	clr =
-		example        : '\x1b[38;2;178;98;255m'
-		command        : '\x1b[38;2;65;135;215m'
-		argument       : '\x1b[38;2;0;175;255m'
-		option         : '\x1b[38;2;175;175;45m'
-		operator       : '\x1b[38;2;255;255;255m'
+if terminalFeatures.color.has16m
+	clr = deepAssign require('../..').simplePalette(),
 		salmon         : '\x1b[38;2;250;128;114m'
 		red            : '\x1b[38;2;255;128;128m'
 		green          : '\x1b[38;2;128;255;128m'
 		blue           : '\x1b[38;2;128;128;255m'
 		blanchedalmond : '\x1b[38;2;255;225;200m'
-		grey           : '\x1b[38;2;100;100;100m'
 		darkbg         : '\x1b[48;2;40;40;40m'
 		dark           : '\x1b[38;2;40;40;40m'
 		bright         : '\x1b[38;2;255;255;255m'
@@ -28,8 +25,6 @@ if colorSupport.has16m
 		positive       : '\x1b[27m'
 		bold           : '\x1b[1m'
 		medium         : '\x1b[22m'
-		cc             : '\x1b[38;2;128;196;126m'
-		normal         : '\x1b[30m\x1b[m\x1b[38;2;240;240;240m',
 
 	spectrum = (width_, char_) -> (for col in [0..width_-1]
 		scalar_s = Math.cos((col / width_) * (Math.PI/2))
@@ -39,11 +34,12 @@ if colorSupport.has16m
 		blue = if scalar_s > 0 then (1 - scalar_s) else 0
 		"\x1b[38;2;#{Math.floor(red * 255)};#{Math.floor(green * 255)};#{Math.floor(blue * 255)}m#{char_}").join('') + "#{clr.normal}\n"
 
+	imageSpacer = '\t' if terminalFeatures.images
 	header =
 		bar: ->
-			[  " R━┳━╸╶────*╭──╮╶╴╷"
-			 "\t G ┃ ┏━┓╻ ╻*│╶╴╭─╮│╭─╮╭─╮"
-			 "\t B ╹ ╹╶~┗━┛*╰──╰─╯╵╰─╯╵   "
+			[ " R━┳━╸╶────*╭──╮╶╴╷"
+			  "#{imageSpacer} G ┃ ┏━┓╻ ╻*│╶╴╭─╮│╭─╮╭─╮"
+			  "#{imageSpacer} B ╹ ╹╶~┗━┛*╰──╰─╯╵╰─╯╵   "
 				].join "\n"
 				 .replace /\*/g, clr.bright
 				 .replace /R/g,  clr.red
@@ -54,18 +50,12 @@ if colorSupport.has16m
 				 .replace /~/g,  '╴' + clr.blue
 		info: "24bit Color Toolkit #{clr.grey}v#{_trucolor.getVersion()}\n"
 else
-	clr =
-		example        : '\x1b[38;5;93m'
-		command        : '\x1b[38;5;68m'
-		argument       : '\x1b[38;5;39m'
-		option         : '\x1b[38;5;142m'
-		operator       : '\x1b[38;5;231m'
+	clr = deepAssign require('../..').simplePalette(),
 		salmon         : '\x1b[91m'
 		red            : '\x1b[31m'
 		green          : '\x1b[32m'
 		blue           : '\x1b[34m'
 		blanchedalmond : '\x1b[91m'
-		grey           : '\x1b[38;5;247m'
 		darkbg         : '\x1b[48;5;235m'
 		dark           : '\x1b[38;5;235m'
 		bright         : '\x1b[97m'
@@ -73,16 +63,14 @@ else
 		positive       : '\x1b[27m'
 		bold           : '\x1b[1m'
 		medium         : '\x1b[22m'
-		cc             : '\x1b[38;5;114m'
-		normal         : '\x1b[30m\x1b[m'
 
-	spectrum = -> "\n#{clr.salmon}!!! This tool is for 24 bit colour aware terminals only !!!#{clr.normal}\n"
+	spectrum = -> "\n#{clr.salmon}Your terminal currently doesn't support 24 bit color.#{clr.normal}\n"
 
 	header =
 		bar: -> "\n#{clr.bright}trucolor - "
 		info: "24bit Color Toolkit #{clr.grey}v#{_trucolor.getVersion()}#{clr.normal}\n"
 
-if colorSupport.has16m and _iTerm
+if terminalFeatures.images
 	img =
 		space : "\t"
 		cc    : new _truwrap.Image
@@ -113,7 +101,8 @@ _pages =
 				#{synopsis}
 
 				Usage:
-				In it's simplest form, '#{clr.command}trucolor#{clr.normal} #{clr.argument}color#{clr.normal}', the argument color description is transformed into escaped 24bit CSI codes. It also allows the use of color transforms (using LESS) as well as automatic 'palletisation' for when you want to pass 24 bit colors into a program that doesn't support the RGB CSI codes.
+
+				In it's simplest form, '#{clr.command}trucolor#{clr.normal} #{clr.argument}color#{clr.normal}', the argument color is transformed into escaped 24bit CSI codes. It also allows the use of color transforms (using LESS) as well as automatic 'palletisation' for when you want to pass 24 bit colors into a program that doesn't support the RGB CSI codes.
 
 				The motivation behind this is to allow much more sophisticated graphic visualisation using in modern, xterm-compatible terminal emulators that have added support over the past couple of years.
 
@@ -179,8 +168,8 @@ _pages =
 		"""
 
 		examples: (width_) ->
-			lessColors = require("../../node_modules/less/lib/less/data/colors")
-			colors = for name_, color_ of lessColors
+			namedColors = require("../named")
+			colors = for name_, color_ of namedColors
 				name: name_
 				color: color_
 
@@ -204,9 +193,13 @@ _pages =
 					cellsrc ?=
 						name: ''
 						color: ''
-					cell["name_#{c}"] = cellsrc.name
-					sgr = (_trucolor.setColor cellsrc.color).toSGR()
-					cell["color_#{c}"] = "\x1b[38;2;65;135;215m#{cellsrc.color}#{clr.normal}"
+					if cellsrc.name == ''
+						cell["name_#{c}"] = ''
+						cell["color_#{c}"] = ''
+					else
+						ansi = converter.keyword2ansi16(cellsrc.name)
+						cell["name_#{c}"] = "\x1b[#{ansi}m#{cellsrc.name}#{clr.normal}"
+						cell["color_#{c}"] = "#{_trucolor.setColor cellsrc.name}#{cellsrc.color}#{clr.normal}"
 				table.push cell
 			content: table
 			layout:
@@ -221,8 +214,8 @@ _pages =
 
 	epilogue:
 		"""
-			#{clr.cc}#{ _trucolor.getName() }#{clr.normal} is an open source component of CryptoComposite\'s toolset.
-			#{clr.cc}© 2015 CryptoComposite. #{clr.grey}Released under the MIT License.#{clr.normal}
+			#{clr.title}#{ _trucolor.getName() }#{clr.normal} is an open source component of CryptoComposite\'s toolset.
+			#{clr.title}© 2015 CryptoComposite. #{clr.grey}Released under the MIT License.#{clr.normal}
 
 """
 
@@ -254,6 +247,7 @@ module.exports = (yargs_, helpPage_) ->
 	yargs_.epilogue _pages.epilogue
 	yargs_.wrap(contentWidth)
 
+	container.write '\n'
 	container.write img.cc.render
 		nobreak: false
 		align: 2

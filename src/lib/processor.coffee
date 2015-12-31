@@ -1,150 +1,202 @@
 'use strict'
 ###
- trucolor (v0.0.21) 24bit color tools for the command line
+ trucolor (v0.0.22) 24bit color tools for the command line
  Color process object
 ###
-console = global.vconsole
+console = global.vConsole
 
 class Processor
 	constructor: (@name) ->
-		@type = 'color'
-		@haveColor = no
-		@hasLess = no
+		@attrs =
+			background: no
+			bold: no
+			faint: no
+			italic: no
+			invert: no
+			underline: no
+			blink: no
+		@haveAttrs = no
+		@haveSource = no
+		@useLess = no
 		@prefix = ''
 		@suffix = ''
+		@namePrefix = ''
+		@nameSuffix = ''
 		console.debug "\nNew Process:", @name
 
-	setName: (@name) ->
-		console.debug "Process name set:", @name
-
-	setVar: (varname_) ->
-		@name = "#{varname_}"
-		@type ='variable'
-		console.debug "Variable set:", varname_
+	setSource: (@interpreter) ->
+		@name = do @interpreter.getName
+		@haveSource = true
+		console.debug "Process (#{@interpreter.getName()}) RGB:#{@interpreter.getRGB()}"
 		return
 
-	setColor: (@color) ->
-		console.debug "Process base color set:", @color
-		if @name.match /color_[0-9]+/
-			console.debug "Color renamed:", @name, @color._name
-			@name = @name.replace(/color_[0-9]+/, "#{@color._name}")
-
-		@haveColor = true
-		return
+	hasSource: -> @haveSource
+	needLess: -> @useLess
+	getName: ->
+		if @lockName?
+			@name = @lockName
+		else
+			@namePrefix + @name + @nameSuffix
+	lock: (@lockName) -> console.debug "Process name locked: #{@lockName}"
+	locked: -> @lockName?
+	getRGB: ->
+		if @haveSource
+			do @interpreter.getRGB
+		else
+			null
+	getLess: -> "#{@prefix}rgb(#{do @interpreter.getRGB})#{@suffix}"
+	getInput: ->
+		if @haveSource
+			@lockName ? do @interpreter.getInput
+		else
+			@lockName ? @name
+	getHuman: ->
+		if @haveSource
+			@lockName ? do @interpreter.getHuman
+		else
+			@lockName ? @name
+	hasAttrs: -> @haveAttrs
+	getAttrs: -> @attrs
+	setAttr: (attr_) ->
+		if attr_ in ['background','bold','faint','italic','invert','underline','blink']
+			@haveAttrs = yes
+			@attrs[attr_] = yes
 
 	background: ->
-		@name = "bg-#{@name}"
+		@setAttr 'background'
 		console.debug "Special::background"
 	bold: ->
-		@name = "bd-#{@name}"
+		@setAttr 'bold'
 		console.debug "Special::bold"
 	faint: ->
-		@name = "ft-#{@name}"
+		@setAttr 'faint'
 		console.debug "Special::faint"
-	standout: ->
-		@name = "so-#{@name}"
-		console.debug "Special::bold"
-	inverse: ->
-		@name = "in-#{@name}"
-		console.debug "Special::bold"
+	italic: ->
+		@setAttr 'italic'
+		console.debug "Special::italic"
+	invert: ->
+		@setAttr 'invert'
+		console.debug "Special::invert"
+	underline: ->
+		@setAttr 'underline'
+		console.debug "Special::underline"
+	blink: ->
+		@setAttr 'blink'
+		console.debug "Special::blink"
 
 	saturate: (args) ->
 		@prefix = "saturate(#{@prefix}"
 		@suffix = "#{@suffix}, #{args.percent}%)"
-		@name = "sat-#{@name}-#{args.percent}"
-		@hasLess = yes
+		@namePrefix = "sat-#{@namePrefix}"
+		@nameSuffix = "#{@nameSuffix}-#{args.percent}"
+		@useLess = yes
 		console.debug "Process::saturate", args.percent
 	desaturate: (args) ->
 		@prefix = "desaturate(#{@prefix}"
 		@suffix = "#{@suffix}, #{args.percent}%)"
-		@name = "des-#{@name}-#{args.percent}"
-		@hasLess = yes
+		@namePrefix = "des-#{@namePrefix}"
+		@nameSuffix = "#{@nameSuffix}-#{args.percent}"
+		@useLess = yes
 		console.debug "Process::desaturate", args.percent
 	lighten: (args) ->
 		@prefix = "lighten(#{@prefix}"
 		@suffix = "#{@suffix}, #{args.percent}%)"
-		@name = "lte-#{@name}-#{args.percent}"
-		@hasLess = yes
+		@namePrefix = "lte-#{@namePrefix}"
+		@nameSuffix = "#{@nameSuffix}-#{args.percent}"
+		@useLess = yes
 		console.debug "Process::lighten", args.percent
 	darken: (args) ->
 		@prefix = "darken(#{@prefix}"
 		@suffix = "#{@suffix}, #{args.percent}%)"
-		@name = "drk-#{@name}-#{args.percent}"
-		@hasLess = yes
+		@namePrefix = "drk-#{@namePrefix}"
+		@nameSuffix = "#{@nameSuffix}-#{args.percent}"
+		@useLess = yes
 		console.debug "Process::darken", args.percent
 	spin: (args) ->
 		@prefix = "spin(#{@prefix}"
 		@suffix = "#{@suffix}, #{args.rotation})"
-		@name = "spn-#{@name}-#{args.rotation}"
-		@hasLess = yes
+		@namePrefix = "spn-#{@namePrefix}"
+		@nameSuffix = "#{@nameSuffix}-#{args.rotation}"
+		@useLess = yes
 		console.debug "Process::spin", args.rotation
 	mix: (args) ->
 		@prefix = "mix(#{@prefix}"
 		@suffix = "#{@suffix}, #{args.color}, 50%)"
-		@name = "mix-#{@name}-#{args.color}"
-		@hasLess = yes
+		@namePrefix = "mix-#{@namePrefix}"
+		@nameSuffix = "#{@nameSuffix}-#{args.color}"
+		@useLess = yes
 		console.debug "Process::mix", args.color
 	multiply: (args) ->
 		@prefix = "multiply(#{@prefix}"
 		@suffix = "#{@suffix}, #{args.color})"
-		@name = "mul-#{@name}-#{args.color}"
-		@hasLess = yes
+		@namePrefix = "mul-#{@namePrefix}"
+		@nameSuffix = "#{@nameSuffix}-#{args.color}"
+		@useLess = yes
 		console.debug "Process::multiply", args.color
 	screen: (args) ->
 		@prefix = "screen(#{@prefix}"
 		@suffix = "#{@suffix}, #{args.color})"
-		@name = "scr-#{@name}-#{args.color}"
-		@hasLess = yes
+		@namePrefix = "scr-#{@namePrefix}"
+		@nameSuffix = "#{@nameSuffix}-#{args.color}"
+		@useLess = yes
 		console.debug "Process::screen", args.color
 	overlay: (args) ->
 		@prefix = "overlay(#{@prefix}"
 		@suffix = "#{@suffix}, #{args.color})"
-		@name = "oly-#{@name}-#{args.color}"
-		@hasLess = yes
+		@namePrefix = "oly-#{@namePrefix}"
+		@nameSuffix = "#{@nameSuffix}-#{args.color}"
+		@useLess = yes
 		console.debug "Process::overlay", args.color
 	softlight: (args) ->
 		@prefix = "softlight(#{@prefix}"
 		@suffix = "#{@suffix}, #{args.color})"
-		@name = "sft-#{@name}-#{args.color}"
-		@hasLess = yes
+		@namePrefix = "sft-#{@namePrefix}"
+		@nameSuffix = "#{@nameSuffix}-#{args.color}"
+		@useLess = yes
 		console.debug "Process::softlight", args.color
 	hardlight: (args) ->
 		@prefix = "hardlight(#{@prefix}"
 		@suffix = "#{@suffix}, #{args.color})"
-		@name = "hdl-#{@name}-#{args.color}"
-		@hasLess = yes
+		@namePrefix = "hdl-#{@namePrefix}"
+		@nameSuffix = "#{@nameSuffix}-#{args.color}"
+		@useLess = yes
 		console.debug "Process::hardlight", args.color
 	difference: (args) ->
 		@prefix = "difference(#{@prefix}"
 		@suffix = "#{@suffix}, #{args.color})"
-		@name = "dif-#{@name}-#{args.color}"
-		@hasLess = yes
+		@namePrefix = "dif-#{@namePrefix}"
+		@nameSuffix = "#{@nameSuffix}-#{args.color}"
+		@useLess = yes
 		console.debug "Process::difference", args.color
 	exclusion: (args) ->
 		@prefix = "exclusion(#{@prefix}"
 		@suffix = "#{@suffix}, #{args.color})"
-		@name = "exc-#{@name}-#{args.color}"
-		@hasLess = yes
+		@namePrefix = "exc-#{@namePrefix}"
+		@nameSuffix = "#{@nameSuffix}-#{args.color}"
+		@useLess = yes
 		console.debug "Process::exclusion", args.color
 	average: (args) ->
 		@prefix = "average(#{@prefix}"
 		@suffix = "#{@suffix}, #{args.color})"
-		@name = "ave-#{@name}-#{args.color}"
-		@hasLess = yes
+		@namePrefix = "ave-#{@namePrefix}"
+		@nameSuffix = "#{@nameSuffix}-#{args.color}"
+		@useLess = yes
 		console.debug "Process::average", args.color
 	negation: (args) ->
 		@prefix = "negation(#{@prefix}"
 		@suffix = "#{@suffix}, #{args.color})"
-		@name = "neg-#{@name}-#{args.color}"
-		@hasLess = yes
+		@namePrefix = "neg-#{@namePrefix}"
+		@nameSuffix = "#{@nameSuffix}-#{args.color}"
+		@useLess = yes
 		console.debug "Process::negation", args.color
 	contrast: (args) ->
 		@prefix = "contrast(#{@prefix}"
 		@suffix = "#{@suffix}, #{args.color_dark})" if args.color_dark?
 		@suffix = "#{@suffix}, #{args.color_dark}, #{args.color_light})" if args.color_light?
 		@suffix = "#{@suffix}, #{args.color_dark}, #{args.color_light}, #{args.threshold}%)" if args.threshold?
-		@name = "cnt-#{@name}-#{args.color_dark}"
-		@hasLess = yes
+		@namePrefix = "cnt-#{@namePrefix}"
+		@nameSuffix = "#{@nameSuffix}-#{args.color_dark}"
+		@useLess = yes
 		console.debug "Process::contrast", args.color_dark, args.color_light, args.threshold
 
 module.exports = Processor

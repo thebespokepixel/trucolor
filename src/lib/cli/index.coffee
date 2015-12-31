@@ -1,11 +1,13 @@
 'use strict'
 ###
- trucolor (v0.0.21) : 24bit color tools for the command line
+ trucolor (v0.0.22) : 24bit color tools for the command line
  Command line functionality
 ###
 
+_root = require("../..")
+console = global.vConsole
+
 yargs = require 'yargs'
-	.strict()
 	.options
 		h:
 			alias: 'help'
@@ -18,10 +20,18 @@ yargs = require 'yargs'
 			alias: 'verbose'
 			count: yes
 			describe: 'Be verbose. -VV Be loquacious.'
-		x:
-			alias: 'hex'
+		m:
+			alias: 'message'
+			nargs: 1
+			describe: 'Format message with SGR codes'
+		i:
+			alias: 'in'
 			boolean: true
-			describe: 'Output color as hex RGB triplet, i.e. cc3342'
+			describe: 'Output SGR color escape code.'
+		o:
+			alias: 'out'
+			boolean: true
+			describe: 'Output cancelling SGR color escape code.'
 		r:
 			alias: 'rgb'
 			boolean: true
@@ -29,15 +39,8 @@ yargs = require 'yargs'
 	.showHelpOnFail false, "Use 'trucolor --help' for user manual"
 argv = yargs.argv
 
-_trucolor = switch
-	when argv.hex then require("../..").HEXout()
-	when argv.rgb then require("../..").RGBout()
-	else require("../..").SGRout()
-
-console = global.vconsole
-
 if argv.version
-	process.stdout.write _trucolor.getVersion(argv.version)
+	process.stdout.write _root.getVersion(argv.version)
 	process.exit 0
 
 if argv.verbose
@@ -59,29 +62,36 @@ if argv._.length == 0
 	process.exit 1
 
 current_auto_name = 1
-current_processor = _trucolor.addProcessor "color_#{current_auto_name++}"
-commands = argv._
-until commands.length == 0
-	nextElement = commands.shift().toString()
-	switch nextElement
+current_processor = _root.newProcessor "color_#{current_auto_name++}"
+tokens = argv._
+
+until tokens.length == 0
+	token = do tokens.shift
+
+	switch token
 		# Character types
 		when 'background'
-			current_processor.background
+			do current_processor.background
 		when 'bold'
-			current_processor.bold
+			do current_processor.bold
 		when 'faint'
-			current_processor.faint
-		when 'standout'
-			current_processor.standout
-		when 'inverse'
-			current_processor.inverse
+			do current_processor.faint
+		when 'italic'
+			do current_processor.italic
+		when 'invert'
+			do current_processor.invert
+		when 'underline'
+			do current_processor.underline
+		when 'blink'
+			do current_processor.blink
+
 		# Colour processes
 		when 'saturate', 'sat'
 			current_processor.saturate
-				percent: commands.shift()
+				percent: do tokens.shift
 		when 'desaturate', 'desat'
 			current_processor.desaturate
-				percent: commands.shift()
+				percent: do tokens.shift
 		when 'light'
 			current_processor.lighten
 				percent: 20
@@ -90,72 +100,69 @@ until commands.length == 0
 				percent: 20
 		when 'lighten'
 			current_processor.lighten
-				percent: commands.shift()
+				percent: do tokens.shift
 		when 'darken'
 			current_processor.darken
-				percent: commands.shift()
+				percent: do tokens.shift
 		when 'spin'
 			current_processor.spin
-				rotation: commands.shift()
+				rotation: do tokens.shift
 		when 'mix'
 			current_processor.mix
-				color: commands.shift()
+				color: do tokens.shift
 		when 'multiply'
 			current_processor.multiply
-				color: commands.shift()
+				color: do tokens.shift
 		when 'screen'
 			current_processor.screen
-				color: commands.shift()
+				color: do tokens.shift
 		when 'overlay'
 			current_processor.overlay
-				color: commands.shift()
+				color: do tokens.shift
 		when 'softlight', 'soft'
 			current_processor.softlight
-				color: commands.shift()
+				color: do tokens.shift
 		when 'hardlight', 'hard'
 			current_processor.hardlight
-				color: commands.shift()
+				color: do tokens.shift
 		when 'difference', 'diff'
 			current_processor.difference
-				color: commands.shift()
+				color: do tokens.shift
 		when 'exclusion', 'excl'
 			current_processor.exclusion
-				color: commands.shift()
+				color: do tokens.shift
 		when 'average', 'ave'
 			current_processor.average
-				color: commands.shift()
+				color: do tokens.shift
 		when 'negation', 'neg'
 			current_processor.negation
-				color: commands.shift()
+				color: do tokens.shift
 		when 'contrast'
 			current_processor.contrast
-				color_dark: commands.shift() if commands[0]?
-				color_light: commands.shift() if commands[0]?
-				threshold: commands.shift() if commands[0]?
+				color_dark: do tokens.shift if commands[0]?
+				color_light: do tokens.shift if commands[0]?
+				threshold: do tokens.shift if commands[0]?
 		else
-
-			if nextElement.match(/^[A-Za-z0-9_-]+:$/)
-				if current_processor.haveColor
-					current_processor = _trucolor.addProcessor nextElement
-				current_processor.setName nextElement[..-2]
-
-			else if nextElement.match(/^@\w+$/)
-				if current_processor.haveColor
-					current_processor = _trucolor.addProcessor nextElement
-
-				unless _trucolor.hasVar nextElement
-					_trucolor.trackVar nextElement
-					current_processor.setVar nextElement
-				else
-					current_processor.setColor _trucolor.addColor nextElement
-
+			if /^[A-Za-z0-9_-]+:$/.test token
+				if do current_processor.hasSource
+					current_processor = _root.newProcessor "color_#{current_auto_name++}"
+				current_processor.lock token[..-2]
 			else
-				if current_processor.haveColor
-					current_processor = _trucolor.addProcessor "color_#{current_auto_name++}"
-				current_processor.setColor _trucolor.addColor nextElement
+				if do current_processor.hasSource
+					current_processor = _root.newProcessor "color_#{current_auto_name++}"
+				current_processor.setSource _root.interpret token
 
-_trucolor.runBatch (output_) ->
-	console.log ''
-	console.log "Output:"
-	console.pretty output_,
-		depth: 2
+_root.route (output_) ->
+	if console.canWrite 4
+		console.pretty output_,
+			depth: 2
+	switch
+		when argv.message
+			process.stdout.write "#{output_.SGRin()}#{argv.message}#{output_.SGRout()}"
+		when argv.in
+			process.stdout.write "#{output_.SGRin()}"
+		when argv.out
+			process.stdout.write "#{output_.SGRout()}"
+		when argv.rgb
+			process.stdout.write "#{output_.toString()}"
+		else process.stdout.write "#{output_}"

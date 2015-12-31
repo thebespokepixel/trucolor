@@ -1,6 +1,6 @@
 'use strict'
 ###
-	trucolor (v0.0.21)
+	trucolor (v0.0.22)
 	24bit color tools for the command line
 
 	Copyright (c) 2015 CryptoComposite
@@ -25,42 +25,52 @@
 	SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ###
 # External dependencies
-_ = require 'underscore'
-supportsColor = require 'supports-color'
 
-# Set some globals
-global.colorSupport =
-	hasBasic: false
-
-if supportsColor.hasBasic
-	global.colorSupport =
-		hasBasic: true
-		level: supportsColor.level
-		has256: supportsColor.level >= 2
-		has16m: supportsColor.level >= 3
-
-global.colorSupport = _.clone supportsColor
-if (process.env.TERM_COLORS is '16m') or (process.env.fish_term24bit)
-	colorSupport.has16m = true
-	colorSupport.level = 3
-
-global._iTerm = process.env.ITERM_SESSION_ID and (process.env.TERM_PROGRAM is 'iTerm.app')
-
-console = global.vconsole ?= require('@thebespokepixel/verbosity').console
+terminalFeatures = require '@thebespokepixel/term-ng'
+console = global.vConsole ?= require('@thebespokepixel/verbosity').console
 	out: process.stderr
 
-_core = require './lib/core'
+path =             require "path"
+_ =                require 'underscore'
+cache =            require "./lib/cache"
 
-exports.SGRout = ->
-	_core.setMode 'SGR'
-	_core
+_package =         require './package.json'
+_less_package =    require 'less/package.json'
+_convert_package = require 'color-convert/package.json'
 
-exports.RGBout = ->
-	_core.setMode 'RGB'
-	_core
+_interpreter =     require './lib/interpreter'
+_processor =       require './lib/processor'
+_router =          require './lib/router'
+_output =          require './lib/output'
 
-exports.HEXout = ->
-	_core.setMode 'HEX'
-	_core
+_cache = new cache
+	auto_save: true
+	filename: path.join process.env.HOME, '/.rgbCache'
 
-exports.simplePalette = require './lib/simple'
+if _cache.load()
+	console.debug "Cache loaded."
+else
+	console.warn "Cache invalidated."
+	_cache.clear()
+
+exports.getName = -> return _package.name
+
+exports.getVersion =   (long_) ->
+	switch long_
+		when 3 then "#{_package.name} v#{_package.version} (color-convert v#{_convert_package.version}, less v#{_less_package.version})"
+		when 2 then "#{_package.name} v#{_package.version}"
+		else "#{_package.version}"
+
+exports.simplePalette = require './lib/palettes/simple'
+
+# Simple on-disk caching
+exports.cacheGet =     (name_) -> _cache.get name_
+exports.cachePut =     (name_, value_) -> _cache.set name_, value_
+exports.cacheClear =   (name_) -> _cache.clear name_
+
+# Processing
+exports.newProcessor = (name_) -> _router.add new _processor name_
+exports.interpret =    (input_) -> new _interpreter input_
+
+# Fast/Slow/Less/Caching Router
+exports.route = _router.run
