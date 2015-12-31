@@ -1,6 +1,6 @@
 'use strict'
 ###
- trucolor (v0.0.23) 24bit color tools for the command line
+ trucolor (v0.0.24) 24bit color tools for the command line
  Processing Path Router
 ###
 
@@ -61,7 +61,6 @@ exports.run = (callback_) ->
 
 	if Object.keys(slowRoutes).length > 0
 		routeLess = "out {\n#{([].concat "#{name}: #{color}" for name, color of slowRoutes).join ";\n"}\n}"
-		console.dir routeLess
 		lessc
 			.render routeLess
 			.then (output_) ->

@@ -1,6 +1,6 @@
 'use strict'
 ###
- trucolor (v0.0.23) 24bit color tools for the command line
+ trucolor (v0.0.24) 24bit color tools for the command line
  Resolve Colour to simple RGB Array: [ r, g, b ]
 ###
 console = global.vConsole
@@ -88,7 +88,7 @@ class Interpreter
 				converter.hsv2rgb @source.input
 			when 'HWB'
 				@name = converter.hwb2hex @source.input
-				converter.hwb2hex @source.input
+				converter.hwb2rgb @source.input
 			when 'named'
 				@name = converter.keyword2hex @source.input
 				converter.keyword2rgb @source.input

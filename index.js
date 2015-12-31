@@ -1,7 +1,7 @@
 'use strict';
 
 /*
-	trucolor (v0.0.23)
+	trucolor (v0.0.24)
 	24bit color tools for the command line
 
 	Copyright (c) 2015 CryptoComposite
