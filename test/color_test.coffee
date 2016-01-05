@@ -14,7 +14,7 @@ vows
 		'Check Named Primaries':
 			"Red?":
 				topic: ->
-					exec "#{bin} red", @callback
+					exec "#{bin} -V red", @callback
 					return
 				"Should equal FF0000": (error, output) ->
 					assert.isNull error
