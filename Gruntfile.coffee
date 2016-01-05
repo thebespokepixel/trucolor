@@ -35,7 +35,7 @@ module.exports = (grunt) ->
 				updateConfigs: ['pkg']
 				commitFiles: ['-a']
 				pushTo: 'origin'
-				prereleaseName: 'alpha'
+				prereleaseName: 'beta'
 				commitMessage: 'Snapshot v%VERSION%'
 				tagMessage: 'Snapshot v%VERSION%'
 				gitDescribeOptions: '--tags --always --dirty=-d'

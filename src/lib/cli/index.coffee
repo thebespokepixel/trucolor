@@ -1,6 +1,6 @@
 'use strict'
 ###
- trucolor (v0.1.4-alpha.5) : 24bit color tools for the command line
+ trucolor (v0.1.5-beta.1) : 24bit color tools for the command line
  Command line functionality
 ###
 
@@ -36,7 +36,7 @@ yargs = require 'yargs'
 		r:
 			alias: 'rgb'
 			boolean: true
-			describe: 'Output color as CSS RGB declaration, i.e. rgb(204, 51, 66)'
+			describe: 'Output color as rgb(r, g, b)'
 		s:
 			alias: 'swatch'
 			boolean: true

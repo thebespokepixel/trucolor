@@ -1,6 +1,6 @@
 'use strict'
 ###
- trucolor (v0.1.4-alpha.5) 24bit color tools for the command line
+ trucolor (v0.1.5-beta.1) 24bit color tools for the command line
  Processing Path Router
 ###
 
