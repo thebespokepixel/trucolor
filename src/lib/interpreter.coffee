@@ -1,6 +1,6 @@
 'use strict'
 ###
- trucolor (v0.0.24) 24bit color tools for the command line
+ trucolor (v0.1.0-alpha.0) 24bit color tools for the command line
  Resolve Colour to simple RGB Array: [ r, g, b ]
 ###
 console = global.vConsole
@@ -51,6 +51,11 @@ class Interpreter
 				human: raw_.replace('hwb:', 'hwb-').replace(/,/g, '-').replace(/[ \)]/g, '')
 				space: 'HWB'
 
+			when raw_ in ['normal', 'reset']
+				input: raw_
+				human: raw_
+				space: 'SGR'
+
 			when raw_ in _named_colors
 				input: raw_
 				human: raw_
@@ -89,6 +94,9 @@ class Interpreter
 			when 'HWB'
 				@name = converter.hwb2hex @source.input
 				converter.hwb2rgb @source.input
+			when 'SGR'
+				@name = @source.input
+				[0,0,0]
 			when 'named'
 				@name = converter.keyword2hex @source.input
 				converter.keyword2rgb @source.input

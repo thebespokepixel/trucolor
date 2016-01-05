@@ -1,27 +1,21 @@
 'use strict'
 ###
- trucolor (v0.0.24) 24bit color tools for the command line
+ trucolor (v0.1.0-alpha.0) 24bit color tools for the command line
  Output Collection
 ###
 
 console = global.vConsole
+deepAssign = require 'deep-assign'
+terminalFeatures = require '@thebespokepixel/term-ng'
 _output = require "./output"
 
 class IOCollection
-	constructor: ->
-		@shrinkwrapped = no
+	constructor: (routes_) ->
 		@collection = new Map()
-
-	addInput: (id_, content_, attrs_) ->
-		unless @shrinkwrapped
-			@principal ?= id_
-			@collection.set id_, new _output(content_, attrs_)
-		else throw new Error "Can't add new items to a shrinkwrapped IOCollection"
-
-	shrinkwrap: ->
-		unless @collection.size is 0
-			@shrinkwrapped = yes
-		else throw new Error "Can't shrinkwrap an empty IOCollection"
+		console.info "\nDerived Colours (Level: #{terminalFeatures.color.level ? 0})"
+		for id, content of routes_.fast
+			@principal ?= id
+			@collection.set id, new _output(content, routes_.attr[id])
 
 	valueOf: ->
 		if @collection.size is 1
@@ -36,6 +30,10 @@ class IOCollection
 
 	SGRout: -> do @collection.get(@principal).SGRout
 
+	swatch: -> do @collection.get(@principal).swatch
+
 	toString: -> do @collection.get(@principal).toString
+
+	exportCollection: -> @collection
 
 module.exports = IOCollection

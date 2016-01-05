@@ -1,89 +1,83 @@
 'use strict'
 ###
- trucolor (v0.0.24) 24bit color tools for the command line
+ trucolor (v0.1.0-alpha.0) 24bit color tools for the command line
  Processing Path Router
 ###
 
-_root = require '..'
+trucolor = require '..'
 console = global.vConsole
-
-lessc = require 'less'
-deepAssign = require 'deep-assign'
+less = require 'less'
+converter = require 'color-convert'
 _io = require "./io"
 
 _routingTable = []
+
+less.logger.addListener({
+    debug: (msg) -> console.debug msg,
+    info: (msg) -> console.info msg,
+    warn: (msg) -> console.warn msg,
+    error: (msg) -> console.error msg
+});
+
+processRoutes = () ->
+	routes =
+		fast: {}
+		slow: {}
+		less: {}
+		attr: {}
+		cidx: {}
+
+	console.debug "\nProcessing routes"
+	for process_ in _routingTable
+		name_ = process_.getName()
+		humanName_ = process_.getHuman()
+
+		routes.attr[humanName_] = process_.getAttrs()
+		if process_.locked() and process_.hasSource()
+			trucolor.cacheClear name_
+
+		inCache = trucolor.cacheGet name_
+
+		if not inCache
+			unless process_.hasSource() or process_.hasAttrs()
+				console.error "Could not find cache key #{name_}"
+				process.exit 1
+
+			unless process_.needLess()
+				console.debug "From declared color: #{process_.getInput()}"
+				routes.fast[humanName_] = process_.getRGB()
+				trucolor.cachePut name_, process_.getRGB() if process_.locked()
+			else
+				console.debug "Adding slow route via Less: #{process_.getLess()}"
+				routes.cidx[humanName_] = name_
+				routes.slow[humanName_] = process_.getLess()
+		else
+			console.debug "From cache: #{name_}"
+			routes.fast[humanName_] = inCache
+
+	return routes
+
+exports.reset = ->
+	_routingTable = []
 
 exports.add = (processor_) ->
 	_routingTable.push processor_
 	return processor_
 
 exports.run = (callback_) ->
-	fastRoutes = {}
-	slowRoutes = {}
-	attrRoutes = {}
-	cacheIndex = {}
+	routing = processRoutes()
+	if Object.keys(routing.slow).length > 0
+		lessIn = "out {\n#{([].concat "#{name}: #{color}" for name, color of routing.slow).join '; '};\n}"
+		less.render lessIn, {}, (err, output_) ->
+			routing.less = JSON.parse(output_.css
+				.replace /^out {/, '{'
+				.replace /([0-9a-zA-Z_-]+):\s(#[0-9A-Fa-f]{3,6});/g, '"$1": "$2",'
+				.replace /,\n}/, '\n}')
 
-	for process_ in _routingTable
-		do (process_) ->
-			attrRoutes[process_.getHuman()] = process_.getAttrs()
-			if process_.locked()
-				if process_.hasSource()
-					try _root.cacheClear process_.getName()
-					catch
-						console.error "Could not clear cache key #{process_.getName()}"
-				else
-					console.info "Looking up from cache: #{process_.getName()}"
+			for id, content of routing.less
+				routing.fast[id] = converter.hex2rgb content
+				trucolor.cachePut(routing.cidx[id], routing.fast[id])
 
-			inCache = _root.cacheGet process_.getName()
-
-			if not inCache
-				unless process_.hasSource() or process_.hasAttrs()
-					console.error "Could not find cache key #{process_.getName()}"
-					process.exit 1
-
-				unless process_.needLess()
-					console.info "From declared color: #{process_.getInput()}"
-					fastRoutes[process_.getHuman()] = process_.getRGB()
-
-					if process_.locked()
-						try _root.cachePut process_.getName(), process_.getRGB()
-						catch
-							console.error "Could not write cache key #{process_.getName()}: #{process_.getRGB()}"
-					return
-				else
-					console.info "Adding slow route via Less: #{process_.getLess()}"
-					cacheIndex[process_.getHuman()] = process_.getName()
-					slowRoutes[process_.getHuman()] = process_.getLess()
-			else
-				console.info "From cache: #{process_.getName()}"
-				fastRoutes[process_.getHuman()] = inCache
-				return
-
-	if Object.keys(slowRoutes).length > 0
-		routeLess = "out {\n#{([].concat "#{name}: #{color}" for name, color of slowRoutes).join ";\n"}\n}"
-		lessc
-			.render routeLess
-			.then (output_) ->
-				jsonify = JSON.parse(output_.css
-							.replace /^out {/, '{'
-							.replace /([0-9a-zA-Z_-]+):\s(#[0-9A-Fa-f]{3,6});/g, '"$1": "$2",'
-							.replace /,\n}/, '\n}')
-
-				_root.cachePut cacheIndex[id], content for id, content of jsonify
-				finalise deepAssign(fastRoutes, jsonify), attrRoutes, callback_
-			(error) -> abort error
+			callback_ new _io routing
 	else
-		finalise fastRoutes, attrRoutes, callback_
-
-abort = (error) ->
-	if console.canWrite 4 then console.trace error
-	else console.error error.message
-	process.exit 1
-
-
-finalise = (routes_, attrs_, callback_) ->
-	io = new _io
-	for id, content of routes_
-		io.addInput id, content, attrs_[id]
-	do io.shrinkwrap
-	callback_ io
+		callback_ new _io routing

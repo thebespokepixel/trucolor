@@ -1,6 +1,6 @@
 'use strict'
 ###
- trucolor (v0.0.24) 24bit color tools for the command line
+ trucolor (v0.1.0-alpha.0) 24bit color tools for the command line
  Color Output
 ###
 console = global.vConsole
@@ -59,7 +59,7 @@ class Output
 			@green = @rgb[1]
 			@blue = @rgb[2]
 
-			console.debug "Colour out:\tR:#{@red}\tG:#{@green}\tB:#{@blue}\tL:#{terminalFeatures.color.level ? 0}"
+			console.info "Colour:\tR:#{@red}\tG:#{@green}\tB:#{@blue}\t#{@swatch()}"
 
 	valueOf: -> @hex ? 'normal'
 
@@ -68,6 +68,28 @@ class Output
 			"rgb(#{@red}, #{@green}, #{@blue})"
 		else
 			"normal"
+
+	swatch: ->
+		outSGR = []
+		if @rgb? and terminalFeatures.color.level?
+			sgr.code = [
+				''
+				converter.rgb2ansi16 @rgb
+				converter.rgb2ansi @rgb
+				@rgb.join ';'
+			][terminalFeatures.color.level ? 0]
+			sgr.selector = [
+				''
+				''
+				"38;#{sgr.mode};"
+				"38;#{sgr.mode};"
+			][terminalFeatures.color.level ? 0]
+			outSGR.unshift (sgr.selector + sgr.code)
+		if outSGR.length > 0 and terminalFeatures.color.level?
+			"#{sgr.start + (outSGR.join ';') + sgr.end}\u2588\u2588#{sgr.start + sgr.reset + sgr.end}"
+		else ""
+
+	hasAttr: -> @attrs.bold or @attrs.faint or @attrs.italic or @attrs.invert or @attrs.underline or @attrs.blink
 
 	SGRin: ->
 		outSGR = []
@@ -101,11 +123,10 @@ class Output
 					"48;#{sgr.mode};"
 				][terminalFeatures.color.level ? 0]
 
-			outSGR.unshift "#{sgr.selector}#{sgr.code}"
+			outSGR.unshift sgr.selector + sgr.code
 
 		if outSGR.length > 0 and terminalFeatures.color.level?
-			console.debug "SGR Open: [#{outSGR.join ';'}m"
-			"#{sgr.start}#{outSGR.join ';'}#{sgr.end}"
+			sgr.start + (outSGR.join ';') + sgr.end
 		else ""
 
 	SGRout: ->
@@ -117,11 +138,10 @@ class Output
 		if @attrs.underline then outSGR.push sgr.underline.out
 		if @attrs.blink then outSGR.push sgr.blink.out
 
-		outSGR.unshift "#{sgr.normal}" if @rgb?
+		outSGR.unshift sgr.normal if @rgb?
 
 		if outSGR.length > 0 and terminalFeatures.color.level?
-			console.debug "SGR Close: [#{outSGR.join ';'}m"
-			"#{sgr.start}#{outSGR.join ';'}#{sgr.end}"
+			sgr.start + (outSGR.join ';') + sgr.end
 		else ""
 
 module.exports = Output

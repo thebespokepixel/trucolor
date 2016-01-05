@@ -1,6 +1,6 @@
 'use strict'
 ###
- trucolor (v0.0.24) 24bit color tools for the command line
+ trucolor (v0.1.0-alpha.0) 24bit color tools for the command line
  Color process object
 ###
 console = global.vConsole
@@ -27,7 +27,6 @@ class Processor
 	setSource: (@interpreter) ->
 		@name = do @interpreter.getName
 		@haveSource = true
-		console.debug "Process (#{@interpreter.getName()}) RGB:#{@interpreter.getRGB()}"
 		return
 
 	hasSource: -> @haveSource
@@ -44,12 +43,13 @@ class Processor
 			do @interpreter.getRGB
 		else
 			null
-	getLess: -> "#{@prefix}rgb(#{do @interpreter.getRGB})#{@suffix}"
+	getLess: ->
+		"#{@prefix}rgb(#{@interpreter.getRGB()})#{@suffix}"
 	getInput: ->
 		if @haveSource
-			@lockName ? do @interpreter.getInput
+			do @interpreter.getInput
 		else
-			@lockName ? @name
+			@name
 	getHuman: ->
 		if @haveSource
 			@lockName ? do @interpreter.getHuman

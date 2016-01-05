@@ -1,7 +1,7 @@
 'use strict';
 
 /*
-	trucolor (v0.0.24)
+	trucolor (v0.1.0-alpha.0)
 	24bit color tools for the command line
 
 	Copyright (c) 2015 CryptoComposite
@@ -25,19 +25,11 @@
 	TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 	SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-var _, _cache, _convert_package, _interpreter, _less_package, _output, _package, _processor, _router, cache, console, path, terminalFeatures;
-
-terminalFeatures = require('@thebespokepixel/term-ng');
+var _cache, _convert_package, _interpreter, _less_package, _package, _parser, _processor, _router, console;
 
 console = global.vConsole != null ? global.vConsole : global.vConsole = require('@thebespokepixel/verbosity').console({
   out: process.stderr
 });
-
-path = require("path");
-
-_ = require('underscore');
-
-cache = require("./lib/cache");
 
 _package = require('./package.json');
 
@@ -51,12 +43,9 @@ _processor = require('./lib/processor');
 
 _router = require('./lib/router');
 
-_output = require('./lib/output');
+_parser = require('./lib/parser');
 
-_cache = new cache({
-  auto_save: true,
-  filename: path.join(process.env.HOME, '/.rgbCache')
-});
+_cache = new (require('./lib/cache'));
 
 if (_cache.load()) {
   console.debug("Cache loaded.");
@@ -69,10 +58,16 @@ exports.getName = function() {
   return _package.name;
 };
 
+exports.getDescription = function() {
+  return _package.description;
+};
+
 exports.getVersion = function(long_) {
   switch (long_) {
-    case 3:
+    case 4:
       return _package.name + " v" + _package.version + " (color-convert v" + _convert_package.version + ", less v" + _less_package.version + ")";
+    case 3:
+      return "v" + _package.version + " (color-convert v" + _convert_package.version + ", less v" + _less_package.version + ")";
     case 2:
       return _package.name + " v" + _package.version;
     default:
@@ -100,6 +95,40 @@ exports.newProcessor = function(name_) {
 
 exports.interpret = function(input_) {
   return new _interpreter(input_);
+};
+
+exports.bulk = function(object_, options, callback_) {
+  var key_, ref, type, value_;
+  type = (ref = options.type) != null ? ref : 'sgr';
+  _router.reset();
+  for (key_ in object_) {
+    value_ = object_[key_];
+    _parser([key_ + ":"].concat(value_.split(' ')));
+  }
+  return _router.run(function(output_) {
+    var collection;
+    collection = {};
+    output_.exportCollection().forEach(function(value_, key_) {
+      switch (key_) {
+        case 'normal':
+        case 'reset':
+          return collection[key_] = "" + (value_.SGRout());
+        default:
+          collection[key_] = (function() {
+            switch (type) {
+              case 'swatch':
+                return value_.swatch();
+              default:
+                return value_.SGRin();
+            }
+          })();
+          if (value_.hasAttr()) {
+            return collection[key_ + "Out"] = value_.SGRout();
+          }
+      }
+    });
+    return callback_(collection);
+  });
 };
 
 exports.route = _router.run;

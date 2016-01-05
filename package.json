@@ -1,7 +1,7 @@
 {
   "name": "@thebespokepixel/trucolor",
-  "version": "0.0.24",
-  "description": "24bit color tools for the commandline",
+  "version": "0.1.0-alpha.0",
+  "description": "Color toolkit supporting truecolor (24bit/8bpc RGB)",
   "main": "./index.js",
   "scripts": {
     "test": "vows test/*.coffee --spec"

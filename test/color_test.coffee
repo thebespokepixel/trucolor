@@ -60,23 +60,23 @@ vows
 				topic: ->
 					exec "#{bin} rgb:128,0,128 lighten 10 spin 5", @callback
 					return
-				"Should equal b300a4": (error, output) ->
+				"Should equal B300A4": (error, output) ->
 					assert.isNull error
-					assert output is 'b300a4'
+					assert output is 'B300A4'
 			"hsl:120,100,50 desaturate 50?":
 				topic: ->
 					exec "#{bin} hsl:120,100,50 desaturate 50", @callback
 					return
-				"Should equal 40bf40": (error, output) ->
+				"Should equal 40BF40": (error, output) ->
 					assert.isNull error
-					assert output is '40bf40'
+					assert output is '40BF40'
 			"blanchedalmond spin -195 lighten 5 desaturate 10?":
 				topic: ->
 					exec "#{bin} blanchedalmond spin -195 lighten 5 desaturate 10", @callback
 					return
-				"Should equal fceed0": (error, output) ->
+				"Should equal FCEED0": (error, output) ->
 					assert.isNull error
-					assert output is 'fceed0'
+					assert output is 'FCEED0'
 	.addBatch
 		'Check Options':
 			"Red as rgb()?":

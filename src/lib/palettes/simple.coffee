@@ -1,46 +1,19 @@
 'use strict'
 ###
- trucolor (v0.0.24) 24bit color tools for the command line
- Color Demand Parser
+ trucolor (v0.1.0-alpha.0) 24bit color tools for the command line
+ Simple Shared Palette
 ###
-console = global.vconsole
-_trucolor = require("../..")
-terminalFeatures = require '@thebespokepixel/term-ng'
 
-module.exports = ->
-	if terminalFeatures.color.has16m
-		example  : '\x1b[38;2;178;98;255m'
-		command  : '\x1b[38;2;65;135;215m'
-		argument : '\x1b[38;2;20;175;255m'
-		option   : '\x1b[38;2;175;175;45m'
-		operator : '\x1b[38;2;255;255;255m'
-		grey     : '\x1b[38;2;100;100;100m'
-		title    : '\x1b[38;2;128;196;126m'
-		normal   : '\x1b[30m\x1b[m'
-	else if terminalFeatures.color.has256
-		example  : '\x1b[38;5;93m'
-		command  : '\x1b[38;5;68m'
-		argument : '\x1b[38;5;39m'
-		option   : '\x1b[38;5;142m'
-		operator : '\x1b[38;5;231m'
-		grey     : '\x1b[38;5;247m'
-		title    : '\x1b[38;5;114m'
-		normal   : '\x1b[30m\x1b[m'
-	else if terminalFeatures.color.hasBasic
-		example  : '\x1b[33m'
-		command  : '\x1b[36m'
-		argument : '\x1b[94m'
-		option   : '\x1b[93m'
-		operator : '\x1b[95m'
-		grey     : '\x1b[90m'
-		title    : '\x1b[92m'
-		normal   : '\x1b[30m\x1b[m'
-	else
-		example        : ''
-		command        : ''
-		argument       : ''
-		option         : ''
-		operator       : ''
-		grey           : ''
-		cc             : ''
-		normal         : ''
+module.exports = (callback_) ->
+	require("../../index").bulk
+		example   : '#B262FF'
+		command   : '#1579CF'
+		argument  : '#4CB0DF'
+		option    : '#C1BA89'
+		operator  : '#FFF'
+		grey      : '#808080'
+		title     : 'bold #80C480'
+		normal    : 'normal'
+		reset     : 'reset',
+		{}, callback_
+
