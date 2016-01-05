@@ -2,6 +2,6 @@ language: node_js
 node_js:
   - "4.2"
   - "stable"
-before_install: npm install -g
-install: npm install
+before_install: npm install
+install: npm link
 sudo: false
