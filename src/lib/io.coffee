@@ -1,6 +1,6 @@
 'use strict'
 ###
- trucolor (v0.1.4-alpha.4) 24bit color tools for the command line
+ trucolor (v0.1.4-alpha.5) 24bit color tools for the command line
  Output Collection
 ###
 
@@ -26,13 +26,13 @@ class IOCollection
 				primitive.push "#{key_} #{value_}"
 			primitive.join '\n'
 
-	SGRin: -> do @collection.get(@principal).SGRin
+	SGRin: -> @collection.get(@principal).SGRin
 
-	SGRout: -> do @collection.get(@principal).SGRout
+	SGRout: -> @collection.get(@principal).SGRout
 
-	swatch: -> do @collection.get(@principal).swatch
+	swatch: -> @collection.get(@principal).swatch
 
-	toString: -> do @collection.get(@principal).toString
+	toString: -> @collection.get(@principal).toString
 
 	exportCollection: -> @collection
 

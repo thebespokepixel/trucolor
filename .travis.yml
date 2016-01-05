@@ -3,5 +3,5 @@ node_js:
   - "4.2"
   - "stable"
 install: npm install
-before_script: ./bin/trucolor.js -VV 'red'
+before_script: ./bin/trucolor.js -VV --help --color=16m
 sudo: false
