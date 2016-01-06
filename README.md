@@ -1,4 +1,4 @@
-# trucolor v0.1.8-beta.1
+# trucolor v0.1.8-beta.2
 ![Project status](http://img.shields.io/badge/status-beta-blue.svg?style=flat) [![Build Status](http://img.shields.io/travis/MarkGriffiths/trucolor.svg?style=flat)](https://travis-ci.org/MarkGriffiths/trucolor) [![Dependency Status](http://img.shields.io/david/MarkGriffiths/trucolor.svg?style=flat)](https://david-dm.org/MarkGriffiths/trucolor) [![devDependency Status](http://img.shields.io/david/dev/MarkGriffiths/trucolor.svg?style=flat)](https://david-dm.org/MarkGriffiths/trucolor#info=devDependencies)
 
 A node.js module and command line utility for using 24bit color SGR codes in modern terminals.
@@ -98,7 +98,7 @@ __difference__ | __diff__ | __exclusion__ | __excl__ _color_ : subtract color.
 __average__ | __ave__ | __negation__ | __not__ _color_ : blend with color.  
 __contrast__ _dark color_ `[light color]` `[threshold]` : calculate contrasting color.  
 
-See http://lesscss.org/functions/#color-operations for more details.
+See <http://lesscss.org/functions/#color-operations> for more details.
 
 ##### Multiple Inputs
 `trucolor` will output a list of color values if more than one base color is specified, allowing color assignment in a single block allowing easy ingest using `read`. Each color will be output on it's own line, and named according to the input base color. The names can be overridden by providing a `name:` before the base color.
@@ -139,7 +139,7 @@ For example, Apple's Terminal.app doesn't have 24 bit color support nor does it 
 -	[iTerm2 2.9 Beta](https://iterm2.com/downloads.html) (OS X)
 -	XTerm (^314 XQuartz 2.7.8)
 
-Please let me know results in your terminal. http://github.com/MarkGriffiths/trucolor
+Please let me know results in your terminal. <http://github.com/MarkGriffiths/trucolor>
 
 ## Programmatic Usage
 
