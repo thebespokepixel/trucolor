@@ -1,4 +1,4 @@
-# trucolor v0.1.5
+# trucolor v0.1.6-beta.1
 ![Project status](http://img.shields.io/badge/status-beta-blue.svg?style=flat) [![Build Status](http://img.shields.io/travis/MarkGriffiths/trucolor.svg?style=flat)](https://travis-ci.org/MarkGriffiths/trucolor) [![Dependency Status](http://img.shields.io/david/MarkGriffiths/trucolor.svg?style=flat)](https://david-dm.org/MarkGriffiths/trucolor) [![devDependency Status](http://img.shields.io/david/dev/MarkGriffiths/trucolor.svg?style=flat)](https://david-dm.org/MarkGriffiths/trucolor#info=devDependencies)
 
 A node.js module and command line utility for using 24bit color SGR codes in modern terminals.
@@ -42,7 +42,7 @@ The `color` can be defined in any of the following formats:
 `[#]RRGGBB` or `[#]RGB` where `R`, `G` and `B` are 0-F.
 
 - __RGB__
-`rgb:R,G,B` or `rgb(R,G,B)` where `R`,`G` and `B` are 0-255. Spaces can be incuded in rgb(R,G,B) declarations but require quoting/escaping on the CLI. `trucolor 'rgb(128, 64, 192)' ▶ 8040C0`
+`rgb:R,G,B` or `rgb(R,G,B)` where `R`,`G` and `B` are 0-255. Spaces can be incuded in rgb(R, G, B) declarations but require quoting/escaping on the CLI.
 
 - __HSL__ (Hue Saturation Lightness)
 `hsl:H,S,L` where `H` is 0-360, `S` 0-100 and `L` 0-100
@@ -61,23 +61,29 @@ See https://drafts.csswg.org/css-color/#the-hwb-notation
 ![Named Colors Examples](http://markgriffiths.github.io/projects/trucolor/named.png)
 
 - __Special formatters__
-The following keywords modify the meaning or destination of the color, or provide enhanced foramtting. They only work when used with the command switches that actually output SGR codes, namely: --message, --swatch, --in and --out. When used with the default command or with the --rgb switch, they have no effect and the value of the base color (plus any processing) will be output.
+The following keywords modify the meaning or destination of the color, or provide enhanced foramtting. They only work when used with the command switches that actually output SGR codes, namely: `--message`, `--swatch`, `--in` and `--out`. When used with the default command or with the `--rgb` switch, they have no effect and the value of the base color (plus any processing) will be output.
 
 	__background__: Set the background color, rather than the foreground.
 
 	__normal__: Set the color to the default foreground and background.
+
 	__reset__: Sets colors and special formatting back to the default.
 
 	__bold__: Set the font to bold.
+
 	__italic__: Set the font to italic.
+
 	__underline__: Set underline.
+
 	__faint__: Set the colour to 50% opacity.
+
 	__invert__: Invert the foreground and background.
+
 	__blink__: Annoying as a note in Comic Sans, attached to a dancing, purple dinosaur with a talking paperclip.
 
-	All of the above formatters need the correct code to end the range, either provided by using the --out switch,
-	using the 'reset' keyword, or simply use the --message option to automatically set the end range SGR code. Using
-	'normal' alone won't fully clear the formatting.
+	All of the above formatters need the correct code to end the range, either provided by using the `--out` switch,
+	using the `reset` keyword, or simply use the `--message` option to automatically set the end range SGR code. Using
+	`normal` alone won't fully clear the formatting.
 
 ![Formatters Examples](http://markgriffiths.github.io/projects/trucolor/formatters.png)
 
@@ -86,12 +92,19 @@ The following keywords modify the meaning or destination of the color, or provid
 A number of color `operations` can be specified, either before or after the base color declaration.
 
 `[(light | dark)]` preset 20% darken/lighten.
+
 `[(saturate | sat | desaturate | desat | lighten | darken) percent]` basic operations.
+
 `[spin degrees]` hue shift.
+
 `[(mix | multiply | screen) color]` mix with (`named` | `rgb()` | `#hex`) color.
+
 `[(overlay | softlight | soft | hardlight | hard) color]` light with color.
+
 `[(difference | diff | exclusion | excl) color]` subtract color.
+
 `[(average | ave | negation | not) color]` blend with color.
+
 `[contrast dark [light] [threshold]]` calculate contrasting color.
 
 See http://lesscss.org/functions/#color-operations for more details.
@@ -118,7 +131,7 @@ apples 005AFF
 ```
 
 ##### Custom Names:
-Any color definition can be prefixed with a 'name:' and the result will be cached with that name, allowing it to be recalled by the same name later.
+Any color definition can be prefixed with a `name:` and the result will be cached with that name, allowing it to be recalled by the same name later.
 
 ```sh
 > trucolor bob: black lighten 50 saturate 50 spin 180
@@ -128,7 +141,7 @@ rgb(64, 191, 191)
 ```
 
 ##### Supported and tested terminals include:
-Obviously all this depends on your terminals support for the extended formatting. The latest iTerm2 builds and X's XTerm have full support for everything #{clr.command}trucolor#{clr.normal} can do, and anything that supports a terminal type of 'xterm-256color' will cover a fairly complete subset.
+Obviously all this depends on your terminals support for the extended formatting. The latest iTerm2 builds and X's XTerm have full support for everything `trucolor` can do, and anything that supports a terminal type of 'xterm-256color' will cover a fairly complete subset.
 
 For example, Apple's Terminal.app doesn't have 24 bit color support nor does it have support for italics, but everything else works well.
 
@@ -137,7 +150,7 @@ For example, Apple's Terminal.app doesn't have 24 bit color support nor does it 
 
 Please let me know results in your terminal. http://github.com/MarkGriffiths/trucolor
 
-##Programmatic Usage
+## Programmatic Usage
 
 More to come here...
 
