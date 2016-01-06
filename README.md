@@ -1,4 +1,4 @@
-# trucolor v0.1.8-beta.0
+# trucolor v0.1.8-beta.1
 ![Project status](http://img.shields.io/badge/status-beta-blue.svg?style=flat) [![Build Status](http://img.shields.io/travis/MarkGriffiths/trucolor.svg?style=flat)](https://travis-ci.org/MarkGriffiths/trucolor) [![Dependency Status](http://img.shields.io/david/MarkGriffiths/trucolor.svg?style=flat)](https://david-dm.org/MarkGriffiths/trucolor) [![devDependency Status](http://img.shields.io/david/dev/MarkGriffiths/trucolor.svg?style=flat)](https://david-dm.org/MarkGriffiths/trucolor#info=devDependencies)
 
 A node.js module and command line utility for using 24bit color SGR codes in modern terminals.
@@ -11,9 +11,12 @@ A node.js module and command line utility for using 24bit color SGR codes in mod
 `npm install --save @thebespokepixel/trucolor`
 
 ## CLI Usage
+
 #### Synopsis:
+
 ```text
-trucolor [options] [name]: [operation...] color [operation...] [[name]: [operation...] color]...
+trucolor [options] [name]: [operation...] color [operation...]
+               ...[[name]: [operation...] color [operation...]]...
 
 Options:
 -h, --help     Display this help.
@@ -36,26 +39,29 @@ When outputting SGR codes, colors will be shifted to the availalble 256 or ansi 
 
 The motivation for this is to allow more sophisticated graphic visualisation using in modern, xterm-compatible terminal emulators that have added 24 bit support.
 
+##### Color definition
+
 The `color` can be defined in any of the following formats:
 
-- __CSS Hexadecimal__
-`[#]RRGGBB` or `[#]RGB` where `R`, `G` and `B` are 0-F.
+-	__CSS Hexadecimal__  
+	`[#]RRGGBB` or `[#]RGB` where `R`, `G` and `B` are 0-F.
 
-- __RGB__
-`rgb:R,G,B` or `rgb(R,G,B)` where `R`,`G` and `B` are 0-255. Spaces can be incuded in rgb(R, G, B) declarations but require quoting/escaping on the CLI.
+-	__RGB__  
+	`rgb:R,G,B` or `rgb(R,G,B)` where `R`,`G` and `B` are 0-255.  
+	Spaces can be incuded in rgb(R, G, B) declarations but require quoting/escaping on the CLI.
 
-- __HSL__ (Hue Saturation Lightness)
-`hsl:H,S,L` where `H` is 0-360, `S` 0-100 and `L` 0-100
+-	__HSL__ (Hue Saturation Lightness)  
+	`hsl:H,S,L` where `H` is 0-360, `S` 0-100 and `L` 0-100
 
-- __HSV__ (Hue Saturation Value)
-`hsv:H,S,V` where `H` is 0-360, `S` 0-100 and `V `0-100
+-	__HSV__ (Hue Saturation Value)  
+	`hsv:H,S,V` where `H` is 0-360, `S` 0-100 and `V `0-100
 
-- __HSB__ (Hue Saturation Brightness) (just an alias for HSV)
-`hsb:H,S,B` where `H` is 0-360, `S` 0-100 and `B `0-100
+-	__HSB__ (Hue Saturation Brightness) (just an alias for HSV)  
+	`hsb:H,S,B` where `H` is 0-360, `S` 0-100 and `B `0-100
 
-- __HWB__ (Hue White Black)
-`hwb:H,W,B` where `H` is 0-360, `W` 0-100 and `B` 0-100
-See https://drafts.csswg.org/css-color/#the-hwb-notation
+-	__HWB__ (Hue White Black)
+	`hwb:H,W,B` where `H` is 0-360, `W` 0-100 and `B` 0-100  
+	See [HWB notation @csswg](https://drafts.csswg.org/css-color/#the-hwb-notation)
 
 - __CSS named colors__
 ![Named Colors Examples](http://markgriffiths.github.io/projects/trucolor/named.png)
@@ -65,25 +71,17 @@ The following keywords modify the meaning or destination of the color, or provid
 
 	__background__: Set the background color, rather than the foreground.
 
-	__normal__: Set the color to the default foreground and background.
-
+	__normal__: Set the color to the default foreground and background.  
 	__reset__: Sets colors and special formatting back to the default.
 
-	__bold__: Set the font to bold.
-
-	__italic__: Set the font to italic.
-
-	__underline__: Set underline.
-
-	__faint__: Set the colour to 50% opacity.
-
-	__invert__: Invert the foreground and background.
-
+	__bold__: Set the font to bold.  
+	__italic__: Set the font to italic.  
+	__underline__: Set underline.  
+	__faint__: Set the colour to 50% opacity.  
+	__invert__: Invert the foreground and background.  
 	__blink__: Annoying as a note in Comic Sans, attached to a dancing, purple dinosaur with a talking paperclip.
 
-	All of the above formatters need the correct code to end the range, either provided by using the `--out` switch,
-	using the `reset` keyword, or simply use the `--message` option to automatically set the end range SGR code. Using
-	`normal` alone won't fully clear the formatting.
+	All of the above formatters need the correct code to end the range, either provided by using the `--out` switch, using the `reset` keyword, or simply use the `--message` option to automatically set the end range SGR code. Using `normal` alone won't fully clear the formatting.
 
 ![Formatters Examples](http://markgriffiths.github.io/projects/trucolor/formatters.png)
 
@@ -91,21 +89,14 @@ The following keywords modify the meaning or destination of the color, or provid
 
 A number of color `operations` can be specified, either before or after the base color declaration.
 
-`[(light | dark)]` preset 20% darken/lighten.
-
-`[(saturate | sat | desaturate | desat | lighten | darken) percent]` basic operations.
-
-`[spin degrees]` hue shift.
-
-`[(mix | multiply | screen) color]` mix with (`named` | `rgb()` | `#hex`) color.
-
-`[(overlay | softlight | soft | hardlight | hard) color]` light with color.
-
-`[(difference | diff | exclusion | excl) color]` subtract color.
-
-`[(average | ave | negation | not) color]` blend with color.
-
-`[contrast dark [light] [threshold]]` calculate contrasting color.
+__light__ | __dark__ : preset 20% darken/lighten.  
+__saturate__ | __sat__ | __desaturate__ | __desat__ | __lighten__ | __darken__ _percent_ : basic operations.  
+__spin__ _degrees_ : hue shift.  
+__mix__ | __multiply__ | __screen__ (`named` | `rgb()` | `#hex`) : mix with color.  
+__overlay__ | __softlight__ | __soft__ | __hardlight__ | __hard__ _color_ : light with color.  
+__difference__ | __diff__ | __exclusion__ | __excl__ _color_ : subtract color.  
+__average__ | __ave__ | __negation__ | __not__ _color_ : blend with color.  
+__contrast__ _dark color_ `[light color]` `[threshold]` : calculate contrasting color.  
 
 See http://lesscss.org/functions/#color-operations for more details.
 
@@ -145,8 +136,8 @@ Obviously all this depends on your terminals support for the extended formatting
 
 For example, Apple's Terminal.app doesn't have 24 bit color support nor does it have support for italics, but everything else works well.
 
-- [iTerm2 2.9 Beta](https://iterm2.com/downloads.html) (OS X)
--  XTerm (^314 XQuartz 2.7.8)
+-	[iTerm2 2.9 Beta](https://iterm2.com/downloads.html) (OS X)
+-	XTerm (^314 XQuartz 2.7.8)
 
 Please let me know results in your terminal. http://github.com/MarkGriffiths/trucolor
 
