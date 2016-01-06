@@ -11,7 +11,7 @@ A node.js module and command line utility for using 24bit color SGR codes in mod
 `npm install --save @thebespokepixel/trucolor`
 
 ## CLI Usage
-####Synopsis:
+#### Synopsis:
 ```text
 trucolor [options] [name]: [operation...] color [operation...] [[name]: [operation...] color]...
 
