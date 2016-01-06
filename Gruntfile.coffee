@@ -43,18 +43,18 @@ module.exports = (grunt) ->
 				createTag: no
 				push: no
 		shell:
-			version:
-				command: 'fish -c "set -U __shoal_update_event <%= pkg.name %> <%= pkg.version %>"'
+			test:
+				command: 'npm test'
 			publish:
 				command: 'npm publish'
 
 	grunt.registerTask 'default', ['coffee:compile']
-	grunt.registerTask 'commit',  ['default', 'bump-commit']
+	grunt.registerTask 'commit',  ['shell:test', 'default', 'bump-commit']
 	grunt.registerTask 'push',    ['bump-only:prerelease', 'version', 'default', 'release', 'bump-commit']
 	grunt.registerTask 'patch',   ['bump-only:prepatch', 'version', 'coffee:compile', 'bump-commit']
 	grunt.registerTask 'minor',   ['bump-only:preminor', 'version', 'coffee:compile', 'bump-commit']
 	grunt.registerTask 'major',   ['bump-only:premajor', 'version', 'coffee:compile', 'bump-commit']
-	grunt.registerTask 'final',   ['bump-only', 'version', 'coffee:compile', 'release:final', 'bump-commit']
+	grunt.registerTask 'final',   ['shell:test', 'bump-only', 'version', 'coffee:compile', 'release:final', 'bump-commit']
 	grunt.registerTask 'publish', ['shell:publish']
 	grunt.registerTask 'shipit',  ['final', 'publish']
 

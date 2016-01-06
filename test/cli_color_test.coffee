@@ -18,21 +18,21 @@ vows
 					return
 				"Should equal FF0000": (error, output) ->
 					assert.isNull error
-					assert output is 'FF0000'
+					assert.equal output, 'FF0000'
 			"Green?":
 				topic: ->
 					exec "#{bin} --color=16m green", @callback
 					return
 				"Should equal 008000": (error, output) ->
 					assert.isNull error
-					assert output is '008000'
+					assert.equal output, '008000'
 			"Blue?":
 				topic: ->
 					exec "#{bin} --color=16m blue", @callback
 					return
 				"Should equal 0000FF": (error, output) ->
 					assert.isNull error
-					assert output is '0000FF'
+					assert.equal output, '0000FF'
 		'Check Conversion':
 			"rgb:128,0,128?":
 				topic: ->
@@ -40,21 +40,21 @@ vows
 					return
 				"Should equal 800080": (error, output) ->
 					assert.isNull error
-					assert output is '800080'
+					assert.equal output, '800080'
 			"hsl:120,100,50?":
 				topic: ->
 					exec "#{bin} --color=16m hsl:120,100,50", @callback
 					return
 				"Should equal 00FF00": (error, output) ->
 					assert.isNull error
-					assert output is '00FF00'
+					assert.equal output, '00FF00'
 			"hwb:240,0,0?":
 				topic: ->
 					exec "#{bin} --color=16m hwb:240,0,0", @callback
 					return
 				"Should equal 0000FF": (error, output) ->
 					assert.isNull error
-					assert output is '0000FF'
+					assert.equal output, '0000FF'
 		'Check Processing':
 			"rgb:128,0,128 lighten 10 spin 5?":
 				topic: ->
@@ -62,21 +62,21 @@ vows
 					return
 				"Should equal B300A4": (error, output) ->
 					assert.isNull error
-					assert output is 'B300A4'
+					assert.equal output, 'B300A4'
 			"hsl:120,100,50 desaturate 50?":
 				topic: ->
 					exec "#{bin} --color=16m hsl:120,100,50 desaturate 50", @callback
 					return
 				"Should equal 40BF40": (error, output) ->
 					assert.isNull error
-					assert output is '40BF40'
+					assert.equal output, '40BF40'
 			"blanchedalmond spin -195 lighten 5 desaturate 10?":
 				topic: ->
 					exec "#{bin} --color=16m blanchedalmond spin -195 lighten 5 desaturate 10", @callback
 					return
 				"Should equal FCEED0": (error, output) ->
 					assert.isNull error
-					assert output is 'FCEED0'
+					assert.equal output, 'FCEED0'
 	.addBatch
 		'Check Options':
 			"Red as rgb()?":
@@ -85,5 +85,5 @@ vows
 					return
 				"Should equal rgb(255, 0, 0)": (error, output) ->
 					assert.isNull error
-					assert output is 'rgb(255, 0, 0)'
+					assert.equal output, 'rgb(255, 0, 0)'
 .export(module)
