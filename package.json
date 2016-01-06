@@ -1,6 +1,6 @@
 {
   "name": "@thebespokepixel/trucolor",
-  "version": "0.1.5-beta.245",
+  "version": "0.1.5",
   "description": "Color toolkit supporting truecolor (24bit/8bpc RGB)",
   "main": "./index.js",
   "scripts": {
