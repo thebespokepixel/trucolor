@@ -1,6 +1,6 @@
 'use strict'
 ###
-	trucolor (v0.1.5-beta.1)
+	trucolor (v0.1.5-beta.245)
 	24bit color tools for the command line
 
 	Copyright (c) 2015 CryptoComposite
@@ -65,8 +65,8 @@ exports.cacheClear =   (name_) -> _cache.clear name_
 exports.newProcessor = (name_) -> _router.add new _processor name_
 exports.interpret =    (input_) -> new _interpreter input_
 
-exports.bulk =         (object_, options, callback_) ->
-	{type = 'sgr'} = options
+exports.bulk =         (object_, options_, callback_) ->
+	{type = 'sgr'} = options_
 	do _router.reset
 
 	for key_, value_ of object_
@@ -80,6 +80,7 @@ exports.bulk =         (object_, options, callback_) ->
 					collection[key_] = "#{value_.SGRout()}"
 				else
 					collection[key_] = switch type
+						when 'value' then value_.valueOf()
 						when 'swatch' then value_.swatch()
 						else value_.SGRin()
 

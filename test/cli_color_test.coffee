@@ -9,7 +9,7 @@ exec = require('child_process').exec
 bin = _package.bin[_package.name.split('/')[1]]
 
 vows
-	.describe("#{_package.name} Color Confimations")
+	.describe("#{_package.name} CLI Color Tests (forced 24 bit color)")
 	.addBatch
 		'Check Named Primaries':
 			"Red?":

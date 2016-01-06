@@ -1,53 +1,89 @@
-# trucolor v0.1.5-beta.1
+# trucolor v0.1.5-beta.245
 ![Project status](http://img.shields.io/badge/status-beta-blue.svg?style=flat) [![Build Status](http://img.shields.io/travis/MarkGriffiths/trucolor.svg?style=flat)](https://travis-ci.org/MarkGriffiths/trucolor) [![Dependency Status](http://img.shields.io/david/MarkGriffiths/trucolor.svg?style=flat)](https://david-dm.org/MarkGriffiths/trucolor) [![devDependency Status](http://img.shields.io/david/dev/MarkGriffiths/trucolor.svg?style=flat)](https://david-dm.org/MarkGriffiths/trucolor#info=devDependencies)
 
-__Work in progress.__
+A node.js module and command line utility for using 24bit color SGR codes in modern terminals.
 
-A combined node module and command line utility for using 24bit color SGR codes in modern terminals.
-
-####Install
+## Install
 ##### Global version, for CLI use
 `npm install --global @thebespokepixel/trucolor`
 
 ##### Module, for programmatic use
 `npm install --save @thebespokepixel/trucolor`
 
-####CLI Usage
+## CLI Usage
+####Synopsis:
+```text
+trucolor [options] [name]: [operation...] color [operation...] [[name]: [operation...] color]...
+
+Options:
+-h, --help     Display this help.
+-v, --version  Return the current version. -vv Return name & version.
+-V, --verbose  Be verbose. -VV Be loquacious.                        
+-m, --message  Format message with SGR codes
+-i, --in       Output SGR color escape code.                         
+-o, --out      Output cancelling SGR color escape code.              
+-r, --rgb      Output color as rgb(r, g, b)                          
+-s, --swatch   Output an isolated color swatch.
+```
 
 ![Usage Examples](http://markgriffiths.github.io/projects/trucolor/example.png)
 
-In it's simplest form, `trucolor 'color'`, will take any of the color expressions listed below and transform it into a simple hexadecimal triplet string, i.e `AA00BB`, ideal for passing into the `set_color` built-in in fish-shell, or providing the basis of further color processing.
+In it's simplest form, `trucolor 'color'`, will take any of the color expressions listed below and transform it into a simple hexadecimal triplet string, i.e `AA00BB`, ideal for passing into fish-shell's `set_color` built-in, or providing the basis of further color processing.
 
-By setting additional flags, it can return a wide range of color assignment and manipulation functions, based internally on color-convert and less. See the examples below.
+It can return color values and set terminal colors for a wide range of color assignment declarations and manipulation functions, based internally on the [`color-convert`](https://github.com/Qix-/color-convert) node module and [`less`](http://lesscss.org). See the examples below.
 
-All colors will fall back to simpler palettes if used in 256 or 16 color, or even monochromatic terminals.
+When outputting SGR codes, colors will be shifted to the availalble 256 or ansi color palette if 24 bit color is unavailable or will be omitted in a monochromatic terminal to make usage across environments safe. The CLI command respects `--color=16m`, `--color=256`, `--color` and `--no-color` flags. It does not affect value based output, such as the default or `--rgb` output, it only effects the `--in`, `--out`, `--message` and `--swatch` outputs.
 
-The motivation behind this is to allow much more sophisticated graphic visualisation using in modern, xterm-compatible terminal emulators that have added support over the past few years.
+The motivation for this is to allow more sophisticated graphic visualisation using in modern, xterm-compatible terminal emulators that have added 24 bit support.
 
-The `color` can be specified in the following forms:
+The `color` can be defined in any of the following formats:
 
-- CSS Hexadecimal
+- __CSS Hexadecimal__
 `[#]RRGGBB` or `[#]RGB` where `R`, `G` and `B` are 0-F.
 
-- RGB
-`rgb:R,G,B` or `rgb(R,G,B)` where `R`,`G` and `B` are 0-255.
+- __RGB__
+`rgb:R,G,B` or `rgb(R,G,B)` where `R`,`G` and `B` are 0-255. Spaces can be incuded in rgb(R,G,B) declarations but require quoting/escaping on the CLI. `trucolor 'rgb(128, 64, 192)' ▶ 8040C0`
 
-- HSL (Hue Saturation Lightness)
-`hsl:H,S,L` or `hsl(H,S,L)` where `H` is 0-360, `S` 0-100 and `L` 0-100
+- __HSL__ (Hue Saturation Lightness)
+`hsl:H,S,L` where `H` is 0-360, `S` 0-100 and `L` 0-100
 
-- HSV (Hue Saturation Value)
-`hsl:H,S,V` or `hsl(H,S,V)` where `H` is 0-360, `S` 0-100 and `V `0-100
+- __HSV__ (Hue Saturation Value)
+`hsv:H,S,V` where `H` is 0-360, `S` 0-100 and `V `0-100
 
-- HWB: (Hue White Black)
-`hwb:H,W,B` or `hwb(H,W,B)` where `H` is 0-360, `W` 0-100 and `B` 0-100
+- __HSB__ (Hue Saturation Brightness) (just an alias for HSV)
+`hsb:H,S,B` where `H` is 0-360, `S` 0-100 and `B `0-100
 
-- CSS name colors
-Red, green, hotpink, chocolate...
+- __HWB__ (Hue White Black)
+`hwb:H,W,B` where `H` is 0-360, `W` 0-100 and `B` 0-100
+See https://drafts.csswg.org/css-color/#the-hwb-notation
 
-- Special 'control' colors:
-`reset`, `normal`, `underline`, `invert`, `bold`...
+- __CSS named colors__
+![Named Colors Examples](http://markgriffiths.github.io/projects/trucolor/named.png)
 
-A large number of color `operations` can be specified, either before or after the base color declaration.
+- __Special formatters__
+The following keywords modify the meaning or destination of the color, or provide enhanced foramtting. They only work when used with the command switches that actually output SGR codes, namely: --message, --swatch, --in and --out. When used with the default command or with the --rgb switch, they have no effect and the value of the base color (plus any processing) will be output.
+
+	__background__: Set the background color, rather than the foreground.
+
+	__normal__: Set the color to the default foreground and background.
+	__reset__: Sets colors and special formatting back to the default.
+
+	__bold__: Set the font to bold.
+	__italic__: Set the font to italic.
+	__underline__: Set underline.
+	__faint__: Set the colour to 50% opacity.
+	__invert__: Invert the foreground and background.
+	__blink__: Annoying as a note in Comic Sans, attached to a dancing, purple dinosaur with a talking paperclip.
+
+	All of the above formatters need the correct code to end the range, either provided by using the --out switch,
+	using the 'reset' keyword, or simply use the --message option to automatically set the end range SGR code. Using
+	'normal' alone won't fully clear the formatting.
+
+![Formatters Examples](http://markgriffiths.github.io/projects/trucolor/formatters.png)
+
+##### Color manipulation
+
+A number of color `operations` can be specified, either before or after the base color declaration.
 
 `[(light | dark)]` preset 20% darken/lighten.
 `[(saturate | sat | desaturate | desat | lighten | darken) percent]` basic operations.
@@ -60,22 +96,80 @@ A large number of color `operations` can be specified, either before or after th
 
 See http://lesscss.org/functions/#color-operations for more details.
 
-####Programmatic Usage
+##### Multiple Inputs
+`trucolor` will output a list of color values if more than one base color is specified, allowing color assignment in a single block allowing easy ingest using `read`. Each color will be output on it's own line, and named according to the input base color. The names can be overridden by providing a `name:` before the base color.
+
+```sh
+> trucolor red yellow green purple
+red FF0000
+yellow FFFF00
+green 008000
+purple 800080
+
+> trucolor Po: red LaaLaa: yellow Dipsy: green TinkyWinky: purple
+Po FF0000
+LaaLaa FFFF00
+Dipsy 008000
+TinkyWinky 800080
+
+> trucolor hsl:120,100,50 apples: orange spin 180
+hsl-120-100-50 00FF00
+apples 005AFF
+```
+
+##### Custom Names:
+Any color definition can be prefixed with a 'name:' and the result will be cached with that name, allowing it to be recalled by the same name later.
+
+```sh
+> trucolor bob: black lighten 50 saturate 50 spin 180
+40BFBF
+> trucolor --rgb bob:
+rgb(64, 191, 191)
+```
+
+##### Supported and tested terminals include:
+Obviously all this depends on your terminals support for the extended formatting. The latest iTerm2 builds and X's XTerm have full support for everything #{clr.command}trucolor#{clr.normal} can do, and anything that supports a terminal type of 'xterm-256color' will cover a fairly complete subset.
+
+For example, Apple's Terminal.app doesn't have 24 bit color support nor does it have support for italics, but everything else works well.
+
+- [iTerm2 2.9 Beta](https://iterm2.com/downloads.html) (OS X)
+-  XTerm (^314 XQuartz 2.7.8)
+
+Please let me know results in your terminal. http://github.com/MarkGriffiths/trucolor
+
+##Programmatic Usage
 
 More to come here...
 
-```javascript
-	const trucolor = require('@thebespokepixel/trucolor');
+### Simple generic palette
 
-	trucolor.bulk({
-		color_1: 'red lighten 10',
-		color_2: '#fe2316',
-		color_3: 'hsl(120,50,60)'
-	}, {output: 'sgr|swatch'}, function (colour_object) {
-		... object containing SGR or swatch strings, ready to write to stdio streams ...
-	}); // Synchronous operation
+I use this to make sure help pages are consistent between different modules.
+
+```javascript
+//ES6
+require('@thebespokepixel/trucolor').simplePalette(clr => {
+	console.log("${clr.command}trucolor${clr.normal} palettes");
+});
+
+//ES5
+var trucolor = require('@thebespokepixel/trucolor');
+trucolor.simplePalette(function(clr) {
+	console.log(clr.command + "trucolor" + clr.normal + "palettes");
+});
+
 ```
 
-Supported terminals include:
+### Bulk color creation
 
-- [iTerm2 2.9 Beta](https://iterm2.com/downloads.html) 
+```javascript
+var trucolor = require('@thebespokepixel/trucolor');
+
+trucolor.bulk({
+	color_1: 'red lighten 10',
+	color_2: '#fe2316',
+	color_3: 'hsl(120,50,60)'
+}, { output: 'value|sgr|swatch' }, function (colour_object) {
+	... object containing HEX value, SGR codes or swatch strings, ready to write to stdio streams ...
+}); // Synchronous operation, despite callback
+```
+

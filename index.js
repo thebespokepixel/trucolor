@@ -1,7 +1,7 @@
 'use strict';
 
 /*
-	trucolor (v0.1.5-beta.1)
+	trucolor (v0.1.5-beta.245)
 	24bit color tools for the command line
 
 	Copyright (c) 2015 CryptoComposite
@@ -97,9 +97,9 @@ exports.interpret = function(input_) {
   return new _interpreter(input_);
 };
 
-exports.bulk = function(object_, options, callback_) {
+exports.bulk = function(object_, options_, callback_) {
   var key_, ref, type, value_;
-  type = (ref = options.type) != null ? ref : 'sgr';
+  type = (ref = options_.type) != null ? ref : 'sgr';
   _router.reset();
   for (key_ in object_) {
     value_ = object_[key_];
@@ -116,6 +116,8 @@ exports.bulk = function(object_, options, callback_) {
         default:
           collection[key_] = (function() {
             switch (type) {
+              case 'value':
+                return value_.valueOf();
               case 'swatch':
                 return value_.swatch();
               default:

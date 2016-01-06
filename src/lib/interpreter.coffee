@@ -1,6 +1,6 @@
 'use strict'
 ###
- trucolor (v0.1.5-beta.1) 24bit color tools for the command line
+ trucolor (v0.1.5-beta.245) 24bit color tools for the command line
  Resolve Colour to simple RGB Array: [ r, g, b ]
 ###
 console = global.vConsole
@@ -16,12 +16,12 @@ class Interpreter
 				human: raw_
 				space: 'HEX'
 
-			when /^#[0-9a-fA-F]{3}$/i.test raw_
+			when /^#[0-9a-f]{3}$/i.test raw_
 				input: /^#([0-9a-f])([0-9a-f])([0-9a-f])$/i.exec raw_
 				human: raw_
 				space: '#HEX'
 
-			when /^[0-9a-fA-F]{6}$/.test raw_
+			when /^[0-9a-f]{6}$/i.test raw_
 				input: raw_
 				human: raw_
 				space: 'HEXHEX'
@@ -37,18 +37,23 @@ class Interpreter
 				space: 'RGB'
 
 			when /^hsl:\d+,\d+,\d+$/.test raw_
-				input: raw_.replace(/hsl[\(:]/, '').replace(/[ \)]/g, '').split ','
-				human: raw_.replace('hsl:', 'hsl-').replace(/,/g, '-').replace(/[ \)]/g, '')
+				input: raw_.replace(/hsl:/, '').split ','
+				human: raw_.replace('hsl:', 'hsl-').replace(/,/g, '-')
 				space: 'HSL'
 
 			when /^hsv:\d+,\d+,\d+$/.test raw_
-				input: raw_.replace(/hsv[\(:]/, '').replace(/[ \)]/g, '').split ','
-				human: raw_.replace('hsv:', 'hsv-').replace(/,/g, '-').replace(/[ \)]/g, '')
+				input: raw_.replace(/hsv:/, '').split ','
+				human: raw_.replace('hsv:', 'hsv-').replace(/,/g, '-')
+				space: 'HSV'
+
+			when /^hsb:\d+,\d+,\d+$/.test raw_
+				input: raw_.replace(/hsb:/, '').split ','
+				human: raw_.replace('hsb:', 'hsb-').replace(/,/g, '-')
 				space: 'HSV'
 
 			when /^hwb:\d+,\d+,\d+$/.test raw_
-				input: raw_.replace(/hwb[\(:]/, '').replace(/[ \)]/g, '').split ','
-				human: raw_.replace('hwb:', 'hwb-').replace(/,/g, '-').replace(/[ \)]/g, '')
+				input: raw_.replace(/hwb:/, '').split ','
+				human: raw_.replace('hwb:', 'hwb-').replace(/,/g, '-')
 				space: 'HWB'
 
 			when raw_ in ['normal', 'reset']
@@ -64,22 +69,14 @@ class Interpreter
 			else throw new Error "Unrecognised color space: " + raw_
 
 		@RGB = switch @source.space
-			when 'HEX'
+			when 'HEX', '#HEX'
 				r = @source.input[1]
 				g = @source.input[2]
 				b = @source.input[3]
 				@name = String(r + r + g + g + b + b)
+				@source.input = @source.input[0]
 				converter.hex2rgb @name
-			when '#HEX'
-				r = @source.input[1]
-				g = @source.input[2]
-				b = @source.input[3]
-				@name = String(r + r + g + g + b + b)
-				converter.hex2rgb @name
-			when 'HEXHEX'
-				@name = @source.input
-				converter.hex2rgb @name
-			when '#HEXHEX'
+			when 'HEXHEX', '#HEXHEX'
 				@name = @source.input
 				converter.hex2rgb @name
 			when 'RGB'

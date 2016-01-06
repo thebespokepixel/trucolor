@@ -1,6 +1,6 @@
 'use strict'
 ###
- trucolor (v0.1.5-beta.1) : 24bit color tools for the command line
+ trucolor (v0.1.5-beta.245) : 24bit color tools for the command line
  Command line functionality
 ###
 
@@ -83,4 +83,4 @@ _root.route (output_) ->
 			process.stdout.write "#{output_.toString()}"
 		when argv.swatch
 			process.stdout.write "#{output_.swatch()}"
-		else process.stdout.write "#{output_.valueOf()}"
+		else process.stdout.write "#{output_}"

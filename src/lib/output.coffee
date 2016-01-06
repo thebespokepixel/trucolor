@@ -1,6 +1,6 @@
 'use strict'
 ###
- trucolor (v0.1.5-beta.1) 24bit color tools for the command line
+ trucolor (v0.1.5-beta.245) 24bit color tools for the command line
  Color Output
 ###
 console = global.vConsole
@@ -44,7 +44,7 @@ sgr =
 
 class Output
 	constructor: (rgbIn, @attrs) ->
-		if rgbIn? and terminalFeatures.color.level?
+		if rgbIn?
 			if /^[0-9a-f]{6}$/i.test rgbIn
 				@rgb = converter.hex2rgb rgbIn
 				@hex = rgbIn
@@ -71,6 +71,8 @@ class Output
 
 	swatch: ->
 		outSGR = []
+		if @attrs.faint then outSGR.push sgr.faint.in
+		if @attrs.blink then outSGR.push sgr.blink.in
 		if @rgb? and terminalFeatures.color.level?
 			sgr.code = [
 				''
