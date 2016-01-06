@@ -1,4 +1,4 @@
-# trucolor v0.1.6-beta.1
+# trucolor v0.1.6-beta.2
 ![Project status](http://img.shields.io/badge/status-beta-blue.svg?style=flat) [![Build Status](http://img.shields.io/travis/MarkGriffiths/trucolor.svg?style=flat)](https://travis-ci.org/MarkGriffiths/trucolor) [![Dependency Status](http://img.shields.io/david/MarkGriffiths/trucolor.svg?style=flat)](https://david-dm.org/MarkGriffiths/trucolor) [![devDependency Status](http://img.shields.io/david/dev/MarkGriffiths/trucolor.svg?style=flat)](https://david-dm.org/MarkGriffiths/trucolor#info=devDependencies)
 
 A node.js module and command line utility for using 24bit color SGR codes in modern terminals.
