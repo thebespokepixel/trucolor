@@ -66,15 +66,15 @@ exports.cacheClear =   (name_) -> _cache.clear name_
 exports.newProcessor = (name_) -> _router.add new _processor name_
 exports.interpret =    (input_) -> new _interpreter input_
 
-exports.bulk =         (object_, options_, callback_) ->
+exports.bulk =         (options_, object_) ->
 	{type = 'sgr'} = options_
 	do _router.reset
 
 	for key_, value_ of object_
 		_parser ["#{key_}:"].concat value_.split ' '
 
+	collection = {}
 	_router.run (output_) ->
-		collection = {}
 		output_.exportCollection().forEach (value_, key_) ->
 			switch key_
 				when 'normal', 'reset'
@@ -86,7 +86,7 @@ exports.bulk =         (object_, options_, callback_) ->
 						else value_.SGRin()
 
 					collection["#{key_}Out"] = value_.SGRout() if value_.hasAttr()
-		callback_ collection
+	return collection
 
 # Fast/Slow/Less/Caching Router
 exports.route = _router.run

@@ -10,21 +10,45 @@ truwrap = require 'truwrap'
 deepAssign = require 'deep-assign'
 terminalFeatures = require 'term-ng'
 
-setupPage = (clr) ->
-	if terminalFeatures.images
-		img =
-			space : "\t"
-			cc    : new truwrap.Image
-				name   : 'logo'
-				file   : __dirname + '/../../media/CCLogo.png'
-				height : 3
-	else
-		img =
-			space : ""
-			cc    : render: -> ""
+clr = deepAssign trucolor.simplePalette(), (trucolor.bulk {},
+		purple        : 'purple'
+		purpleSwatch  : 'purple desaturate 70'
+		orange        : 'hsb:45,100,100'
+		orangeSwatch  : 'hsb:45,100,100 desaturate 70'
+		red           : 'red lighten 10'
+		green         : 'green lighten 10'
+		blue          : 'blue lighten 20'
+		hotpink       : 'hotpink'
+		chocolate     : 'chocolate'
+		dark          : 'red desaturate 100'
+		msat          : 'red desaturate 60'
+		mlight        : 'rgb(255,255,255) darken 25'
+		bright        : 'rgb(255,255,255)'
+		bob           : 'black lighten 50 saturate 50 spin 180'
+		ul            : 'underline'
+		invert        : 'invert'
+		bold          : 'bold'
+		exBackground  : 'background dark red'
+		exBold        : 'bold yellow'
+		exFaint       : 'faint yellow'
+		exItalic      : 'italic #33FF33'
+		exInvert      : 'invert #7B00B1'
+		exUnderline   : 'underline #fff'
+		exBlink       : 'blink orange')
 
-	if terminalFeatures.color.has16m
-		spectrum = (width_, char_) -> (
+module.exports = (yargs_, helpPage_) ->
+	images = if terminalFeatures.images
+		space : "\t"
+		cc    : new truwrap.Image
+			name   : 'logo'
+			file   : __dirname + '/../../media/CCLogo.png'
+			height : 3
+	else
+		space : ""
+		cc    : render: -> ""
+
+	spectrum = if terminalFeatures.color.has16m
+		(width_, char_) -> (
 			for col in [0..width_-1]
 				scos =  Math.cos((col / width_) * (Math.PI/2))
 				ssin =  Math.sin((col / width_) * (Math.PI))
@@ -32,87 +56,99 @@ setupPage = (clr) ->
 				green = if ssin > 0 then Math.floor(ssin * 255) else 0
 				blue =  if scos > 0 then Math.floor((1 - scos) * 255) else 0
 				"\x1b[38;2;#{red};#{green};#{blue}m#{char_}").join('')
-
-		header = ->
-				[             " #{clr.red  }━┳━╸     #{clr.bright}╭──╮  ╷"
-				  "#{img.space} #{clr.green} ┃ ┏━┓╻ ╻#{clr.bright}│  ╭─╮│╭─╮╭─╮ #{clr.normal}#{trucolor.getDescription()}"
-				  "#{img.space} #{clr.blue } ╹ ╹  ┗━┛#{clr.bright}╰──╰─╯╵╰─╯╵   #{clr.grey}#{trucolor.getVersion(3)}"
-				].join "\n"
 	else
-		header = ->
-				[
-					"#{clr.bright}#{trucolor.getName()}#{clr.normal}"
-					"#{img.space}#{trucolor.getDescription()}"
-					"#{img.space}#{clr.grey}#{trucolor.getVersion(3)}#{clr.normal}"
-				].join "\n"
-		spectrum = -> "\n#{clr.red}  Your terminal currently doesn't support 24 bit color."
+		(width_, char_) ->
+			"#{char_.repeat width_}\n#{clr.red}  Your terminal currently doesn't support 24 bit color."
 
+	header =  if terminalFeatures.color.has16m
+		->
+			hT = if terminalFeatures.font.enhanced
+				[['━┳━╸     ', '╭──╮  ╷']
+				 [' ┃ ┏━┓╻ ╻', '│  ╭─╮│╭─╮╭─╮']
+				 [' ╹ ╹  ┗━┛', '╰──╰─╯╵╰─╯╵  ']]
+			else if terminalFeatures.font.basic
+				[['─┬─      ', '┌──┐  ┐']
+				 [' │ ┌─ ┐ ┌', '│  ┌─┐│┌─╮┌─┐']
+				 [' └ ┘  └─┘', '└──└─┘└╰─┘┘  ']]
+			else
+				[['___      ', ' __']
+				 [' |  _    ', '|     |    _']
+				 [' | |  |_|', '|__(_)|(_)| ']]
+
+			[                "#{clr.red  }#{hT[0][0]}#{clr.bright}#{hT[0][1]}"
+			  "#{images.space}#{clr.green}#{hT[1][0]}#{clr.bright}#{hT[1][1]} #{clr.normal}#{trucolor.getDescription()}"
+			  "#{images.space}#{clr.blue }#{hT[2][0]}#{clr.bright}#{hT[2][1]} #{clr.grey}#{trucolor.getVersion(3)}"
+			].join "\n"
+	else
+		->
+			[
+				"#{clr.bright}#{trucolor.getName()}#{clr.normal}"
+				"#{images.space}#{trucolor.getDescription()}"
+				"#{images.space}#{clr.grey}#{trucolor.getVersion(3)}#{clr.normal}"
+			].join "\n"
+
+	synopsis = """
+		#{clr.title}Synopsis:#{clr.titleOut}
+		#{clr.command}trucolor #{clr.option}[options] #{clr.argument}[name]: [operation...] color \
+		[operation...] [[name]: [operation...] color]...#{clr.option}
+	"""
+	epilogue = """
+		#{clr.title}#{ trucolor.getName() }#{clr.titleOut} is an open source component of CryptoComposite\'s toolset.
+		#{clr.title}© 2014-2016 CryptoComposite.#{clr.titleOut} #{clr.grey}Released under the MIT License.
+		#{clr.grey}Documentation/Issues/Contributions @ http://github.com/MarkGriffiths/trucolor#{clr.normal}
+
+	"""
 	pages =
-		shared:
-			header: header
-			spectrum: spectrum
-			images: img
-			synopsis: """
-				#{clr.title}Synopsis:#{clr.titleOut}
-				#{clr.command}trucolor #{clr.option}[options] #{clr.argument}[name]: [operation...] color \
-				[operation...] [[name]: [operation...] color]...#{clr.option}
-			"""
-			epilogue: """
-				#{clr.title}#{ trucolor.getName() }#{clr.titleOut} is an open source component of CryptoComposite\'s toolset.
-				#{clr.title}© 2014-2016 CryptoComposite.#{clr.titleOut} #{clr.grey}Released under the MIT License.
-				#{clr.grey}Documentation/Issues/Contributions @ http://github.com/MarkGriffiths/trucolor#{clr.normal}
-
-			"""
 		default:
 			usage: """
-			#{clr.title}Usage:#{clr.titleOut}
-			#{clr.normal}In it's simplest form, '#{clr.command}trucolor#{clr.normal} #{clr.argument}color#{clr.normal}', will take any of the color expressions listed below and transform it into a simple hexadecimal triplet string, i.e #{clr.argument}'AA00BB'#{clr.normal}, ideal for passing into the 'set_color' built-in in fish-shell, or providing the basis of further color processing.
+		#{clr.title}Usage:#{clr.titleOut}
+		#{clr.normal}In it's simplest form, '#{clr.command}trucolor#{clr.normal} #{clr.argument}color#{clr.normal}', will take any of the color expressions listed below and transform it into a simple hexadecimal triplet string, i.e #{clr.argument}'AA00BB'#{clr.normal}, ideal for passing into the 'set_color' built-in in fish-shell, or providing the basis of further color processing.
 
-			It can return a wide range of color assignment and manipulation functions, based internally on color-convert and less. See the examples below.
+		It can return a wide range of color assignment and manipulation functions, based internally on color-convert and less. See the examples below.
 
-			When outputting SGR codes, colors will be shifted to the availalble 256 or ansi color palette if 24 bit color is unavailable or will be omitted in a monochromatic terminal to make usage across environments safe. The CLI command respects #{clr.option}--color=16m#{clr.normal}, #{clr.option}--color=256#{clr.normal}, #{clr.option}--color#{clr.normal} and #{clr.option}--no-color#{clr.normal} flags. It does not affect value based output, such as the default or #{clr.option}--rgb#{clr.normal} output, it only effects the #{clr.option}--in#{clr.normal}, #{clr.option}--out#{clr.normal}, #{clr.option}--message#{clr.normal} and #{clr.option}--swatch#{clr.normal} outputs.
+		When outputting SGR codes, colors will be shifted to the availalble 256 or ansi color palette if 24 bit color is unavailable or will be omitted in a monochromatic terminal to make usage across environments safe. The CLI command respects #{clr.option}--color=16m#{clr.normal}, #{clr.option}--color=256#{clr.normal}, #{clr.option}--color#{clr.normal} and #{clr.option}--no-color#{clr.normal} flags. It does not affect value based output, such as the default or #{clr.option}--rgb#{clr.normal} output, it only effects the #{clr.option}--in#{clr.normal}, #{clr.option}--out#{clr.normal}, #{clr.option}--message#{clr.normal} and #{clr.option}--swatch#{clr.normal} outputs.
 
-			The motivation for this is to allow more sophisticated graphic visualisation using in modern, xterm-compatible terminal emulators that have added 24 bit support.
+		The motivation for this is to allow more sophisticated graphic visualisation using in modern, xterm-compatible terminal emulators that have added 24 bit support.
 
-			The #{clr.argument}color#{clr.normal} can be defined in any the following formats:
+		The #{clr.argument}color#{clr.normal} can be defined in any the following formats:
 
-				CSS Hexadecimal (#{clr.red}Red #{clr.green}Green #{clr.blue}Blue#{clr.normal}) #{clr.argument}[#]RRGGBB#{clr.normal} or #{clr.argument}[#]RGB#{clr.normal} where R, G and B are '0'-'F'.
+			CSS Hexadecimal (#{clr.red}Red #{clr.green}Green #{clr.blue}Blue#{clr.normal}) #{clr.argument}[#]RRGGBB#{clr.normal} or #{clr.argument}[#]RGB#{clr.normal} where R, G and B are '0'-'F'.
 
-				RGB (#{clr.red}Red #{clr.green}Green #{clr.blue}Blue#{clr.normal}) #{clr.argument}rgb:R,G,B#{clr.normal} or #{clr.argument}rgb(R,G,B)#{clr.normal} where R,G and B are 0-255.
-				Spaces can be incuded but require quoting/escaping on the CLI. i.e '#{clr.argument}rgb(R, G, B)#{clr.normal}'
+			RGB (#{clr.red}Red #{clr.green}Green #{clr.blue}Blue#{clr.normal}) #{clr.argument}rgb:R,G,B#{clr.normal} or #{clr.argument}rgb(R,G,B)#{clr.normal} where R,G and B are 0-255.
+			Spaces can be incuded but require quoting/escaping on the CLI. i.e '#{clr.argument}rgb(R, G, B)#{clr.normal}'
 
-				HSL (#{clr.red}H#{clr.green}u#{clr.blue}e#{clr.dark} Sat#{clr.msat}ura#{clr.red}tion #{clr.dark}Lig#{clr.mlight}htn#{clr.bright}ess#{clr.normal}) #{clr.argument}hsl:H,S,L#{clr.normal} where H is 0-360, S 0-100 and L 0-100
+			HSL (#{clr.red}H#{clr.green}u#{clr.blue}e#{clr.dark} Sat#{clr.msat}ura#{clr.red}tion #{clr.dark}Lig#{clr.mlight}htn#{clr.bright}ess#{clr.normal}) #{clr.argument}hsl:H,S,L#{clr.normal} where H is 0-360, S 0-100 and L 0-100
 
-				HSV (#{clr.red}H#{clr.green}u#{clr.blue}e#{clr.dark} Sat#{clr.msat}ura#{clr.red}tion #{clr.dark}V#{clr.mlight}alu#{clr.bright}e#{clr.normal}) #{clr.argument}hsl:H,S,V#{clr.normal} where H is 0-360, S 0-100 and V 0-100
+			HSV (#{clr.red}H#{clr.green}u#{clr.blue}e#{clr.dark} Sat#{clr.msat}ura#{clr.red}tion #{clr.dark}V#{clr.mlight}alu#{clr.bright}e#{clr.normal}) #{clr.argument}hsl:H,S,V#{clr.normal} where H is 0-360, S 0-100 and V 0-100
 
-				HSB (#{clr.red}H#{clr.green}u#{clr.blue}e#{clr.dark} Sat#{clr.msat}ura#{clr.red}tion #{clr.dark}Bri#{clr.mlight}ght#{clr.bright}ness#{clr.normal}) #{clr.argument}hsb:H,S,B#{clr.normal} where H is 0-360, S 0-100 and B 0-100
-				(actually just an alias for HSV)
+			HSB (#{clr.red}H#{clr.green}u#{clr.blue}e#{clr.dark} Sat#{clr.msat}ura#{clr.red}tion #{clr.dark}Bri#{clr.mlight}ght#{clr.bright}ness#{clr.normal}) #{clr.argument}hsb:H,S,B#{clr.normal} where H is 0-360, S 0-100 and B 0-100
+			(actually just an alias for HSV)
 
-				HWB: (#{clr.red}H#{clr.green}u#{clr.blue}e#{clr.bright} White#{clr.dark} Black#{clr.normal}) #{clr.argument}hwb:H,W,B#{clr.normal} where H is 0-360, W 0-100 and B 0-100
+			HWB: (#{clr.red}H#{clr.green}u#{clr.blue}e#{clr.bright} White#{clr.dark} Black#{clr.normal}) #{clr.argument}hwb:H,W,B#{clr.normal} where H is 0-360, W 0-100 and B 0-100
 
-				CSS named colors: #{clr.red}Red, #{clr.green}green, #{clr.hotpink}hotpink, #{clr.chocolate}chocolate#{clr.normal}... (see '#{clr.option}--help named#{clr.normal}')
+			CSS named colors: #{clr.red}Red, #{clr.green}green, #{clr.hotpink}hotpink, #{clr.chocolate}chocolate#{clr.normal}... (see '#{clr.option}--help named#{clr.normal}')
 
-				Special 'control' colors: 'reset', 'normal', #{clr.ul}underline#{clr.ulOut}, #{clr.invert}invert#{clr.invertOut}, #{clr.bold}bold#{clr.boldOut}... (see '#{clr.option}--help special#{clr.normal}')
+			Special 'control' colors: 'reset', 'normal', #{clr.ul}underline#{clr.ulOut}, #{clr.invert}invert#{clr.invertOut}, #{clr.bold}bold#{clr.boldOut}... (see '#{clr.option}--help special#{clr.normal}')
 
-			A number of color #{clr.argument}operations#{clr.normal} can be specified, either before or after the base color declaration.
+		A number of color #{clr.argument}operations#{clr.normal} can be specified, either before or after the base color declaration.
 
-			[#{clr.argument}(light | dark)#{clr.normal}] preset 20% darken/lighten.
-			[#{clr.argument}(saturate | sat | desaturate | desat | lighten | darken#{clr.normal}) \
-			#{clr.argument}percent#{clr.normal}] basic operations.
-			[#{clr.argument}spin degrees#{clr.normal}] hue shift.
-			[#{clr.argument}(mix | multiply | screen) color#{clr.normal}] \
-			mix with (named | rgb() | #hex) color.
-			[#{clr.argument}(overlay | softlight | soft | hardlight | hard) color#{clr.normal}] \
-			light with color.
-			[#{clr.argument}(difference | diff | exclusion | excl) color#{clr.normal}] \
-			subtract color.
-			[#{clr.argument}(average | ave | negation | not) color#{clr.normal}] \
-			blend with color.
-			[#{clr.argument}contrast dark [light] [threshold]#{clr.normal}] \
-			calculate contrasting color.
+		[#{clr.argument}(light | dark)#{clr.normal}] preset 20% darken/lighten.
+		[#{clr.argument}(saturate | sat | desaturate | desat | lighten | darken#{clr.normal}) \
+		#{clr.argument}percent#{clr.normal}] basic operations.
+		[#{clr.argument}spin degrees#{clr.normal}] hue shift.
+		[#{clr.argument}(mix | multiply | screen) color#{clr.normal}] \
+		mix with (named | rgb() | #hex) color.
+		[#{clr.argument}(overlay | softlight | soft | hardlight | hard) color#{clr.normal}] \
+		light with color.
+		[#{clr.argument}(difference | diff | exclusion | excl) color#{clr.normal}] \
+		subtract color.
+		[#{clr.argument}(average | ave | negation | not) color#{clr.normal}] \
+		blend with color.
+		[#{clr.argument}contrast dark [light] [threshold]#{clr.normal}] \
+		calculate contrasting color.
 
-			See http://lesscss.org/functions/#color-operations for more details.
-			"""
+		See http://lesscss.org/functions/#color-operations for more details.
+		"""
 
 			examples: (width_) ->
 				content: [
@@ -200,38 +236,38 @@ setupPage = (clr) ->
 				nameArray = require("../palettes/named")
 				colors = {}
 				colors[name_] = name_ for name_ in nameArray
-				trucolor.bulk colors, {type: 'swatch'}, (named_) ->
-					columns = Math.floor width_ / 28
-					colwidth = Math.floor width_ / columns
+				named = trucolor.bulk {type: 'swatch'}, colors
+				columns = Math.floor width_ / 28
+				colwidth = Math.floor width_ / columns
 
-					grid =
-						margin:
-							minWidth: 2
+				grid =
+					margin:
+						minWidth: 2
 
+				for c in [0..columns]
+					grid["color_#{c}"] =
+						minWidth: 2
+					grid["name_#{c}"] =
+						minWidth: 16
+
+				table = []
+				while nameArray.length
+					cell =
+						margin: ' '
 					for c in [0..columns]
-						grid["color_#{c}"] =
-							minWidth: 2
-						grid["name_#{c}"] =
-							minWidth: 16
+						src = do nameArray.shift
+						if not src? == ''
+							cell["color_#{c}"] = ''
+							cell["name_#{c}"] = ''
+						else
+							cell["color_#{c}"] = named[src]
+							cell["name_#{c}"] = src
+					table.push cell
 
-					table = []
-					while nameArray.length
-						cell =
-							margin: ' '
-						for c in [0..columns]
-							src = do nameArray.shift
-							if not src? == ''
-								cell["color_#{c}"] = ''
-								cell["name_#{c}"] = ''
-							else
-								cell["color_#{c}"] = named_[src]
-								cell["name_#{c}"] = src
-						table.push cell
-
-					content: table
-					layout:
-						showHeaders: false
-						config: grid
+				content: table
+				layout:
+					showHeaders: false
+					config: grid
 			more: """
 				#{clr.title}Custom Names:#{clr.titleOut}
 				Any color definition can be prefixed with a 'name:' and the result will be cached with that name, allowing it to be recalled by the same name later.
@@ -311,9 +347,7 @@ setupPage = (clr) ->
 
 				For example, Apple's Terminal.app doesn't have 24 bit color support nor does it have support for italics, but everything else works well.
 			"""
-	return pages
 
-outputPage = (yargs_, pages_, helpPage_) ->
 	container = truwrap
 		mode: 'container'
 		outStream: process.stderr
@@ -329,22 +363,22 @@ outputPage = (yargs_, pages_, helpPage_) ->
 	contentWidth = renderer.getWidth()
 
 	page = switch helpPage_
-		when 'named' then pages_.named
-		when 'special' then pages_.special
-		else pages_.default
+		when 'named' then pages.named
+		when 'special' then pages.special
+		else pages.default
 
 	yargs_.usage ' '
 	yargs_.wrap(contentWidth)
 
 	container.write '\n'
-	container.write pages_.shared.images.cc.render
+	container.write images.cc.render
 		nobreak: false
 		align: 2
-	container.write pages_.shared.header()
+	container.write header()
 	renderer.break()
-	container.write pages_.shared.spectrum windowWidth, "–"
+	container.write spectrum windowWidth, "–"
 	renderer.break(2)
-	renderer.write pages_.shared.synopsis
+	renderer.write synopsis
 	renderer.write yargs_.help()
 	renderer.break()
 	renderer.write page.usage
@@ -353,35 +387,6 @@ outputPage = (yargs_, pages_, helpPage_) ->
 	renderer.break(2)
 	renderer.write page.more
 	renderer.break(2)
-	renderer.write pages_.shared.epilogue
+	renderer.write epilogue
 	renderer.break()
 
-module.exports = (yargs_, helpPage_) ->
-	trucolor.simplePalette (basic) ->
-		trucolor.bulk
-			purple        : 'purple'
-			purpleSwatch  : 'purple desaturate 70'
-			orange        : 'hsb:45,100,100'
-			orangeSwatch  : 'hsb:45,100,100 desaturate 70'
-			red           : 'red lighten 10'
-			green         : 'green lighten 10'
-			blue          : 'blue lighten 20'
-			hotpink       : 'hotpink'
-			chocolate     : 'chocolate'
-			dark          : 'red desaturate 100'
-			msat          : 'red desaturate 60'
-			mlight        : 'rgb(255,255,255) darken 25'
-			bright        : 'rgb(255,255,255)'
-			bob           : 'black lighten 50 saturate 50 spin 180'
-			ul            : 'underline'
-			invert        : 'invert'
-			bold          : 'bold'
-			exBackground  : 'background dark red'
-			exBold        : 'bold yellow'
-			exFaint       : 'faint yellow'
-			exItalic      : 'italic #33FF33'
-			exInvert      : 'invert #7B00B1'
-			exUnderline   : 'underline #fff'
-			exBlink       : 'blink orange',
-			{}, (clr) ->
-				outputPage yargs_, setupPage(deepAssign clr, basic), helpPage_

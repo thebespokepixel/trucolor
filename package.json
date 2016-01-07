@@ -14,8 +14,8 @@
     "color-convert": "^0.7.0",
     "deep-assign": "^2.0.0",
     "less": "^2.5.1",
-    "term-ng": "^0.1.0",
-    "truwrap": "^0.2.5",
+    "term-ng": "^0.2.0",
+    "truwrap": "^0.2.6",
     "underscore": "^1.8.3",
     "verbosity": "^0.2.1",
     "yargs": "^3.25.0"

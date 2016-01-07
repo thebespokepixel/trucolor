@@ -8,16 +8,11 @@ trucolor = require '..'
 console = global.vConsole
 less = require 'less'
 converter = require 'color-convert'
-_io = require "./io"
+_io = require './io'
+assert = require 'assert'
+
 
 _routingTable = []
-
-less.logger.addListener({
-    debug: (msg) -> console.debug msg,
-    info: (msg) -> console.info msg,
-    warn: (msg) -> console.warn msg,
-    error: (msg) -> console.error msg
-});
 
 processRoutes = () ->
 	routes =
@@ -69,6 +64,8 @@ exports.run = (callback_) ->
 	if Object.keys(routing.slow).length > 0
 		lessIn = "out {\n#{([].concat "#{name}: #{color}" for name, color of routing.slow).join '; '};\n}"
 		less.render lessIn, {}, (err, output_) ->
+
+
 			routing.less = JSON.parse(output_.css
 				.replace /^out {/, '{'
 				.replace /([0-9a-zA-Z_-]+):\s(#[0-9A-Fa-f]{3,6});/g, '"$1": "$2",'

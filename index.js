@@ -97,18 +97,17 @@ exports.interpret = function(input_) {
   return new _interpreter(input_);
 };
 
-exports.bulk = function(object_, options_, callback_) {
-  var key_, ref, type, value_;
+exports.bulk = function(options_, object_) {
+  var collection, key_, ref, type, value_;
   type = (ref = options_.type) != null ? ref : 'sgr';
   _router.reset();
   for (key_ in object_) {
     value_ = object_[key_];
     _parser([key_ + ":"].concat(value_.split(' ')));
   }
-  return _router.run(function(output_) {
-    var collection;
-    collection = {};
-    output_.exportCollection().forEach(function(value_, key_) {
+  collection = {};
+  _router.run(function(output_) {
+    return output_.exportCollection().forEach(function(value_, key_) {
       switch (key_) {
         case 'normal':
         case 'reset':
@@ -129,8 +128,8 @@ exports.bulk = function(object_, options_, callback_) {
           }
       }
     });
-    return callback_(collection);
   });
+  return collection;
 };
 
 exports.route = _router.run;
