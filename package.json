@@ -1,54 +1,54 @@
 {
-    "author": "Mark Griffiths",
-    "bin": {
-        "trucolor": "./bin/trucolor.js"
-    },
-    "bugs": {
-        "url": "https://github.com/MarkGriffiths/trucolor/issues"
-    },
-    "dependencies": {
-        "color-convert": "^0.7.0",
-        "deep-assign": "^2.0.0",
-        "less": "^2.5.1",
-        "term-ng": "^0.1.0",
-        "truwrap": "^0.2.0",
-        "underscore": "^1.8.3",
-        "verbosity": "^0.2.1",
-        "yargs": "^3.25.0"
-    },
-    "description": "Terminal color toolkit supporting truecolor (24bit/8bpc RGB)",
-    "devDependencies": {
-        "gulp": "^3.9.0",
-        "gulp-coffee": "^2.3.1",
-        "gulp-git": "^1.6.1",
-        "gulp-spawn": "^0.3.0",
-        "gulp-util": "^3.0.7",
-        "gulp-vows": "^0.1.2",
-        "guppy-pre-commit": "^0.3.0",
-        "vows": "^0.8.1"
-    },
-    "engines": {
-        "node": ">= 4.2"
-    },
-    "homepage": "https://github.com/MarkGriffiths/trucolor",
-    "keywords": [
-        "color",
-        "24bit",
-        "truecolor",
-        "SGR",
-        "ansi",
-        "command line",
-        "fish"
-    ],
-    "license": "MIT",
-    "main": "./index.js",
-    "name": "trucolor",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/MarkGriffiths/trucolor.git"
-    },
-    "scripts": {
-        "test": "vows test/*.coffee --spec"
-    },
-    "version": "0.1.8-beta.2"
+  "author": "Mark Griffiths",
+  "bin": {
+    "trucolor": "./bin/trucolor.js"
+  },
+  "bugs": {
+    "url": "https://github.com/MarkGriffiths/trucolor/issues"
+  },
+  "dependencies": {
+    "color-convert": "^0.7.0",
+    "deep-assign": "^2.0.0",
+    "less": "^2.5.1",
+    "term-ng": "^0.1.0",
+    "truwrap": "^0.2.0",
+    "underscore": "^1.8.3",
+    "verbosity": "^0.2.1",
+    "yargs": "^3.25.0"
+  },
+  "description": "Terminal color toolkit supporting truecolor (24bit/8bpc RGB)",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-coffee": "^2.3.1",
+    "gulp-git": "^1.6.1",
+    "gulp-spawn": "^0.3.0",
+    "gulp-util": "^3.0.7",
+    "gulp-vows": "^0.1.2",
+    "guppy-pre-commit": "^0.3.0",
+    "vows": "^0.8.1"
+  },
+  "engines": {
+    "node": ">= 4.2"
+  },
+  "homepage": "https://github.com/MarkGriffiths/trucolor",
+  "keywords": [
+    "color",
+    "24bit",
+    "truecolor",
+    "SGR",
+    "ansi",
+    "command line",
+    "fish"
+  ],
+  "license": "MIT",
+  "main": "./index.js",
+  "name": "trucolor",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MarkGriffiths/trucolor.git"
+  },
+  "scripts": {
+    "test": "vows test/*.coffee --spec"
+  },
+  "version": "0.2.0"
 }
