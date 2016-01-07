@@ -1,10 +1,10 @@
 'use strict'
 ###
- trucolor (v0.1.8-beta.2) 24bit color tools for the command line
+ trucolor
  Color Output
 ###
 console = global.vConsole
-terminalFeatures = require '@thebespokepixel/term-ng'
+terminalFeatures = require 'term-ng'
 converter = require 'color-convert'
 
 sgr =

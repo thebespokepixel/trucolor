@@ -1,6 +1,3 @@
-# GitHub pages config: http://EditorConfig.org
-
-# top-most EditorConfig file
 root = true
 
 # Unix-style newlines with a newline ending every file

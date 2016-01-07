@@ -1,14 +1,29 @@
-# trucolor v0.1.8-beta.2
-![Project status](http://img.shields.io/badge/status-beta-blue.svg?style=flat) [![Build Status](http://img.shields.io/travis/MarkGriffiths/trucolor.svg?style=flat)](https://travis-ci.org/MarkGriffiths/trucolor) [![Dependency Status](http://img.shields.io/david/MarkGriffiths/trucolor.svg?style=flat)](https://david-dm.org/MarkGriffiths/trucolor) [![devDependency Status](http://img.shields.io/david/dev/MarkGriffiths/trucolor.svg?style=flat)](https://david-dm.org/MarkGriffiths/trucolor#info=devDependencies)
+[project-badge]: http://img.shields.io/badge/status-beta-blue.svg?style=flat
+[build-badge]: http://img.shields.io/travis/MarkGriffiths/trucolor.svg?branch=master&style=flat
+[david-badge]: http://img.shields.io/david/MarkGriffiths/trucolor.svg?style=flat
+[david-dev-badge]: http://img.shields.io/david/dev/MarkGriffiths/trucolor.svg?style=flat
+[npm-badge]: https://img.shields.io/npm/v/trucolor.svg?style=flat
 
+[travis]: https://travis-ci.org/MarkGriffiths/trucolor
+[david]: https://david-dm.org/MarkGriffiths/trucolor
+[david-dev]: https://david-dm.org/MarkGriffiths/trucolor#info=devDependencies
+[npm]: https://www.npmjs.com/package/trucolor
+
+# trucolor
 A node.js module and command line utility for using 24bit color SGR codes in modern terminals.
+
+![Project status][project-badge]
+[![Build Status][build-badge]][travis]
+[![Dependency Status][david-badge]][david]
+[![devDependency Status][david-dev-badge]][david-dev]
+[![npm Status][npm-badge]][npm]
 
 ## Install
 ##### Global version, for CLI use
-`npm install --global @thebespokepixel/trucolor`
+`npm install --global trucolor`
 
 ##### Module, for programmatic use
-`npm install --save @thebespokepixel/trucolor`
+`npm install --save trucolor`
 
 ## CLI Usage
 
@@ -151,12 +166,12 @@ I use this to make sure help pages are consistent between different modules.
 
 ```javascript
 //ES6
-require('@thebespokepixel/trucolor').simplePalette(clr => {
+require('trucolor').simplePalette(clr => {
 	console.log("${clr.command}trucolor${clr.normal} palettes");
 });
 
 //ES5
-var trucolor = require('@thebespokepixel/trucolor');
+var trucolor = require('trucolor');
 trucolor.simplePalette(function(clr) {
 	console.log(clr.command + "trucolor" + clr.normal + "palettes");
 });
@@ -166,7 +181,7 @@ trucolor.simplePalette(function(clr) {
 ### Bulk color creation
 
 ```javascript
-var trucolor = require('@thebespokepixel/trucolor');
+var trucolor = require('trucolor');
 
 trucolor.bulk({
 	color_1: 'red lighten 10',

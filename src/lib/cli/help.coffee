@@ -1,43 +1,16 @@
 'use strict'
 ###
- trucolor (v0.1.8-beta.2) : 24bit color tools for the command line
+ trucolor
  Command line help
 ###
 
 console = global.vConsole
-trucolor = require('../../index')
+trucolor = require '../..'
 truwrap = require 'truwrap'
 deepAssign = require 'deep-assign'
-converter = require 'color-convert'
-terminalFeatures = require '@thebespokepixel/term-ng'
+terminalFeatures = require 'term-ng'
 
 setupPage = (clr) ->
-	spcr = '\t' if terminalFeatures.images
-	spcr ?= ''
-	if terminalFeatures.color.has16m
-		spectrum = (width_, char_) -> (
-			for col in [0..width_-1]
-				scos =  Math.cos((col / width_) * (Math.PI/2))
-				ssin =  Math.sin((col / width_) * (Math.PI))
-				red =   if scos > 0 then Math.floor(scos * 255) else 0
-				green = if ssin > 0 then Math.floor(ssin * 255) else 0
-				blue =  if scos > 0 then Math.floor((1 - scos) * 255) else 0
-				"\x1b[38;2;#{red};#{green};#{blue}m#{char_}").join('')
-
-		header = ->
-				[        " #{clr.red  }━┳━╸     #{clr.bright}╭──╮  ╷"
-				  "#{spcr} #{clr.green} ┃ ┏━┓╻ ╻#{clr.bright}│  ╭─╮│╭─╮╭─╮ #{clr.normal}#{trucolor.getDescription()}"
-				  "#{spcr} #{clr.blue } ╹ ╹  ┗━┛#{clr.bright}╰──╰─╯╵╰─╯╵   #{clr.grey}#{trucolor.getVersion(3)}"
-				].join "\n"
-	else
-		header = ->
-				[
-					"#{clr.bright}#{trucolor.getName()}#{clr.normal}"
-					"#{spcr}#{trucolor.getDescription()}"
-					"#{spcr}#{clr.grey}#{trucolor.getVersion(3)}#{clr.normal}"
-				].join "\n"
-		spectrum = -> "\n#{clr.red}  Your terminal currently doesn't support 24 bit color."
-
 	if terminalFeatures.images
 		img =
 			space : "\t"
@@ -49,6 +22,31 @@ setupPage = (clr) ->
 		img =
 			space : ""
 			cc    : render: -> ""
+
+	if terminalFeatures.color.has16m
+		spectrum = (width_, char_) -> (
+			for col in [0..width_-1]
+				scos =  Math.cos((col / width_) * (Math.PI/2))
+				ssin =  Math.sin((col / width_) * (Math.PI))
+				red =   if scos > 0 then Math.floor(scos * 255) else 0
+				green = if ssin > 0 then Math.floor(ssin * 255) else 0
+				blue =  if scos > 0 then Math.floor((1 - scos) * 255) else 0
+				"\x1b[38;2;#{red};#{green};#{blue}m#{char_}").join('')
+
+		header = ->
+				[             " #{clr.red  }━┳━╸     #{clr.bright}╭──╮  ╷"
+				  "#{img.space} #{clr.green} ┃ ┏━┓╻ ╻#{clr.bright}│  ╭─╮│╭─╮╭─╮ #{clr.normal}#{trucolor.getDescription()}"
+				  "#{img.space} #{clr.blue } ╹ ╹  ┗━┛#{clr.bright}╰──╰─╯╵╰─╯╵   #{clr.grey}#{trucolor.getVersion(3)}"
+				].join "\n"
+	else
+		header = ->
+				[
+					"#{clr.bright}#{trucolor.getName()}#{clr.normal}"
+					"#{img.space}#{trucolor.getDescription()}"
+					"#{img.space}#{clr.grey}#{trucolor.getVersion(3)}#{clr.normal}"
+				].join "\n"
+		spectrum = -> "\n#{clr.red}  Your terminal currently doesn't support 24 bit color."
+
 	pages =
 		shared:
 			header: header
@@ -61,8 +59,9 @@ setupPage = (clr) ->
 			"""
 			epilogue: """
 				#{clr.title}#{ trucolor.getName() }#{clr.titleOut} is an open source component of CryptoComposite\'s toolset.
-				#{clr.title}© 2015 CryptoComposite.#{clr.titleOut} #{clr.grey}Released under the MIT License.
+				#{clr.title}© 2014-2016 CryptoComposite.#{clr.titleOut} #{clr.grey}Released under the MIT License.
 				#{clr.grey}Documentation/Issues/Contributions @ http://github.com/MarkGriffiths/trucolor#{clr.normal}
+
 			"""
 		default:
 			usage: """
@@ -321,12 +320,9 @@ outputPage = (yargs_, pages_, helpPage_) ->
 
 	windowWidth = container.getWidth()
 
-	rightMargin = 116 - windowWidth if windowWidth > 120
-	rightMargin ?= -2
-
 	renderer = truwrap
 		left: 2
-		right: rightMargin
+		right: -2
 		mode: 'soft'
 		outStream: process.stderr
 
@@ -346,7 +342,7 @@ outputPage = (yargs_, pages_, helpPage_) ->
 		align: 2
 	container.write pages_.shared.header()
 	renderer.break()
-	container.write pages_.shared.spectrum contentWidth + 4, "━"
+	container.write pages_.shared.spectrum windowWidth, "–"
 	renderer.break(2)
 	renderer.write pages_.shared.synopsis
 	renderer.write yargs_.help()
@@ -387,5 +383,5 @@ module.exports = (yargs_, helpPage_) ->
 			exInvert      : 'invert #7B00B1'
 			exUnderline   : 'underline #fff'
 			exBlink       : 'blink orange',
-			{}, (clr)->
+			{}, (clr) ->
 				outputPage yargs_, setupPage(deepAssign clr, basic), helpPage_

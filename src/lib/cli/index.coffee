@@ -1,10 +1,10 @@
 'use strict'
 ###
- trucolor (v0.1.8-beta.2) : 24bit color tools for the command line
+ trucolor
  Command line functionality
 ###
 
-_root = require "../../index"
+trucolor = require "../.."
 console = global.vConsole
 _parser = require '../parser'
 
@@ -45,7 +45,7 @@ yargs = require 'yargs'
 argv = yargs.argv
 
 if argv.version
-	process.stdout.write _root.getVersion(argv.version)
+	process.stdout.write trucolor.getVersion(argv.version)
 	process.exit 0
 
 if argv.verbose
@@ -68,7 +68,7 @@ if argv._.length == 0
 
 _parser argv._
 
-_root.route (output_) ->
+trucolor.route (output_) ->
 	if console.canWrite 4
 		console.pretty output_,
 			depth: 2

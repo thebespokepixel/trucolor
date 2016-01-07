@@ -1,10 +1,10 @@
 'use strict';
 
 /*
-	trucolor (v0.1.8-beta.2)
+	trucolor
 	24bit color tools for the command line
 
-	Copyright (c) 2015 CryptoComposite
+	Copyright (c) 2016 CryptoComposite
 
 	Permission is hereby granted, free of charge, to any person
 	obtaining a copy of this software and associated documentation
@@ -27,7 +27,7 @@
  */
 var _cache, _convert_package, _interpreter, _less_package, _package, _parser, _processor, _router, console;
 
-console = global.vConsole != null ? global.vConsole : global.vConsole = require('@thebespokepixel/verbosity').console({
+console = global.vConsole != null ? global.vConsole : global.vConsole = require('verbosity').console({
   out: process.stderr
 });
 

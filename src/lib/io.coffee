@@ -1,12 +1,12 @@
 'use strict'
 ###
- trucolor (v0.1.8-beta.2) 24bit color tools for the command line
+ trucolor
  Output Collection
 ###
 
 console = global.vConsole
 deepAssign = require 'deep-assign'
-terminalFeatures = require '@thebespokepixel/term-ng'
+terminalFeatures = require 'term-ng'
 _output = require "./output"
 
 class IOCollection

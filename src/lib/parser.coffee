@@ -1,6 +1,6 @@
 'use strict'
 ###
- trucolor (v0.1.8-beta.2) : 24bit color tools for the command line
+ trucolor
  Command parser
 ###
 

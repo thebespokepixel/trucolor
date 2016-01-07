@@ -5,5 +5,5 @@ test/*
 *.map
 .editorconfig
 .travis.yml
-Gruntfile.coffee
+gulpfile.coffee
 .npmignore
