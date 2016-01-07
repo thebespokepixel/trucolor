@@ -11,7 +11,7 @@
     "url": "https://github.com/MarkGriffiths/trucolor/issues"
   },
   "dependencies": {
-    "color-convert": "^0.7.0",
+    "color-convert": "^1.0.0",
     "deep-assign": "^2.0.0",
     "less": "^2.5.1",
     "term-ng": "^0.2.0",
