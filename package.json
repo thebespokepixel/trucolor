@@ -48,7 +48,7 @@
     "color-convert": "^0.7.0",
     "deep-assign": "^2.0.0",
     "less": "^2.5.1",
-    "truwrap": "*",
+    "truwrap": "0.2.1",
     "underscore": "^1.8.3",
     "yargs": "^3.25.0"
   }
