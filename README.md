@@ -167,13 +167,13 @@ I use this to make sure help pages are consistent between different modules.
 ```javascript
 //ES6
 require('trucolor').simplePalette(clr => {
-	console.log("${clr.command}trucolor${clr.normal} palettes");
+  console.log("${clr.command}trucolor${clr.normal} palettes");
 });
 
 //ES5
 var trucolor = require('trucolor');
 trucolor.simplePalette(function(clr) {
-	console.log(clr.command + "trucolor" + clr.normal + "palettes");
+  console.log(clr.command + "trucolor" + clr.normal + "palettes");
 });
 
 ```
@@ -184,9 +184,9 @@ trucolor.simplePalette(function(clr) {
 var trucolor = require('trucolor');
 
 trucolor.bulk({
-	color_1: 'red lighten 10',
-	color_2: '#fe2316',
-	color_3: 'hsl(120,50,60)'
+  color_1: 'red lighten 10',
+  color_2: '#fe2316',
+  color_3: 'hsl(120,50,60)'
 }, { output: 'value|sgr|swatch' }, function (colour_object) {
 	... object containing HEX value, SGR codes or swatch strings, ready to write to stdio streams ...
 }); // Synchronous operation, despite callback
