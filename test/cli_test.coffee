@@ -6,7 +6,7 @@ assert = require 'assert'
 _package = require '../package.json'
 trucolor = require('..')
 exec = require('child_process').exec
-bin = _package.bin[_package.name.split('/')[1]]
+bin = _package.bin[_package.name]
 
 vows
 	.describe("#{_package.name} cli")
