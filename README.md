@@ -10,7 +10,7 @@
 [npm]: https://www.npmjs.com/package/trucolor
 
 # trucolor
-A node.js module and command line utility for using 24bit color SGR codes in modern terminals.
+A node module and CLI utility for using 24bit color SGR codes in modern terminals.
 
 ![Project status][project-badge]
 [![Build Status][build-badge]][travis]

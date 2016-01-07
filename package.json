@@ -1,5 +1,9 @@
 {
-  "author": "Mark Griffiths",
+  "author": {
+    "name": "Mark Griffiths",
+    "email": "mark@thebespokepixel.com",
+    "url": "http://thebespokepixel.com"
+  },
   "bin": {
     "trucolor": "./bin/trucolor.js"
   },
