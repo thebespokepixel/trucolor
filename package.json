@@ -17,7 +17,7 @@
     "term-ng": "^0.2.0",
     "truwrap": "^0.2.6",
     "underscore": "^1.8.3",
-    "verbosity": "^0.2.1",
+    "verbosity": "^0.2.3",
     "yargs": "^3.25.0"
   },
   "description": "Terminal color toolkit supporting truecolor (24bit/8bpc RGB)",
