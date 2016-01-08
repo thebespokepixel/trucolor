@@ -40,11 +40,7 @@ _cache =      new (require './lib/cache')
 
 _simple = null
 
-if _cache.load()
-	console.debug "Cache loaded."
-else
-	console.warn "Cache invalidated."
-	_cache.clear()
+unless _cache.load(yes) then _cache.clear()
 
 exports.getName =        -> return _package.name
 exports.getDescription = -> return _package.description

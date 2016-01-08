@@ -109,7 +109,7 @@ class Cache
 			return @_getContentBytes(clone_content) - cache_bytes
 
 		# autoload the cache file at first time
-		@load()
+		@load(yes)
 
 	# Put data into cache.
 	set: (key, val) ->
@@ -172,13 +172,13 @@ class Cache
 
 
 	# Load the cache from file.
-	load: ->
+	load: (hush_) ->
 		try
 			obj = JSON.parse fs.readFileSync(@filename)
 			@_cache = obj.c
 			@_queue = obj.q
 		catch e
-			console.log e.toString()
+			console.error e.toString() if hush_?
 			return false
 		return true
 

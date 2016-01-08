@@ -389,5 +389,4 @@ module.exports = (yargs_, helpPage_) ->
 	renderer.break(2)
 	renderer.write epilogue
 	renderer.break()
-	console.pretty trucolor.simplePalette()
 

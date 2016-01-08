@@ -49,10 +49,7 @@ _cache = new (require('./lib/cache'));
 
 _simple = null;
 
-if (_cache.load()) {
-  console.debug("Cache loaded.");
-} else {
-  console.warn("Cache invalidated.");
+if (!_cache.load(true)) {
   _cache.clear();
 }
 
