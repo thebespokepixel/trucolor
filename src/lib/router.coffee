@@ -72,9 +72,10 @@ exports.run = (callback_) ->
 				.replace /,\n}/, '\n}')
 
 			for id, content of routing.less
-				routing.fast[id] = converter.hex2rgb content
+				routing.fast[id] = converter.hex.rgb content
 				trucolor.cachePut(routing.cidx[id], routing.fast[id])
 
 			callback_ new _io routing
 	else
 		callback_ new _io routing
+

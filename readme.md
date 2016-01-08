@@ -173,10 +173,14 @@ var palette = require('trucolor').simplePalette();
 ```javascript
 var trucolor = require('trucolor');
 
-var palette = trucolor.bulk({ output: 'value|sgr|swatch' }, {
+// the options object can be passed empty - the default output is 'sgr'
+
+var palette = trucolor.bulk({ output: 'sgr|value|swatch' }, {
   color_1: 'red lighten 10',
   color_2: '#fe2316',
   color_3: 'hsl(120,50,60)'
 });
+
+
 ```
 

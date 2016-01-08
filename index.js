@@ -25,7 +25,7 @@
 	TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 	SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-var _cache, _convert_package, _interpreter, _less_package, _package, _parser, _processor, _router, console;
+var _cache, _convert_package, _interpreter, _less_package, _package, _parser, _processor, _router, _simple, bulk, console;
 
 console = global.vConsole != null ? global.vConsole : global.vConsole = require('verbosity').console({
   out: process.stderr
@@ -46,6 +46,8 @@ _router = require('./lib/router');
 _parser = require('./lib/parser');
 
 _cache = new (require('./lib/cache'));
+
+_simple = null;
 
 if (_cache.load()) {
   console.debug("Cache loaded.");
@@ -75,8 +77,6 @@ exports.getVersion = function(long_) {
   }
 };
 
-exports.simplePalette = require('./lib/palettes/simple');
-
 exports.cacheGet = function(name_) {
   return _cache.get(name_);
 };
@@ -97,7 +97,7 @@ exports.interpret = function(input_) {
   return new _interpreter(input_);
 };
 
-exports.bulk = function(options_, object_) {
+exports.bulk = bulk = function(options_, object_) {
   var collection, key_, ref, type, value_;
   type = (ref = options_.type) != null ? ref : 'sgr';
   _router.reset();
@@ -133,3 +133,9 @@ exports.bulk = function(options_, object_) {
 };
 
 exports.route = _router.run;
+
+exports.reset = _router.reset;
+
+exports.simplePalette = function() {
+  return _simple != null ? _simple : _simple = bulk({}, require('./lib/palettes/simple'));
+};

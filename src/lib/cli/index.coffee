@@ -66,6 +66,8 @@ if argv._.length == 0
 	console.error 'At least one color must be specified.'
 	process.exit 1
 
+do trucolor.reset
+
 _parser argv._
 
 trucolor.route (output_) ->

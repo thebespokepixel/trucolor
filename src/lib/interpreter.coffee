@@ -75,28 +75,28 @@ class Interpreter
 				b = @source.input[3]
 				@name = String(r + r + g + g + b + b)
 				@source.input = @source.input[0]
-				converter.hex2rgb @name
+				converter.hex.rgb @name
 			when 'HEXHEX', '#HEXHEX'
 				@name = @source.input
-				converter.hex2rgb @name
+				converter.hex.rgb @name
 			when 'RGB'
-				@name = converter.rgb2hex @source.input
-				converter.hex2rgb @name
+				@name = converter.rgb.hex @source.input
+				converter.hex.rgb @name
 			when 'HSL'
-				@name = converter.hsl2hex @source.input
-				converter.hsl2rgb @source.input
+				@name = converter.hsl.hex @source.input
+				converter.hsl.rgb @source.input
 			when 'HSV'
-				@name = converter.hsv2hex @source.input
-				converter.hsv2rgb @source.input
+				@name = converter.hsv.hex @source.input
+				converter.hsv.rgb @source.input
 			when 'HWB'
-				@name = converter.hwb2hex @source.input
-				converter.hwb2rgb @source.input
+				@name = converter.hwb.hex @source.input
+				converter.hwb.rgb @source.input
 			when 'SGR'
 				@name = @source.input
 				[0,0,0]
 			when 'named'
-				@name = converter.keyword2hex @source.input
-				converter.keyword2rgb @source.input
+				@name = converter.keyword.hex @source.input
+				converter.keyword.rgb @source.input
 
 		console.debug "Colour (#{@name}) RGB:#{@RGB} from #{@source.space} as #{@source.human}"
 
@@ -105,6 +105,6 @@ class Interpreter
 	getInput: -> @source.input
 	getHuman: -> @source.human
 	getSpace: -> @source.space
-	toString: -> converter.rgb2hex @RGB
+	toString: -> converter.rgb.hex @RGB
 
 module.exports = Interpreter

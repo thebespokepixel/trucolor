@@ -10,7 +10,7 @@ truwrap = require 'truwrap'
 deepAssign = require 'deep-assign'
 terminalFeatures = require 'term-ng'
 
-clr = deepAssign trucolor.simplePalette(), (trucolor.bulk {},
+clr = deepAssign trucolor.simplePalette(), trucolor.bulk {},
 		purple        : 'purple'
 		purpleSwatch  : 'purple desaturate 70'
 		orange        : 'hsb:45,100,100'
@@ -34,7 +34,7 @@ clr = deepAssign trucolor.simplePalette(), (trucolor.bulk {},
 		exItalic      : 'italic #33FF33'
 		exInvert      : 'invert #7B00B1'
 		exUnderline   : 'underline #fff'
-		exBlink       : 'blink orange')
+		exBlink       : 'blink orange'
 
 module.exports = (yargs_, helpPage_) ->
 	images = if terminalFeatures.images
@@ -389,4 +389,5 @@ module.exports = (yargs_, helpPage_) ->
 	renderer.break(2)
 	renderer.write epilogue
 	renderer.break()
+	console.pretty trucolor.simplePalette()
 

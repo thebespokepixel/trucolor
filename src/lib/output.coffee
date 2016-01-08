@@ -46,14 +46,14 @@ class Output
 	constructor: (rgbIn, @attrs) ->
 		if rgbIn?
 			if /^[0-9a-f]{6}$/i.test rgbIn
-				@rgb = converter.hex2rgb rgbIn
+				@rgb = converter.hex.rgb rgbIn
 				@hex = rgbIn
 			else if /^#[0-9a-f]{6}$/i.test rgbIn
-				@rgb = converter.hex2rgb rgbIn
+				@rgb = converter.hex.rgb rgbIn
 				@hex = rgbIn[1..]
 			else
 				@rgb = rgbIn
-				@hex = converter.rgb2hex rgbIn
+				@hex = converter.rgb.hex rgbIn
 
 			@red = @rgb[0]
 			@green = @rgb[1]
@@ -76,8 +76,8 @@ class Output
 		if @rgb? and terminalFeatures.color.level?
 			sgr.code = [
 				''
-				converter.rgb2ansi16 @rgb
-				converter.rgb2ansi @rgb
+				converter.rgb.ansi16 @rgb
+				converter.rgb.ansi256 @rgb
 				@rgb.join ';'
 			][terminalFeatures.color.level ? 0]
 			sgr.selector = [
@@ -105,8 +105,8 @@ class Output
 		if @rgb? and terminalFeatures.color.level?
 			sgr.code = [
 				''
-				converter.rgb2ansi16 @rgb
-				converter.rgb2ansi @rgb
+				converter.rgb.ansi16 @rgb
+				converter.rgb.ansi256 @rgb
 				@rgb.join ';'
 			][terminalFeatures.color.level ? 0]
 

@@ -38,6 +38,8 @@ _router =          require './lib/router'
 _parser =          require './lib/parser'
 _cache =      new (require './lib/cache')
 
+_simple = null
+
 if _cache.load()
 	console.debug "Cache loaded."
 else
@@ -54,9 +56,6 @@ exports.getVersion =   (long_) ->
 		when 2 then "#{_package.name} v#{_package.version}"
 		else "#{_package.version}"
 
-# Simple palette export for fast inclusion in other modules
-exports.simplePalette = require './lib/palettes/simple'
-
 # Simple on-disk caching
 exports.cacheGet =     (name_) -> _cache.get name_
 exports.cachePut =     (name_, value_) -> _cache.set name_, value_
@@ -66,8 +65,9 @@ exports.cacheClear =   (name_) -> _cache.clear name_
 exports.newProcessor = (name_) -> _router.add new _processor name_
 exports.interpret =    (input_) -> new _interpreter input_
 
-exports.bulk =         (options_, object_) ->
+exports.bulk = bulk =  (options_, object_) ->
 	{type = 'sgr'} = options_
+
 	do _router.reset
 
 	for key_, value_ of object_
@@ -90,3 +90,8 @@ exports.bulk =         (options_, object_) ->
 
 # Fast/Slow/Less/Caching Router
 exports.route = _router.run
+exports.reset = _router.reset
+
+# Simple palette export for fast inclusion in other modules
+exports.simplePalette = ->
+	_simple ?= bulk {}, require('./lib/palettes/simple')
