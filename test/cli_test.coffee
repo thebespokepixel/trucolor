@@ -1,10 +1,9 @@
 'use strict'
-
-
 vows = require 'vows'
 assert = require 'assert'
+semverRegex = require 'semver-regex'
 _package = require '../package.json'
-trucolor = require('..')
+trucolor = require '..'
 exec = require('child_process').exec
 bin = _package.bin[_package.name]
 

@@ -2,8 +2,8 @@
 vows = require  'vows'
 assert = require  'assert'
 _package = require '../package.json'
-trucolor = require('..')
-namedVows = vows.describe("#{_package.name} Named Colors")
+trucolor = require '..'
+namedVows = vows.describe "#{_package.name} Named Colors"
 namedVows.addBatch
 	"Primaries":
 		topic: ->
