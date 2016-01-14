@@ -59,7 +59,7 @@ if argv.verbose
 			console.yargs argv
 
 if argv.help
-	require('./help')(yargs, argv.help)
+	require('./help')(yargs, argv._[0])
 	process.exit 0
 
 if argv._.length == 0

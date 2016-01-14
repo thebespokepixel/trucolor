@@ -221,9 +221,9 @@ module.exports = (yargs_, helpPage_) ->
 				Dipsy 008000
 				TinkyWinky 800080
 
-				> #{clr.command}trucolor #{clr.argument}hsl:120,100,50 bob: orange spin 180#{clr.normal}
+				> #{clr.command}trucolor #{clr.argument}hsl:120,100,50 apple: orange spin 90#{clr.normal}
 				hsl-120-100-50 00FF00
-				bob 005AFF
+				apple 005AFF
 
 			#{clr.title}Note:#{clr.normal} #{clr.option}--message#{clr.normal}, #{clr.option}--swatch#{clr.normal}, #{clr.option}--in#{clr.normal}, #{clr.option}--out#{clr.normal} and #{clr.option}--rgb#{clr.normal} currently only output the first color specified.
 			"""
