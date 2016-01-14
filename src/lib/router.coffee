@@ -64,8 +64,6 @@ exports.run = (callback_) ->
 	if Object.keys(routing.slow).length > 0
 		lessIn = "out {\n#{([].concat "#{name}: #{color}" for name, color of routing.slow).join '; '};\n}"
 		less.render lessIn, {}, (err, output_) ->
-
-
 			routing.less = JSON.parse(output_.css
 				.replace /^out {/, '{'
 				.replace /([0-9a-zA-Z_-]+):\s(#[0-9A-Fa-f]{3,6});/g, '"$1": "$2",'
