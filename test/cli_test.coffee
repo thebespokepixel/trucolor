@@ -16,9 +16,9 @@ vows
 				topic: ->
 					exec "#{bin} -v", @callback
 					return
-				"#{_package.version} matches /[0-9]+.[0-9]+.[0-9]+[0-9a-z.-]*/": (error_, output_) ->
+				"#{_package.version} matches semver-regex": (error_, output_) ->
 					assert.isNull error_
-					assert.match output_, /[0-9]+.[0-9]+.[0-9]+[0-9a-z.-]*/
+					assert.isTrue semverRegex().test output_
 
 			"is #{_package.version}?":
 				topic: ->

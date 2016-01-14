@@ -30,6 +30,7 @@
     "gulp-util": "^3.0.7",
     "gulp-vows": "^0.1.2",
     "guppy-pre-commit": "^0.3.0",
+    "semver-regex": "^1.0.0",
     "vows": "^0.8.1"
   },
   "engines": {

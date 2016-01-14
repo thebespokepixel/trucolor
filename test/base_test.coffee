@@ -1,8 +1,9 @@
 'use strict'
 vows = require  'vows'
 assert = require  'assert'
+semverRegex = require 'semver-regex'
 _package = require '../package.json'
-trucolor = require('..')
+trucolor = require '..'
 
 vows
 	.describe("#{_package.name} module")
@@ -17,8 +18,8 @@ vows
 		'Module version':
 			"is semvar?":
 				topic: trucolor.getVersion 1
-				"#{_package.version} matches /[0-9]+.[0-9]+.[0-9]+[0-9a-z.-]*/": (topic) ->
-					assert.match topic, /[0-9]+.[0-9]+.[0-9]+[0-9a-z.-]*/
+				"#{_package.version} matches semver-regex": (topic) ->
+					assert.isTrue semverRegex().test topic
 
 			"is #{_package.version}?":
 				topic: trucolor.getVersion 1
