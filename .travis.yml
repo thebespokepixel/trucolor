@@ -3,12 +3,3 @@ node_js:
 - 4.2
 - stable
 sudo: false
-deploy:
-  provider: npm
-  email: mark@thebespokepixel.com
-  api_key:
-    secure: ZqXxnhuBOi2LVY3zkeiXXTQelSY9sbZFQZlAhY++R3KVJLewXC+ez66kBnyRY34DXYnkU1gV+aMx/gImJSlto0X7KByrBlTTNhe0e7Kw+PPDd6IiCJzXanNAp3spFwX3JmyYhQX522AF3PmITE7IqVdi7vszTx3BM9JxqoFPpkI=
-  on:
-    tags: true
-    repo: MarkGriffiths/trucolor
-    branch: master
