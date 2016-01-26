@@ -4,7 +4,7 @@
 vows = require 'vows'
 assert = require 'assert'
 _package = require '../package.json'
-trucolor = require('..')
+trucolor = require '..'
 exec = require('child_process').exec
 bin = _package.bin[_package.name]
 
@@ -77,6 +77,15 @@ vows
 				"Should equal FCEED0": (error, output) ->
 					assert.isNull error
 					assert.equal output, 'FCEED0'
+	.addBatch
+		'Check Styles':
+			"Bold Red?":
+				topic: ->
+					exec "#{bin} --color=16m bold red", @callback
+					return
+				"Should equal --bold FF0000": (error, output) ->
+					assert.isNull error
+					assert.equal output, '--bold FF0000'
 	.addBatch
 		'Check Options':
 			"Red as rgb()?":

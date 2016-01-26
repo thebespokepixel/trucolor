@@ -3,7 +3,9 @@
 	trucolor
 	24bit color tools for the command line
 
-	Copyright (c) 2016 CryptoComposite
+	The MIT License (MIT)
+
+	Copyright (c) 2016 Mark Griffiths
 
 	Permission is hereby granted, free of charge, to any person
 	obtaining a copy of this software and associated documentation
@@ -23,6 +25,9 @@
 	CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 	TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 	SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+	Chalkish bits taken from Chalk, under the MIT license.
+	(c) 2016 Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
 ###
 
 console = global.vConsole ?= require('verbosity').console
@@ -31,6 +36,7 @@ console = global.vConsole ?= require('verbosity').console
 _package =         require './package.json'
 _less_package =    require 'less/package.json'
 _convert_package = require 'color-convert/package.json'
+_escStringRE =      require 'escape-string-regexp'
 
 _interpreter =     require './lib/interpreter'
 _processor =       require './lib/processor'
@@ -39,6 +45,7 @@ _parser =          require './lib/parser'
 _cache =      new (require './lib/cache')
 
 _simple = null
+_functions = null
 
 unless _cache.load(yes) then _cache.clear()
 
@@ -63,25 +70,18 @@ exports.interpret =    (input_) -> new _interpreter input_
 
 exports.bulk = bulk =  (options_, object_) ->
 	{type = 'sgr'} = options_
-
 	do _router.reset
 
 	for key_, value_ of object_
 		_parser ["#{key_}:"].concat value_.split ' '
 
 	collection = {}
-	_router.run (output_) ->
+	_router.run options_, (output_) ->
 		output_.exportCollection().forEach (value_, key_) ->
-			switch key_
-				when 'normal', 'reset'
-					collection[key_] = "#{value_.SGRout()}"
-				else
-					collection[key_] = switch type
-						when 'value' then value_.valueOf()
-						when 'swatch' then value_.swatch()
-						else value_.SGRin()
-
-					collection["#{key_}Out"] = value_.SGRout() if value_.hasAttr()
+			collection[key_] = switch type
+				when 'value' then value_.valueOf()
+				when 'swatch' then value_.toSwatch()
+				else value_.toSGR()
 	return collection
 
 # Fast/Slow/Less/Caching Router
@@ -89,5 +89,52 @@ exports.route = _router.run
 exports.reset = _router.reset
 
 # Simple palette export for fast inclusion in other modules
-exports.simplePalette = ->
-	_simple ?= bulk {}, require('./lib/palettes/simple')
+simplePalette = exports.simplePalette = (options_ = {}) ->
+	if options_.force?
+		bulk options_, require './lib/palettes/simple'
+	else
+		_simple ?= bulk options_, require './lib/palettes/simple'
+
+class Chalkish
+	constructor: (styles) ->
+		styleFactory = do (collection = {}) ->
+			Object.keys(styles).forEach (key_) ->
+				styles[key_].closeRE = new RegExp(_escStringRE(styles[key_].out), 'g');
+				collection[key_] =
+					get: -> makePainter.call this, @_styles.concat key_
+				return
+			collection
+
+		proto = Object.defineProperties (->), styleFactory
+
+		makePainter = (styles_) ->
+			painter = () ->
+				applyPaint.apply painter, arguments
+			painter._styles = styles_
+			painter.__proto__ = proto
+			painter
+
+		applyPaint = (content_) ->
+			i = @_styles.length
+			while i--
+				sgrPair = styles[@_styles[i]];
+				content_ = sgrPair.in + content_.replace(sgrPair.closeRE, sgrPair.in) + sgrPair.out;
+			return content_
+
+		Object.defineProperties this, do (collection = {}) ->
+			Object.keys(styles).forEach (name) ->
+				collection[name] =
+					get: -> makePainter.call this, [name]
+				return
+			collection
+
+chalkish = exports.chalkish = (styles_) -> new Chalkish styles_
+
+# Function palette export for chalk-like nested functions
+exports.chalkishPalette = (options_ = {}) ->
+	if options_.force?
+		do (source_ = simplePalette(options_)) ->
+			chalkish source_
+	else
+		_functions ?= do (source_ = simplePalette(options_)) ->
+			chalkish source_

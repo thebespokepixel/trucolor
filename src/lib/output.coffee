@@ -3,147 +3,85 @@
  trucolor
  Color Output
 ###
-console = global.vConsole
+console =          global.vConsole
+_package =         require '../package.json'
 terminalFeatures = require 'term-ng'
-converter = require 'color-convert'
+converter =        require 'color-convert'
+SGRcomposer =      require 'sgr-composer'
 
-sgr =
-	start: [
-		''
-		'\x1b['
-		'\x1b['
-		'\x1b['
-	][terminalFeatures.color.level ? 0]
-	normal: '39;49'
-	reset: '0'
-	mode: [
-		''
-		''
-		'5'
-		'2'
-	][terminalFeatures.color.level ? 0]
-	bold:
-		in:  '1'
-		out: '22'
-	faint:
-		in:  '2'
-		out: '22'
-	italic:
-		in:  '3'
-		out: '23'
-	underline:
-		in:  '4'
-		out: '24'
-	blink:
-		in:  '5'
-		out: '25'
-	invert:
-		in:  '7'
-		out: '27'
-	end: 'm'
+colorOptionsSelected = _package.config.cli.selected
+colorOptions =     _package.config.cli[colorOptionsSelected]
+colorLevel =       terminalFeatures.color.level ? 0
 
 class Output
-	constructor: (rgbIn, @attrs) ->
-		if rgbIn?
-			if /^[0-9a-f]{6}$/i.test rgbIn
-				@rgb = converter.hex.rgb rgbIn
-				@hex = rgbIn
-			else if /^#[0-9a-f]{6}$/i.test rgbIn
-				@rgb = converter.hex.rgb rgbIn
-				@hex = rgbIn[1..]
+	constructor: (color_, styles_, options_ = {}) ->
+		@hasRGB = no
+		if color_?
+			styles_.color = switch
+				when /^[#][0-9a-f]{6}$/i.test color_
+					@hasRGB = yes
+					converter.hex.rgb color_
+				when Array.isArray color_
+					@hasRGB = yes
+					color_
+				when color_ in ['reset', 'normal']
+					@hasReset = yes
+					color_
+				else throw new Error "Unrecognised color: #{color_}"
+
+		if global.trucolor_CLI_type? and global.trucolor_CLI_type not in ['default', colorOptionsSelected]
+			colorOptionsSelected = global.trucolor_CLI_type
+			colorOptions = _package.config.cli[colorOptionsSelected]
+
+		@_buffer = new SGRcomposer options_.force ? colorLevel, styles_
+
+		console.info if @hasRGB
+			style = if style = @_buffer.style
+				sgr = @_buffer.sgr()
+				" + #{sgr.in}#{style}#{sgr.out}"
+			else ''
+			"Color:\tR:#{@_buffer.red}\tG:#{@_buffer.green}\tB:#{@_buffer.blue}\t#{@toSwatch()}#{style}"
+		else if @hasReset
+			"Reset: #{@_buffer.color} #{@toSwatch()}"
+		else
+			sgr = @_buffer.sgr()
+			"Style: #{sgr.in}#{@_buffer.style}#{sgr.out}"
+
+	valueOf: ->
+		if global.trucolor_CLI_type?
+			styling = (colorOptions[style] for style in @_buffer.styleArray).join ' '
+			styling += ' ' if styling.length
+			if @hasRGB
+				switch colorOptions.color
+					when 'hex' then "#{styling}#{@_buffer.hex}"
+					else "#{@_buffer.red} #{@_buffer.green} #{@_buffer.blue}"
+			else if @hasReset
+				switch @_buffer.color
+					when 'normal' then colorOptions.normal
+					else colorOptions.reset
 			else
-				@rgb = rgbIn
-				@hex = converter.rgb.hex rgbIn
-
-			@red = @rgb[0]
-			@green = @rgb[1]
-			@blue = @rgb[2]
-
-			console.info "Colour:\tR:#{@red}\tG:#{@green}\tB:#{@blue}\t#{@swatch()}"
-
-	valueOf: -> @hex ? 'normal'
+				@_buffer.sgr().in
+		else if @hasRGB
+			@_buffer.hex
+		else if @hasReset
+			@_buffer.color
+		else
+			@_buffer.sgr().in
 
 	toString: ->
-		if @rgb?
-			"rgb(#{@red}, #{@green}, #{@blue})"
+		if @hasRGB
+			"rgb(#{@_buffer.red}, #{@_buffer.green}, #{@_buffer.blue}" + ')'
+		else if @hasReset
+			@_buffer.color
 		else
-			"normal"
+			colorOptions.reset
 
-	swatch: ->
-		outSGR = []
-		if @attrs.faint then outSGR.push sgr.faint.in
-		if @attrs.blink then outSGR.push sgr.blink.in
-		if @rgb? and terminalFeatures.color.level?
-			sgr.code = [
-				''
-				converter.rgb.ansi16 @rgb
-				converter.rgb.ansi256 @rgb
-				@rgb.join ';'
-			][terminalFeatures.color.level ? 0]
-			sgr.selector = [
-				''
-				''
-				"38;#{sgr.mode};"
-				"38;#{sgr.mode};"
-			][terminalFeatures.color.level ? 0]
-			outSGR.unshift (sgr.selector + sgr.code)
-		if outSGR.length > 0 and terminalFeatures.color.level?
-			"#{sgr.start + (outSGR.join ';') + sgr.end}\u2588\u2588#{sgr.start + sgr.reset + sgr.end}"
-		else ""
+	toSwatch: ->
+		sgr = @_buffer.sgr ['bold','italic','underline','invert']
+		if colorLevel > 0
+			"#{sgr.in}\u2588\u2588#{sgr.out}"
+		else ''
 
-	hasAttr: -> @attrs.bold or @attrs.faint or @attrs.italic or @attrs.invert or @attrs.underline or @attrs.blink
-
-	SGRin: ->
-		outSGR = []
-		if @attrs.bold then outSGR.push sgr.bold.in
-		if @attrs.faint then outSGR.push sgr.faint.in
-		if @attrs.italic then outSGR.push sgr.italic.in
-		if @attrs.invert then outSGR.push sgr.invert.in
-		if @attrs.underline then outSGR.push sgr.underline.in
-		if @attrs.blink then outSGR.push sgr.blink.in
-
-		if @rgb? and terminalFeatures.color.level?
-			sgr.code = [
-				''
-				converter.rgb.ansi16 @rgb
-				converter.rgb.ansi256 @rgb
-				@rgb.join ';'
-			][terminalFeatures.color.level ? 0]
-
-			unless @attrs.background
-				sgr.selector = [
-					''
-					''
-					"38;#{sgr.mode};"
-					"38;#{sgr.mode};"
-				][terminalFeatures.color.level ? 0]
-			else
-				sgr.selector = [
-					''
-					''
-					"48;#{sgr.mode};"
-					"48;#{sgr.mode};"
-				][terminalFeatures.color.level ? 0]
-
-			outSGR.unshift sgr.selector + sgr.code
-
-		if outSGR.length > 0 and terminalFeatures.color.level?
-			sgr.start + (outSGR.join ';') + sgr.end
-		else ""
-
-	SGRout: ->
-		outSGR = []
-		if @attrs.bold then outSGR.push sgr.bold.out
-		if @attrs.faint then outSGR.push sgr.faint.out
-		if @attrs.italic then outSGR.push sgr.italic.out
-		if @attrs.invert then outSGR.push sgr.invert.out
-		if @attrs.underline then outSGR.push sgr.underline.out
-		if @attrs.blink then outSGR.push sgr.blink.out
-
-		outSGR.unshift sgr.normal if @rgb?
-
-		if outSGR.length > 0 and terminalFeatures.color.level?
-			sgr.start + (outSGR.join ';') + sgr.end
-		else ""
+	toSGR: -> @_buffer.sgr()
 
 module.exports = Output

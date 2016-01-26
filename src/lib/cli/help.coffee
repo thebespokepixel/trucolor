@@ -27,7 +27,6 @@ clr = deepAssign trucolor.simplePalette(), trucolor.bulk {},
 		bob           : 'black lighten 50 saturate 50 spin 180'
 		ul            : 'underline'
 		invert        : 'invert'
-		bold          : 'bold'
 		exBackground  : 'background dark red'
 		exBold        : 'bold yellow'
 		exFaint       : 'faint yellow'
@@ -55,7 +54,7 @@ module.exports = (yargs_, helpPage_) ->
 				red =   if scos > 0 then Math.floor(scos * 255) else 0
 				green = if ssin > 0 then Math.floor(ssin * 255) else 0
 				blue =  if scos > 0 then Math.floor((1 - scos) * 255) else 0
-				"\x1b[38;2;#{red};#{green};#{blue}m#{char_}").join('')
+				"\u001b[38;2;#{red};#{green};#{blue}m#{char_}").join('')
 	else
 		(width_, char_) ->
 			"#{char_.repeat width_}\n#{clr.red}  Your terminal currently doesn't support 24 bit color."
@@ -72,7 +71,7 @@ module.exports = (yargs_, helpPage_) ->
 				 [' └ ┘  └─┘', '└──└─┘└╰─┘┘  ']]
 			else
 				[['___      ', ' __']
-				 [' |  _    ', '|     |    _']
+				 [' | ,_    ', '|     |   ,_']
 				 [' | |  |_|', '|__(_)|(_)| ']]
 
 			[                "#{clr.red  }#{hT[0][0]}#{clr.bright}#{hT[0][1]}"
@@ -88,20 +87,20 @@ module.exports = (yargs_, helpPage_) ->
 			].join "\n"
 
 	synopsis = """
-		#{clr.title}Synopsis:#{clr.titleOut}
+		#{clr.title}Synopsis:#{clr.title.out}
 		#{clr.command}trucolor #{clr.option}[options] #{clr.argument}[name]: [operation...] color \
 		[operation...] [[name]: [operation...] color]...#{clr.option}
 	"""
 	epilogue = """
-		#{clr.title}#{ trucolor.getName() }#{clr.titleOut} is an open source component of CryptoComposite\'s toolset.
-		#{clr.title}© 2014-2016 CryptoComposite.#{clr.titleOut} #{clr.grey}Released under the MIT License.
+		#{clr.title}#{ trucolor.getName() }#{clr.title.out} is an open source component of CryptoComposite\'s toolset.
+		#{clr.title}© 2014-2016 Mark Griffiths/CryptoComposite.#{clr.title.out} #{clr.grey}Released under the MIT License.
 		#{clr.grey}Documentation/Issues/Contributions @ http://github.com/MarkGriffiths/trucolor#{clr.normal}
 
 	"""
 	pages =
 		default:
 			usage: """
-		#{clr.title}Usage:#{clr.titleOut}
+		#{clr.title}Usage:#{clr.title.out}
 		#{clr.normal}In it's simplest form, '#{clr.command}trucolor#{clr.normal} #{clr.argument}color#{clr.normal}', will take any of the color expressions listed below and transform it into a simple hexadecimal triplet string, i.e #{clr.argument}'AA00BB'#{clr.normal}, ideal for passing into the 'set_color' built-in in fish-shell, or providing the basis of further color processing.
 
 		It can return a wide range of color assignment and manipulation functions, based internally on color-convert and less. See the examples below.
@@ -112,23 +111,30 @@ module.exports = (yargs_, helpPage_) ->
 
 		The #{clr.argument}color#{clr.normal} can be defined in any the following formats:
 
-			CSS Hexadecimal (#{clr.red}Red #{clr.green}Green #{clr.blue}Blue#{clr.normal}) #{clr.argument}[#]RRGGBB#{clr.normal} or #{clr.argument}[#]RGB#{clr.normal} where R, G and B are '0'-'F'.
+		CSS Hexadecimal
+		#{clr.argument}[#]RRGGBB#{clr.normal} or #{clr.argument}[#]RGB#{clr.normal} where R, G and B are '0'-'F'.
 
-			RGB (#{clr.red}Red #{clr.green}Green #{clr.blue}Blue#{clr.normal}) #{clr.argument}rgb:R,G,B#{clr.normal} or #{clr.argument}rgb(R,G,B)#{clr.normal} where R,G and B are 0-255.
-			Spaces can be incuded but require quoting/escaping on the CLI. i.e '#{clr.argument}rgb(R, G, B)#{clr.normal}'
+		CSS Named Colors
+		#{clr.red}Red, #{clr.green}green, #{clr.hotpink}hotpink, #{clr.chocolate}chocolate#{clr.normal}... (see '#{clr.option}--help named#{clr.normal}')
 
-			HSL (#{clr.red}H#{clr.green}u#{clr.blue}e#{clr.dark} Sat#{clr.msat}ura#{clr.red}tion #{clr.dark}Lig#{clr.mlight}htn#{clr.bright}ess#{clr.normal}) #{clr.argument}hsl:H,S,L#{clr.normal} where H is 0-360, S 0-100 and L 0-100
+		RGB
+		#{clr.argument}rgb:R,G,B#{clr.normal} or #{clr.argument}rgb(R,G,B)#{clr.normal} where #{clr.red}R#{clr.normal}, #{clr.green}G#{clr.normal} and #{clr.blue}B#{clr.normal} are 0-255.
+		Spaces require quoting/escaping on the CLI. i.e '#{clr.argument}rgb(R, G, B)#{clr.normal}'
 
-			HSV (#{clr.red}H#{clr.green}u#{clr.blue}e#{clr.dark} Sat#{clr.msat}ura#{clr.red}tion #{clr.dark}V#{clr.mlight}alu#{clr.bright}e#{clr.normal}) #{clr.argument}hsl:H,S,V#{clr.normal} where H is 0-360, S 0-100 and V 0-100
+		HSL (#{clr.red}H#{clr.green}u#{clr.blue}e#{clr.dark} Sat#{clr.msat}ura#{clr.red}tion #{clr.dark}Lig#{clr.mlight}htn#{clr.bright}ess#{clr.normal})
+		#{clr.argument}hsl:H,S,L#{clr.normal} where H is 0-360, S 0-100 and L 0-100
 
-			HSB (#{clr.red}H#{clr.green}u#{clr.blue}e#{clr.dark} Sat#{clr.msat}ura#{clr.red}tion #{clr.dark}Bri#{clr.mlight}ght#{clr.bright}ness#{clr.normal}) #{clr.argument}hsb:H,S,B#{clr.normal} where H is 0-360, S 0-100 and B 0-100
-			(actually just an alias for HSV)
+		HSV (#{clr.red}H#{clr.green}u#{clr.blue}e#{clr.dark} Sat#{clr.msat}ura#{clr.red}tion #{clr.dark}V#{clr.mlight}alu#{clr.bright}e#{clr.normal})
+		#{clr.argument}hsl:H,S,V#{clr.normal} where H is 0-360, S 0-100 and V 0-100
 
-			HWB: (#{clr.red}H#{clr.green}u#{clr.blue}e#{clr.bright} White#{clr.dark} Black#{clr.normal}) #{clr.argument}hwb:H,W,B#{clr.normal} where H is 0-360, W 0-100 and B 0-100
+		HSB (#{clr.red}H#{clr.green}u#{clr.blue}e#{clr.dark} Sat#{clr.msat}ura#{clr.red}tion #{clr.dark}Bri#{clr.mlight}ght#{clr.bright}ness#{clr.normal})
+		#{clr.argument}hsb:H,S,B#{clr.normal} where H is 0-360, S 0-100 and B 0-100 (actually just an alias for HSV)
 
-			CSS named colors: #{clr.red}Red, #{clr.green}green, #{clr.hotpink}hotpink, #{clr.chocolate}chocolate#{clr.normal}... (see '#{clr.option}--help named#{clr.normal}')
+		HWB (#{clr.red}H#{clr.green}u#{clr.blue}e#{clr.bright} White#{clr.dark} Black#{clr.normal})
+		#{clr.argument}hwb:H,W,B#{clr.normal} where H is 0-360, W 0-100 and B 0-100
 
-			Special 'control' colors: 'reset', 'normal', #{clr.ul}underline#{clr.ulOut}, #{clr.invert}invert#{clr.invertOut}, #{clr.bold}bold#{clr.boldOut}... (see '#{clr.option}--help special#{clr.normal}')
+		Styles and Resets
+		'reset', 'normal', #{clr.ul}underline#{clr.ul.out}, #{clr.invert}invert#{clr.invert.out}, #{clr.bold}bold#{clr.bold.out}... (see '#{clr.option}--help special#{clr.normal}')
 
 		A number of color #{clr.argument}operations#{clr.normal} can be specified, either before or after the base color declaration.
 
@@ -158,6 +164,9 @@ module.exports = (yargs_, helpPage_) ->
 					Command: "#{clr.command}trucolor #{clr.argument}purple#{clr.normal}"
 					Result: "→ 800080"
 				,
+					Command: "#{clr.command}trucolor #{clr.argument}bold purple#{clr.normal}"
+					Result: "→ --bold 800080"
+				,
 					Command: "#{clr.command}trucolor #{clr.option}-m label #{clr.argument}purple#{clr.normal}"
 					Result: "→ a colored, isolated message, #{clr.purple}label#{clr.normal}."
 				,
@@ -171,7 +180,7 @@ module.exports = (yargs_, helpPage_) ->
 					Result: "→ #{clr.purple}\u2588\u2588#{clr.normal}"
 				,
 					Command: "#{clr.command}trucolor#{clr.option} --swatch
-							  #{clr.argument}purple desaturate 70#{clr.normal}"
+							  #{clr.argument}purple desat 70#{clr.normal}"
 					Result: "→ #{clr.purpleSwatch}\u2588\u2588#{clr.normal}"
 				,
 					Command: "#{clr.command}trucolor #{clr.argument}hsb:45,100,100#{clr.normal}"
@@ -188,10 +197,7 @@ module.exports = (yargs_, helpPage_) ->
 				,
 					Command: "#{clr.command}trucolor#{clr.option} --swatch #{clr.argument}hsb:45,100,100#{clr.normal}"
 					Result: "→ #{clr.orange}\u2588\u2588#{clr.normal}"
-				,
-					Command: "#{clr.command}trucolor#{clr.option} --swatch
-							  #{clr.argument}hsb:45,100,100 desaturate 70#{clr.normal}"
-					Result: "→ #{clr.orangeSwatch}\u2588\u2588#{clr.normal}"
+
 				]
 				layout:
 					showHeaders: false
@@ -221,9 +227,9 @@ module.exports = (yargs_, helpPage_) ->
 				Dipsy 008000
 				TinkyWinky 800080
 
-				> #{clr.command}trucolor #{clr.argument}hsl:120,100,50 bob: orange spin 180#{clr.normal}
+				> #{clr.command}trucolor #{clr.argument}hsl:120,100,50 apple: orange spin 90#{clr.normal}
 				hsl-120-100-50 00FF00
-				bob 005AFF
+				apple 005AFF
 
 			#{clr.title}Note:#{clr.normal} #{clr.option}--message#{clr.normal}, #{clr.option}--swatch#{clr.normal}, #{clr.option}--in#{clr.normal}, #{clr.option}--out#{clr.normal} and #{clr.option}--rgb#{clr.normal} currently only output the first color specified.
 			"""
@@ -269,7 +275,7 @@ module.exports = (yargs_, helpPage_) ->
 					showHeaders: false
 					config: grid
 			more: """
-				#{clr.title}Custom Names:#{clr.titleOut}
+				#{clr.title}Custom Names:#{clr.title.out}
 				Any color definition can be prefixed with a 'name:' and the result will be cached with that name, allowing it to be recalled by the same name later.
 
 					> #{clr.command}trucolor #{clr.argument}bob: black lighten 50 saturate 50 spin 180#{clr.normal}
@@ -283,7 +289,7 @@ module.exports = (yargs_, helpPage_) ->
 			"""
 		special:
 			usage: """
-				#{clr.title}Special Formatters:#{clr.titleOut}
+				#{clr.title}Special Formatters:#{clr.title.out}
 				The following keywords modify the meaning or destination of the color, or provide enhanced foramtting. They only work when used with the command switches that actually output SGR codes, namely: #{clr.option}--message#{clr.normal}, #{clr.option}--swatch#{clr.normal}, #{clr.option}--in#{clr.normal} and #{clr.option}--out#{clr.normal}. When used with the default command or with the #{clr.option}--rgb#{clr.normal} switch, they have no effect and the value of the base color (plus any processing) will be output.
 
 				#{clr.argument}background#{clr.normal}: Set the background color, rather than the foreground.
@@ -304,31 +310,31 @@ module.exports = (yargs_, helpPage_) ->
 			examples: (width_) ->
 				content: [
 					Margin: " "
-					Command: "#{clr.title}Examples:#{clr.titleOut}"
+					Command: "#{clr.title}Examples:#{clr.title.out}"
 				,
 					Command: "#{clr.command}trucolor #{clr.option}-m 'Bold yellow text' #{clr.argument}bold yellow#{clr.normal}"
-					Result: "→ #{clr.exBold}Bold yellow text#{clr.exBoldOut}"
+					Result: "→ #{clr.exBold}Bold yellow text#{clr.exBold.out}"
 				,
 					Command: "#{clr.command}trucolor #{clr.option}-m 'Faint yellow text' #{clr.argument}faint yellow#{clr.normal}"
-					Result: "→ #{clr.exFaint}Faint yellow text#{clr.exFaintOut}"
+					Result: "→ #{clr.exFaint}Faint yellow text#{clr.exFaint.out}"
 				,
 					Command: "#{clr.command}trucolor#{clr.option} --swatch #{clr.argument}faint yellow#{clr.normal}"
-					Result: "→ #{clr.exFaint}\u2588\u2588#{clr.exFaintOut}"
+					Result: "→ #{clr.exFaint}\u2588\u2588#{clr.exFaint.out}"
 				,
 					Command: "#{clr.command}trucolor #{clr.option}-m 'Italics' #{clr.argument}italic #33FF33#{clr.normal}"
-					Result: "→ #{clr.exItalic}Italics#{clr.exItalicOut}"
+					Result: "→ #{clr.exItalic}Italics#{clr.exItalic.out}"
 				,
 					Command: "#{clr.command}trucolor #{clr.option}-m ' -Inverted- ' #{clr.argument}invert #7B00B1#{clr.normal}"
-					Result: "→ #{clr.exInvert} -Inverted- #{clr.exInvertOut}"
+					Result: "→ #{clr.exInvert} -Inverted- #{clr.exInvert.out}"
 				,
 					Command: "#{clr.command}trucolor #{clr.option}-m ' Background ' #{clr.argument}background dark red#{clr.normal}"
 					Result: "→ #{clr.exBackground} Background #{clr.normal}"
 				,
 					Command: "#{clr.command}trucolor #{clr.option}-m 'Underlined' #{clr.argument}underline #fff#{clr.normal}"
-					Result: "→ #{clr.exUnderline}Inverted#{clr.exUnderlineOut}"
+					Result: "→ #{clr.exUnderline}Inverted#{clr.exUnderline.out}"
 				,
 					Command: "#{clr.command}trucolor #{clr.option}-m 'Flashy Thing' #{clr.argument}blink orange#{clr.normal}"
-					Result: "→ #{clr.exBlink}Flashy Thing#{clr.exBlinkOut}"
+					Result: "→ #{clr.exBlink}Flashy Thing#{clr.exBlink.out}"
 				]
 				layout:
 					showHeaders: false
@@ -342,7 +348,7 @@ module.exports = (yargs_, helpPage_) ->
 						Result:
 							maxWidth: width_-34
 			more: """
-				#{clr.title}Note:#{clr.titleOut}
+				#{clr.title}Note:#{clr.title.out}
 				Obviously all this depends on your terminals support for the extended formatting. The latest iTerm2 builds and X's XTerm have full support for everything #{clr.command}trucolor#{clr.normal} can do, and anything that supports a terminal type of 'xterm-256color' will cover a fairly complete subset.
 
 				For example, Apple's Terminal.app doesn't have 24 bit color support nor does it have support for italics, but everything else works well.

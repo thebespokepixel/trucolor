@@ -11,7 +11,6 @@ converter = require 'color-convert'
 _io = require './io'
 assert = require 'assert'
 
-
 _routingTable = []
 
 processRoutes = () ->
@@ -59,13 +58,11 @@ exports.add = (processor_) ->
 	_routingTable.push processor_
 	return processor_
 
-exports.run = (callback_) ->
+exports.run = (options_, callback_) ->
 	routing = processRoutes()
 	if Object.keys(routing.slow).length > 0
 		lessIn = "out {\n#{([].concat "#{name}: #{color}" for name, color of routing.slow).join '; '};\n}"
 		less.render lessIn, {}, (err, output_) ->
-
-
 			routing.less = JSON.parse(output_.css
 				.replace /^out {/, '{'
 				.replace /([0-9a-zA-Z_-]+):\s(#[0-9A-Fa-f]{3,6});/g, '"$1": "$2",'
@@ -75,7 +72,7 @@ exports.run = (callback_) ->
 				routing.fast[id] = converter.hex.rgb content
 				trucolor.cachePut(routing.cidx[id], routing.fast[id])
 
-			callback_ new _io routing
+			callback_ new _io routing, options_
 	else
-		callback_ new _io routing
+		callback_ new _io routing, options_
 

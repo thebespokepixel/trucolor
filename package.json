@@ -10,30 +10,66 @@
   "bugs": {
     "url": "https://github.com/MarkGriffiths/trucolor/issues"
   },
+  "config": {
+    "cli": {
+      "selected": "direct",
+      "none": {
+        "color": "hex",
+        "background": "",
+        "bold": "",
+        "dim": "",
+        "italic": "",
+        "underline": "",
+        "blink": "",
+        "invert": "",
+        "reset": "",
+        "normal": ""
+      },
+      "direct": {
+        "color": "hex",
+        "background": "--background",
+        "bold": "--bold",
+        "dim": "--dim",
+        "italic": "--italic",
+        "underline": "--underline",
+        "blink": "--blink",
+        "invert": "--invert",
+        "reset": "reset",
+        "normal": "normal"
+      },
+      "fish": {
+        "color": "hex",
+        "background": "--background",
+        "bold": "--bold",
+        "dim": "",
+        "italic": "",
+        "underline": "--underline",
+        "blink": "",
+        "invert": "",
+        "reset": "normal",
+        "normal": "normal"
+      }
+    }
+  },
   "dependencies": {
     "color-convert": "^1.0.0",
     "deep-assign": "^2.0.0",
+    "escape-string-regexp": "^1.0.4",
     "less": "^2.5.1",
-    "term-ng": "^0.2.0",
-    "truwrap": "^0.2.7",
-    "underscore": "^1.8.3",
-    "verbosity": "^0.2.3",
-    "yargs": "^3.25.0"
+    "sgr-composer": "^0.2.0",
+    "term-ng": "^0.4.0",
+    "truwrap": "*",
+    "lodash": "^4.0.1",
+    "verbosity": "^0.3.0",
+    "yargs": "^3.32.0"
   },
-  "description": "Terminal color toolkit supporting truecolor (24bit/8bpc RGB)",
+  "description": "TTY color toolkit supporting Truecolor (24bit RGB)",
   "devDependencies": {
-    "coffee-script": "^1.10.0",
-    "gulp": "^3.9.0",
-    "gulp-coffee": "^2.3.1",
-    "gulp-git": "^1.6.1",
-    "gulp-spawn": "^0.3.0",
-    "gulp-util": "^3.0.7",
-    "gulp-vows": "^0.1.2",
-    "guppy-pre-commit": "^0.3.0",
-    "vows": "^0.8.1"
+    "@thebespokepixel/cordial": "^0.3.0",
+    "semver-regex": "^1.0.0"
   },
   "engines": {
-    "node": ">= 4.2"
+    "node": ">= 4.2 <6.0"
   },
   "homepage": "https://github.com/MarkGriffiths/trucolor",
   "keywords": [
@@ -53,7 +89,8 @@
     "url": "https://github.com/MarkGriffiths/trucolor.git"
   },
   "scripts": {
-    "test": "vows test/*.coffee --spec"
+    "test": "gulp test --verbose"
   },
-  "version": "0.3.1"
+  "version": "0.4.0",
+  "build_number": 0
 }

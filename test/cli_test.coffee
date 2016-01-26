@@ -1,10 +1,9 @@
 'use strict'
-
-
 vows = require 'vows'
 assert = require 'assert'
+semverRegex = require 'semver-regex'
 _package = require '../package.json'
-trucolor = require('..')
+trucolor = require '..'
 exec = require('child_process').exec
 bin = _package.bin[_package.name]
 
@@ -12,13 +11,13 @@ vows
 	.describe("#{_package.name} cli")
 	.addBatch
 		'Binary version':
-			"is semvar?":
+			"is semver?":
 				topic: ->
 					exec "#{bin} -v", @callback
 					return
-				"#{_package.version} matches /[0-9]+.[0-9]+.[0-9]+[0-9a-z.-]*/": (error_, output_) ->
+				"#{_package.version} matches semver-regex": (error_, output_) ->
 					assert.isNull error_
-					assert.match output_, /[0-9]+.[0-9]+.[0-9]+[0-9a-z.-]*/
+					assert.isTrue semverRegex().test output_
 
 			"is #{_package.version}?":
 				topic: ->
