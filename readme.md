@@ -39,7 +39,8 @@ Options:
 -V, --verbose  Be verbose. -VV Be loquacious.                        
 -m, --message  Format message with SGR codes
 -i, --in       Output SGR color escape code.                         
--o, --out      Output cancelling SGR color escape code.              
+-o, --out      Output cancelling SGR color escape code.   
+-t, --type     CLI styling flags output. [none | direct | fish]           
 -r, --rgb      Output color as rgb(r, g, b)                          
 -s, --swatch   Output an isolated color swatch.
 ```
@@ -58,25 +59,25 @@ The motivation for this is to allow more sophisticated graphic visualisation usi
 
 The `color` can be defined in any of the following formats:
 
--	__CSS Hexadecimal__  
-	`[#]RRGGBB` or `[#]RGB` where `R`, `G` and `B` are 0-F.
+- __CSS Hexadecimal__  
+  `[#]RRGGBB` or `[#]RGB` where `R`, `G` and `B` are 0-F.
 
--	__RGB__  
-	`rgb:R,G,B` or `rgb(R,G,B)` where `R`,`G` and `B` are 0-255.  
-	Spaces can be incuded in rgb(R, G, B) declarations but require quoting/escaping on the CLI.
+- __RGB__  
+  `rgb:R,G,B` or `rgb(R,G,B)` where `R`,`G` and `B` are 0-255.  
+  Spaces can be incuded in rgb(R, G, B) declarations but require quoting/escaping on the CLI.
 
--	__HSL__ (Hue Saturation Lightness)  
-	`hsl:H,S,L` where `H` is 0-360, `S` 0-100 and `L` 0-100
+- __HSL__ (Hue Saturation Lightness)  
+  `hsl:H,S,L` where `H` is 0-360, `S` 0-100 and `L` 0-100
 
--	__HSV__ (Hue Saturation Value)  
-	`hsv:H,S,V` where `H` is 0-360, `S` 0-100 and `V `0-100
+- __HSV__ (Hue Saturation Value)  
+  `hsv:H,S,V` where `H` is 0-360, `S` 0-100 and `V `0-100
 
--	__HSB__ (Hue Saturation Brightness) (just an alias for HSV)  
-	`hsb:H,S,B` where `H` is 0-360, `S` 0-100 and `B `0-100
+- __HSB__ (Hue Saturation Brightness) (just an alias for HSV)  
+  `hsb:H,S,B` where `H` is 0-360, `S` 0-100 and `B `0-100
 
--	__HWB__ (Hue White Black)
-	`hwb:H,W,B` where `H` is 0-360, `W` 0-100 and `B` 0-100  
-	See [HWB notation @csswg](https://drafts.csswg.org/css-color/#the-hwb-notation)
+- __HWB__ (Hue White Black)
+  `hwb:H,W,B` where `H` is 0-360, `W` 0-100 and `B` 0-100  
+  See [HWB notation @csswg](https://drafts.csswg.org/css-color/#the-hwb-notation)
 
 - __CSS named colors__
 ![Named Colors Examples](http://markgriffiths.github.io/projects/trucolor/named.png)
@@ -84,19 +85,19 @@ The `color` can be defined in any of the following formats:
 - __Special formatters__
 The following keywords modify the meaning or destination of the color, or provide enhanced foramtting. They only work when used with the command switches that actually output SGR codes, namely: `--message`, `--swatch`, `--in` and `--out`. When used with the default command or with the `--rgb` switch, they have no effect and the value of the base color (plus any processing) will be output.
 
-	__background__: Set the background color, rather than the foreground.
+  __background__: Set the background color, rather than the foreground.
 
-	__normal__: Set the color to the default foreground and background.  
-	__reset__: Sets colors and special formatting back to the default.
+  __normal__: Set the color to the default foreground and background.  
+  __reset__: Sets colors and special formatting back to the default.
 
-	__bold__: Set the font to bold.  
-	__italic__: Set the font to italic.  
-	__underline__: Set underline.  
-	__faint__: Set the colour to 50% opacity.  
-	__invert__: Invert the foreground and background.  
-	__blink__: Annoying as a note in Comic Sans, attached to a dancing, purple dinosaur with a talking paperclip.
+  __bold__: Set the font to bold.  
+  __italic__: Set the font to italic.  
+  __underline__: Set underline.  
+  __dim__: Set the colour to 50% opacity.  
+  __invert__: Invert the foreground and background.  
+  __blink__: Annoying as a note in Comic Sans, attached to a dancing, purple dinosaur with a talking paperclip.
 
-	All of the above formatters need the correct code to end the range, either provided by using the `--out` switch, using the `reset` keyword, or simply use the `--message` option to automatically set the end range SGR code. Using `normal` alone won't fully clear the formatting.
+  All of the above formatters need the correct code to end the range, either provided by using the `--out` switch, using the `reset` keyword, or simply use the `--message` option to automatically set the end range SGR code. Using `normal` alone won't fully clear the formatting.
 
 ![Formatters Examples](http://markgriffiths.github.io/projects/trucolor/formatters.png)
 
@@ -151,8 +152,8 @@ Obviously all this depends on your terminals support for the extended formatting
 
 For example, Apple's Terminal.app doesn't have 24 bit color support nor does it have support for italics, but everything else works well.
 
--	[iTerm2 2.9 Beta](https://iterm2.com/downloads.html) (OS X)
--	XTerm (^314 XQuartz 2.7.8)
+- [iTerm2 2.9 Beta](https://iterm2.com/downloads.html) (OS X)
+- XTerm (^314 XQuartz 2.7.8)
 
 Please let me know results in your terminal. <http://github.com/MarkGriffiths/trucolor>
 
@@ -166,7 +167,13 @@ I use this to make sure help pages have consistent color between different modul
 
 ```javascript
 var palette = require('trucolor').simplePalette();
+
+var palette256 = require('trucolor').simplePalette({force: 'hundreds'});
+
+var palette16 = require('trucolor').simplePalette({force: 'color'});
 ```
+
+Without forcing, the palette will default to your terminal's color depth.
 
 ### Bulk color creation
 
@@ -180,7 +187,24 @@ var palette = trucolor.bulk({ output: 'sgr|value|swatch' }, {
   color_2: '#fe2316',
   color_3: 'hsl(120,50,60)'
 });
+```
 
+### Chalk-ish behaviour
 
+Trucolor also let's you style strings similar to Sindre Sorhus' Chalk, but allowing access to the full 256 and 24bit gamut.
+
+```javascript
+var trucolor = require('trucolor');
+
+var palette = trucolor.chalkish(trucolor.bulk({}, {
+  color_1: 'red lighten 10',
+  color_2: '#fe2316',
+  color_3: 'hsl(120,50,60)'
+}));
+
+console.log(palette.color_1("Style" + palette.color_2(' with ')) + 'functions')
+
+The 'simple' palette can be set using:
+var palette = require('trucolor').chalkishPalette();
 ```
 

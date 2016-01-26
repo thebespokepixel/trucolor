@@ -3,3 +3,6 @@ node_js:
 - 4.2
 - stable
 sudo: false
+before_install:
+- git config --add gitflow.branch.master master
+- npm i -g npm@latest

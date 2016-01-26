@@ -10,7 +10,7 @@ class Processor
 		@attrs =
 			background: no
 			bold: no
-			faint: no
+			dim: no
 			italic: no
 			invert: no
 			underline: no
@@ -58,7 +58,7 @@ class Processor
 	hasAttrs: -> @haveAttrs
 	getAttrs: -> @attrs
 	setAttr: (attr_) ->
-		if attr_ in ['background','bold','faint','italic','invert','underline','blink']
+		if attr_ in ['background','bold','dim','italic','invert','underline','blink']
 			@haveAttrs = yes
 			@attrs[attr_] = yes
 
@@ -68,9 +68,9 @@ class Processor
 	bold: ->
 		@setAttr 'bold'
 		console.debug "Special::bold"
-	faint: ->
-		@setAttr 'faint'
-		console.debug "Special::faint"
+	dim: ->
+		@setAttr 'dim'
+		console.debug "Special::dim"
 	italic: ->
 		@setAttr 'italic'
 		console.debug "Special::italic"

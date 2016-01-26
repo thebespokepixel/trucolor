@@ -4,7 +4,9 @@
 	trucolor
 	24bit color tools for the command line
 
-	Copyright (c) 2016 CryptoComposite
+	The MIT License (MIT)
+
+	Copyright (c) 2016 Mark Griffiths
 
 	Permission is hereby granted, free of charge, to any person
 	obtaining a copy of this software and associated documentation
@@ -24,8 +26,11 @@
 	CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 	TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 	SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+	Chalkish bits taken from Chalk, under the MIT license.
+	(c) 2016 Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
  */
-var _cache, _convert_package, _interpreter, _less_package, _package, _parser, _processor, _router, _simple, bulk, console;
+var Chalkish, _cache, _convert_package, _escStringRE, _functions, _interpreter, _less_package, _package, _parser, _processor, _router, _simple, bulk, chalkish, console, simplePalette;
 
 console = global.vConsole != null ? global.vConsole : global.vConsole = require('verbosity').console({
   out: process.stderr
@@ -36,6 +41,8 @@ _package = require('./package.json');
 _less_package = require('less/package.json');
 
 _convert_package = require('color-convert/package.json');
+
+_escStringRE = require('escape-string-regexp');
 
 _interpreter = require('./lib/interpreter');
 
@@ -48,6 +55,8 @@ _parser = require('./lib/parser');
 _cache = new (require('./lib/cache'));
 
 _simple = null;
+
+_functions = null;
 
 if (!_cache.load(true)) {
   _cache.clear();
@@ -103,27 +112,18 @@ exports.bulk = bulk = function(options_, object_) {
     _parser([key_ + ":"].concat(value_.split(' ')));
   }
   collection = {};
-  _router.run(function(output_) {
+  _router.run(options_, function(output_) {
     return output_.exportCollection().forEach(function(value_, key_) {
-      switch (key_) {
-        case 'normal':
-        case 'reset':
-          return collection[key_] = "" + (value_.SGRout());
-        default:
-          collection[key_] = (function() {
-            switch (type) {
-              case 'value':
-                return value_.valueOf();
-              case 'swatch':
-                return value_.swatch();
-              default:
-                return value_.SGRin();
-            }
-          })();
-          if (value_.hasAttr()) {
-            return collection[key_ + "Out"] = value_.SGRout();
-          }
-      }
+      return collection[key_] = (function() {
+        switch (type) {
+          case 'value':
+            return value_.valueOf();
+          case 'swatch':
+            return value_.toSwatch();
+          default:
+            return value_.toSGR();
+        }
+      })();
     });
   });
   return collection;
@@ -133,6 +133,81 @@ exports.route = _router.run;
 
 exports.reset = _router.reset;
 
-exports.simplePalette = function() {
-  return _simple != null ? _simple : _simple = bulk({}, require('./lib/palettes/simple'));
+simplePalette = exports.simplePalette = function(options_) {
+  if (options_ == null) {
+    options_ = {};
+  }
+  if (options_.force != null) {
+    return bulk(options_, require('./lib/palettes/simple'));
+  } else {
+    return _simple != null ? _simple : _simple = bulk(options_, require('./lib/palettes/simple'));
+  }
+};
+
+Chalkish = (function() {
+  function Chalkish(styles) {
+    var applyPaint, makePainter, proto, styleFactory;
+    styleFactory = (function(collection) {
+      Object.keys(styles).forEach(function(key_) {
+        styles[key_].closeRE = new RegExp(_escStringRE(styles[key_].out), 'g');
+        collection[key_] = {
+          get: function() {
+            return makePainter.call(this, this._styles.concat(key_));
+          }
+        };
+      });
+      return collection;
+    })({});
+    proto = Object.defineProperties((function() {}), styleFactory);
+    makePainter = function(styles_) {
+      var painter;
+      painter = function() {
+        return applyPaint.apply(painter, arguments);
+      };
+      painter._styles = styles_;
+      painter.__proto__ = proto;
+      return painter;
+    };
+    applyPaint = function(content_) {
+      var i, sgrPair;
+      i = this._styles.length;
+      while (i--) {
+        sgrPair = styles[this._styles[i]];
+        content_ = sgrPair["in"] + content_.replace(sgrPair.closeRE, sgrPair["in"]) + sgrPair.out;
+      }
+      return content_;
+    };
+    Object.defineProperties(this, (function(collection) {
+      Object.keys(styles).forEach(function(name) {
+        collection[name] = {
+          get: function() {
+            return makePainter.call(this, [name]);
+          }
+        };
+      });
+      return collection;
+    })({}));
+  }
+
+  return Chalkish;
+
+})();
+
+chalkish = exports.chalkish = function(styles_) {
+  return new Chalkish(styles_);
+};
+
+exports.chalkishPalette = function(options_) {
+  if (options_ == null) {
+    options_ = {};
+  }
+  if (options_.force != null) {
+    return (function(source_) {
+      return chalkish(source_);
+    })(simplePalette(options_));
+  } else {
+    return _functions != null ? _functions : _functions = (function(source_) {
+      return chalkish(source_);
+    })(simplePalette(options_));
+  }
 };

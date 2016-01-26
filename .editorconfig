@@ -1,20 +1,34 @@
 root = true
 
 # Unix-style newlines with a newline ending every file
+# with no excess whitespace ending lines, no indentation preference.
 [*]
 charset = utf8
 end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
-indent_style = tab
 
+# 2 spaces for list indenting, 2 'tabs' for code blocks if not fenced.
+# Don't trim line whitespace as it's significant in markdown.
 [*.md]
 trim_trailing_whitespace = false
+indent_style = space
+indent_size = 2
 
-[*.coffee, *.js]
+# A personal preference for hybrid indentation in sources I generate:
+# Tabs for indent, spaces for alignment. It's the typeographer in me.
+# Tab width of 3 is my 'Goldilocks' zone of indentation and until I can grep
+# indention spaces explicitly, Tabs it will be. Opinionated? Absolutely!
+[*.{coffee,js,JavaScript,json,c,h,ino,cpp,fish,sh,pl}]
 indent_style = tab
 indent_size = 3
 
-[{package.json,*.yml,.jshintrc}]
+[package.json]
+insert_final_newline = false
+indent_style = space
+indent_size = 2
+
+# 2 space indents when required. rc's should really be in package.json
+[{*.yml,.esformatter,.eslintrc,.jshintrc}]
 indent_style = space
 indent_size = 2

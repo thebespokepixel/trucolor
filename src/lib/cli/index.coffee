@@ -33,6 +33,10 @@ yargs = require 'yargs'
 			alias: 'out'
 			boolean: true
 			describe: 'Output cancelling SGR color escape code.'
+		t:
+			alias: 'type'
+			choices: ['none', 'direct', 'fish']
+			describe: 'CLI styling flags output.'
 		r:
 			alias: 'rgb'
 			boolean: true
@@ -41,7 +45,7 @@ yargs = require 'yargs'
 			alias: 'swatch'
 			boolean: true
 			describe: 'Output an isolated color swatch.'
-	.showHelpOnFail false, "Use 'trucolor --help' for user manual"
+	.showHelpOnFail false, "'trucolor --help [named, special]' for usage."
 argv = yargs.argv
 
 if argv.version
@@ -59,8 +63,10 @@ if argv.verbose
 			console.yargs argv
 
 if argv.help
-	require('./help')(yargs, argv._[0])
+	require('./help')(yargs, argv.help)
 	process.exit 0
+
+global.trucolor_CLI_type = argv.type ? "default"
 
 if argv._.length == 0
 	console.error 'At least one color must be specified.'
@@ -70,19 +76,20 @@ do trucolor.reset
 
 _parser argv._
 
-trucolor.route (output_) ->
+trucolor.route {}, (output_) ->
 	if console.canWrite 4
 		console.pretty output_,
 			depth: 2
 	switch
 		when argv.message
-			process.stdout.write "#{output_.SGRin()}#{argv.message}#{output_.SGRout()}"
+			sgr = do output_.toSGR
+			process.stdout.write "#{sgr.in}#{argv.message}#{sgr.out}"
 		when argv.in
-			process.stdout.write "#{output_.SGRin()}"
+			process.stdout.write "#{output_.toSGR().in}"
 		when argv.out
-			process.stdout.write "#{output_.SGRout()}"
+			process.stdout.write "#{output_.toSGR().out}"
 		when argv.rgb
 			process.stdout.write "#{output_.toString()}"
 		when argv.swatch
-			process.stdout.write "#{output_.swatch()}"
+			process.stdout.write "#{output_.toSwatch()}"
 		else process.stdout.write "#{output_}"

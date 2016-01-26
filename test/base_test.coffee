@@ -16,7 +16,7 @@ vows
 
 	.addBatch
 		'Module version':
-			"is semvar?":
+			"is semver?":
 				topic: trucolor.getVersion 1
 				"#{_package.version} matches semver-regex": (topic) ->
 					assert.isTrue semverRegex().test topic

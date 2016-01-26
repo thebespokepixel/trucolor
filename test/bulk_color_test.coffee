@@ -3,16 +3,16 @@ vows = require  'vows'
 assert = require  'assert'
 _package = require '../package.json'
 trucolor = require '..'
-namedVows = vows.describe "#{_package.name} Named Colors"
+namedVows = vows.describe "#{_package.name} Bulk Colors via Module"
 namedVows.addBatch
 	"Primaries":
 		topic: ->
 			trucolor.bulk {type: 'value'},
 				red: 'red'
 				green: 'green'
-				blue: 'blue',
-				yellow: 'yellow',
-				cyan: 'cyan',
+				blue: 'blue'
+				yellow: 'yellow'
+				cyan: 'cyan'
 				magenta: 'magenta'
 		"is red?"    : (topic) ->
 			assert.equal topic.red, 'FF0000'
@@ -100,6 +100,20 @@ namedVows.addBatch
 		"is hsb:135,100,100 screen rgb(100,100,100)?" : (topic) ->
 			assert.equal topic.hsbScreen, '64FF8B'
 
-
+	"Resets":
+		topic: ->
+			trucolor.bulk {},
+				reset: 'reset'
+				normal: 'normal'
+				normal: 'reset'
+		"is reset?"  : (topic) ->
+			assert.equal "#{topic.reset}", '\u001b[0m'
+			assert.equal topic.reset.out, '\u001b[m'
+		"normal as normal?" : (topic) ->
+			assert.equal "#{topic.reset}", '\u001b[0m'
+			assert.equal topic.reset.out, '\u001b[m'
+		"reset as normal?"  : (topic) ->
+			assert.equal "#{topic.reset}", '\u001b[0m'
+			assert.equal topic.reset.out, '\u001b[m'
 
 .export(module)

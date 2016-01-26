@@ -93,7 +93,7 @@ class Interpreter
 				converter.hwb.rgb @source.input
 			when 'SGR'
 				@name = @source.input
-				[0,0,0]
+				@source.input
 			when 'named'
 				@name = converter.keyword.hex @source.input
 				converter.keyword.rgb @source.input

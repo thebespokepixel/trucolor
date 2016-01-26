@@ -6,16 +6,15 @@
 
 console = global.vConsole
 deepAssign = require 'deep-assign'
-terminalFeatures = require 'term-ng'
 _output = require "./output"
 
 class IOCollection
-	constructor: (routes_) ->
+	constructor: (routes_, options_ = {}) ->
 		@collection = new Map()
-		console.info "\nDerived Colours (Level: #{terminalFeatures.color.level ? 0})"
-		for id, content of routes_.fast
+		console.info "\nDerived Colours"
+		for id, color of routes_.fast
 			@principal ?= id
-			@collection.set id, new _output(content, routes_.attr[id])
+			@collection.set id, new _output(color, routes_.attr[id], options_)
 
 	valueOf: ->
 		if @collection.size is 1
@@ -26,11 +25,9 @@ class IOCollection
 				primitive.push "#{key_} #{value_}"
 			primitive.join '\n'
 
-	SGRin: -> do @collection.get(@principal).SGRin
+	toSGR: -> do @collection.get(@principal).toSGR
 
-	SGRout: -> do @collection.get(@principal).SGRout
-
-	swatch: -> do @collection.get(@principal).swatch
+	toSwatch: -> do @collection.get(@principal).toSwatch
 
 	toString: -> do @collection.get(@principal).toString
 

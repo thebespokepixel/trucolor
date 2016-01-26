@@ -1,6 +1,6 @@
 'use strict'
 
-_ = require 'underscore'
+_ = require 'lodash'
 fs = require 'fs'
 path = require 'path'
 
@@ -178,7 +178,7 @@ class Cache
 			@_cache = obj.c
 			@_queue = obj.q
 		catch e
-			console.error e.toString() if hush_?
+			console.error e.toString() if not hush_?
 			return false
 		return true
 

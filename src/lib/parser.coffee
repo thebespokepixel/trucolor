@@ -22,7 +22,9 @@ module.exports = (tokens_) ->
 			when 'bold'
 				do current_processor.bold
 			when 'faint'
-				do current_processor.faint
+				do current_processor.dim
+			when 'dim'
+				do current_processor.dim
 			when 'italic'
 				do current_processor.italic
 			when 'invert'
