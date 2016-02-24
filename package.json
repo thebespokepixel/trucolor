@@ -61,7 +61,7 @@
     "truwrap": "*",
     "lodash": "^4.0.1",
     "verbosity": "^0.3.0",
-    "yargs": "^3.32.0"
+    "yargs": "^4.2.0"
   },
   "description": "TTY color toolkit supporting Truecolor (24bit RGB)",
   "devDependencies": {
