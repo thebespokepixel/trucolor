@@ -362,7 +362,7 @@ module.exports = (yargs_, helpPage_) ->
 
 	renderer = truwrap
 		left: 2
-		right: -2
+		right: 2
 		mode: 'soft'
 		outStream: process.stderr
 
@@ -385,7 +385,7 @@ module.exports = (yargs_, helpPage_) ->
 	container.write spectrum windowWidth, "–"
 	renderer.break(2)
 	renderer.write synopsis
-	renderer.write yargs_.help()
+	renderer.write yargs_.getUsageInstance().help()
 	renderer.break()
 	renderer.write page.usage
 	renderer.break(2)

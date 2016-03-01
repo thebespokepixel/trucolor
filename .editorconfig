@@ -15,11 +15,15 @@ trim_trailing_whitespace = false
 indent_style = space
 indent_size = 2
 
+[*.{yaml,yml}]
+indent_style = space
+indent_size = 2
+
 # A personal preference for hybrid indentation in sources I generate:
 # Tabs for indent, spaces for alignment. It's the typeographer in me.
 # Tab width of 3 is my 'Goldilocks' zone of indentation and until I can grep
 # indention spaces explicitly, Tabs it will be. Opinionated? Absolutely!
-[*.{coffee,js,JavaScript,json,c,h,ino,cpp,fish,sh,pl}]
+[*.{coffee,js,JavaScript,json,c,h,ino,cpp,fish,sh,pl,py}]
 indent_style = tab
 indent_size = 3
 
@@ -28,7 +32,11 @@ insert_final_newline = false
 indent_style = space
 indent_size = 2
 
+[.eslintrc.{js,json}]
+indent_style = space
+indent_size = 2
+
 # 2 space indents when required. rc's should really be in package.json
-[{*.yml,.esformatter,.eslintrc,.jshintrc}]
+[{.esformatter,.jshintrc}]
 indent_style = space
 indent_size = 2

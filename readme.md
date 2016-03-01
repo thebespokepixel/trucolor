@@ -1,22 +1,13 @@
-[project-badge]: http://img.shields.io/badge/status-beta-blue.svg?style=flat
-[build-badge]: http://img.shields.io/travis/MarkGriffiths/trucolor.svg?branch=master&style=flat
-[david-badge]: http://img.shields.io/david/MarkGriffiths/trucolor.svg?style=flat
-[david-dev-badge]: http://img.shields.io/david/dev/MarkGriffiths/trucolor.svg?style=flat
-[npm-badge]: https://img.shields.io/npm/v/trucolor.svg?style=flat
-
-[travis]: https://travis-ci.org/MarkGriffiths/trucolor
-[david]: https://david-dm.org/MarkGriffiths/trucolor
-[david-dev]: https://david-dm.org/MarkGriffiths/trucolor#info=devDependencies
-[npm]: https://www.npmjs.com/package/trucolor
-
-# trucolor
-A node module and CLI utility for using 24bit color SGR codes in modern terminals.
-
-![Project status][project-badge]
+# Trucolor
+>A node module and CLI utility for using 24bit color SGR codes in modern terminals.
+>
+>![Project status][project-badge]
+[![npm Status][npm-badge]][npm]
+[![Chat on Gitter][gitter-badge]][gitter]  
 [![Build Status][build-badge]][travis]
 [![Dependency Status][david-badge]][david]
 [![devDependency Status][david-dev-badge]][david-dev]
-[![npm Status][npm-badge]][npm]
+
 
 ## Install
 ##### Global version, for CLI use
@@ -207,4 +198,17 @@ console.log(palette.color_1("Style" + palette.color_2(' with ')) + 'functions')
 The 'simple' palette can be set using:
 var palette = require('trucolor').chalkishPalette();
 ```
+
+[project-badge]: http://img.shields.io/badge/status-beta-blue.svg?style=flat
+[build-badge]: http://img.shields.io/travis/MarkGriffiths/trucolor.svg?branch=master&style=flat
+[david-badge]: http://img.shields.io/david/MarkGriffiths/trucolor.svg?style=flat
+[david-dev-badge]: http://img.shields.io/david/dev/MarkGriffiths/trucolor.svg?style=flat
+[npm-badge]: https://img.shields.io/npm/v/trucolor.svg?style=flat
+[gitter-badge]: https://badges.gitter.im/MarkGriffiths/help.svg
+
+[travis]: https://travis-ci.org/MarkGriffiths/trucolor
+[david]: https://david-dm.org/MarkGriffiths/trucolor
+[david-dev]: https://david-dm.org/MarkGriffiths/trucolor#info=devDependencies
+[npm]: https://www.npmjs.com/package/trucolor
+[gitter]: https://gitter.im/MarkGriffiths/help?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
 
