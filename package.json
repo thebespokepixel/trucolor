@@ -92,7 +92,7 @@
   "scripts": {
     "test": "gulp test --verbose"
   },
-  "version": "0.4.0",
+  "version": "0.5.0",
   "xo": {
     "semicolon": false,
     "esnext": true,
@@ -102,7 +102,8 @@
     ],
     "rules": {
       "key-spacing": [
-        0, {
+        0,
+        {
           "beforeColon": false,
           "afterColon": false
         }
@@ -111,12 +112,13 @@
       "no-var": 0,
       "no-multi-spaces": 0,
       "new-cap": [
-        2, {
+        2,
+        {
           "newIsCap": false,
           "capIsNew": true
         }
       ]
     }
   },
-  "build_number": 35
+  "build_number": 0
 }
