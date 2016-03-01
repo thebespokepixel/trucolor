@@ -56,7 +56,7 @@
     "deep-assign": "^2.0.0",
     "escape-string-regexp": "^1.0.4",
     "less": "^2.5.1",
-    "sgr-composer": "^0.2.0",
+    "sgr-composer": "^0.3.3",
     "term-ng": "^0.4.0",
     "truwrap": "*",
     "lodash": "^4.0.1",
