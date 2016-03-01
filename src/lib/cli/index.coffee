@@ -5,8 +5,10 @@
 ###
 
 trucolor = require "../.."
+updateNotifier = require 'update-notifier'
 console = global.vConsole
 _parser = require '../parser'
+_package = require '../../package.json'
 
 yargs = require 'yargs'
 	.options
@@ -47,6 +49,10 @@ yargs = require 'yargs'
 			describe: 'Output an isolated color swatch.'
 	.showHelpOnFail false, "'trucolor --help [named, special]' for usage."
 argv = yargs.argv
+
+do updateNotifier
+		pkg: _package
+	.notify
 
 if argv.version
 	process.stdout.write trucolor.getVersion(argv.version)

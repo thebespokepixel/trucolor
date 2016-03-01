@@ -55,17 +55,18 @@
     "color-convert": "^1.0.0",
     "deep-assign": "^2.0.0",
     "escape-string-regexp": "^1.0.4",
-    "less": "^2.5.1",
-    "sgr-composer": "^0.2.0",
-    "term-ng": "^0.4.0",
-    "truwrap": "0.3.0",
-    "lodash": "^4.0.1",
-    "verbosity": "^0.3.0",
-    "yargs": "^3.32.0"
+    "less": "^2.6.0",
+    "lodash": "^4.3.0",
+    "sgr-composer": "*",
+    "term-ng": "*",
+    "truwrap": "*",
+    "update-notifier": "^0.6.0",
+    "verbosity": "*",
+    "yargs": "^4.2.0"
   },
   "description": "TTY color toolkit supporting Truecolor (24bit RGB)",
   "devDependencies": {
-    "@thebespokepixel/cordial": "^0.3.0",
+    "@thebespokepixel/cordial": "*",
     "semver-regex": "^1.0.0"
   },
   "engines": {
@@ -92,5 +93,30 @@
     "test": "gulp test --verbose"
   },
   "version": "0.4.0",
-  "build_number": 0
+  "xo": {
+    "semicolon": false,
+    "esnext": true,
+    "ignores": [
+      "lib/**/*.js",
+      "index.js"
+    ],
+    "rules": {
+      "key-spacing": [
+        0, {
+          "beforeColon": false,
+          "afterColon": false
+        }
+      ],
+      "prefer-const": 1,
+      "no-var": 0,
+      "no-multi-spaces": 0,
+      "new-cap": [
+        2, {
+          "newIsCap": false,
+          "capIsNew": true
+        }
+      ]
+    }
+  },
+  "build_number": 35
 }
