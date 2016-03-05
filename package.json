@@ -102,8 +102,7 @@
     ],
     "rules": {
       "key-spacing": [
-        0,
-        {
+        0, {
           "beforeColon": false,
           "afterColon": false
         }
@@ -112,13 +111,12 @@
       "no-var": 0,
       "no-multi-spaces": 0,
       "new-cap": [
-        2,
-        {
+        2, {
           "newIsCap": false,
           "capIsNew": true
         }
       ]
     }
   },
-  "build_number": 0
+  "build_number": 1
 }
