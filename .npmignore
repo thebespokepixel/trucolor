@@ -1,6 +1,6 @@
-_media/*
-src/*
-test/*
+_media
+src
+test
 *.sublime*
 *.map
 .editorconfig

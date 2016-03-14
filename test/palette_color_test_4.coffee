@@ -53,13 +53,13 @@ namedVows.addBatch
 		"is bright magenta?"    : (topic) ->
 			assert.equal "#{topic.brightMagenta}", '\u001b[95m'
 			assert.equal topic.brightMagenta.out, '\u001b[39m'
-		"is example (#B262FF)?" : (topic) ->
-			assert.equal "#{topic.example}", '\u001b[95m'
+		"is example (#CC99FF)?" : (topic) ->
+			assert.equal "#{topic.example}", '\u001b[97m'
 			assert.equal topic.example.out, '\u001b[39m'
-		"is command (#1579CF)?" : (topic) ->
-			assert.equal "#{topic.command}", '\u001b[94m'
+		"is command (#31A0FF)?" : (topic) ->
+			assert.equal "#{topic.command}", '\u001b[96m'
 			assert.equal topic.command.out, '\u001b[39m'
-		"is argument (#4CB0DF)?": (topic) ->
+		"is argument (#7DC3FF)?": (topic) ->
 			assert.equal "#{topic.argument}", '\u001b[96m'
 			assert.equal topic.argument.out, '\u001b[39m'
 		"is option (#C1BA89)?"  : (topic) ->
@@ -123,11 +123,11 @@ namedVows.addBatch
 			assert.equal topic.brightYellow('bright yellow'), '\u001b[93mbright yellow\u001b[39m'
 		"is bright magenta?"    : (topic) ->
 			assert.equal topic.brightMagenta('bright magenta'), '\u001b[95mbright magenta\u001b[39m'
-		"is example (#B262FF)?" : (topic) ->
-			assert.equal topic.example('example'), '\u001b[95mexample\u001b[39m'
-		"is command (#1579CF)?" : (topic) ->
-			assert.equal topic.command('command'), '\u001b[94mcommand\u001b[39m'
-		"is argument (#4CB0DF)?": (topic) ->
+		"is example (#CC99FF)?" : (topic) ->
+			assert.equal topic.example('example'), '\u001b[97mexample\u001b[39m'
+		"is command (#31A0FF)?" : (topic) ->
+			assert.equal topic.command('command'), '\u001b[96mcommand\u001b[39m'
+		"is argument (#7DC3FF)?": (topic) ->
 			assert.equal topic.argument('argument'), '\u001b[96margument\u001b[39m'
 		"is option (#C1BA89)?"  : (topic) ->
 			assert.equal topic.option('option'), '\u001b[97moption\u001b[39m'

@@ -53,14 +53,14 @@ namedVows.addBatch
 		"is bright magenta?"    : (topic) ->
 			assert.equal "#{topic.brightMagenta}", '\u001b[38;2;255;51;255m'
 			assert.equal topic.brightMagenta.out, '\u001b[39m'
-		"is example (#B262FF)?" : (topic) ->
-			assert.equal "#{topic.example}", '\u001b[38;2;178;98;255m'
+		"is example (#CC99FF)?" : (topic) ->
+			assert.equal "#{topic.example}", '\u001b[38;2;204;153;255m'
 			assert.equal topic.example.out, '\u001b[39m'
-		"is command (#1579CF)?" : (topic) ->
-			assert.equal "#{topic.command}", '\u001b[38;2;21;121;207m'
+		"is command (#31A0FF)?" : (topic) ->
+			assert.equal "#{topic.command}", '\u001b[38;2;49;160;255m'
 			assert.equal topic.command.out, '\u001b[39m'
-		"is argument (#4CB0DF)?": (topic) ->
-			assert.equal "#{topic.argument}", '\u001b[38;2;76;176;223m'
+		"is argument (#7DC3FF)?": (topic) ->
+			assert.equal "#{topic.argument}", '\u001b[38;2;125;195;255m'
 			assert.equal topic.argument.out, '\u001b[39m'
 		"is option (#C1BA89)?"  : (topic) ->
 			assert.equal "#{topic.option}", '\u001b[38;2;193;186;137m'
@@ -123,12 +123,12 @@ namedVows.addBatch
 			assert.equal topic.brightYellow('bright yellow'), '\u001b[38;2;255;255;51mbright yellow\u001b[39m'
 		"is bright magenta?"    : (topic) ->
 			assert.equal topic.brightMagenta('bright magenta'), '\u001b[38;2;255;51;255mbright magenta\u001b[39m'
-		"is example (#B262FF)?" : (topic) ->
-			assert.equal topic.example('example'), '\u001b[38;2;178;98;255mexample\u001b[39m'
-		"is command (#1579CF)?" : (topic) ->
-			assert.equal topic.command('command'), '\u001b[38;2;21;121;207mcommand\u001b[39m'
-		"is argument (#4CB0DF)?": (topic) ->
-			assert.equal topic.argument('argument'), '\u001b[38;2;76;176;223margument\u001b[39m'
+		"is example (#CC99FF)?" : (topic) ->
+			assert.equal topic.example('example'), '\u001b[38;2;204;153;255mexample\u001b[39m'
+		"is command (#31A0FF)?" : (topic) ->
+			assert.equal topic.command('command'), '\u001b[38;2;49;160;255mcommand\u001b[39m'
+		"is argument (#7DC3FF)?": (topic) ->
+			assert.equal topic.argument('argument'), '\u001b[38;2;125;195;255margument\u001b[39m'
 		"is option (#C1BA89)?"  : (topic) ->
 			assert.equal topic.option('option'), '\u001b[38;2;193;186;137moption\u001b[39m'
 		"is operator (#FFFFFF)?": (topic) ->
