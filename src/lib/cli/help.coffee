@@ -93,7 +93,7 @@ module.exports = (yargs_, helpPage_) ->
 	"""
 	epilogue = """
 		#{clr.title}#{ trucolor.getName() }#{clr.title.out} is an open source component of CryptoComposite\'s toolset.
-		#{clr.title}© 2014-2016 Mark Griffiths/CryptoComposite.#{clr.title.out} #{clr.grey}Released under the MIT License.
+		#{clr.title}© 2016 Mark Griffiths/CryptoComposite.#{clr.title.out} #{clr.grey}Released under the MIT License.
 		#{clr.grey}Documentation/Issues/Contributions @ http://github.com/MarkGriffiths/trucolor#{clr.normal}
 
 	"""

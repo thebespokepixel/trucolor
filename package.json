@@ -92,33 +92,13 @@
   "scripts": {
     "test": "gulp test --verbose"
   },
-  "version": "0.5.1",
   "xo": {
     "semicolon": false,
-    "esnext": true,
     "ignores": [
-      "lib/**/*.js",
+      "lib/**/*",
       "index.js"
-    ],
-    "rules": {
-      "key-spacing": [
-        0,
-        {
-          "beforeColon": false,
-          "afterColon": false
-        }
-      ],
-      "prefer-const": 1,
-      "no-var": 0,
-      "no-multi-spaces": 0,
-      "new-cap": [
-        2,
-        {
-          "newIsCap": false,
-          "capIsNew": true
-        }
-      ]
-    }
+    ]
   },
+  "version": "0.5.2",
   "build_number": 0
 }
