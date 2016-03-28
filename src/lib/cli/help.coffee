@@ -10,6 +10,11 @@ truwrap = require 'truwrap'
 deepAssign = require 'deep-assign'
 terminalFeatures = require 'term-ng'
 
+_name = do trucolor.getName
+_bin = do trucolor.getBin
+_version = trucolor.getVersion 3
+_description = do trucolor.getDescription
+
 clr = deepAssign trucolor.simplePalette(), trucolor.bulk {},
 		purple        : 'purple'
 		purpleSwatch  : 'purple desaturate 70'
@@ -75,33 +80,33 @@ module.exports = (yargs_, helpPage_) ->
 				 [' | |  |_|', '|__(_)|(_)| ']]
 
 			[                "#{clr.red  }#{hT[0][0]}#{clr.bright}#{hT[0][1]}"
-			  "#{images.space}#{clr.green}#{hT[1][0]}#{clr.bright}#{hT[1][1]} #{clr.normal}#{trucolor.getDescription()}"
-			  "#{images.space}#{clr.blue }#{hT[2][0]}#{clr.bright}#{hT[2][1]} #{clr.grey}#{trucolor.getVersion(3)}"
+			  "#{images.space}#{clr.green}#{hT[1][0]}#{clr.bright}#{hT[1][1]} #{clr.normal}#{_description}"
+			  "#{images.space}#{clr.blue }#{hT[2][0]}#{clr.bright}#{hT[2][1]} #{clr.grey}#{_version}"
 			].join "\n"
 	else
 		->
 			[
-				"#{clr.bright}#{trucolor.getName()}#{clr.normal}"
-				"#{images.space}#{trucolor.getDescription()}"
-				"#{images.space}#{clr.grey}#{trucolor.getVersion(3)}#{clr.normal}"
+				"#{clr.bright}#{_name}#{clr.normal}"
+				"#{images.space}#{_description}"
+				"#{images.space}#{clr.grey}#{_version}#{clr.normal}"
 			].join "\n"
 
 	synopsis = """
 		#{clr.title}Synopsis:#{clr.title.out}
-		#{clr.command}trucolor #{clr.option}[options] #{clr.argument}[name]: [operation...] color \
+		#{clr.command}#{_bin} #{clr.option}[options] #{clr.argument}[name]: [operation...] color \
 		[operation...] [[name]: [operation...] color]...#{clr.option}
 	"""
 	epilogue = """
-		#{clr.title}#{ trucolor.getName() }#{clr.title.out} is an open source component of CryptoComposite\'s toolset.
-		#{clr.title}© 2016 Mark Griffiths/CryptoComposite.#{clr.title.out} #{clr.grey}Released under the MIT License.
-		#{clr.grey}Documentation/Issues/Contributions @ http://github.com/MarkGriffiths/trucolor#{clr.normal}
+		#{clr.title}#{_name}#{clr.title.out} is an open source component of CryptoComposite\'s toolset.
+		#{clr.title}#{do trucolor.getCopyright}#{clr.title.out}. #{clr.grey}Released under the MIT License.
+		#{clr.grey}Issues? #{do trucolor.getBugs}#{clr.normal}
 
 	"""
 	pages =
 		default:
 			usage: """
 		#{clr.title}Usage:#{clr.title.out}
-		#{clr.normal}In it's simplest form, '#{clr.command}trucolor#{clr.normal} #{clr.argument}color#{clr.normal}', will take any of the color expressions listed below and transform it into a simple hexadecimal triplet string, i.e #{clr.argument}'AA00BB'#{clr.normal}, ideal for passing into the 'set_color' built-in in fish-shell, or providing the basis of further color processing.
+		#{clr.normal}In it's simplest form, '#{clr.command}#{_bin}#{clr.normal} #{clr.argument}color#{clr.normal}', will take any of the color expressions listed below and transform it into a simple hexadecimal triplet string, i.e #{clr.argument}'AA00BB'#{clr.normal}, ideal for passing into the 'set_color' built-in in fish-shell, or providing the basis of further color processing.
 
 		It can return a wide range of color assignment and manipulation functions, based internally on color-convert and less. See the examples below.
 
@@ -161,41 +166,41 @@ module.exports = (yargs_, helpPage_) ->
 					Margin: " "
 					Command: "#{clr.title}Examples:"
 				,
-					Command: "#{clr.command}trucolor #{clr.argument}purple#{clr.normal}"
+					Command: "#{clr.command}#{_bin} #{clr.argument}purple#{clr.normal}"
 					Result: "→ 800080"
 				,
-					Command: "#{clr.command}trucolor #{clr.argument}bold purple#{clr.normal}"
+					Command: "#{clr.command}#{_bin} #{clr.argument}bold purple#{clr.normal}"
 					Result: "→ --bold 800080"
 				,
-					Command: "#{clr.command}trucolor #{clr.option}-m label #{clr.argument}purple#{clr.normal}"
+					Command: "#{clr.command}#{_bin} #{clr.option}-m label #{clr.argument}purple#{clr.normal}"
 					Result: "→ a colored, isolated message, #{clr.purple}label#{clr.normal}."
 				,
-					Command: "#{clr.command}trucolor #{clr.option}--in #{clr.argument}purple#{clr.normal}"
+					Command: "#{clr.command}#{_bin} #{clr.option}--in #{clr.argument}purple#{clr.normal}"
 					Result: "→ ^[[38;2;128;0;128m #{clr.purple}setting the terminal color."
 				,
-					Command: "#{clr.command}trucolor#{clr.option} --rgb #{clr.argument}purple#{clr.normal}"
+					Command: "#{clr.command}#{_bin}#{clr.option} --rgb #{clr.argument}purple#{clr.normal}"
 					Result: "→ rgb(128, 0, 128)"
 				,
-					Command: "#{clr.command}trucolor#{clr.option} --swatch #{clr.argument}purple#{clr.normal}"
+					Command: "#{clr.command}#{_bin}#{clr.option} --swatch #{clr.argument}purple#{clr.normal}"
 					Result: "→ #{clr.purple}\u2588\u2588#{clr.normal}"
 				,
-					Command: "#{clr.command}trucolor#{clr.option} --swatch
+					Command: "#{clr.command}#{_bin}#{clr.option} --swatch
 							  #{clr.argument}purple desat 70#{clr.normal}"
 					Result: "→ #{clr.purpleSwatch}\u2588\u2588#{clr.normal}"
 				,
-					Command: "#{clr.command}trucolor #{clr.argument}hsb:45,100,100#{clr.normal}"
+					Command: "#{clr.command}#{_bin} #{clr.argument}hsb:45,100,100#{clr.normal}"
 					Result: "→ FFBF00"
 				,
-					Command: "#{clr.command}trucolor #{clr.option}-m label #{clr.argument}hsb:45,100,100#{clr.normal}"
+					Command: "#{clr.command}#{_bin} #{clr.option}-m label #{clr.argument}hsb:45,100,100#{clr.normal}"
 					Result: "→ a colored, isolated message, #{clr.orange}label#{clr.normal}."
 				,
-					Command: "#{clr.command}trucolor #{clr.option}--in #{clr.argument}hsb:45,100,100#{clr.normal}"
+					Command: "#{clr.command}#{_bin} #{clr.option}--in #{clr.argument}hsb:45,100,100#{clr.normal}"
 					Result: "→ ^[[38;2;255;191;0m #{clr.orange}setting the terminal color."
 				,
-					Command: "#{clr.command}trucolor#{clr.option} --rgb #{clr.argument}hsb:45,100,100#{clr.normal}"
+					Command: "#{clr.command}#{_bin}#{clr.option} --rgb #{clr.argument}hsb:45,100,100#{clr.normal}"
 					Result: "→ rgb(255, 191, 0)"
 				,
-					Command: "#{clr.command}trucolor#{clr.option} --swatch #{clr.argument}hsb:45,100,100#{clr.normal}"
+					Command: "#{clr.command}#{_bin}#{clr.option} --swatch #{clr.argument}hsb:45,100,100#{clr.normal}"
 					Result: "→ #{clr.orange}\u2588\u2588#{clr.normal}"
 
 				]
@@ -213,21 +218,21 @@ module.exports = (yargs_, helpPage_) ->
 
 			more: """
 			#{clr.title}Multiple Inputs:#{clr.normal}
-			#{clr.command}trucolor#{clr.normal} will output a list of color values if more than one base color is specified, allowing color assignment in a single block allowing easy ingest using '#{clr.command}read#{clr.normal}'. Each color will be output on it's own line, and named according to the input base color. The names can be overridden by providing a 'name:' before the base color.
+			#{clr.command}#{_bin}#{clr.normal} will output a list of color values if more than one base color is specified, allowing color assignment in a single block allowing easy ingest using '#{clr.command}read#{clr.normal}'. Each color will be output on it's own line, and named according to the input base color. The names can be overridden by providing a 'name:' before the base color.
 
-				> #{clr.command}trucolor #{clr.argument}red yellow green purple#{clr.normal}
+				> #{clr.command}#{_bin} #{clr.argument}red yellow green purple#{clr.normal}
 				red FF0000
 				yellow FFFF00
 				green 008000
 				purple 800080
 
-				> #{clr.command}trucolor #{clr.argument}Po: red LaaLaa: yellow Dipsy: green TinkyWinky: purple#{clr.normal}
+				> #{clr.command}#{_bin} #{clr.argument}Po: red LaaLaa: yellow Dipsy: green TinkyWinky: purple#{clr.normal}
 				Po FF0000
 				LaaLaa FFFF00
 				Dipsy 008000
 				TinkyWinky 800080
 
-				> #{clr.command}trucolor #{clr.argument}hsl:120,100,50 apple: orange spin 90#{clr.normal}
+				> #{clr.command}#{_bin} #{clr.argument}hsl:120,100,50 apple: orange spin 90#{clr.normal}
 				hsl-120-100-50 00FF00
 				apple 005AFF
 
@@ -278,13 +283,13 @@ module.exports = (yargs_, helpPage_) ->
 				#{clr.title}Custom Names:#{clr.title.out}
 				Any color definition can be prefixed with a 'name:' and the result will be cached with that name, allowing it to be recalled by the same name later.
 
-					> #{clr.command}trucolor #{clr.argument}bob: black lighten 50 saturate 50 spin 180#{clr.normal}
+					> #{clr.command}#{_bin} #{clr.argument}bob: black lighten 50 saturate 50 spin 180#{clr.normal}
 					40BFBF
 
-					> #{clr.command}trucolor #{clr.option}--rgb #{clr.argument}bob:#{clr.normal}
+					> #{clr.command}#{_bin} #{clr.option}--rgb #{clr.argument}bob:#{clr.normal}
 					rgb(64, 191, 191)
 
-					> #{clr.command}trucolor #{clr.option}--swatch #{clr.argument}bob:#{clr.normal}
+					> #{clr.command}#{_bin} #{clr.option}--swatch #{clr.argument}bob:#{clr.normal}
 					#{clr.bob}\u2588\u2588#{clr.normal}
 			"""
 		special:
@@ -312,28 +317,28 @@ module.exports = (yargs_, helpPage_) ->
 					Margin: " "
 					Command: "#{clr.title}Examples:#{clr.title.out}"
 				,
-					Command: "#{clr.command}trucolor #{clr.option}-m 'Bold yellow text' #{clr.argument}bold yellow#{clr.normal}"
+					Command: "#{clr.command}#{_bin} #{clr.option}-m 'Bold yellow text' #{clr.argument}bold yellow#{clr.normal}"
 					Result: "→ #{clr.exBold}Bold yellow text#{clr.exBold.out}"
 				,
-					Command: "#{clr.command}trucolor #{clr.option}-m 'Faint yellow text' #{clr.argument}faint yellow#{clr.normal}"
+					Command: "#{clr.command}#{_bin} #{clr.option}-m 'Faint yellow text' #{clr.argument}faint yellow#{clr.normal}"
 					Result: "→ #{clr.exFaint}Faint yellow text#{clr.exFaint.out}"
 				,
-					Command: "#{clr.command}trucolor#{clr.option} --swatch #{clr.argument}faint yellow#{clr.normal}"
+					Command: "#{clr.command}#{_bin}#{clr.option} --swatch #{clr.argument}faint yellow#{clr.normal}"
 					Result: "→ #{clr.exFaint}\u2588\u2588#{clr.exFaint.out}"
 				,
-					Command: "#{clr.command}trucolor #{clr.option}-m 'Italics' #{clr.argument}italic #33FF33#{clr.normal}"
+					Command: "#{clr.command}#{_bin} #{clr.option}-m 'Italics' #{clr.argument}italic #33FF33#{clr.normal}"
 					Result: "→ #{clr.exItalic}Italics#{clr.exItalic.out}"
 				,
-					Command: "#{clr.command}trucolor #{clr.option}-m ' -Inverted- ' #{clr.argument}invert #7B00B1#{clr.normal}"
+					Command: "#{clr.command}#{_bin} #{clr.option}-m ' -Inverted- ' #{clr.argument}invert #7B00B1#{clr.normal}"
 					Result: "→ #{clr.exInvert} -Inverted- #{clr.exInvert.out}"
 				,
-					Command: "#{clr.command}trucolor #{clr.option}-m ' Background ' #{clr.argument}background dark red#{clr.normal}"
+					Command: "#{clr.command}#{_bin} #{clr.option}-m ' Background ' #{clr.argument}background dark red#{clr.normal}"
 					Result: "→ #{clr.exBackground} Background #{clr.normal}"
 				,
-					Command: "#{clr.command}trucolor #{clr.option}-m 'Underlined' #{clr.argument}underline #fff#{clr.normal}"
+					Command: "#{clr.command}#{_bin} #{clr.option}-m 'Underlined' #{clr.argument}underline #fff#{clr.normal}"
 					Result: "→ #{clr.exUnderline}Inverted#{clr.exUnderline.out}"
 				,
-					Command: "#{clr.command}trucolor #{clr.option}-m 'Flashy Thing' #{clr.argument}blink orange#{clr.normal}"
+					Command: "#{clr.command}#{_bin} #{clr.option}-m 'Flashy Thing' #{clr.argument}blink orange#{clr.normal}"
 					Result: "→ #{clr.exBlink}Flashy Thing#{clr.exBlink.out}"
 				]
 				layout:
@@ -349,7 +354,7 @@ module.exports = (yargs_, helpPage_) ->
 							maxWidth: width_-34
 			more: """
 				#{clr.title}Note:#{clr.title.out}
-				Obviously all this depends on your terminals support for the extended formatting. The latest iTerm2 builds and X's XTerm have full support for everything #{clr.command}trucolor#{clr.normal} can do, and anything that supports a terminal type of 'xterm-256color' will cover a fairly complete subset.
+				Obviously all this depends on your terminals support for the extended formatting. The latest iTerm2 builds and X's XTerm have full support for everything #{clr.command}#{_bin}#{clr.normal} can do, and anything that supports a terminal type of 'xterm-256color' will cover a fairly complete subset.
 
 				For example, Apple's Terminal.app doesn't have 24 bit color support nor does it have support for italics, but everything else works well.
 			"""

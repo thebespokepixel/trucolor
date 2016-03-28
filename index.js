@@ -66,20 +66,37 @@ exports.getName = function() {
   return _package.name;
 };
 
+exports.getBin = function() {
+  return Object.keys(_package.bin)[0];
+};
+
 exports.getDescription = function() {
   return _package.description;
 };
 
+exports.getCopyright = function() {
+  return "©" + _package.copyright.year + " " + _package.copyright.owner;
+};
+
+exports.getBugs = function() {
+  return _package.bugs.url;
+};
+
 exports.getVersion = function(long_) {
+  var version;
+  if (long_ == null) {
+    long_ = 1;
+  }
+  version = _package.build_number > 0 ? _package.version + "-Δ" + _package.build_number : "" + _package.version;
   switch (long_) {
     case 4:
-      return _package.name + " v" + _package.version + " (color-convert v" + _convert_package.version + ", less v" + _less_package.version + ")";
+      return _package.name + " v" + version + " (color-convert v" + _convert_package.version + ", less v" + _less_package.version + ")";
     case 3:
-      return "v" + _package.version + " (color-convert v" + _convert_package.version + ", less v" + _less_package.version + ")";
+      return "v" + version + " (color-convert v" + _convert_package.version + ", less v" + _less_package.version + ")";
     case 2:
-      return _package.name + " v" + _package.version;
+      return _package.name + " v" + version;
     default:
-      return "" + _package.version;
+      return "" + version;
   }
 };
 
