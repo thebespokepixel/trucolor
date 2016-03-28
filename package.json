@@ -1,14 +1,14 @@
 {
-  "author": {
-    "name": "Mark Griffiths",
-    "email": "mark@thebespokepixel.com",
-    "url": "http://thebespokepixel.com"
-  },
+  "author": "Mark Griffiths <mark@thebespokepixel.com> (http://thebespokepixel.com/)",
   "bin": {
     "trucolor": "./bin/trucolor.js"
   },
   "bugs": {
     "url": "https://github.com/MarkGriffiths/trucolor/issues"
+  },
+  "copyright": {
+    "year": "2016",
+    "owner": "Mark Griffiths/Cryptocomposite"
   },
   "config": {
     "cli": {
@@ -99,6 +99,6 @@
       "index.js"
     ]
   },
-  "version": "0.5.2",
+  "version": "0.5.3",
   "build_number": 0
 }

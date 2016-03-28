@@ -36,7 +36,7 @@ console = global.vConsole ?= require('verbosity').console
 _package =         require './package.json'
 _less_package =    require 'less/package.json'
 _convert_package = require 'color-convert/package.json'
-_escStringRE =      require 'escape-string-regexp'
+_escStringRE =     require 'escape-string-regexp'
 
 _interpreter =     require './lib/interpreter'
 _processor =       require './lib/processor'
@@ -49,15 +49,22 @@ _functions = null
 
 unless _cache.load(yes) then _cache.clear()
 
-exports.getName =        -> return _package.name
-exports.getDescription = -> return _package.description
+exports.getName =                -> _package.name
+exports.getBin =                 -> Object.keys(_package.bin)[0]
+exports.getDescription =         -> _package.description
+exports.getCopyright =           -> "©#{_package.copyright.year} #{_package.copyright.owner}"
+exports.getBugs =                -> _package.bugs.url
+exports.getVersion = (long_ = 1) ->
+	version = if _package.build_number > 0
+		"#{_package.version}-Δ#{_package.build_number}"
+	else
+		"#{_package.version}"
 
-exports.getVersion =   (long_) ->
 	switch long_
-		when 4 then "#{_package.name} v#{_package.version} (color-convert v#{_convert_package.version}, less v#{_less_package.version})"
-		when 3 then "v#{_package.version} (color-convert v#{_convert_package.version}, less v#{_less_package.version})"
-		when 2 then "#{_package.name} v#{_package.version}"
-		else "#{_package.version}"
+		when 4 then "#{_package.name} v#{version} (color-convert v#{_convert_package.version}, less v#{_less_package.version})"
+		when 3 then "v#{version} (color-convert v#{_convert_package.version}, less v#{_less_package.version})"
+		when 2 then "#{_package.name} v#{version}"
+		else "#{version}"
 
 # Simple on-disk caching
 exports.cacheGet =     (name_) -> _cache.get name_
