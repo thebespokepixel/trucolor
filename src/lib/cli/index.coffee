@@ -50,7 +50,8 @@ yargs = require 'yargs'
 	.showHelpOnFail false, "'trucolor --help [named, special]' for usage."
 argv = yargs.argv
 
-do updateNotifier
+unless process.env.USER is 'root' and process.env.SUDO_USER isnt process.env.USER
+	do updateNotifier
 		pkg: _package
 	.notify
 
