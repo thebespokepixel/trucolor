@@ -59,7 +59,7 @@
     "lodash": "^4.11.1",
     "sgr-composer": "*",
     "term-ng": "*",
-    "truwrap": "*",
+    "truwrap": "0.6.3",
     "update-notifier": "^0.6.0",
     "verbosity": "*",
     "yargs": "^4.6.0"
