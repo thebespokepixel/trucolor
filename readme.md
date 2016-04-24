@@ -199,9 +199,9 @@ The 'simple' palette can be set using:
 var palette = require('trucolor').chalkishPalette();
 ```
 
-[example]: https://raw.githubusercontent.com/MarkGriffiths/trucolor/develop/media/example.png
-[named]: https://raw.githubusercontent.com/MarkGriffiths/trucolor/develop/media/named.png
-[formatters]: https://raw.githubusercontent.com/MarkGriffiths/trucolor/develop/media/formatters.png
+[example]: https://raw.githubusercontent.com/MarkGriffiths/trucolor/master/media/example.png
+[named]: https://raw.githubusercontent.com/MarkGriffiths/trucolor/master/media/named.png
+[formatters]: https://raw.githubusercontent.com/MarkGriffiths/trucolor/master/media/formatters.png
 
 [project-badge]: http://img.shields.io/badge/status-beta-blue.svg?style=flat
 [build-badge]: http://img.shields.io/travis/MarkGriffiths/trucolor.svg?branch=master&style=flat
