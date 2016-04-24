@@ -6,4 +6,7 @@ test
 .editorconfig
 .travis.yml
 gulpfile.*
+example.png
+formatters.png
+named.png
 .npmignore

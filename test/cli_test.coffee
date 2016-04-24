@@ -7,6 +7,11 @@ trucolor = require '..'
 exec = require('child_process').exec
 bin = _package.bin[_package.name]
 
+expectedVersion = if _package.build_number is 0
+	"#{_package.version}"
+else
+	"#{_package.version}-Δ#{_package.build_number}"
+
 vows
 	.describe("#{_package.name} cli")
 	.addBatch
@@ -15,7 +20,7 @@ vows
 				topic: ->
 					exec "#{bin} -v", @callback
 					return
-				"#{_package.version} matches semver-regex": (error_, output_) ->
+				"#{expectedVersion} matches semver-regex": (error_, output_) ->
 					assert.isNull error_
 					assert.isTrue semverRegex().test output_
 
@@ -23,16 +28,16 @@ vows
 				topic: ->
 					exec "#{bin} -v", @callback
 					return
-				"Should === #{_package.version}": (error_, output_) ->
+				"Should === #{expectedVersion}": (error_, output_) ->
 					assert.isNull error_
-					assert output_ is _package.version, output_
+					assert output_ is expectedVersion, output_
 
-			"(long) is #{_package.name} v#{_package.version}":
+			"(long) is #{_package.name} v#{expectedVersion}":
 				topic: ->
 					exec "#{bin} -vv", @callback
 					return
-				"Should === #{_package.name} v#{_package.version}": (error_, output_) ->
+				"Should === #{_package.name} v#{expectedVersion}": (error_, output_) ->
 					assert.isNull error_
-					assert output_ is "#{_package.name} v#{_package.version}"
+					assert output_ is "#{_package.name} v#{expectedVersion}"
 
 .export(module)

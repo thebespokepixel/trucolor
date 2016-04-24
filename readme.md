@@ -36,7 +36,7 @@ Options:
 -s, --swatch   Output an isolated color swatch.
 ```
 
-![Usage Examples](http://markgriffiths.github.io/projects/trucolor/example.png)
+![Usage Examples][example]
 
 In it's simplest form, `trucolor 'color'`, will take any of the color expressions listed below and transform it into a simple hexadecimal triplet string, i.e `AA00BB`, ideal for passing into fish-shell's `set_color` built-in, or providing the basis of further color processing.
 
@@ -71,7 +71,7 @@ The `color` can be defined in any of the following formats:
   See [HWB notation @csswg](https://drafts.csswg.org/css-color/#the-hwb-notation)
 
 - __CSS named colors__
-![Named Colors Examples](http://markgriffiths.github.io/projects/trucolor/named.png)
+![Named Colors Examples][named]
 
 - __Special formatters__
 The following keywords modify the meaning or destination of the color, or provide enhanced foramtting. They only work when used with the command switches that actually output SGR codes, namely: `--message`, `--swatch`, `--in` and `--out`. When used with the default command or with the `--rgb` switch, they have no effect and the value of the base color (plus any processing) will be output.
@@ -90,7 +90,7 @@ The following keywords modify the meaning or destination of the color, or provid
 
   All of the above formatters need the correct code to end the range, either provided by using the `--out` switch, using the `reset` keyword, or simply use the `--message` option to automatically set the end range SGR code. Using `normal` alone won't fully clear the formatting.
 
-![Formatters Examples](http://markgriffiths.github.io/projects/trucolor/formatters.png)
+![Formatters Examples][formatters]
 
 ##### Color manipulation
 
@@ -198,6 +198,10 @@ console.log(palette.color_1("Style" + palette.color_2(' with ')) + 'functions')
 The 'simple' palette can be set using:
 var palette = require('trucolor').chalkishPalette();
 ```
+
+[example]: https://raw.githubusercontent.com/MarkGriffiths/trucolor/master/media/example.png
+[named]: https://raw.githubusercontent.com/MarkGriffiths/trucolor/master/media/named.png
+[formatters]: https://raw.githubusercontent.com/MarkGriffiths/trucolor/master/media/formatters.png
 
 [project-badge]: http://img.shields.io/badge/status-beta-blue.svg?style=flat
 [build-badge]: http://img.shields.io/travis/MarkGriffiths/trucolor.svg?branch=master&style=flat
