@@ -61,7 +61,7 @@
     "term-ng": "*",
     "truwrap": "*",
     "update-notifier": "^0.6.0",
-    "verbosity": "*",
+    "verbosity": "0.7.1",
     "yargs": "^4.6.0"
   },
   "description": "TTY color toolkit supporting Truecolor (24bit RGB)",
