@@ -62,7 +62,7 @@
     "truwrap": "*",
     "update-notifier": "^0.6.0",
     "verbosity": "*",
-    "yargs": "^4.6.0"
+    "yargs": "^4.8.0"
   },
   "description": "TTY color toolkit supporting Truecolor (24bit RGB)",
   "devDependencies": {
