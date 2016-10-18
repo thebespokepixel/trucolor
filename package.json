@@ -66,7 +66,7 @@
   },
   "description": "TTY color toolkit supporting Truecolor (24bit RGB)",
   "devDependencies": {
-    "@thebespokepixel/cordial": "*",
+    "@thebespokepixel/cordial": "0.17.6",
     "semver-regex": "^1.0.0"
   },
   "engines": {
