@@ -58,7 +58,7 @@
     "less": "^2.6.0",
     "lodash": "^4.11.1",
     "sgr-composer": "*",
-    "term-ng": "*",
+    "term-ng": "0.7.2",
     "truwrap": "*",
     "update-notifier": "^0.6.0",
     "verbosity": "*",
