@@ -1,0 +1,22 @@
+---
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - javascript
+  eslint:
+    enabled: true
+    config:
+      config: test/fixtures/config/.eslintrc
+  fixme:
+    enabled: true
+ratings:
+  paths:
+  - "src/**.js"
+exclude_paths:
+- docs/
+- test/
+- bin/
+- scripts/
+- lib/
