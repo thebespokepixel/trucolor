@@ -47,6 +47,7 @@ export default function render(processor, options = {}) {
 	})(global.trucolorCLItype)
 
 	switch (outputFormat) {
+
 		case 'cli':
 			return Object.assign({
 				name: processor.human,

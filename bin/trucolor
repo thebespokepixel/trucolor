@@ -1131,6 +1131,7 @@ function render$$1(processor) {
 	})(global.trucolorCLItype)
 
 	switch (outputFormat) {
+
 		case 'cli':
 			return Object.assign({
 				name: processor.human,
