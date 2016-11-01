@@ -1,7 +1,7 @@
 /* ─────────╮
  │ trucolor │ CLI
  ╰──────────┴─────────────────────────────────────────────────────────────────── */
-/* eslint unicorn/no-process-exit:0 */
+/* eslint unicorn/no-process-exit:0, no-process-exit:0 */
 
 import _ from 'lodash'
 import yargs from 'yargs'

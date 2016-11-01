@@ -1,7 +1,7 @@
 /* ─────────╮
  │ trucolor │ Resolve Colour to simple RGB Array: [ r, g, b ]
  ╰──────────┴─────────────────────────────────────────────────────────────────── */
-/* eslint no-case-declarations:0 */
+/* eslint no-case-declarations:0, complexity: 0 */
 
 import {tinycolor, names} from '@thebespokepixel/es-tinycolor'
 import converter from 'color-convert'
