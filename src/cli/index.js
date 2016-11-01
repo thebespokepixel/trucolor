@@ -3,17 +3,13 @@
  ╰──────────┴─────────────────────────────────────────────────────────────────── */
 /* eslint unicorn/no-process-exit:0 */
 
-import {format} from 'util'
-
 import _ from 'lodash'
 import yargs from 'yargs'
-// import getStdin from 'get-stdin'
 import updateNotifier from 'update-notifier'
 import {box} from '@thebespokepixel/string'
-import deepAssign from 'deep-assign'
 import {stripIndent} from 'common-tags'
-import {trucolor, console, pkg, metadata} from '../index'
-import {clr, colorReplacer} from '../lib/colour'
+import {console, pkg, metadata, parse, render} from '../index'
+import {colorReplacer} from '../lib/colour'
 import help from './help'
 
 yargs.strict().options({
@@ -34,7 +30,7 @@ yargs.strict().options({
 	m: {
 		alias: 'message',
 		nargs: 1,
-		describe: 'Format message with SGR codes',
+		describe: 'Format message with SGR codes'
 	},
 	i: {
 		alias: 'in',
@@ -50,7 +46,7 @@ yargs.strict().options({
 		alias: 'type',
 		choices: ['none', 'direct', 'fish'],
 		describe: 'CLI styling flags output.',
-		default: 'none',
+		default: 'direct',
 		requiresArg: true
 	},
 	r: {
@@ -70,7 +66,7 @@ yargs.strict().options({
 
 const argv = yargs.argv
 
-const outStream = argv.stderr ? process.stderr : process.stdout
+global.trucolorCLItype = argv.type
 
 if (argv.version) {
 	process.stdout.write(`${metadata.version(argv.version)}\n`)
@@ -119,43 +115,55 @@ if (!(process.env.USER === 'root' && process.env.SUDO_USER !== process.env.USER)
 }
 
 if (argv.help) {
-	help(yargs)
+	help(yargs, argv.help)
 	process.exit(0)
 }
 
-const viewSettings = {
-	left: argv.left,
-	right: argv.right,
-	mode: argv.mode,
-	tabWidth: argv.tab,
-	outStream
+if (argv._.length === 0) {
+	console.error('At least one color must be specified.')
+	process.exit(1)
 }
 
-if (argv.regex) {
-	viewSettings.tokenRegex = new RegExp(argv.regex, 'g')
-}
+const buffer = parse(argv._.join(' '))
+	.map(color => render(color, {
+		format: 'cli'
+	}))
 
-if (argv.width) {
-	viewSettings.width = argv.width
-}
+const isList = buffer.length > 1
 
-const renderer = truwrap(viewSettings)
+buffer.forEach(color => {
+	if (console.canWrite(4)) {
+		console.log('')
+		console.pretty(color, {
+			depth: 2
+		})
+	}
+	const output = isList ? `${color.name}: ` : ''
+	const lineBreak = isList ? '\n' : ''
 
-if (argv.stamp) {
-	renderer.write(format.apply(null, argv._))
-	process.exit(0)
-}
-
-// getStdin().then(input => {
-// 	if (argv.panel) {
-// 		const panel = parsePanel(input, argv.delimiter, renderer.getWidth())
-// 		renderer.panel(panel.content, {
-// 			maxLineWidth: renderer.getWidth(),
-// 			showHeaders: false,
-// 			truncate: argv.truncate,
-// 			config: panel.configuration
-// 		})
-// 	} else {
-// 		renderer.write(input)
-// 	}
-// })
+	switch (true) {
+		case argv.message !== undefined:
+			process.stdout.write(`${output}${color.in}${argv.message}${color.out}${lineBreak}`)
+			break
+		case argv.in:
+			if (isList) {
+				throw new Error('SGR output only makes sense for a single color.')
+			}
+			process.stdout.write(`${color.in}`)
+			break
+		case argv.out:
+			if (isList) {
+				throw new Error('SGR output only makes sense for a single color.')
+			}
+			process.stdout.write(`${color.out}`)
+			break
+		case argv.rgb:
+			process.stdout.write(`${output}${color.rgb}${lineBreak}`)
+			break
+		case argv.swatch:
+			process.stdout.write(`${output}${color.toSwatch()}${lineBreak}`)
+			break
+		default:
+			process.stdout.write(`${output}${color}${lineBreak}`)
+	}
+})

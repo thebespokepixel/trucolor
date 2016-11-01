@@ -18,7 +18,11 @@ export const pkg = readPkg.sync(resolve(__dirname, '..'))
 export const metadata = meta(__dirname)
 
 export function trucolor(color, options = {}) {
-	return render(parse(color), options)
+	const queue = parse(color)
+	if (queue.length > 1) {
+		return queue.map(color => render(color, options))
+	}
+	return render(queue[0], options)
 }
 
 export function palette(options, palette) {
@@ -33,4 +37,4 @@ export function chalkish(palette) {
 	return chalk(palette)
 }
 
-console.verbosity(3)
+export {parse, render}

@@ -10,6 +10,7 @@ import createInterpreter from './classes/interpreter'
 let currentAutoName = 1
 
 export default function (color) {
+	let queue = []
 	let processor = createProcessor(`color_${currentAutoName++}`)
 	const tokens = color.split(' ')
 
@@ -80,59 +81,11 @@ export default function (color) {
 					rotation: tokens.shift()
 				})
 				break
+			case 'mono':
+				processor.mono()
+				break
 			case 'mix':
 				processor.mix({
-					color: tokens.shift()
-				})
-				break
-			case 'multiply':
-				processor.multiply({
-					color: tokens.shift()
-				})
-				break
-			case 'screen':
-				processor.screen({
-					color: tokens.shift()
-				})
-				break
-			case 'overlay':
-				processor.overlay({
-					color: tokens.shift()
-				})
-				break
-			case 'softlight':
-			case 'soft':
-				processor.softlight({
-					color: tokens.shift()
-				})
-				break
-			case 'hardlight':
-			case 'hard':
-				processor.hardlight({
-					color: tokens.shift()
-				})
-				break
-			case 'difference':
-			case 'diff':
-				processor.difference({
-					color: tokens.shift()
-				})
-				break
-			case 'exclusion':
-			case 'excl':
-				processor.exclusion({
-					color: tokens.shift()
-				})
-				break
-			case 'average':
-			case 'ave':
-				processor.average({
-					color: tokens.shift()
-				})
-				break
-			case 'negation':
-			case 'not':
-				processor.negation({
 					color: tokens.shift()
 				})
 				break
@@ -144,17 +97,19 @@ export default function (color) {
 			default:
 				if (/^[A-Za-z0-9_-]+:$/.test(token)) {
 					if (processor.hasSource) {
+						queue.push(processor)
 						processor = createProcessor(`color_${currentAutoName++}`)
 					}
-					processor.lock(token.trim())
+					processor.lock(token.trim().replace(':', ''))
 				} else {
 					if (processor.hasSource) {
+						queue.push(processor)
 						processor = createProcessor(`color_${currentAutoName++}`)
 					}
 					processor.source = createInterpreter(token)
 				}
 		}
 	}
-
-	return processor
+	queue.push(processor)
+	return queue
 }

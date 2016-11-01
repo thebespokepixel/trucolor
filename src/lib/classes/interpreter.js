@@ -25,6 +25,20 @@ class Interpreter {
 						space: '#HEX'
 					}
 
+				case /^[0-9a-f]{4}$/i.test(raw_):
+					return {
+						input: /^([0-9a-f])([0-9a-f])([0-9a-f])[0-9a-f]$/i.exec(raw_),
+						human: raw_,
+						space: 'HEX'
+					}
+
+				case /^#[0-9a-f]{4}$/i.test(raw_):
+					return {
+						input: /^#([0-9a-f])([0-9a-f])([0-9a-f])[0-9a-f]$/i.exec(raw_),
+						human: raw_,
+						space: '#HEX'
+					}
+
 				case /^[0-9a-f]{6}$/i.test(raw_):
 					return {
 						input: raw_,
@@ -36,6 +50,20 @@ class Interpreter {
 					return {
 						input: raw_,
 						human: raw_,
+						space: '#HEXHEX'
+					}
+
+				case /^[0-9a-f]{8}$/i.test(raw_):
+					return {
+						input: raw_.substring(0, 6),
+						human: raw_.substring(0, 6),
+						space: 'HEXHEX'
+					}
+
+				case /^#[0-9a-f]{8}$/i.test(raw_):
+					return {
+						input: raw_.substring(0, 7),
+						human: raw_.substring(0, 7),
 						space: '#HEXHEX'
 					}
 

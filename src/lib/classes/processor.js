@@ -94,7 +94,7 @@ class Processor {
 	}
 
 	background() {
-		this.attrs('background')
+		this.attrs = 'background'
 		console.debug('Special::background')
 	}
 	bold() {
@@ -155,6 +155,13 @@ class Processor {
 		this.namePrefix = `spin-${this.namePrefix}`
 		this.nameSuffix = `${this.nameSuffix}-${Math.abs(args.rotation)}`
 		console.debug('Process::spin', args.rotation)
+	}
+
+	mono() {
+		this.addStep(color => color.greyscale())
+		this.namePrefix = `mono-${this.namePrefix}`
+		this.nameSuffix = `${this.nameSuffix}}`
+		console.debug('Process::mono')
 	}
 
 	mix(args) {
