@@ -1,3 +1,5 @@
+![TruColor][logo]
+
 # trucolor
 
 > A node module and CLI utility for using 24bit color SGR codes in modern terminals.
@@ -27,8 +29,8 @@ npm install --save @thebespokepixel/trucolor
 
 ## Documentation
 
-Full documentation can be found at [https://markgriffiths.github.io/truwrap/][1]
+Full documentation can be found at [https://markgriffiths.github.io/trucolor/][1]
 
-[1]: https://markgriffiths.github.io/truwrap/
+[1]: https://markgriffiths.github.io/trucolor/
 
-[grab]: https://raw.githubusercontent.com/MarkGriffiths/truwrap/master/media/truwrap.png
+[logo]: https://raw.githubusercontent.com/MarkGriffiths/trucolor/master/media/banner.png

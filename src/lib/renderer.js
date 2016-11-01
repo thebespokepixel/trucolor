@@ -1,6 +1,7 @@
 /* ─────────╮
  │ trucolor │ Resolve Colour to simple RGB Array: [ r, g, b ]
  ╰──────────┴─────────────────────────────────────────────────────────────────── */
+/* eslint complexity: 0 */
 
 import _ from 'lodash'
 import SGRcomposer from 'sgr-composer'
