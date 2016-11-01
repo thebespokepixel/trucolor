@@ -12,6 +12,13 @@ let currentAutoName = 1
 export default function (color) {
 	let queue = []
 	let processor = createProcessor(`color_${currentAutoName++}`)
+	const refreshProcessor = processor_ => {
+		if (processor_.hasSource) {
+			queue.push(processor_)
+			return createProcessor(`color_${currentAutoName++}`)
+		}
+		return processor_
+	}
 	const tokens = color.split(' ')
 
 	while (tokens.length > 0) {
@@ -96,16 +103,10 @@ export default function (color) {
 			// 		threshold: do tokens_.shift if commands[0]?
 			default:
 				if (/^[A-Za-z0-9_-]+:$/.test(token)) {
-					if (processor.hasSource) {
-						queue.push(processor)
-						processor = createProcessor(`color_${currentAutoName++}`)
-					}
+					processor = refreshProcessor(processor)
 					processor.lock(token.trim().replace(':', ''))
 				} else {
-					if (processor.hasSource) {
-						queue.push(processor)
-						processor = createProcessor(`color_${currentAutoName++}`)
-					}
+					processor = refreshProcessor(processor)
 					processor.source = createInterpreter(token)
 				}
 		}

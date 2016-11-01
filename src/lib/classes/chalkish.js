@@ -1,7 +1,6 @@
 /* ─────────╮
  │ trucolor │ Chalk-style nested functions
  ╰──────────┴─────────────────────────────────────────────────────────────────── */
-/* eslint no-case-declarations:0 */
 
 import escStringRE from 'escape-string-regexp'
 

@@ -1,5 +1,5 @@
 import test from 'ava'
-import {palette, metadata} from '..'
+import {palette} from '..'
 
 const heading = `values via module`
 
