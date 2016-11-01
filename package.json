@@ -1,7 +1,7 @@
 {
   "author": "Mark Griffiths <mark@thebespokepixel.com> (http://thebespokepixel.com/)",
   "bin": {
-    "trucolor": "./bin/trucolor.js"
+    "trucolor": "./bin/trucolor"
   },
   "bugs": {
     "url": "https://github.com/MarkGriffiths/trucolor/issues"
@@ -52,25 +52,38 @@
     }
   },
   "dependencies": {
-    "color-convert": "^1.3.1",
+    "@thebespokepixel/es-tinycolor": "^0.2.3",
+    "@thebespokepixel/meta": "^0.1.8",
+    "@thebespokepixel/string": "^0.4.3",
+    "color-convert": "^1.6.0",
+    "common-tags": "^1.3.1",
     "deep-assign": "^2.0.0",
     "escape-string-regexp": "^1.0.4",
-    "less": "^2.6.0",
-    "lodash": "^4.11.1",
-    "sgr-composer": "*",
-    "term-ng": "*",
-    "truwrap": "*",
-    "update-notifier": "^0.6.0",
-    "verbosity": "*",
-    "yargs": "^4.6.0"
+    "lodash": "^4.16.6",
+    "read-pkg": "^2.0.0",
+    "sgr-composer": "^0.4.2",
+    "term-ng": "^0.7.6",
+    "truwrap": "^0.7.0-beta.4",
+    "update-notifier": "^1.0.2",
+    "verbosity": "^0.8.1",
+    "yargs": "^6.3.0"
   },
   "description": "TTY color toolkit supporting Truecolor (24bit RGB)",
   "devDependencies": {
-    "@thebespokepixel/cordial": "*",
-    "semver-regex": "^1.0.0"
+    "@thebespokepixel/cordial": "^0.17.11",
+    "ava": "^0.16.0",
+    "codeclimate-test-reporter": "^0.4.0",
+    "documentation": "^4.0.0-beta11",
+    "documentation-theme-bespoke": "^0.3.1",
+    "gulp": "github:gulpjs/gulp#4.0",
+    "nyc": "^8.3.2",
+    "semver-regex": "^1.0.0",
+    "shelljs": "^0.7.5",
+    "snyk": "^1.19.1",
+    "xo": "^0.17.0"
   },
   "engines": {
-    "node": ">= 4.2 <6.0"
+    "node": ">=4.0 <9.0"
   },
   "homepage": "https://github.com/MarkGriffiths/trucolor",
   "keywords": [
@@ -83,22 +96,87 @@
     "fish"
   ],
   "license": "MIT",
-  "main": "./index.js",
+  "main": "index.js",
   "name": "trucolor",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MarkGriffiths/trucolor.git"
   },
   "scripts": {
-    "test": "gulp test --verbose"
+    "test": "xo && snyk test && nyc ava",
+    "generate-test-fixtures": "scripts/generate-test-fixtures",
+    "generate-test-widths": "scripts/generate-test-widths",
+    "doc-serve": "documentation serve --watch --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --name $npm_package_name  --project-version $npm_package_version src/index.js",
+    "doc-build": "documentation build --format html --output docs --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --name $npm_package_name  --project-version $npm_package_version src/index.js",
+    "readme": "compile-readme -u src/docs/example.md src/docs/readme.md > readme.md",
+    "code-climate": "nyc report --reporter=text-lcov | codeclimate-test-reporter",
+    "coverage": "nyc ava && nyc report --reporter=lcov --report-dir test/coverage; open test/coverage/lcov-report/index.html",
+    "clean": "gulp clean"
   },
   "xo": {
     "semicolon": false,
     "ignores": [
+      "bin/**/*",
       "lib/**/*",
+      "docs/**",
+      "test/coverage/**",
       "index.js"
     ]
   },
-  "version": "0.5.5",
-  "build_number": 0
+  "version": "0.6.0-beta.0",
+  "badges": {
+    "github": "MarkGriffiths",
+    "npm": "thebespokepixel",
+    "name": "trucolor",
+    "providers": {
+      "status": {
+        "text": "beta",
+        "color": "blue"
+      },
+      "aux1": {
+        "title": "github",
+        "text": "source",
+        "color": "4E73B6",
+        "link": "https://github.com/MarkGriffiths/trucolor"
+      }
+    },
+    "readme": {
+      "Status": [
+        [
+          "status",
+          "npm",
+          "travis",
+          "david"
+        ],
+        [
+          "code-climate",
+          "code-climate-coverage",
+          "snyk"
+        ]
+      ],
+      "Developer": [
+        "david-dev",
+        "rollup"
+      ],
+      "Help": [
+        "inch",
+        "gitter"
+      ]
+    },
+    "docs": [
+      [
+        "aux1",
+        "travis"
+      ],
+      [
+        "code-climate",
+        "code-climate-coverage"
+      ],
+      [
+        "david"
+      ]
+    ]
+  },
+  "buildNumber": 0,
+  "jsnext:main": "lib/index-es.js"
 }

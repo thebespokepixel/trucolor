@@ -1,0 +1,724 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>trucolor 0.6.0-beta.0 | Documentation</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link href="assets/css/ace.min.css" rel="stylesheet">
+  <link href="assets/fonts/TypoPRO-Hack/TypoPRO-Hack.css" type="text/css" rel="stylesheet" />
+  <link href="assets/fonts/TypoPRO-FiraSans/TypoPRO-FiraSans.css" type="text/css" rel="stylesheet" />
+  <link href="assets/css/style.css" type="text/css" rel="stylesheet" />
+</head>
+<body class="m0 documentation">
+  <div class="flex">
+    <div class="flex-column fixed top-0 bottom-0 px2 pt2 max-height-100 sidebar">
+      <h3 class="m0 no-anchor">trucolor</h3>
+      <div class="mb1"><code>v0.6.0-beta.0</code></div>
+      <input
+        placeholder="Filter"
+        id="filter-input"
+        class="col12 block input"
+        type="text" />
+      <div id="toc">
+        <ul class="list-reset h5 py1-ul">
+          
+            
+            <li><a
+              href="#usage"
+              class="h5 bold black caps">
+              Usage
+              
+            </a>
+            
+            </li>
+          
+            
+            <li><a
+              href="#api"
+              class="h5 bold black caps">
+              API
+              
+            </a>
+            
+            </li>
+          
+            
+            <li><a
+              href="#trucolor"
+              class="">
+              Trucolor
+              
+            </a>
+            
+            </li>
+          
+            
+            <li><a
+              href="#trucolor"
+              class="">
+              trucolor
+              
+            </a>
+            
+            </li>
+          
+            
+            <li><a
+              href="#palette"
+              class="">
+              palette
+              
+            </a>
+            
+            </li>
+          
+            
+            <li><a
+              href="#chalkish"
+              class="">
+              chalkish
+              
+            </a>
+            
+            </li>
+          
+            
+            <li><a
+              href="#simple"
+              class="">
+              simple
+              
+            </a>
+            
+            </li>
+          
+        </ul>
+      </div>
+      <div class="badges"><p><a href="https://github.com/MarkGriffiths/trucolor" title="Github"><img src="https://img.shields.io/badge/github-source-4E73B6.svg?style=flat" alt="Github"></a> <a href="https://travis-ci.org/MarkGriffiths/trucolor" title="Travis"><img src="https://img.shields.io/travis/MarkGriffiths/trucolor.svg?branch=master&#x26;style=flat" alt="Travis"></a> <br>
+</p>
+ 
+<p><a href="https://codeclimate.com/github/MarkGriffiths/trucolor" title="Code-climate"><img src="https://codeclimate.com/github/MarkGriffiths/trucolor/badges/gpa.svg?style=flat" alt="Code-climate"></a> <a href="https://codeclimate.com/github/MarkGriffiths/trucolor/coverage" title="Coverage"><img src="https://codeclimate.com/github/MarkGriffiths/trucolor/badges/coverage.svg?style=flat" alt="Coverage"></a> <br>
+</p>
+ 
+<p><a href="https://david-dm.org/MarkGriffiths/trucolor/master" title="David"><img src="https://img.shields.io/david/MarkGriffiths/trucolor.svg?branch=master&#x26;style=flat" alt="David"></a> <br>
+</p>
+ 
+<br>
+
+</div>
+      <div class="mt1 h6 quiet">
+        <a href="http://documentation.js.org/reading-documentation.html">Need help reading this?</a>
+      </div>
+    </div>
+    <div class="flex-column px2 sidespace">
+      <h3 class="m0 no-anchor">trucolor</h3>
+    </div>
+    <div class="flex-auto px2 pt1">
+      
+        
+          <div class="keyline-top-not py1"><section class="py0 px2 clearfix note">
+	<h3 id="usage" class="m0">
+		Usage
+	</h3>
+	
+	
+		<h4>Installation</h4>
+<h5>Global version, for CLI use</h5>
+<pre><code class="language-shell">npm install --global @thebespokepixel/trucolor
+</code></pre>
+<h5>Module, for programmatic use</h5>
+<pre><code class="language-shell">npm install --save @thebespokepixel/trucolor
+</code></pre>
+<h2>CLI Usage</h2>
+<h4>Synopsis:</h4>
+<pre><code class="language-text">trucolor [options] "color description"...
+
+Options:
+-h, --help     Display this help.
+-v, --version  Return the current version on stdout. -vv Return name &#x26; version.
+-V, --verbose  Be verbose. -VV Be loquacious.
+-m, --message  Format message with SGR codes
+-i, --in       Output SGR color escape code.
+-o, --out      Output cancelling SGR color escape code.
+-t, --type     CLI styling flags output.
+-r, --rgb      Output color as rgb(r, g, b).
+-s, --swatch   Output an isolated color swatch.
+--color        Force color depth --color=256|16m. Disable with --no-color
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/MarkGriffiths/trucolor/master/media/example.png" alt="Usage Examples"></p>
+<p>In it's simplest form, <code>trucolor 'color'</code>, will take any of the color expressions listed below and transform it into a simple hexadecimal triplet string, i.e <code>AA00BB</code>, ideal for passing into fish-shell's <code>set_color</code> built-in, or providing the basis of further color processing.</p>
+<p>It can return color values and set terminal colors for a wide range of color assignment declarations and manipulation functions. See the examples below.</p>
+<p>When outputting SGR codes, colors will be shifted to the availalble 256 or ansi color palette if 24 bit color is unavailable or will be omitted in a monochromatic terminal to make usage across environments safe. The CLI command respects <code>--color=16m</code>, <code>--color=256</code>, <code>--color</code> and <code>--no-color</code> flags. It does not affect value based output, such as the default or <code>--rgb</code> output, it only effects the <code>--in</code>, <code>--out</code>, <code>--message</code> and <code>--swatch</code> outputs.</p>
+<p>The motivation for this is to allow more sophisticated graphic visualisation using in modern, xterm-compatible terminal emulators that have added 24 bit support.</p>
+<h5>Color definition</h5>
+<p>The <code>color</code> can be defined in any of the following formats:</p>
+<ul>
+<li>
+<p><strong>CSS Hexadecimal</strong><br>
+<code>[#]RRGGBB</code> or <code>[#]RGB</code> where <code>R</code>, <code>G</code> and <code>B</code> are 0-F.</p>
+</li>
+<li>
+<p><strong>RGB</strong><br>
+<code>rgb:R,G,B</code> or <code>rgb(R,G,B)</code> where <code>R</code>,<code>G</code> and <code>B</code> are 0-255.<br>
+Spaces can be incuded in rgb(R, G, B) declarations but require quoting/escaping on the CLI.</p>
+</li>
+<li>
+<p><strong>HSL</strong> (Hue Saturation Lightness)<br>
+<code>hsl:H,S,L</code> where <code>H</code> is 0-360, <code>S</code> 0-100 and <code>L</code> 0-100</p>
+</li>
+<li>
+<p><strong>HSV</strong> (Hue Saturation Value)<br>
+<code>hsv:H,S,V</code> where <code>H</code> is 0-360, <code>S</code> 0-100 and <code>V</code>0-100</p>
+</li>
+<li>
+<p><strong>HSB</strong> (Hue Saturation Brightness) (just an alias for HSV)<br>
+<code>hsb:H,S,B</code> where <code>H</code> is 0-360, <code>S</code> 0-100 and <code>B</code>0-100</p>
+</li>
+<li>
+<p><strong>HWB</strong> (Hue White Black)
+<code>hwb:H,W,B</code> where <code>H</code> is 0-360, <code>W</code> 0-100 and <code>B</code> 0-100<br>
+See <a href="https://drafts.csswg.org/css-color/#the-hwb-notation">HWB notation @csswg</a></p>
+</li>
+<li>
+<p><strong>CSS named colors</strong>
+<img src="https://raw.githubusercontent.com/MarkGriffiths/trucolor/master/media/named.png" alt="Named Colors Examples"></p>
+</li>
+<li>
+<p><strong>Special formatters</strong>
+The following keywords modify the meaning or destination of the color, or provide enhanced foramtting. They only work when used with the command switches that actually output SGR codes, namely: <code>--message</code>, <code>--swatch</code>, <code>--in</code> and <code>--out</code>. When used with the default command or with the <code>--rgb</code> switch, they have no effect and the value of the base color (plus any processing) will be output.</p>
+<p>  <strong>background</strong>: Set the background color, rather than the foreground.</p>
+<p>  <strong>normal</strong>: Set the color to the default foreground and background.<br>
+<strong>reset</strong>: Sets colors and special formatting back to the default.</p>
+<p>  <strong>bold</strong>: Set the font to bold.<br>
+<strong>italic</strong>: Set the font to italic.<br>
+<strong>underline</strong>: Set underline.<br>
+<strong>dim</strong>: Set the colour to 50% opacity.<br>
+<strong>invert</strong>: Invert the foreground and background.<br>
+<strong>blink</strong>: Annoying as a note in Comic Sans, attached to a dancing, purple dinosaur with a talking paperclip.</p>
+<p>  All of the above formatters need the correct code to end the range, either provided by using the <code>--out</code> switch, using the <code>reset</code> keyword, or simply use the <code>--message</code> option to automatically set the end range SGR code. Using <code>normal</code> alone won't fully clear the formatting.</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/MarkGriffiths/trucolor/master/media/formatters.png" alt="Formatters Examples"></p>
+<h5>Color manipulation</h5>
+<p>A number of color <code>operations</code> can be specified, either before or after the base color declaration.</p>
+<p><code>light</code>: lighten by 20%
+<code>dark</code>: darken by 20%
+<code>lighten</code> percent: lighten by percent
+<code>darken</code> percent: darken by percent
+<code>mono</code>: make monochrome
+<code>saturate</code> or sat percent: saturate by percent
+<code>desaturate</code> or des percent: desaturate by percent
+<code>spin</code> degrees: spin hue by by degrees
+color <code>mix</code> color: mix colors</p>
+<h5>Multiple Inputs</h5>
+<p><code>trucolor</code> will output a list of color values if more than one base color is specified, allowing color assignment in a single block allowing easy ingest using <code>read</code>. Each color will be output on it's own line, and named according to the input base color. The names can be overridden by providing a <code>name:</code> before the base color.</p>
+<pre><code class="language-shell">> trucolor red yellow green purple
+red: ff0000
+yellow: ffff00
+green: 008000
+purple: 800080
+
+> trucolor Po: red LaaLaa: yellow Dipsy: green TinkyWinky: purple
+Po: ff0000
+LaaLaa: ffff00
+Dipsy: 008000
+TinkyWinky: 800080
+
+> trucolor hsl:120,100,50 apples: orange spin 180
+hsl-120-100-50: 00ff00
+apples: 005aff
+</code></pre>
+<h2>Programmatic Usage</h2>
+<pre><code class="language-javascript">import {trucolor, palette, chalkish, simple} from 'trucolor'
+
+const simpleColor = trucolor('bright red')
+console.log(`${simpleColor.in}simpleColor${simpleColor.out}`)
+
+const simplePalette = simple()
+console.log(`${simplePalette.red}simplePalette Red${simplePalette.red.out}`)
+console.log(`${simplePalette.blue}simplePalette Blue${simplePalette.blue.out}`)
+
+const myPalette = palette({}, {
+  red: '#F00',
+  blue: 'lighten 30 blue'
+})
+console.log(`${myPalette.red}myPalette Red${myPalette.red.out}`)
+console.log(`${myPalette.blue}myPalette Blue${myPalette.blue.out}`)
+
+const myChalkishPalette = chalkish(palette({}, {
+  red: '#F00',
+  blue: 'lighten 30 blue'
+}))
+console.log(myChalkishPalette.red('myChalkishPalette Red'))
+console.log(myChalkishPalette.blue('myChalkishPalette Blue'))
+</code></pre>
+
+	
+</section>
+</div>
+        
+      
+        
+          <div class="keyline-top-not py1"><section class="py0 px2 clearfix note">
+	<h3 id="api" class="m0">
+		API
+	</h3>
+	
+		
+
+	
+	
+</section>
+</div>
+        
+      
+        
+          <section class="py2 px3 mb2 clearfix bg-white rounded minishadow">
+
+  
+  <div class="clearfix">
+    <h3 class="left m0 panel-title" id="trucolor">
+      Trucolor  
+    </h3>
+    
+      <a class="pl3 pr1 right rounded github" href="https://github.com/MarkGriffiths/trucolor/blob/1569bfb4da1a82470e31c8d38a7d95fc4ec01996/src/index.js#L42-L48">src/index.js</a>
+    
+  </div>
+  
+
+  <p>Color retreival API. Will return different values if called with a cli or sgr context.</p>
+
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+    <div class="py1 quiet mt1 prose-big">Properties</div>
+    <div>
+      
+        <div class="space-bottom0">
+          <span class="code bold">name</span> <code class="quiet">(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : Human readable color name.
+
+          
+        </div>
+      
+        <div class="space-bottom0">
+          <span class="code bold">in</span> <code class="quiet">(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : Opening SGR code
+
+          
+        </div>
+      
+        <div class="space-bottom0">
+          <span class="code bold">out</span> <code class="quiet">(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : Closing SGR code
+
+          
+        </div>
+      
+        <div class="space-bottom0">
+          <span class="code bold">hex</span> <code class="quiet">(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : #RRGGBB Hexadecimal color value (or SGR reset name)
+
+          
+        </div>
+      
+        <div class="space-bottom0">
+          <span class="code bold">rgb</span> <code class="quiet">(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : 'rgb(red, green, blue)' CSS format (or SGR reset name)
+
+          
+        </div>
+      
+        <div class="space-bottom0">
+          <span class="code bold">toString</span> <code class="quiet">(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">function</a>)</code>
+          : Returns a Hex code, SGR in code or CLI
+arguments with formatting flags, depending on
+format.
+
+          
+        </div>
+      
+        <div class="space-bottom0">
+          <span class="code bold">toSwatch</span> <code class="quiet">(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">function</a>)</code>
+          : Returns a graphic swatch of the color.
+
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+      
+        
+          <section class="py2 px3 mb2 clearfix bg-white rounded minishadow">
+
+  
+  <div class="clearfix">
+    <h3 class="left m0 panel-title" id="trucolor">
+      trucolor  <span>→ <a href="#trucolor">Trucolor</a></span>
+    </h3>
+    
+      <a class="pl3 pr1 right rounded github" href="https://github.com/MarkGriffiths/trucolor/blob/1569bfb4da1a82470e31c8d38a7d95fc4ec01996/src/index.js#L42-L48">src/index.js</a>
+    
+  </div>
+  
+
+  <p>Create an SGR-aware color from a loose text definition.</p>
+
+  
+  <div class="pre p1 bg-darken-1 mt0 signature">trucolor(color: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, options: [<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>](default {})) → <a href="#trucolor">Trucolor</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+    <div class="py1 quiet mt1 prose-big">Parameters</div>
+    <div class="prose">
+      
+        <div class="space-bottom0">
+          <div>
+            <span class="code bold">color</span> <code class="quiet">(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code> A color definition.
+
+          </div>
+          
+        </div>
+      
+        <div class="space-bottom0">
+          <div>
+            <span class="code bold">options</span> <code class="quiet">([<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>](default {}))</code> Options.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+    <div class="py1 quiet mt1 prose-big">Properties</div>
+    <div>
+      
+        <div class="space-bottom0">
+          <span class="code bold">options.format</span> <code class="quiet">(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : Output collection format. 
+[
+ default | sgr | cli 
+]
+
+          
+        </div>
+      
+        <div class="space-bottom0">
+          <span class="code bold">options.force</span> <code class="quiet">(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : Force a colour depth 
+[
+ (4|color}, (8|256), (24|16m) 
+]
+
+          
+        </div>
+      
+    </div>
+  
+
+  
+    
+      <div class="py1 quiet mt1 prose-big">Returns</div>
+      <code><a href="#trucolor">Trucolor</a></code>:
+        A Trucolor instance.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+      
+        
+          <section class="py2 px3 mb2 clearfix bg-white rounded minishadow">
+
+  
+  <div class="clearfix">
+    <h3 class="left m0 panel-title" id="palette">
+      palette  <span>→ <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>
+    </h3>
+    
+      <a class="pl3 pr1 right rounded github" href="https://github.com/MarkGriffiths/trucolor/blob/1569bfb4da1a82470e31c8d38a7d95fc4ec01996/src/index.js#L56-L58">src/index.js</a>
+    
+  </div>
+  
+
+  <p>Create a map of trucolor instances from a map of name/color values.</p>
+
+  
+  <div class="pre p1 bg-darken-1 mt0 signature">palette(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, palette: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>) → <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+    <div class="py1 quiet mt1 prose-big">Parameters</div>
+    <div class="prose">
+      
+        <div class="space-bottom0">
+          <div>
+            <span class="code bold">options</span> <code class="quiet">(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> Options to pass to trucolor creation.
+
+          </div>
+          
+        </div>
+      
+        <div class="space-bottom0">
+          <div>
+            <span class="code bold">palette</span> <code class="quiet">(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> A map of name/color definitions.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class="py1 quiet mt1 prose-big">Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
+        The resultant name/trucolor map.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+      
+        
+          <section class="py2 px3 mb2 clearfix bg-white rounded minishadow">
+
+  
+  <div class="clearfix">
+    <h3 class="left m0 panel-title" id="chalkish">
+      chalkish  <span>→ <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">function</a></span>
+    </h3>
+    
+      <a class="pl3 pr1 right rounded github" href="https://github.com/MarkGriffiths/trucolor/blob/1569bfb4da1a82470e31c8d38a7d95fc4ec01996/src/index.js#L65-L67">src/index.js</a>
+    
+  </div>
+  
+
+  <p>Create a map of nestable functions, allowing color to be applied a-lá-chalk.</p>
+
+  
+  <div class="pre p1 bg-darken-1 mt0 signature">chalkish(palette: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>) → <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">function</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+    <div class="py1 quiet mt1 prose-big">Parameters</div>
+    <div class="prose">
+      
+        <div class="space-bottom0">
+          <div>
+            <span class="code bold">palette</span> <code class="quiet">(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> A map of name/color definitions.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class="py1 quiet mt1 prose-big">Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">function</a></code>:
+        The resultant name/function map.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+      
+        
+          <section class="py2 px3 mb2 clearfix bg-white rounded minishadow">
+
+  
+  <div class="clearfix">
+    <h3 class="left m0 panel-title" id="simple">
+      simple  <span>→ <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>
+    </h3>
+    
+      <a class="pl3 pr1 right rounded github" href="https://github.com/MarkGriffiths/trucolor/blob/1569bfb4da1a82470e31c8d38a7d95fc4ec01996/src/index.js#L105-L107">src/index.js</a>
+    
+  </div>
+  
+
+  <p>Create a simple, sharable palette</p>
+
+  
+  <div class="pre p1 bg-darken-1 mt0 signature">simple(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>) → <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+    <div class="py1 quiet mt1 prose-big">Parameters</div>
+    <div class="prose">
+      
+        <div class="space-bottom0">
+          <div>
+            <span class="code bold">options</span> <code class="quiet">(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> Options to pass to trucolor creation.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class="py1 quiet mt1 prose-big">Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
+        The resultant name/trucolor map.
+
+      
+    
+  
+
+  
+
+  
+    <div class="py1 quiet mt1 prose-big">Example</div>
+      
+      
+      <pre class="p1 overflow-auto rounded bg-darken-1">{
+  <span class="hljs-attr">white</span>: <span class="hljs-string">'#BBB'</span>,
+  <span class="hljs-attr">black</span>: <span class="hljs-string">'#111'</span>,
+  <span class="hljs-attr">red</span>: <span class="hljs-string">'#B00'</span>,
+  <span class="hljs-attr">green</span>: <span class="hljs-string">'#0B0'</span>,
+  <span class="hljs-attr">blue</span>: <span class="hljs-string">'#44B'</span>,
+  <span class="hljs-attr">cyan</span>: <span class="hljs-string">'#0BB'</span>,
+  <span class="hljs-attr">yellow</span>: <span class="hljs-string">'#BB0'</span>,
+  <span class="hljs-attr">magenta</span>: <span class="hljs-string">'#B0B'</span>,
+  <span class="hljs-attr">brightWhite</span>: <span class="hljs-string">'#FFF'</span>,
+  <span class="hljs-attr">brightRed</span>: <span class="hljs-string">'#F33'</span>,
+  <span class="hljs-attr">brightGreen</span>: <span class="hljs-string">'#3F3'</span>,
+  <span class="hljs-attr">brightBlue</span>: <span class="hljs-string">'#44F'</span>,
+  <span class="hljs-attr">brightCyan</span>: <span class="hljs-string">'#3FF'</span>,
+  <span class="hljs-attr">brightYellow</span>: <span class="hljs-string">'#FF3'</span>,
+  <span class="hljs-attr">brightMagenta</span>: <span class="hljs-string">'#F3F'</span>,
+  <span class="hljs-attr">dim</span>: <span class="hljs-string">'dim'</span>,
+  <span class="hljs-attr">bold</span>: <span class="hljs-string">'bold'</span>,
+  <span class="hljs-attr">italic</span>: <span class="hljs-string">'italic'</span>,
+  <span class="hljs-attr">invert</span>: <span class="hljs-string">'invert'</span>,
+  <span class="hljs-attr">example</span>: <span class="hljs-string">'#CC99FF'</span>,
+  <span class="hljs-attr">command</span>: <span class="hljs-string">'#31A0FF'</span>,
+  <span class="hljs-attr">argument</span>: <span class="hljs-string">'#7DC3FF'</span>,
+  <span class="hljs-attr">option</span>: <span class="hljs-string">'#C1BA89'</span>,
+  <span class="hljs-attr">operator</span>: <span class="hljs-string">'#FFFFFF'</span>,
+  <span class="hljs-attr">grey</span>: <span class="hljs-string">'#808080'</span>,
+  <span class="hljs-attr">title</span>: <span class="hljs-string">'bold #80C480'</span>,
+  <span class="hljs-attr">normal</span>: <span class="hljs-string">'normal'</span>,
+  <span class="hljs-attr">reset</span>: <span class="hljs-string">'reset'</span>
+}</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+      
+    </div>
+  </div>
+  <script src="assets/js/anchor.min.js"></script>
+  <script src="assets/js/site.js"></script>
+</body>
+</html>

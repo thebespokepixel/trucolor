@@ -1,4 +1,14 @@
+branches:
+  only:
+  - master
+  - develop
+  - /^greenkeeper-.*$/
 language: node_js
+node_js:
+  - 4
+  - 5
+  - 6
+  - stable
 node_js:
   - stable
 sudo: false
@@ -10,3 +20,8 @@ notifications:
     on_success: always
     on_failure: change
     on_start: never
+addons:
+  code_climate:
+    repo_token: 9930a88506218aaf57a8349f54d5003f0bc17ce71f50df77fe0fa86884aa267b
+after_script:
+  - nyc report --reporter=text-lcov | codeclimate-test-reporter

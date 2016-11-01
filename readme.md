@@ -1,46 +1,65 @@
-# Trucolor
->A node module and CLI utility for using 24bit color SGR codes in modern terminals.
->
->![Project status][project-badge]
-[![npm Status][npm-badge]][npm]
-[![Chat on Gitter][gitter-badge]][gitter]  
-[![Build Status][build-badge]][travis]
-[![Dependency Status][david-badge]][david]
-[![devDependency Status][david-dev-badge]][david-dev]
+![TruColor][logo]
+
+# trucolor
+
+> A node module and CLI utility for using 24bit color SGR codes in modern terminals.
+
+##### Status
+
+![Status](https://img.shields.io/badge/status-beta-blue.svg?style=flat) [![npm](https://img.shields.io/npm/v/trucolor.svg?style=flat&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU%2BbnBtPC90aXRsZT48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxyZWN0IGZpbGwtb3BhY2l0eT0iLjMiIGZpbGw9IiMwMDAiIHg9IjIiIHk9IjExIiB3aWR0aD0iMTAiIGhlaWdodD0iMiIgcng9IjEiLz48cGF0aCBmaWxsPSIjRkZGIiBkPSJNMiAyaDEwdjEwSDJ6Ii8%2BPHBhdGggZmlsbD0iI0MxMjEyNyIgZD0iTTMgMTFoNFY1aDJ2NmgyVjNIM3oiLz48L2c%2BPC9zdmc%2B)](https://www.npmjs.com/package/trucolor "npm") [![Travis](https://img.shields.io/travis/MarkGriffiths/trucolor.svg?branch=master&style=flat)](https://travis-ci.org/MarkGriffiths/trucolor "Travis") [![David](https://img.shields.io/david/MarkGriffiths/trucolor.svg?branch=master&style=flat)](https://david-dm.org/MarkGriffiths/trucolor/master "David")  
+ [![Code-climate](https://codeclimate.com/github/MarkGriffiths/trucolor/badges/gpa.svg?style=flat)](https://codeclimate.com/github/MarkGriffiths/trucolor "Code-climate") [![Coverage](https://codeclimate.com/github/MarkGriffiths/trucolor/badges/coverage.svg?style=flat)](https://codeclimate.com/github/MarkGriffiths/trucolor/coverage "Coverage") [![Snyk](https://snyk.io/test/github/MarkGriffiths/trucolor/badge.svg?style=flat)](https://snyk.io/test/github/MarkGriffiths/trucolor "Snyk")   
+
+##### Developer
+
+[![David-developer](https://img.shields.io/david/dev/MarkGriffiths/trucolor.svg?branch=master&style=flat)](https://david-dm.org/MarkGriffiths/trucolor/master#info=devDependencies "David-developer") [![Rollup](https://img.shields.io/badge/es2015-jsnext%3Amain_%E2%9C%94-64CA39.svg?style=flat&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNCIgaGVpZ2h0PSIxNCIgdmlld0JveD0iMCAwIDE0IDE0Ij4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHBhdGggZmlsbD0iI0ZGMzMzMyIgZD0iTTEwLjkwNDI4MjQsMy4wMDkxMDY4MyBDMTEuMjM4NzA1NSwzLjU4MjgzNzEzIDExLjQyODU3MTQsNC4yNDQ4MzM2MyAxMS40Mjg1NzE0LDQuOTUwOTYzMjIgQzExLjQyODU3MTQsNi40MTc4NjM0IDEwLjYwODY5NTcsNy42OTU2MjE3MiA5LjM5MTgyNzM5LDguMzc2NTMyNCBDOS4zMDU1MjQ2OCw4LjQyNDg2ODY1IDkuMjczMTYxMTYsOC41MzIwNDkwNCA5LjMxODQ3MDA5LDguNjE4MjEzNjYgTDExLjQyODU3MTQsMTMgTDUuMjU4NjgyODEsMTMgTDIuMzM5Nzc3MjMsMTMgQzIuMTUyMTIzNDUsMTMgMiwxMi44NDgyNzU3IDIsMTIuNjUzODA0OCBMMiwxLjM0NjE5NTIyIEMyLDEuMTU0OTk2ODggMi4xNDgzMTU0MywxIDIuMzM5Nzc3MjMsMSBMNy42NjAyMjI3NywxIEM3LjcwMTU0MTQ5LDEgNy43NDExMzc2NCwxLjAwNzM1NTg4IDcuNzc3NzY2NTgsMS4wMjA5MDQyOSBDOS4wNjQ1MzgyOCwxLjE0NDU0MDA0IDEwLjE3MzM4ODQsMS44NTM4NTI5MSAxMC44MjIyOTQ5LDIuODcyNTA0MzggQzEwLjc5OTE5NTMsMi44NDQ4NDgwNiAxMC44NDQ0OTkxLDIuOTQ5MTc0NzYgMTAuOTA0MjgyNCwzLjAwOTEwNjgzIFoiLz4KICAgIDxwYXRoIGZpbGw9IiMwMDAwMDAiIGZpbGwtb3BhY2l0eT0iLjMxIiBkPSJNOC44NTcxNDI4NiwzLjU3MTQyODU3IEw2LjcxNDI4NTcxLDYuNTcxNDI4NTcgTDkuMjg1NzE0MjksNS4yODU3MTQyOSBDOS4yODU3MTQyOSw1LjI4NTcxNDI5IDkuNzE0Mjg1NzEsNC44NTcxNDI4NiA5LjI4NTcxNDI5LDQuNDI4NTcxNDMgQzkuMjg1NzE0MjksNCA4Ljg1NzE0Mjg2LDMuNTcxNDI4NTcgOC44NTcxNDI4NiwzLjU3MTQyODU3IFoiLz4KICAgIDxwYXRoIGZpbGw9IiNGQkIwNDAiIGQ9Ik0yLjg0Njc0NjAzLDEyLjk5NTg0OTUgQzMuMjY0OTIwNjIsMTIuOTk1ODQ5NSAzLjE4NTkzMDM0LDEyLjk0NjM2NjkgMy4zMTYxMTYzOCwxMi44NzM5MDU0IEMzLjYxODE3NTg3LDEyLjcwNTc3OTMgNS42ODk0NDA5OSw4LjcxMjc4NDU5IDcuNzE3NTU0NzYsNi44MjEzNjYwMiBDOS43NDU2Njg1Miw0LjkyOTk0NzQ2IDEwLjAwNDU3NjcsNS41NjA0MjAzMiA4Ljg4NDc5ODk1LDMuNTAyOTc3MjMgQzguODg0Nzk4OTUsMy41MDI5NzcyMyA5Ljc0NzgyNjA5LDUuMTQyMjA2NjUgOS4wMTQyNTMwMiw1LjI2ODMwMTIzIEM4LjQzODE4MjQxLDUuMzY3MDc1MzEgNy4xMTk5MDg0Nyw0LjEyMjk0MjIxIDcuNjExODMzOTMsMy4wMDQ5MDM2OCBDOC4wOTA4MTM5OSwxLjkxNDE4NTY0IDEwLjAxOTY3OTYsMi4xMjAxNDAxMSAxMC45MDY0NCwzLjAwOTEwNjgzIEMxMC44NzgzOTE2LDIuOTYyODcyMTUgMTAuODUwMzQzMiwyLjkxNjYzNzQ4IDEwLjgyMjI5NDksMi44NzI1MDQzOCBDMTAuMzA0NDc4NiwyLjI1MjUzOTQgOS41MDQwMjA5MiwxLjkwMzY3Nzc2IDguNzEwMDM1OTYsMS45MDM2Nzc3NiBDNy4xOTk3Mzg0OCwxLjkwMzY3Nzc2IDYuODIwMDA2NTQsMi40MjY5NzAyMyAzLjkyMDIzNTM3LDcuNjE5OTY0OTcgQzIuMzg3Nzk5MzQsMTAuMzY1NDA2NyAyLjAxMDgzMTkzLDExLjU3MzUwNzkgMi4wMDYyOTA2OSwxMi4xNjk4MTgyIEMyLDEyLjk5NTg0OTUgMi4wMDYyOTA2OSwxMi45OTU4NDk1IDIuODQ2NzQ2MDMsMTIuOTk1ODQ5NSBaIi8%2BCiAgPC9nPgo8L3N2Zz4K)](https://github.com/rollup/rollup/wiki/jsnext:main "Rollup")   
+
+##### Help
+
+[![Inch](https://inch-ci.org/github/MarkGriffiths/trucolor.svg?branch=master&style=shields)](https://inch-ci.org/github/MarkGriffiths/trucolor "Inch") [![Gitter](https://img.shields.io/gitter/room/MarkGriffiths/help.svg?style=flat)](https://gitter.im/MarkGriffiths/help?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge "Gitter")   
 
 
-## Install
+## Usage
+
+#### Installation
+
 ##### Global version, for CLI use
-`npm install --global trucolor`
+
+```shell
+npm install --global @thebespokepixel/trucolor
+```
 
 ##### Module, for programmatic use
-`npm install --save trucolor`
+
+```shell
+npm install --save @thebespokepixel/trucolor
+```
+
 
 ## CLI Usage
 
 #### Synopsis:
 
 ```text
-trucolor [options] [name]: [operation...] color [operation...]
-               ...[[name]: [operation...] color [operation...]]...
+trucolor [options] "color description"...
 
 Options:
 -h, --help     Display this help.
--v, --version  Return the current version. -vv Return name & version.
--V, --verbose  Be verbose. -VV Be loquacious.                        
+-v, --version  Return the current version on stdout. -vv Return name & version.
+-V, --verbose  Be verbose. -VV Be loquacious.
 -m, --message  Format message with SGR codes
--i, --in       Output SGR color escape code.                         
--o, --out      Output cancelling SGR color escape code.   
--t, --type     CLI styling flags output. [none | direct | fish]           
--r, --rgb      Output color as rgb(r, g, b)                          
+-i, --in       Output SGR color escape code.
+-o, --out      Output cancelling SGR color escape code.
+-t, --type     CLI styling flags output.
+-r, --rgb      Output color as rgb(r, g, b).
 -s, --swatch   Output an isolated color swatch.
+--color        Force color depth --color=256|16m. Disable with --no-color
 ```
 
-![Usage Examples][example]
+![Usage Examples](https://raw.githubusercontent.com/MarkGriffiths/trucolor/master/media/example.png)
 
 In it's simplest form, `trucolor 'color'`, will take any of the color expressions listed below and transform it into a simple hexadecimal triplet string, i.e `AA00BB`, ideal for passing into fish-shell's `set_color` built-in, or providing the basis of further color processing.
 
-It can return color values and set terminal colors for a wide range of color assignment declarations and manipulation functions, based internally on the [`color-convert`](https://github.com/Qix-/color-convert) node module and [`less`](http://lesscss.org). See the examples below.
+It can return color values and set terminal colors for a wide range of color assignment declarations and manipulation functions. See the examples below.
 
 When outputting SGR codes, colors will be shifted to the availalble 256 or ansi color palette if 24 bit color is unavailable or will be omitted in a monochromatic terminal to make usage across environments safe. The CLI command respects `--color=16m`, `--color=256`, `--color` and `--no-color` flags. It does not affect value based output, such as the default or `--rgb` output, it only effects the `--in`, `--out`, `--message` and `--swatch` outputs.
 
@@ -50,169 +69,117 @@ The motivation for this is to allow more sophisticated graphic visualisation usi
 
 The `color` can be defined in any of the following formats:
 
-- __CSS Hexadecimal__  
-  `[#]RRGGBB` or `[#]RGB` where `R`, `G` and `B` are 0-F.
+-   **CSS Hexadecimal**  
+    `[#]RRGGBB` or `[#]RGB` where `R`, `G` and `B` are 0-F.
 
-- __RGB__  
-  `rgb:R,G,B` or `rgb(R,G,B)` where `R`,`G` and `B` are 0-255.  
-  Spaces can be incuded in rgb(R, G, B) declarations but require quoting/escaping on the CLI.
+-   **RGB**  
+    `rgb:R,G,B` or `rgb(R,G,B)` where `R`,`G` and `B` are 0-255.  
+    Spaces can be incuded in rgb(R, G, B) declarations but require quoting/escaping on the CLI.
 
-- __HSL__ (Hue Saturation Lightness)  
-  `hsl:H,S,L` where `H` is 0-360, `S` 0-100 and `L` 0-100
+-   **HSL** (Hue Saturation Lightness)  
+    `hsl:H,S,L` where `H` is 0-360, `S` 0-100 and `L` 0-100
 
-- __HSV__ (Hue Saturation Value)  
-  `hsv:H,S,V` where `H` is 0-360, `S` 0-100 and `V `0-100
+-   **HSV** (Hue Saturation Value)  
+    `hsv:H,S,V` where `H` is 0-360, `S` 0-100 and `V`0-100
 
-- __HSB__ (Hue Saturation Brightness) (just an alias for HSV)  
-  `hsb:H,S,B` where `H` is 0-360, `S` 0-100 and `B `0-100
+-   **HSB** (Hue Saturation Brightness) (just an alias for HSV)  
+    `hsb:H,S,B` where `H` is 0-360, `S` 0-100 and `B`0-100
 
-- __HWB__ (Hue White Black)
-  `hwb:H,W,B` where `H` is 0-360, `W` 0-100 and `B` 0-100  
-  See [HWB notation @csswg](https://drafts.csswg.org/css-color/#the-hwb-notation)
+-   **HWB** (Hue White Black)
+    `hwb:H,W,B` where `H` is 0-360, `W` 0-100 and `B` 0-100  
+    See [HWB notation @csswg](https://drafts.csswg.org/css-color/#the-hwb-notation)
 
-- __CSS named colors__
-![Named Colors Examples][named]
+-   **CSS named colors**
+    ![Named Colors Examples](https://raw.githubusercontent.com/MarkGriffiths/trucolor/master/media/named.png)
 
-- __Special formatters__
-The following keywords modify the meaning or destination of the color, or provide enhanced foramtting. They only work when used with the command switches that actually output SGR codes, namely: `--message`, `--swatch`, `--in` and `--out`. When used with the default command or with the `--rgb` switch, they have no effect and the value of the base color (plus any processing) will be output.
+-   **Special formatters**
+    The following keywords modify the meaning or destination of the color, or provide enhanced foramtting. They only work when used with the command switches that actually output SGR codes, namely: `--message`, `--swatch`, `--in` and `--out`. When used with the default command or with the `--rgb` switch, they have no effect and the value of the base color (plus any processing) will be output.
 
-  __background__: Set the background color, rather than the foreground.
+      **background**: Set the background color, rather than the foreground.
 
-  __normal__: Set the color to the default foreground and background.  
-  __reset__: Sets colors and special formatting back to the default.
+      **normal**: Set the color to the default foreground and background.  
+      **reset**: Sets colors and special formatting back to the default.
 
-  __bold__: Set the font to bold.  
-  __italic__: Set the font to italic.  
-  __underline__: Set underline.  
-  __dim__: Set the colour to 50% opacity.  
-  __invert__: Invert the foreground and background.  
-  __blink__: Annoying as a note in Comic Sans, attached to a dancing, purple dinosaur with a talking paperclip.
+      **bold**: Set the font to bold.  
+      **italic**: Set the font to italic.  
+      **underline**: Set underline.  
+      **dim**: Set the colour to 50% opacity.  
+      **invert**: Invert the foreground and background.  
+      **blink**: Annoying as a note in Comic Sans, attached to a dancing, purple dinosaur with a talking paperclip.
 
-  All of the above formatters need the correct code to end the range, either provided by using the `--out` switch, using the `reset` keyword, or simply use the `--message` option to automatically set the end range SGR code. Using `normal` alone won't fully clear the formatting.
+      All of the above formatters need the correct code to end the range, either provided by using the `--out` switch, using the `reset` keyword, or simply use the `--message` option to automatically set the end range SGR code. Using `normal` alone won't fully clear the formatting.
 
-![Formatters Examples][formatters]
+![Formatters Examples](https://raw.githubusercontent.com/MarkGriffiths/trucolor/master/media/formatters.png)
 
 ##### Color manipulation
 
 A number of color `operations` can be specified, either before or after the base color declaration.
 
-__light__ | __dark__ : preset 20% darken/lighten.  
-__saturate__ | __sat__ | __desaturate__ | __desat__ | __lighten__ | __darken__ _percent_ : basic operations.  
-__spin__ _degrees_ : hue shift.  
-__mix__ | __multiply__ | __screen__ (`named` | `rgb()` | `#hex`) : mix with color.  
-__overlay__ | __softlight__ | __soft__ | __hardlight__ | __hard__ _color_ : light with color.  
-__difference__ | __diff__ | __exclusion__ | __excl__ _color_ : subtract color.  
-__average__ | __ave__ | __negation__ | __not__ _color_ : blend with color.  
-__contrast__ _dark color_ `[light color]` `[threshold]` : calculate contrasting color.  
-
-See <http://lesscss.org/functions/#color-operations> for more details.
+`light`: lighten by 20%
+`dark`: darken by 20%
+`lighten` percent: lighten by percent
+`darken` percent: darken by percent
+`mono`: make monochrome
+`saturate` or sat percent: saturate by percent
+`desaturate` or des percent: desaturate by percent
+`spin` degrees: spin hue by by degrees
+color `mix` color: mix colors
 
 ##### Multiple Inputs
+
 `trucolor` will output a list of color values if more than one base color is specified, allowing color assignment in a single block allowing easy ingest using `read`. Each color will be output on it's own line, and named according to the input base color. The names can be overridden by providing a `name:` before the base color.
 
-```sh
+```shell
 > trucolor red yellow green purple
-red FF0000
-yellow FFFF00
-green 008000
-purple 800080
+red: ff0000
+yellow: ffff00
+green: 008000
+purple: 800080
 
 > trucolor Po: red LaaLaa: yellow Dipsy: green TinkyWinky: purple
-Po FF0000
-LaaLaa FFFF00
-Dipsy 008000
-TinkyWinky 800080
+Po: ff0000
+LaaLaa: ffff00
+Dipsy: 008000
+TinkyWinky: 800080
 
 > trucolor hsl:120,100,50 apples: orange spin 180
-hsl-120-100-50 00FF00
-apples 005AFF
+hsl-120-100-50: 00ff00
+apples: 005aff
 ```
 
-##### Custom Names:
-Any color definition can be prefixed with a `name:` and the result will be cached with that name, allowing it to be recalled by the same name later.
-
-```sh
-> trucolor bob: black lighten 50 saturate 50 spin 180
-40BFBF
-> trucolor --rgb bob:
-rgb(64, 191, 191)
-```
-
-##### Supported and tested terminals include:
-Obviously all this depends on your terminals support for the extended formatting. The latest iTerm2 builds and X's XTerm have full support for everything `trucolor` can do, and anything that supports a terminal type of 'xterm-256color' will cover a fairly complete subset.
-
-For example, Apple's Terminal.app doesn't have 24 bit color support nor does it have support for italics, but everything else works well.
-
-- [iTerm2 2.9 Beta](https://iterm2.com/downloads.html) (OS X)
-- XTerm (^314 XQuartz 2.7.8)
-
-Please let me know results in your terminal. <http://github.com/MarkGriffiths/trucolor>
 
 ## Programmatic Usage
 
-More to come here...
-
-### Simple generic palette
-
-I use this to make sure help pages have consistent color between different modules.
-
 ```javascript
-var palette = require('trucolor').simplePalette();
+import {trucolor, palette, chalkish, simple} from 'trucolor'
 
-var palette256 = require('trucolor').simplePalette({force: 'hundreds'});
+const simpleColor = trucolor('bright red')
+console.log(`${simpleColor.in}simpleColor${simpleColor.out}`)
 
-var palette16 = require('trucolor').simplePalette({force: 'color'});
+const simplePalette = simple()
+console.log(`${simplePalette.red}simplePalette Red${simplePalette.red.out}`)
+console.log(`${simplePalette.blue}simplePalette Blue${simplePalette.blue.out}`)
+
+const myPalette = palette({}, {
+  red: '#F00',
+  blue: 'lighten 30 blue'
+})
+console.log(`${myPalette.red}myPalette Red${myPalette.red.out}`)
+console.log(`${myPalette.blue}myPalette Blue${myPalette.blue.out}`)
+
+const myChalkishPalette = chalkish(palette({}, {
+  red: '#F00',
+  blue: 'lighten 30 blue'
+}))
+console.log(myChalkishPalette.red('myChalkishPalette Red'))
+console.log(myChalkishPalette.blue('myChalkishPalette Blue'))
 ```
 
-Without forcing, the palette will default to your terminal's color depth.
 
-### Bulk color creation
+## Documentation
 
-```javascript
-var trucolor = require('trucolor');
+Full documentation can be found at [https://markgriffiths.github.io/trucolor/][1]
 
-// the options object can be passed empty - the default output is 'sgr'
+[1]: https://markgriffiths.github.io/trucolor/
 
-var palette = trucolor.bulk({ output: 'sgr|value|swatch' }, {
-  color_1: 'red lighten 10',
-  color_2: '#fe2316',
-  color_3: 'hsl(120,50,60)'
-});
-```
-
-### Chalk-ish behaviour
-
-Trucolor also let's you style strings similar to Sindre Sorhus' Chalk, but allowing access to the full 256 and 24bit gamut.
-
-```javascript
-var trucolor = require('trucolor');
-
-var palette = trucolor.chalkish(trucolor.bulk({}, {
-  color_1: 'red lighten 10',
-  color_2: '#fe2316',
-  color_3: 'hsl(120,50,60)'
-}));
-
-console.log(palette.color_1("Style" + palette.color_2(' with ')) + 'functions')
-
-The 'simple' palette can be set using:
-var palette = require('trucolor').chalkishPalette();
-```
-
-[example]: https://raw.githubusercontent.com/MarkGriffiths/trucolor/master/media/example.png
-[named]: https://raw.githubusercontent.com/MarkGriffiths/trucolor/master/media/named.png
-[formatters]: https://raw.githubusercontent.com/MarkGriffiths/trucolor/master/media/formatters.png
-
-[project-badge]: http://img.shields.io/badge/status-beta-blue.svg?style=flat
-[build-badge]: http://img.shields.io/travis/MarkGriffiths/trucolor.svg?branch=master&style=flat
-[david-badge]: http://img.shields.io/david/MarkGriffiths/trucolor.svg?style=flat
-[david-dev-badge]: http://img.shields.io/david/dev/MarkGriffiths/trucolor.svg?style=flat
-[npm-badge]: https://img.shields.io/npm/v/trucolor.svg?style=flat
-[gitter-badge]: https://badges.gitter.im/MarkGriffiths/help.svg
-
-[travis]: https://travis-ci.org/MarkGriffiths/trucolor
-[david]: https://david-dm.org/MarkGriffiths/trucolor
-[david-dev]: https://david-dm.org/MarkGriffiths/trucolor#info=devDependencies
-[npm]: https://www.npmjs.com/package/trucolor
-[gitter]: https://gitter.im/MarkGriffiths/help?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
-
+[logo]: https://raw.githubusercontent.com/MarkGriffiths/trucolor/master/media/banner.png
