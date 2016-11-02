@@ -7,11 +7,7 @@ import {simple, palette} from '..'
 import deepAssign from 'deep-assign'
 import {TemplateTag, replaceSubstitutionTransformer} from 'common-tags'
 
-export const clr = deepAssign(simple({
-	format: 'sgr'
-}), palette({
-	format: 'sgr'
-}, {
+export const clr = deepAssign(simple({format: 'sgr'}), palette({format: 'sgr'}, {
 	purple: 'purple',
 	purpleSwatch: 'purple desaturate 70',
 	orange: 'hsb:45,100,100',
