@@ -5,10 +5,10 @@ branches:
   - /^greenkeeper-.*$/
 language: node_js
 node_js:
-  - 4
-  - 5
-  - 6
   - stable
+  - 6
+  - 5
+  - 4
 sudo: false
 before_install: npm i -g npm@latest
 notifications:
@@ -22,4 +22,4 @@ addons:
   code_climate:
     repo_token: 67fb11cd77c4c9c4d0e224daa27059acf058092164aeeb79eab218e74b5e4da1
 after_script:
-  - nyc report --reporter=text-lcov | codeclimate-test-reporter
+  - "[ $TRAVIS_NODE_VERSION = stable ] && nyc report --reporter=text-lcov | codeclimate-test-reporter"
