@@ -1207,7 +1207,7 @@ class Chalkish {
 	}
 }
 
-var simplePalette = {
+var simpleObject = {
 	white: '#BBB',
 	black: '#111',
 	red: '#B00',
@@ -1259,7 +1259,7 @@ function palette(options, palette) {
 }
 
 function simple(options) {
-	return palette(options, simplePalette)
+	return palette(options, simpleObject)
 }
 
 const clr = deepAssign(simple({

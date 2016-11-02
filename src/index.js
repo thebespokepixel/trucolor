@@ -10,7 +10,7 @@ import meta from '@thebespokepixel/meta'
 import parse from './lib/parser'
 import render from './lib/renderer'
 import chalk from './lib/classes/chalkish'
-import simplePalette from './lib/palettes/simple'
+import simpleObject from './lib/palettes/simple'
 
 export const console = createConsole({outStream: process.stderr})
 export const pkg = readPkg.sync(resolve(__dirname, '..'))
@@ -103,7 +103,11 @@ export function chalkish(palette) {
  * }
  */
 export function simple(options) {
-	return palette(options, simplePalette)
+	return palette(options, simpleObject)
+}
+
+export function simplePalette(options) {
+	return palette(options, simpleObject)
 }
 
 export {parse, render}
