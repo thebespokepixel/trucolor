@@ -126,7 +126,7 @@
       "index.js"
     ]
   },
-  "version": "0.6.3",
+  "version": "0.6.4",
   "badges": {
     "github": "MarkGriffiths",
     "npm": "thebespokepixel",
@@ -180,6 +180,6 @@
       ]
     ]
   },
-  "buildNumber": 4,
+  "buildNumber": 0,
   "jsnext:main": "lib/index-es.js"
 }
