@@ -6,6 +6,7 @@
   "files": [
     "index.js",
     "lib/",
+    "media/",
     "bin/"
   ],
   "bugs": {
@@ -126,7 +127,7 @@
       "index.js"
     ]
   },
-  "version": "0.6.4",
+  "version": "0.6.5",
   "badges": {
     "github": "MarkGriffiths",
     "npm": "thebespokepixel",
