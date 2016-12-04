@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>trucolor 0.6.5 | Documentation</title>
+  <title>trucolor 0.6.6 | Documentation</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link href="assets/css/ace.min.css" rel="stylesheet">
   <link href="assets/fonts/TypoPRO-Hack/TypoPRO-Hack.css" type="text/css" rel="stylesheet" />
@@ -13,7 +13,7 @@
   <div class="flex">
     <div class="flex-column fixed top-0 bottom-0 px2 pt2 max-height-100 sidebar">
       <h3 class="m0 no-anchor">trucolor</h3>
-      <div class="mb1"><code>v0.6.5</code></div>
+      <div class="mb1"><code>v0.6.6</code></div>
       <input
         placeholder="Filter"
         id="filter-input"
@@ -124,18 +124,16 @@
 	
 		<h4>Installation</h4>
 <h5>Global version, for CLI use</h5>
-<pre><code class="language-shell">npm install --global @thebespokepixel/trucolor
-</code></pre>
+<pre class='hljs'>npm install --global @thebespokepixel/trucolor</pre>
 <h5>Module, for programmatic use</h5>
-<pre><code class="language-shell">npm install --save @thebespokepixel/trucolor
-</code></pre>
+<pre class='hljs'>npm install --save @thebespokepixel/trucolor</pre>
 <h2>CLI Usage</h2>
 <h4>Synopsis:</h4>
-<pre><code class="language-text">trucolor [options] "color description"...
+<pre class='hljs'>trucolor [options] "color description"...
 
 Options:
 -h, --help     Display this help.
--v, --version  Return the current version on stdout. -vv Return name &#x26; version.
+-v, --version  Return the current version on stdout. -vv Return name &amp; version.
 -V, --verbose  Be verbose. -VV Be loquacious.
 -m, --message  Format message with SGR codes
 -i, --in       Output SGR color escape code.
@@ -143,8 +141,7 @@ Options:
 -t, --type     CLI styling flags output.
 -r, --rgb      Output color as rgb(r, g, b).
 -s, --swatch   Output an isolated color swatch.
---color        Force color depth --color=256|16m. Disable with --no-color
-</code></pre>
+--color        Force color depth --color=256|16m. Disable with --no-color</pre>
 <p><img src="https://raw.githubusercontent.com/MarkGriffiths/trucolor/master/media/example.png" alt="Usage Examples"></p>
 <p>In it's simplest form, <code>trucolor 'color'</code>, will take any of the color expressions listed below and transform it into a simple hexadecimal triplet string, i.e <code>AA00BB</code>, ideal for passing into fish-shell's <code>set_color</code> built-in, or providing the basis of further color processing.</p>
 <p>It can return color values and set terminal colors for a wide range of color assignment declarations and manipulation functions. See the examples below.</p>
@@ -212,46 +209,44 @@ The following keywords modify the meaning or destination of the color, or provid
 color <code>mix</code> color: mix colors</p>
 <h5>Multiple Inputs</h5>
 <p><code>trucolor</code> will output a list of color values if more than one base color is specified, allowing color assignment in a single block allowing easy ingest using <code>read</code>. Each color will be output on it's own line, and named according to the input base color. The names can be overridden by providing a <code>name:</code> before the base color.</p>
-<pre><code class="language-shell">> trucolor red yellow green purple
+<pre class='hljs'>&gt; trucolor red yellow green purple
 red: ff0000
 yellow: ffff00
 green: 008000
 purple: 800080
 
-> trucolor Po: red LaaLaa: yellow Dipsy: green TinkyWinky: purple
+&gt; trucolor Po: red LaaLaa: yellow Dipsy: green TinkyWinky: purple
 Po: ff0000
 LaaLaa: ffff00
 Dipsy: 008000
 TinkyWinky: 800080
 
-> trucolor hsl:120,100,50 apples: orange spin 180
+&gt; trucolor hsl:120,100,50 apples: orange spin 180
 hsl-120-100-50: 00ff00
-apples: 005aff
-</code></pre>
+apples: 005aff</pre>
 <h2>Programmatic Usage</h2>
-<pre><code class="language-javascript">import {trucolor, palette, chalkish, simple} from 'trucolor'
+<pre class='hljs'><span class="hljs-keyword">import</span> {trucolor, palette, chalkish, simple} <span class="hljs-keyword">from</span> <span class="hljs-string">'trucolor'</span>
 
-const simpleColor = trucolor('bright red')
-console.log(`${simpleColor.in}simpleColor${simpleColor.out}`)
+<span class="hljs-keyword">const</span> simpleColor = trucolor(<span class="hljs-string">'bright red'</span>)
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${simpleColor.<span class="hljs-keyword">in</span>}</span>simpleColor<span class="hljs-subst">${simpleColor.out}</span>`</span>)
 
-const simplePalette = simple()
-console.log(`${simplePalette.red}simplePalette Red${simplePalette.red.out}`)
-console.log(`${simplePalette.blue}simplePalette Blue${simplePalette.blue.out}`)
+<span class="hljs-keyword">const</span> simplePalette = simple()
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${simplePalette.red}</span>simplePalette Red<span class="hljs-subst">${simplePalette.red.out}</span>`</span>)
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${simplePalette.blue}</span>simplePalette Blue<span class="hljs-subst">${simplePalette.blue.out}</span>`</span>)
 
-const myPalette = palette({}, {
-  red: '#F00',
-  blue: 'lighten 30 blue'
+<span class="hljs-keyword">const</span> myPalette = palette({}, {
+  <span class="hljs-attr">red</span>: <span class="hljs-string">'#F00'</span>,
+  <span class="hljs-attr">blue</span>: <span class="hljs-string">'lighten 30 blue'</span>
 })
-console.log(`${myPalette.red}myPalette Red${myPalette.red.out}`)
-console.log(`${myPalette.blue}myPalette Blue${myPalette.blue.out}`)
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${myPalette.red}</span>myPalette Red<span class="hljs-subst">${myPalette.red.out}</span>`</span>)
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${myPalette.blue}</span>myPalette Blue<span class="hljs-subst">${myPalette.blue.out}</span>`</span>)
 
-const myChalkishPalette = chalkish(palette({}, {
-  red: '#F00',
-  blue: 'lighten 30 blue'
+<span class="hljs-keyword">const</span> myChalkishPalette = chalkish(palette({}, {
+  <span class="hljs-attr">red</span>: <span class="hljs-string">'#F00'</span>,
+  <span class="hljs-attr">blue</span>: <span class="hljs-string">'lighten 30 blue'</span>
 }))
-console.log(myChalkishPalette.red('myChalkishPalette Red'))
-console.log(myChalkishPalette.blue('myChalkishPalette Blue'))
-</code></pre>
+<span class="hljs-built_in">console</span>.log(myChalkishPalette.red(<span class="hljs-string">'myChalkishPalette Red'</span>))
+<span class="hljs-built_in">console</span>.log(myChalkishPalette.blue(<span class="hljs-string">'myChalkishPalette Blue'</span>))</pre>
 
 	
 </section>
@@ -281,7 +276,7 @@ console.log(myChalkishPalette.blue('myChalkishPalette Blue'))
       Trucolor  
     </h3>
     
-      <a class="pl3 pr1 right rounded github" href="https://github.com/MarkGriffiths/trucolor/blob/b6b1d049c178ee31c091a3ab6ce7483c3db26aea/src/index.js#L42-L48">src/index.js</a>
+      <a class="pl3 pr1 right rounded github" href="https://github.com/MarkGriffiths/trucolor/blob/491ef47060567f1eb910ee3434c579b9a89c1265/src/index.js#L42-L48">src/index.js</a>
     
   </div>
   
@@ -381,7 +376,7 @@ format.
       trucolor  <span>→ <a href="#trucolor">Trucolor</a></span>
     </h3>
     
-      <a class="pl3 pr1 right rounded github" href="https://github.com/MarkGriffiths/trucolor/blob/b6b1d049c178ee31c091a3ab6ce7483c3db26aea/src/index.js#L42-L48">src/index.js</a>
+      <a class="pl3 pr1 right rounded github" href="https://github.com/MarkGriffiths/trucolor/blob/491ef47060567f1eb910ee3434c579b9a89c1265/src/index.js#L42-L48">src/index.js</a>
     
   </div>
   
@@ -389,7 +384,7 @@ format.
   <p>Create an SGR-aware color from a loose text definition.</p>
 
   
-  <div class="pre p1 bg-darken-1 mt0 signature">trucolor(color: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, options: [<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>](default {})) → <a href="#trucolor">Trucolor</a></div>
+  <div class="pre p1 bg-darken-1 mt0 signature">trucolor(color: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>?= {}) → <a href="#trucolor">Trucolor</a></div>
   
   
 
@@ -413,7 +408,7 @@ format.
       
         <div class="space-bottom0">
           <div>
-            <span class="code bold">options</span> <code class="quiet">([<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>](default {}))</code> Options.
+            <span class="code bold">options</span> <code class="quiet">(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>?= {})</code> Options.
 
           </div>
           
@@ -481,7 +476,7 @@ format.
       palette  <span>→ <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>
     </h3>
     
-      <a class="pl3 pr1 right rounded github" href="https://github.com/MarkGriffiths/trucolor/blob/b6b1d049c178ee31c091a3ab6ce7483c3db26aea/src/index.js#L56-L58">src/index.js</a>
+      <a class="pl3 pr1 right rounded github" href="https://github.com/MarkGriffiths/trucolor/blob/491ef47060567f1eb910ee3434c579b9a89c1265/src/index.js#L56-L58">src/index.js</a>
     
   </div>
   
@@ -556,7 +551,7 @@ format.
       chalkish  <span>→ <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">function</a></span>
     </h3>
     
-      <a class="pl3 pr1 right rounded github" href="https://github.com/MarkGriffiths/trucolor/blob/b6b1d049c178ee31c091a3ab6ce7483c3db26aea/src/index.js#L65-L67">src/index.js</a>
+      <a class="pl3 pr1 right rounded github" href="https://github.com/MarkGriffiths/trucolor/blob/491ef47060567f1eb910ee3434c579b9a89c1265/src/index.js#L65-L67">src/index.js</a>
     
   </div>
   
@@ -623,7 +618,7 @@ format.
       simple  <span>→ <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>
     </h3>
     
-      <a class="pl3 pr1 right rounded github" href="https://github.com/MarkGriffiths/trucolor/blob/b6b1d049c178ee31c091a3ab6ce7483c3db26aea/src/index.js#L105-L107">src/index.js</a>
+      <a class="pl3 pr1 right rounded github" href="https://github.com/MarkGriffiths/trucolor/blob/491ef47060567f1eb910ee3434c579b9a89c1265/src/index.js#L105-L107">src/index.js</a>
     
   </div>
   
