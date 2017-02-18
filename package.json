@@ -70,7 +70,7 @@
     "sgr-composer": "^0.4.2",
     "term-ng": "^0.7.7",
     "truwrap": "^0.7.4",
-    "update-notifier": "^1.0.2",
+    "update-notifier": "^2.1.0",
     "verbosity": "^0.8.3",
     "yargs": "^6.3.0"
   },
