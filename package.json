@@ -70,14 +70,14 @@
     "sgr-composer": "^0.4.2",
     "term-ng": "^0.7.7",
     "truwrap": "^0.7.4",
-    "update-notifier": "^1.0.2",
+    "update-notifier": "^2.1.0",
     "verbosity": "^0.8.3",
-    "yargs": "^6.3.0"
+    "yargs": "^8.0.1"
   },
   "description": "TTY color toolkit supporting Truecolor (24bit RGB)",
   "devDependencies": {
     "@thebespokepixel/cordial": "^0.17.11",
-    "ava": "^0.17.0",
+    "ava": "^0.19.1",
     "codeclimate-test-reporter": "^0.4.0",
     "documentation": "^4.0.0-beta11",
     "documentation-theme-bespoke": "^0.3.4",
@@ -85,7 +85,7 @@
     "nyc": "^10.0.0",
     "semver-regex": "^1.0.0",
     "shelljs": "^0.7.5",
-    "xo": "^0.17.0"
+    "xo": "^0.18.2"
   },
   "engines": {
     "node": ">=4.0 <9.0"
