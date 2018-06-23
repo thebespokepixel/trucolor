@@ -66,25 +66,25 @@
     "deep-assign": "^2.0.0",
     "escape-string-regexp": "^1.0.4",
     "lodash": "^4.16.6",
-    "read-pkg": "^2.0.0",
-    "sgr-composer": "^0.4.2",
-    "term-ng": "^0.7.7",
-    "truwrap": "^0.7.6",
-    "update-notifier": "^1.0.2",
+    "read-pkg": "^3.0.0",
+    "sgr-composer": "^0.5.0",
+    "term-ng": "^0.8.1",
+    "truwrap": "^0.8.0",
+    "update-notifier": "^2.5.0",
     "verbosity": "^0.9.0",
-    "yargs": "^6.3.0"
+    "yargs": "^11.0.0"
   },
   "description": "TTY color toolkit supporting Truecolor (24bit RGB)",
   "devDependencies": {
-    "ava": "^0.17.0",
-    "codeclimate-test-reporter": "^0.4.0",
-    "documentation": "^4.0.0-beta11",
+    "ava": "^0.25.0",
+    "codeclimate-test-reporter": "^0.5.0",
+    "documentation": "^8.0.0",
     "documentation-theme-bespoke": "^0.3.4",
     "gulp": "github:gulpjs/gulp#4.0",
-    "nyc": "^10.0.0",
-    "semver-regex": "^1.0.0",
-    "shelljs": "^0.7.5",
-    "xo": "^0.17.0"
+    "nyc": "^12.0.2",
+    "semver-regex": "^2.0.0",
+    "shelljs": "^0.8.2",
+    "xo": "^0.21.1"
   },
   "engines": {
     "node": ">=4.0 <9.0"
