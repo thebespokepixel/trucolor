@@ -3,7 +3,7 @@ import shell from 'shelljs'
 import test from 'ava'
 import pkg from '../package'
 
-const expectedVersion = (pkg.buildNumber === 0 && pkg.version) || `${pkg.version}-Δ${pkg.buildNumber}`
+const expectedVersion = pkg.version
 
 test.cb(`Module name/version is '${pkg.name} v${expectedVersion}'.`, t => {
 	shell.exec('./bin/trucolor -vv', {
