@@ -5,7 +5,7 @@
 
 import {tinycolor, names} from '@thebespokepixel/es-tinycolor'
 import converter from 'color-convert'
-import {console} from '../../index'
+import {console} from '../../main'
 
 class Interpreter {
 	constructor(raw) {
@@ -186,9 +186,11 @@ class Interpreter {
 		}
 		console.debug(`Color (${this.baseName}) ${this.baseColor} from ${this.source.space} as ${this.source.human}`)
 	}
+
 	set name(n) {
 		this.baseName = n
 	}
+
 	get name() {
 		return this.baseName
 	}
@@ -196,6 +198,7 @@ class Interpreter {
 	set rgb(rgb) {
 		this.baseColor = tinycolor(rgb)
 	}
+
 	get rgb() {
 		return this.baseColor
 	}
@@ -203,12 +206,15 @@ class Interpreter {
 	get input() {
 		return this.source.input
 	}
+
 	get human() {
 		return this.source.human
 	}
+
 	get space() {
 		return this.source.space
 	}
+
 	toString() {
 		return converter.rgb.hex(this.baseColor)
 	}

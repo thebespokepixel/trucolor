@@ -36,4 +36,3 @@ after_script:
   && nyc report --reporter=lcov
   && ./cc-test-reporter after-build --debug -t lcov --exit-code $TRAVIS_TEST_RESULT
   || echo 'Coverage skipped'"
-

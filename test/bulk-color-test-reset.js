@@ -10,9 +10,9 @@ const mixes = palette({}, {
 })
 
 const mixResults = {
-	reset: '\u001b[0m',
-	normal: '\u001b[0m',
-	normalReset: '\u001b[0m'
+	reset: '\u001B[0m',
+	normal: '\u001B[0m',
+	normalReset: '\u001B[0m'
 }
 
 Object.keys(mixResults).forEach(target => {

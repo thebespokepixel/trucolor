@@ -1,6 +1,8 @@
-ecmaFeatures:
-  modules: true
-  jsx: true
+parserOptions:
+  ecmaVersion: 6
+  sourceType: module
+  ecmaFeatures:
+    jsx: true
 
 env:
   amd: true
@@ -122,7 +124,7 @@ rules:
   no-mixed-requires: 0
   no-new-require: 0
   no-path-concat: 2
-  no-process-exit: 2
+  no-process-exit: 0
   no-restricted-modules: 0
   no-sync: 0
 

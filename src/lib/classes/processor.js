@@ -4,7 +4,7 @@
 
 import _ from 'lodash'
 import {tinycolor, TinyColor} from '@thebespokepixel/es-tinycolor'
-import {console} from '../..'
+import {console} from '../../main'
 
 class Processor {
 	constructor(colorname) {
@@ -97,26 +97,32 @@ class Processor {
 		this.attrs = 'background'
 		console.debug('Special::background')
 	}
+
 	bold() {
 		this.attrs = 'bold'
 		console.debug('Special::bold')
 	}
+
 	dim() {
 		this.attrs = 'dim'
 		console.debug('Special::dim')
 	}
+
 	italic() {
 		this.attrs = 'italic'
 		console.debug('Special::italic')
 	}
+
 	invert() {
 		this.attrs = 'invert'
 		console.debug('Special::invert')
 	}
+
 	underline() {
 		this.attrs = 'underline'
 		console.debug('Special::underline')
 	}
+
 	blink() {
 		this.attrs = 'blink'
 		console.debug('Special::blink')

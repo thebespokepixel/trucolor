@@ -7,11 +7,12 @@ import {stripIndent} from 'common-tags'
 import {truwrap, createImage} from 'truwrap'
 import {names} from '@thebespokepixel/es-tinycolor'
 import {clr, colorReplacer, spectrum} from '../lib/colour'
-import {metadata, palette} from '..'
+import {metadata, palette} from '../main'
 
 /**
  * Render help when asked for.
  * @param  {yargs} yargs - yargs object defined in cli
+ * @param {Object} helpPage Object of page sections
  * @return {undefined} Writes help to stdout.
  */
 export default function help(yargs, helpPage) {
@@ -79,7 +80,6 @@ export default function help(yargs, helpPage) {
 	`
 
 	const epilogue = stripIndent(colorReplacer)`
-		${`title|${metadata.name}`} is an open source component of CryptoComposite’s toolset.
 		${`title|${metadata.copyright}`}. ${`grey|Released under the ${metadata.license} License.`}
 		${`grey|Issues?: ${metadata.bugs}`}
 	`

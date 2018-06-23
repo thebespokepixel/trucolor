@@ -1,21 +1,15 @@
-'use strict';
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var _reduce = _interopDefault(require('lodash/reduce'));
-var esTinycolor = require('@thebespokepixel/es-tinycolor');
-var converter = _interopDefault(require('color-convert'));
-var _map = _interopDefault(require('lodash/map'));
-var _remove = _interopDefault(require('lodash/remove'));
-var SGRcomposer = _interopDefault(require('sgr-composer'));
-var terminal = _interopDefault(require('term-ng'));
-var escStringRE = _interopDefault(require('escape-string-regexp'));
-var _mapValues = _interopDefault(require('lodash/mapValues'));
-var readPkg = _interopDefault(require('read-pkg-up'));
-var verbosity = require('verbosity');
-var meta = _interopDefault(require('@thebespokepixel/meta'));
+import _reduce from 'lodash/reduce';
+import { tinycolor, TinyColor, names } from '@thebespokepixel/es-tinycolor';
+import converter from 'color-convert';
+import _map from 'lodash/map';
+import _remove from 'lodash/remove';
+import SGRcomposer from 'sgr-composer';
+import terminal from 'term-ng';
+import escStringRE from 'escape-string-regexp';
+import _mapValues from 'lodash/mapValues';
+import readPkg from 'read-pkg-up';
+import { createConsole } from 'verbosity';
+import meta from '@thebespokepixel/meta';
 
 class Processor {
   constructor(colorname) {
@@ -40,7 +34,7 @@ class Processor {
   }
 
   render() {
-    return this.haveSource ? _reduce(this.queue, (color, step) => step(color), esTinycolor.tinycolor(this.rgb)) : 'none';
+    return this.haveSource ? _reduce(this.queue, (color, step) => step(color), tinycolor(this.rgb)) : 'none';
   }
 
   set source(interpreter) {
@@ -180,7 +174,7 @@ class Processor {
   }
 
   mix(args) {
-    this.addStep(color => esTinycolor.TinyColor.mix(color, args.color, 50));
+    this.addStep(color => TinyColor.mix(color, args.color, 50));
     this.namePrefix = `mix-${this.namePrefix}`;
     this.nameSuffix = `${this.nameSuffix}-${args.color}`;
     console.debug('Process::mix', args.color);
@@ -301,7 +295,7 @@ class Interpreter {
             space: 'SGR'
           };
 
-        case raw_ in esTinycolor.names:
+        case raw_ in names:
           return {
             input: raw_,
             human: raw_,
@@ -381,7 +375,7 @@ class Interpreter {
     if (source.space === 'SGR') {
       this.baseColor = source.name;
     } else {
-      this.baseColor = esTinycolor.tinycolor(source.rgb ? `rgb(${source.rgb})` : source.name);
+      this.baseColor = tinycolor(source.rgb ? `rgb(${source.rgb})` : source.name);
     }
 
     console.debug(`Color (${this.baseName}) ${this.baseColor} from ${this.source.space} as ${this.source.human}`);
@@ -396,7 +390,7 @@ class Interpreter {
   }
 
   set rgb(rgb) {
-    this.baseColor = esTinycolor.tinycolor(rgb);
+    this.baseColor = tinycolor(rgb);
   }
 
   get rgb() {
@@ -708,7 +702,7 @@ var simpleObject = {
   reset: 'reset'
 };
 
-const console = verbosity.createConsole({
+const console = createConsole({
   outStream: process.stderr
 });
 const {
@@ -811,13 +805,4 @@ function simplePalette(options) {
   return palette(options, simpleObject);
 }
 
-exports.console = console;
-exports.pkg = pkg;
-exports.metadata = metadata;
-exports.trucolor = trucolor;
-exports.palette = palette;
-exports.chalkish = chalkish;
-exports.simple = simple;
-exports.simplePalette = simplePalette;
-exports.parse = parse;
-exports.render = render$$1;
+export { console, pkg, metadata, trucolor, palette, chalkish, simple, simplePalette, parse, render$$1 as render };
