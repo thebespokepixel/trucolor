@@ -6,34 +6,34 @@ const heading = `8bit palette via module`
 const palette = chalkish(simple({force: '256'}))
 
 const results = {
-	white: '\u001b[38;5;249mwhite\u001b[39m',
-	black: '\u001b[38;5;233mblack\u001b[39m',
-	red: '\u001b[38;5;160mred\u001b[39m',
-	green: '\u001b[38;5;40mgreen\u001b[39m',
-	blue: '\u001b[38;5;62mblue\u001b[39m',
-	cyan: '\u001b[38;5;44mcyan\u001b[39m',
-	yellow: '\u001b[38;5;184myellow\u001b[39m',
-	magenta: '\u001b[38;5;164mmagenta\u001b[39m',
-	brightWhite: '\u001b[38;5;231mbrightWhite\u001b[39m',
-	brightRed: '\u001b[38;5;203mbrightRed\u001b[39m',
-	brightGreen: '\u001b[38;5;83mbrightGreen\u001b[39m',
-	brightBlue: '\u001b[38;5;63mbrightBlue\u001b[39m',
-	brightCyan: '\u001b[38;5;87mbrightCyan\u001b[39m',
-	brightYellow: '\u001b[38;5;227mbrightYellow\u001b[39m',
-	brightMagenta: '\u001b[38;5;207mbrightMagenta\u001b[39m',
-	dim: '\u001b[2mdim\u001b[22m',
-	bold: '\u001b[1mbold\u001b[22m',
-	italic: '\u001b[3mitalic\u001b[23m',
-	invert: '\u001b[7minvert\u001b[27m',
-	example: '\u001b[38;5;183mexample\u001b[39m',
-	command: '\u001b[38;5;75mcommand\u001b[39m',
-	argument: '\u001b[38;5;117margument\u001b[39m',
-	option: '\u001b[38;5;187moption\u001b[39m',
-	operator: '\u001b[38;5;231moperator\u001b[39m',
-	grey: '\u001b[38;5;244mgrey\u001b[39m',
-	title: '\u001b[38;5;151;1mtitle\u001b[22;39m',
-	normal: '\u001b[0mnormal\u001b[m',
-	reset: '\u001b[0mreset\u001b[m'
+	white: '\u001B[38;5;249mwhite\u001B[39m',
+	black: '\u001B[38;5;233mblack\u001B[39m',
+	red: '\u001B[38;5;160mred\u001B[39m',
+	green: '\u001B[38;5;40mgreen\u001B[39m',
+	blue: '\u001B[38;5;62mblue\u001B[39m',
+	cyan: '\u001B[38;5;44mcyan\u001B[39m',
+	yellow: '\u001B[38;5;184myellow\u001B[39m',
+	magenta: '\u001B[38;5;164mmagenta\u001B[39m',
+	brightWhite: '\u001B[38;5;231mbrightWhite\u001B[39m',
+	brightRed: '\u001B[38;5;203mbrightRed\u001B[39m',
+	brightGreen: '\u001B[38;5;83mbrightGreen\u001B[39m',
+	brightBlue: '\u001B[38;5;63mbrightBlue\u001B[39m',
+	brightCyan: '\u001B[38;5;87mbrightCyan\u001B[39m',
+	brightYellow: '\u001B[38;5;227mbrightYellow\u001B[39m',
+	brightMagenta: '\u001B[38;5;207mbrightMagenta\u001B[39m',
+	dim: '\u001B[2mdim\u001B[22m',
+	bold: '\u001B[1mbold\u001B[22m',
+	italic: '\u001B[3mitalic\u001B[23m',
+	invert: '\u001B[7minvert\u001B[27m',
+	example: '\u001B[38;5;183mexample\u001B[39m',
+	command: '\u001B[38;5;75mcommand\u001B[39m',
+	argument: '\u001B[38;5;117margument\u001B[39m',
+	option: '\u001B[38;5;187moption\u001B[39m',
+	operator: '\u001B[38;5;231moperator\u001B[39m',
+	grey: '\u001B[38;5;244mgrey\u001B[39m',
+	title: '\u001B[38;5;151;1mtitle\u001B[22;39m',
+	normal: '\u001B[0mnormal\u001B[m',
+	reset: '\u001B[0mreset\u001B[m'
 }
 
 Object.keys(results).forEach(target => {
@@ -42,12 +42,12 @@ Object.keys(results).forEach(target => {
 	})
 })
 
-test(`${heading}: Chalkish : \u001b[38;5;249mwhite \u001b[38;5;160mred\u001b[38;5;249m white\u001b[39m`, t => {
+test(`${heading}: Chalkish : \u001B[38;5;249mwhite \u001B[38;5;160mred\u001B[38;5;249m white\u001B[39m`, t => {
 	const str = palette.white('white ' + palette.red('red') + ' white')
-	t.is(str, '\u001b[38;5;249mwhite \u001b[38;5;160mred\u001b[38;5;249m white\u001b[39m')
+	t.is(str, '\u001B[38;5;249mwhite \u001B[38;5;160mred\u001B[38;5;249m white\u001B[39m')
 })
 
-test(`${heading}: Chalkish : \u001b[38;5;62mblue \u001b[3mitalic\u001b[23m blue\u001b[39m`, t => {
+test(`${heading}: Chalkish : \u001B[38;5;62mblue \u001B[3mitalic\u001B[23m blue\u001B[39m`, t => {
 	const str = palette.blue('blue ' + palette.italic('italic') + ' blue')
-	t.is(str, '\u001b[38;5;62mblue \u001b[3mitalic\u001b[23m blue\u001b[39m')
+	t.is(str, '\u001B[38;5;62mblue \u001B[3mitalic\u001B[23m blue\u001B[39m')
 })

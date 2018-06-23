@@ -2,9 +2,8 @@
  │ trucolor │ 24bit color tools for the command line
  ╰──────────┴─────────────────────────────────────────────────────────────────── */
 
-import {resolve} from 'path'
 import _ from 'lodash'
-import readPkg from 'read-pkg'
+import readPkg from 'read-pkg-up'
 import {createConsole} from 'verbosity'
 import meta from '@thebespokepixel/meta'
 import parse from './lib/parser'
@@ -13,7 +12,7 @@ import chalk from './lib/classes/chalkish'
 import simpleObject from './lib/palettes/simple'
 
 export const console = createConsole({outStream: process.stderr})
-export const pkg = readPkg.sync(resolve(__dirname, '..'))
+export const {pkg} = readPkg.sync(__dirname)
 export const metadata = meta(__dirname)
 
 /**

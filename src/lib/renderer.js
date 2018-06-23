@@ -6,7 +6,7 @@
 import _ from 'lodash'
 import SGRcomposer from 'sgr-composer'
 import terminal from 'term-ng'
-import {pkg} from '../index'
+import {pkg} from '../main'
 
 const colorLevel = terminal.color.level || 0
 
@@ -47,7 +47,6 @@ export default function render(processor, options = {}) {
 	})(global.trucolorCLItype)
 
 	switch (outputFormat) {
-
 		case 'cli':
 			return Object.assign({
 				name: processor.human,

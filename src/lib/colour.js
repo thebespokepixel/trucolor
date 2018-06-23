@@ -3,9 +3,9 @@
  ╰──────────┴────────────────────────────────────────────────────────────────── */
 import _ from 'lodash'
 import terminalFeatures from 'term-ng'
-import {simple, palette} from '..'
 import deepAssign from 'deep-assign'
 import {TemplateTag, replaceSubstitutionTransformer} from 'common-tags'
+import {simple, palette} from '../main'
 
 export const clr = deepAssign(simple({format: 'sgr'}), palette({format: 'sgr'}, {
 	purple: 'purple',
@@ -42,13 +42,13 @@ export const colorReplacer = new TemplateTag(
 
 export function spectrum(width, char) {
 	if (terminalFeatures.color.has16m) {
-		return _.map(Array(width), (val, col) => {
+		return _.map(new Array(width), (val, col) => {
 			const scos = Math.cos((col / width) * (Math.PI / 2))
 			const ssin = Math.sin((col / width) * (Math.PI))
 			const red = (scos > 0) ? Math.floor(scos * 255) : 0
 			const green = (ssin > 0) ? Math.floor(ssin * 255) : 0
 			const blue = (scos > 0) ? Math.floor((1 - scos) * 255) : 0
-			return `\u001b[38;2;${red};${green};${blue}m${char}`
+			return `\u001B[38;2;${red};${green};${blue}m${char}`
 		}).join('')
 	}
 	return `${char.repeat(width)}\n${clr.red.in}  Your terminal currently doesn't support 24 bit color.`

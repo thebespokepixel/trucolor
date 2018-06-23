@@ -3,16 +3,15 @@
  ╰──────────┴─────────────────────────────────────────────────────────────────── */
 /* eslint unicorn/no-process-exit:0, no-process-exit:0 */
 
-import _ from 'lodash'
 import yargs from 'yargs'
 import updateNotifier from 'update-notifier'
 import {box} from '@thebespokepixel/string'
 import {stripIndent} from 'common-tags'
-import {console, pkg, metadata, parse, render} from '../index'
+import {console, pkg, metadata, parse, render} from '../main'
 import {colorReplacer} from '../lib/colour'
 import help from './help'
 
-yargs.strict().options({
+yargs.strict().help(false).version(false).options({
 	h: {
 		alias: 'help',
 		describe: 'Display this help.'
@@ -64,7 +63,7 @@ yargs.strict().options({
 	}
 }).showHelpOnFail(false, `Use 'trucolor --help' for help.`)
 
-const argv = yargs.argv
+const {argv} = yargs
 
 global.trucolorCLItype = argv.type
 

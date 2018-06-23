@@ -16,7 +16,7 @@ class Chalkish {
 			return collection
 		})({})
 
-		const proto = Object.defineProperties(function () {}, styleFactory)
+		const proto = Object.defineProperties(() => {}, styleFactory)
 
 		function applyPaint(content) {
 			let i = this._styles.length

@@ -5,12 +5,11 @@
 
 import createProcessor from './classes/processor'
 import createInterpreter from './classes/interpreter'
-// import {console} from '../index'
 
 let currentAutoName = 1
 
 export default function (color) {
-	let queue = []
+	const queue = []
 	let processor = createProcessor(`color_${currentAutoName++}`)
 	const refreshProcessor = processor_ => {
 		if (processor_.hasSource) {
@@ -96,11 +95,6 @@ export default function (color) {
 					color: tokens.shift()
 				})
 				break
-			// case 'contrast':
-			// 	processor.contrast
-			// 		color_dark: do tokens_.shift if commands[0]?
-			// 		color_light: do tokens_.shift if commands[0]?
-			// 		threshold: do tokens_.shift if commands[0]?
 			default:
 				if (/^[A-Za-z0-9_-]+:$/.test(token)) {
 					processor = refreshProcessor(processor)
