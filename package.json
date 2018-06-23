@@ -10,7 +10,7 @@
   },
   "files": [
     "index.js",
-    "index.js",
+    "index.mjs",
     "bin/"
   ],
   "bugs": {
