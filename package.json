@@ -76,7 +76,6 @@
   },
   "description": "TTY color toolkit supporting Truecolor (24bit RGB)",
   "devDependencies": {
-    "@thebespokepixel/cordial": "^0.17.11",
     "ava": "^0.17.0",
     "codeclimate-test-reporter": "^0.4.0",
     "documentation": "^4.0.0-beta11",
