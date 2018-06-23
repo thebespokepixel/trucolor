@@ -1,6 +1,6 @@
 {
   "name": "trucolor",
-  "version": "0.6.6",
+  "version": "0.7.0",
   "description": "TTY color toolkit supporting Truecolor (24bit RGB)",
   "author": "Mark Griffiths <mark@thebespokepixel.com> (http://thebespokepixel.com/)",
   "main": "index.js",
@@ -10,7 +10,7 @@
   },
   "files": [
     "index.js",
-    "index.js",
+    "index.mjs",
     "bin/"
   ],
   "bugs": {
@@ -110,7 +110,6 @@
     "fish"
   ],
   "license": "MIT",
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MarkGriffiths/trucolor.git"
