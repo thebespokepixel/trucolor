@@ -69,7 +69,7 @@
     "read-pkg": "^2.0.0",
     "sgr-composer": "^0.4.2",
     "term-ng": "^0.7.7",
-    "truwrap": "^0.7.4",
+    "truwrap": "^0.7.6",
     "update-notifier": "^1.0.2",
     "verbosity": "^0.9.0",
     "yargs": "^6.3.0"
