@@ -76,7 +76,7 @@
     "truwrap": "^0.8.0",
     "update-notifier": "^2.5.0",
     "verbosity": "^0.9.1",
-    "yargs": "^11.0.0"
+    "yargs": "^12.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.51",
