@@ -94,7 +94,7 @@
     "rollup-plugin-babel": "^4.0.0-beta.5",
     "semver-regex": "^2.0.0",
     "shelljs": "^0.8.2",
-    "xo": "^0.21.1"
+    "xo": "^0.22.0"
   },
   "engines": {
     "node": ">=8.0"
