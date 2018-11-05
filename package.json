@@ -75,7 +75,7 @@
     "term-ng": "^0.8.1",
     "truwrap": "^0.8.0",
     "update-notifier": "^2.5.0",
-    "verbosity": "^0.9.1",
+    "verbosity": "^0.10.0",
     "yargs": "^11.0.0"
   },
   "devDependencies": {
