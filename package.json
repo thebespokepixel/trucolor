@@ -67,7 +67,7 @@
     "@thebespokepixel/string": "^0.5.1",
     "color-convert": "^1.9.2",
     "common-tags": "^1.8.0",
-    "deep-assign": "^2.0.0",
+    "deep-assign": "^3.0.0",
     "escape-string-regexp": "^1.0.5",
     "lodash": "^4.17.10",
     "read-pkg-up": "^4.0.0",
