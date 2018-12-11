@@ -1,7 +1,7 @@
 import test from 'ava'
 import {chalkish, simple} from '..'
 
-const heading = `4bit palette via module`
+const heading = '4bit palette via module'
 
 const palette = chalkish(simple({force: 'color'}))
 

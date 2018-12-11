@@ -1,7 +1,7 @@
 import test from 'ava'
 import {palette} from '..'
 
-const heading = `values via module`
+const heading = 'values via module'
 
 const primaries = palette({}, {
 	red: 'red',

@@ -2,7 +2,7 @@
 import shell from 'shelljs'
 import test from 'ava'
 
-test.cb(`Named color is red = ff0000`, t => {
+test.cb('Named color is red = ff0000', t => {
 	shell.exec('./bin/trucolor --color=16m red', {
 		silent: true
 	}, (code_, out_) => {
@@ -12,7 +12,7 @@ test.cb(`Named color is red = ff0000`, t => {
 	})
 })
 
-test.cb(`Named color is green = 008000`, t => {
+test.cb('Named color is green = 008000', t => {
 	shell.exec('./bin/trucolor --color=16m green', {
 		silent: true
 	}, (code_, out_) => {
@@ -22,7 +22,7 @@ test.cb(`Named color is green = 008000`, t => {
 	})
 })
 
-test.cb(`Named color is blue = 0000ff`, t => {
+test.cb('Named color is blue = 0000ff', t => {
 	shell.exec('./bin/trucolor --color=16m blue', {
 		silent: true
 	}, (code_, out_) => {
@@ -32,7 +32,7 @@ test.cb(`Named color is blue = 0000ff`, t => {
 	})
 })
 
-test.cb(`rgb:128,0,128 = 800080`, t => {
+test.cb('rgb:128,0,128 = 800080', t => {
 	shell.exec('./bin/trucolor --color=16m rgb:128,0,128', {
 		silent: true
 	}, (code_, out_) => {
@@ -42,7 +42,7 @@ test.cb(`rgb:128,0,128 = 800080`, t => {
 	})
 })
 
-test.cb(`hsl:120,100,50 = 00ff00`, t => {
+test.cb('hsl:120,100,50 = 00ff00', t => {
 	shell.exec('./bin/trucolor --color=16m hsl:120,100,50', {
 		silent: true
 	}, (code_, out_) => {
@@ -52,7 +52,7 @@ test.cb(`hsl:120,100,50 = 00ff00`, t => {
 	})
 })
 
-test.cb(`hwb:240,0,0 = 0000ff`, t => {
+test.cb('hwb:240,0,0 = 0000ff', t => {
 	shell.exec('./bin/trucolor --color=16m hwb:240,0,0', {
 		silent: true
 	}, (code_, out_) => {
@@ -62,7 +62,7 @@ test.cb(`hwb:240,0,0 = 0000ff`, t => {
 	})
 })
 
-test.cb(`rgb:128,0,128 lighten 10 spin 5 = a400b3`, t => {
+test.cb('rgb:128,0,128 lighten 10 spin 5 = a400b3', t => {
 	shell.exec('./bin/trucolor --color=16m rgb:128,0,128 lighten 10 spin 5', {
 		silent: true
 	}, (code_, out_) => {
@@ -72,7 +72,7 @@ test.cb(`rgb:128,0,128 lighten 10 spin 5 = a400b3`, t => {
 	})
 })
 
-test.cb(`hsl:120,100,50 desaturate 50 = 40bf40`, t => {
+test.cb('hsl:120,100,50 desaturate 50 = 40bf40', t => {
 	shell.exec('./bin/trucolor --color=16m hsl:120,100,50 desaturate 50', {
 		silent: true
 	}, (code_, out_) => {
@@ -82,7 +82,7 @@ test.cb(`hsl:120,100,50 desaturate 50 = 40bf40`, t => {
 	})
 })
 
-test.cb(`blanchedalmond spin -195 lighten 5 desaturate 10 = e8ebfe`, t => {
+test.cb('blanchedalmond spin -195 lighten 5 desaturate 10 = e8ebfe', t => {
 	shell.exec('./bin/trucolor --color=16m blanchedalmond spin -195 lighten 5 desaturate 10', {
 		silent: true
 	}, (code_, out_) => {
@@ -92,7 +92,7 @@ test.cb(`blanchedalmond spin -195 lighten 5 desaturate 10 = e8ebfe`, t => {
 	})
 })
 
-test.cb(`bold red = --bold ff0000`, t => {
+test.cb('bold red = --bold ff0000', t => {
 	shell.exec('./bin/trucolor --color=16m bold red', {
 		silent: true
 	}, (code_, out_) => {
@@ -102,7 +102,7 @@ test.cb(`bold red = --bold ff0000`, t => {
 	})
 })
 
-test.cb(`red as rgb() = rgb(255, 0, 0)`, t => {
+test.cb('red as rgb() = rgb(255, 0, 0)', t => {
 	shell.exec('./bin/trucolor --color=16m --rgb red', {
 		silent: true
 	}, (code_, out_) => {

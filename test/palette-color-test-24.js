@@ -1,7 +1,7 @@
 import test from 'ava'
 import {simple} from '..'
 
-const heading = `24bit palette via module`
+const heading = '24bit palette via module'
 
 const palette = simple({force: 'millions'})
 

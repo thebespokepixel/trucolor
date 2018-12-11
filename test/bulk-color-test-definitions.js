@@ -1,7 +1,7 @@
 import test from 'ava'
 import {palette} from '..'
 
-const heading = `values via module`
+const heading = 'values via module'
 
 const definitions = palette({}, {
 	rgb: 'rgb:255,128,64',
