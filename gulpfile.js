@@ -4,7 +4,6 @@
 const gulp = require('gulp')
 const rename = require('gulp-rename')
 const chmod = require('gulp-chmod')
-const strip = require('gulp-strip-comments')
 const rollup = require('gulp-better-rollup')
 const babel = require('rollup-plugin-babel')
 const lodash = require('babel-plugin-lodash')
@@ -41,12 +40,12 @@ const babelConfig = {
 			}
 		}]
 	],
+	comments: false,
 	exclude: 'node_modules/**'
 }
 
 gulp.task('cjs', () =>
 	gulp.src('src/main.js')
-		.pipe(strip())
 		.pipe(rollup({
 			external,
 			plugins: [babel(babelConfig)]
@@ -59,7 +58,6 @@ gulp.task('cjs', () =>
 
 gulp.task('es6', () =>
 	gulp.src('src/main.js')
-		.pipe(strip())
 		.pipe(rollup({
 			external,
 			plugins: [babel(babelConfig)]
@@ -72,7 +70,6 @@ gulp.task('es6', () =>
 
 gulp.task('cli', () =>
 	gulp.src('src/cli/main.js')
-		.pipe(strip())
 		.pipe(rollup({
 			external,
 			plugins: [babel(babelConfig)]

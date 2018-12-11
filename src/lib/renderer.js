@@ -1,7 +1,7 @@
 /* ─────────╮
  │ trucolor │ Resolve Colour to simple RGB Array: [ r, g, b ]
  ╰──────────┴─────────────────────────────────────────────────────────────────── */
-/* eslint complexity: 0 */
+/* eslint complexity: 0, prefer-object-spread:0 */
 
 import _ from 'lodash'
 import SGRcomposer from 'sgr-composer'
@@ -32,7 +32,7 @@ export default function render(processor, options = {}) {
 			const sgr = sgrComposer.sgr(['bold', 'italic', 'underline', 'invert'])
 			return `${sgr.in}\u2588\u2588${sgr.out}`
 		}
-		return `$\u2588\u2588`
+		return '$\u2588\u2588'
 	}
 
 	const colorOptions = (type => {

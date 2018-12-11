@@ -3,11 +3,10 @@
  ╰──────────┴────────────────────────────────────────────────────────────────── */
 import _ from 'lodash'
 import terminalFeatures from 'term-ng'
-import deepAssign from 'deep-assign'
 import {TemplateTag, replaceSubstitutionTransformer} from 'common-tags'
 import {simple, palette} from '../main'
 
-export const clr = deepAssign(simple({format: 'sgr'}), palette({format: 'sgr'}, {
+export const clr = _.merge(simple({format: 'sgr'}), palette({format: 'sgr'}, {
 	purple: 'purple',
 	purpleSwatch: 'purple desaturate 70',
 	orange: 'hsb:45,100,100',
