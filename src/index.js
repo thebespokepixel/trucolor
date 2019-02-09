@@ -43,6 +43,7 @@ export function trucolor(color, options = {}) {
 	if (queue.length > 1) {
 		return queue.map(color => render(color, options))
 	}
+
 	return render(queue[0], options)
 }
 

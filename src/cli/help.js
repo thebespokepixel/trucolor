@@ -7,7 +7,7 @@ import {stripIndent} from 'common-tags'
 import {truwrap, createImage} from 'truwrap'
 import {names} from '@thebespokepixel/es-tinycolor'
 import {clr, colorReplacer, spectrum} from '../lib/colour'
-import {metadata, palette} from '../main'
+import {metadata, palette} from '..'
 
 /**
  * Render help when asked for.
@@ -27,6 +27,7 @@ export default function help(yargs, helpPage) {
 				})
 			}
 		}
+
 		return {
 			space: '',
 			cc: {
@@ -240,8 +241,10 @@ export default function help(yargs, helpPage) {
 							cell[`name_${c}`] = src
 						}
 					}
+
 					table.push(cell)
 				}
+
 				return table
 			},
 			layout: width => {
@@ -259,6 +262,7 @@ export default function help(yargs, helpPage) {
 						minWidth: 16
 					}
 				}
+
 				return {
 					showHeaders: false,
 					config: grid

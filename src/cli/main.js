@@ -7,7 +7,7 @@ import yargs from 'yargs'
 import updateNotifier from 'update-notifier'
 import {box} from '@thebespokepixel/string'
 import {stripIndent} from 'common-tags'
-import {console, pkg, metadata, parse, render} from '../main'
+import {console, pkg, metadata, parse, render} from '..'
 import {colorReplacer} from '../lib/colour'
 import help from './help'
 
@@ -137,6 +137,7 @@ buffer.forEach(color => {
 			depth: 2
 		})
 	}
+
 	const output = isList ? `${color.name}: ` : ''
 	const lineBreak = isList ? '\n' : ''
 
@@ -148,12 +149,14 @@ buffer.forEach(color => {
 			if (isList) {
 				throw new Error('SGR output only makes sense for a single color.')
 			}
+
 			process.stdout.write(`${color.in}`)
 			break
 		case argv.out:
 			if (isList) {
 				throw new Error('SGR output only makes sense for a single color.')
 			}
+
 			process.stdout.write(`${color.out}`)
 			break
 		case argv.rgb:

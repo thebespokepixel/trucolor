@@ -16,7 +16,7 @@ const mixResults = {
 }
 
 Object.keys(mixResults).forEach(target => {
-	test(`${heading}: Resets : ${mixes[target]} is SGR reset`, t => {
+	test(`${heading}: Resets : ${target} is SGR reset`, t => {
 		t.is(mixes[target].in, mixResults[target])
 	})
 })

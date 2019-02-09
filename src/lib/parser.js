@@ -16,8 +16,10 @@ export default function (color) {
 			queue.push(processor_)
 			return createProcessor(`color_${currentAutoName++}`)
 		}
+
 		return processor_
 	}
+
 	const tokens = color.split(' ')
 
 	while (tokens.length > 0) {
@@ -105,6 +107,7 @@ export default function (color) {
 				}
 		}
 	}
+
 	queue.push(processor)
 	return queue
 }

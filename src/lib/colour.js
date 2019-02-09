@@ -4,7 +4,7 @@
 import _ from 'lodash'
 import terminalFeatures from 'term-ng'
 import {TemplateTag, replaceSubstitutionTransformer} from 'common-tags'
-import {simple, palette} from '../main'
+import {simple, palette} from '..'
 
 export const clr = _.merge(simple({format: 'sgr'}), palette({format: 'sgr'}, {
 	purple: 'purple',
@@ -50,5 +50,6 @@ export function spectrum(width, char) {
 			return `\u001B[38;2;${red};${green};${blue}m${char}`
 		}).join('')
 	}
+
 	return `${char.repeat(width)}\n${clr.red.in}  Your terminal currently doesn't support 24 bit color.`
 }
