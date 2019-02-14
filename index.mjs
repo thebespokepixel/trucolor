@@ -7,7 +7,6 @@ import SGRcomposer from 'sgr-composer';
 import terminal from 'term-ng';
 import escStringRE from 'escape-string-regexp';
 import _mapValues from 'lodash/mapValues';
-import readPkg from 'read-pkg-up';
 import { createConsole } from 'verbosity';
 import meta from '@thebespokepixel/meta';
 
@@ -571,8 +570,223 @@ function _objectSpread(target) {
   return target;
 }
 
+const name = "trucolor";
+const version = "0.7.2";
+const description = "TTY color toolkit supporting Truecolor (24bit RGB)";
+const author = "Mark Griffiths <mark@thebespokepixel.com> (http://thebespokepixel.com/)";
+const main = "index.js";
+const module$1 = "index.mjs";
+const bin = {
+	trucolor: "./bin/trucolor"
+};
+const files = [
+	"index.js",
+	"index.mjs",
+	"bin/"
+];
+const bugs = {
+	url: "https://github.com/MarkGriffiths/trucolor/issues"
+};
+const copyright = {
+	year: "2018",
+	owner: "The Bespoke Pixel"
+};
+const config = {
+	cli: {
+		selected: "direct",
+		none: {
+			color: "hex",
+			background: "",
+			bold: "",
+			dim: "",
+			italic: "",
+			underline: "",
+			blink: "",
+			invert: "",
+			reset: "",
+			normal: ""
+		},
+		direct: {
+			color: "hex",
+			background: "--background",
+			bold: "--bold",
+			dim: "--dim",
+			italic: "--italic",
+			underline: "--underline",
+			blink: "--blink",
+			invert: "--invert",
+			reset: "reset",
+			normal: "normal"
+		},
+		fish: {
+			color: "hex",
+			background: "--background",
+			bold: "--bold",
+			dim: "",
+			italic: "",
+			underline: "--underline",
+			blink: "",
+			invert: "",
+			reset: "normal",
+			normal: "normal"
+		}
+	}
+};
+const dependencies = {
+	"@thebespokepixel/es-tinycolor": "^0.3.2",
+	"@thebespokepixel/meta": "^0.2.2",
+	"@thebespokepixel/string": "^0.5.1",
+	"color-convert": "^1.9.2",
+	"common-tags": "^1.8.0",
+	"escape-string-regexp": "^1.0.5",
+	lodash: "^4.17.10",
+	"sgr-composer": "^0.5.0",
+	"term-ng": "^0.8.2",
+	truwrap: "^0.8.2",
+	"update-notifier": "^2.5.0",
+	verbosity: "^0.10.0",
+	yargs: "^12.0.1"
+};
+const devDependencies = {
+	"@babel/core": "^7.2.2",
+	"@babel/preset-env": "^7.3.1",
+	acorn: "^6.1.0",
+	ava: "^1.2.1",
+	"babel-plugin-lodash": "^3.3.4",
+	documentation: "^9.1.1",
+	"documentation-theme-bespoke": "^0.4.3",
+	gulp: "^4.0.0",
+	"gulp-better-rollup": "^3.4.0",
+	"gulp-chmod": "^2.0.0",
+	"gulp-rename": "^1.3.0",
+	nyc: "^13.2.0",
+	"rollup-plugin-babel": "^4.3.2",
+	"rollup-plugin-commonjs": "^9.2.0",
+	"rollup-plugin-json": "^3.1.0",
+	"rollup-plugin-node-resolve": "^4.0.0",
+	"semver-regex": "^2.0.0",
+	shelljs: "^0.8.3",
+	xo: "^0.24.0"
+};
+const engines = {
+	node: ">=8.0"
+};
+const homepage = "https://github.com/MarkGriffiths/trucolor";
+const keywords = [
+	"color",
+	"24bit",
+	"truecolor",
+	"SGR",
+	"ansi",
+	"command line",
+	"fish"
+];
+const license = "MIT";
+const repository = {
+	type: "git",
+	url: "git+https://github.com/MarkGriffiths/trucolor.git"
+};
+const scripts = {
+	test: "xo && nyc ava",
+	"generate-test-fixtures": "scripts/generate-test-fixtures",
+	"generate-test-widths": "scripts/generate-test-widths",
+	"doc-serve": "documentation serve --watch --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --project-name $npm_package_name  --project-version $npm_package_version src/index.js",
+	"doc-build": "documentation build --format html --output docs --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --project-name $npm_package_name  --project-version $npm_package_version src/index.js",
+	readme: "compile-readme -u src/docs/example.md src/docs/readme.md > readme.md",
+	coverage: "nyc ava && nyc report --reporter=lcov --report-dir test/coverage; open test/coverage/lcov-report/index.html"
+};
+const xo = {
+	semicolon: false,
+	ignores: [
+		"bin/**/*",
+		"lib/**/*",
+		"docs/**",
+		"test/coverage/**",
+		"index.js"
+	]
+};
+const badges = {
+	github: "MarkGriffiths",
+	npm: "thebespokepixel",
+	name: "trucolor",
+	codeclimate: "9719f82b8a448ee68072",
+	providers: {
+		status: {
+			text: "beta",
+			color: "blue"
+		},
+		aux1: {
+			title: "github",
+			text: "source",
+			color: "4E73B6",
+			link: "https://github.com/MarkGriffiths/trucolor"
+		}
+	},
+	readme: {
+		Status: [
+			[
+				"status",
+				"npm",
+				"travis",
+				"david"
+			],
+			[
+				"code-climate",
+				"code-climate-coverage",
+				"snyk"
+			]
+		],
+		Developer: [
+			"david-dev",
+			"rollup"
+		],
+		Help: [
+			"inch",
+			"gitter",
+			"greenkeeper"
+		]
+	},
+	docs: [
+		[
+			"aux1",
+			"travis"
+		],
+		[
+			"code-climate",
+			"code-climate-coverage"
+		],
+		[
+			"snyk",
+			"david"
+		]
+	]
+};
+var pkg = {
+	name: name,
+	version: version,
+	description: description,
+	author: author,
+	main: main,
+	module: module$1,
+	bin: bin,
+	files: files,
+	bugs: bugs,
+	copyright: copyright,
+	config: config,
+	dependencies: dependencies,
+	devDependencies: devDependencies,
+	engines: engines,
+	homepage: homepage,
+	keywords: keywords,
+	license: license,
+	repository: repository,
+	scripts: scripts,
+	xo: xo,
+	badges: badges
+};
+
 const colorLevel = terminal.color.level || 0;
-function render$$1(processor, options = {}) {
+function render(processor, options = {}) {
   const {
     format: outputFormat
   } = options;
@@ -721,18 +935,15 @@ var simpleObject = {
 const console = createConsole({
   outStream: process.stderr
 });
-const {
-  pkg
-} = readPkg.sync(__dirname);
 const metadata = meta(__dirname);
 function trucolor(color, options = {}) {
   const queue = parse(color);
 
   if (queue.length > 1) {
-    return queue.map(color => render$$1(color, options));
+    return queue.map(color => render(color, options));
   }
 
-  return render$$1(queue[0], options);
+  return render(queue[0], options);
 }
 function palette(options, palette) {
   return _mapValues(palette, color => trucolor(color, options));
@@ -747,4 +958,4 @@ function simplePalette(options) {
   return palette(options, simpleObject);
 }
 
-export { console, pkg, metadata, trucolor, palette, chalkish, simple, simplePalette, parse, render$$1 as render };
+export { console, metadata, trucolor, palette, chalkish, simple, simplePalette, parse, render };

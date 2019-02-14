@@ -6,7 +6,7 @@
 import _ from 'lodash'
 import SGRcomposer from 'sgr-composer'
 import terminal from 'term-ng'
-import {pkg} from '..'
+import pkg from '../../package'
 
 const colorLevel = terminal.color.level || 0
 

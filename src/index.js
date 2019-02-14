@@ -3,7 +3,6 @@
  ╰──────────┴─────────────────────────────────────────────────────────────────── */
 
 import _ from 'lodash'
-import readPkg from 'read-pkg-up'
 import {createConsole} from 'verbosity'
 import meta from '@thebespokepixel/meta'
 import parse from './lib/parser'
@@ -12,7 +11,6 @@ import chalk from './lib/classes/chalkish'
 import simpleObject from './lib/palettes/simple'
 
 export const console = createConsole({outStream: process.stderr})
-export const {pkg} = readPkg.sync(__dirname)
 export const metadata = meta(__dirname)
 
 /**
