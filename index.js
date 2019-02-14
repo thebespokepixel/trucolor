@@ -640,18 +640,18 @@ const config = {
 };
 const dependencies = {
 	"@thebespokepixel/es-tinycolor": "^0.3.2",
-	"@thebespokepixel/meta": "^0.2.2",
-	"@thebespokepixel/string": "^0.5.1",
-	"color-convert": "^1.9.2",
+	"@thebespokepixel/meta": "^0.2.4",
+	"@thebespokepixel/string": "^0.5.3",
+	"color-convert": "^2.0.0",
 	"common-tags": "^1.8.0",
 	"escape-string-regexp": "^1.0.5",
 	lodash: "^4.17.10",
-	"sgr-composer": "^0.5.0",
-	"term-ng": "^0.8.2",
+	"sgr-composer": "^0.5.3",
+	"term-ng": "^0.8.4",
 	truwrap: "^0.8.2",
 	"update-notifier": "^2.5.0",
 	verbosity: "^0.10.0",
-	yargs: "^12.0.1"
+	yargs: "^13.1.0"
 };
 const devDependencies = {
 	"@babel/core": "^7.2.2",
@@ -660,12 +660,12 @@ const devDependencies = {
 	ava: "^1.2.1",
 	"babel-plugin-lodash": "^3.3.4",
 	documentation: "^9.1.1",
-	"documentation-theme-bespoke": "^0.4.3",
+	"documentation-theme-bespoke": "^0.4.5",
 	gulp: "^4.0.0",
 	"gulp-better-rollup": "^3.4.0",
 	"gulp-chmod": "^2.0.0",
 	"gulp-rename": "^1.3.0",
-	nyc: "^13.2.0",
+	nyc: "^13.3.0",
 	"rollup-plugin-babel": "^4.3.2",
 	"rollup-plugin-commonjs": "^9.2.0",
 	"rollup-plugin-json": "^3.1.0",
@@ -743,6 +743,7 @@ const badges = {
 			]
 		],
 		Developer: [
+			"greenkeeper",
 			"david-dev",
 			"rollup"
 		],
