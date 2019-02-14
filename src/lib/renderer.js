@@ -1,12 +1,12 @@
 /* ─────────╮
  │ trucolor │ Resolve Colour to simple RGB Array: [ r, g, b ]
  ╰──────────┴─────────────────────────────────────────────────────────────────── */
-/* eslint complexity: 0, prefer-object-spread:0 */
+/* eslint complexity: 0 */
 
 import _ from 'lodash'
 import SGRcomposer from 'sgr-composer'
 import terminal from 'term-ng'
-import {pkg} from '../main'
+import pkg from '../../package'
 
 const colorLevel = terminal.color.level || 0
 
@@ -32,6 +32,7 @@ export default function render(processor, options = {}) {
 			const sgr = sgrComposer.sgr(['bold', 'italic', 'underline', 'invert'])
 			return `${sgr.in}\u2588\u2588${sgr.out}`
 		}
+
 		return '$\u2588\u2588'
 	}
 
@@ -48,7 +49,7 @@ export default function render(processor, options = {}) {
 
 	switch (outputFormat) {
 		case 'cli':
-			return Object.assign({
+			return {
 				name: processor.human,
 				hex: fieldSelect() || color.toHex(),
 				rgb: fieldSelect() || color.toRgbString(),
@@ -59,23 +60,26 @@ export default function render(processor, options = {}) {
 						`${color.toHex()}` :
 						`${color.toRgbArray().join(' ')}`
 				}`,
-				toSwatch: () => swatch()
-			}, sgrComposer.sgr())
+				toSwatch: () => swatch(),
+				...sgrComposer.sgr()
+			}
 		case 'sgr':
-			return Object.assign({
+			return {
 				name: processor.human,
 				hex: fieldSelect() || color.toHex(),
 				rgb: fieldSelect() || color.toRgbString(),
 				toString: () => stringSelect() || sgrComposer.sgr().in,
-				toSwatch: () => swatch()
-			}, sgrComposer.sgr())
+				toSwatch: () => swatch(),
+				...sgrComposer.sgr()
+			}
 		default:
-			return Object.assign({
+			return {
 				name: processor.human,
 				hex: fieldSelect() || color.toHex(),
 				rgb: fieldSelect() || color.toRgbString(),
 				toString: () => fieldSelect() || color.toHex(),
-				toSwatch: () => swatch()
-			}, sgrComposer.sgr())
+				toSwatch: () => swatch(),
+				...sgrComposer.sgr()
+			}
 	}
 }

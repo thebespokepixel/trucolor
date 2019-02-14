@@ -13,7 +13,6 @@ var SGRcomposer = _interopDefault(require('sgr-composer'));
 var terminal = _interopDefault(require('term-ng'));
 var escStringRE = _interopDefault(require('escape-string-regexp'));
 var _mapValues = _interopDefault(require('lodash/mapValues'));
-var readPkg = _interopDefault(require('read-pkg-up'));
 var verbosity = require('verbosity');
 var meta = _interopDefault(require('@thebespokepixel/meta'));
 
@@ -543,8 +542,257 @@ function parse (color) {
   return queue;
 }
 
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function _objectSpread(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+    var ownKeys = Object.keys(source);
+
+    if (typeof Object.getOwnPropertySymbols === 'function') {
+      ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
+      }));
+    }
+
+    ownKeys.forEach(function (key) {
+      _defineProperty(target, key, source[key]);
+    });
+  }
+
+  return target;
+}
+
+const name = "trucolor";
+const version = "0.7.3";
+const description = "TTY color toolkit supporting Truecolor (24bit RGB)";
+const author = "Mark Griffiths <mark@thebespokepixel.com> (http://thebespokepixel.com/)";
+const main = "index.js";
+const module$1 = "index.mjs";
+const bin = {
+	trucolor: "./bin/trucolor"
+};
+const files = [
+	"index.js",
+	"index.mjs",
+	"bin/"
+];
+const bugs = {
+	url: "https://github.com/MarkGriffiths/trucolor/issues"
+};
+const copyright = {
+	year: "2018",
+	owner: "The Bespoke Pixel"
+};
+const config = {
+	cli: {
+		selected: "direct",
+		none: {
+			color: "hex",
+			background: "",
+			bold: "",
+			dim: "",
+			italic: "",
+			underline: "",
+			blink: "",
+			invert: "",
+			reset: "",
+			normal: ""
+		},
+		direct: {
+			color: "hex",
+			background: "--background",
+			bold: "--bold",
+			dim: "--dim",
+			italic: "--italic",
+			underline: "--underline",
+			blink: "--blink",
+			invert: "--invert",
+			reset: "reset",
+			normal: "normal"
+		},
+		fish: {
+			color: "hex",
+			background: "--background",
+			bold: "--bold",
+			dim: "",
+			italic: "",
+			underline: "--underline",
+			blink: "",
+			invert: "",
+			reset: "normal",
+			normal: "normal"
+		}
+	}
+};
+const dependencies = {
+	"@thebespokepixel/es-tinycolor": "^0.3.2",
+	"@thebespokepixel/meta": "^0.2.4",
+	"@thebespokepixel/string": "^0.5.3",
+	"color-convert": "^2.0.0",
+	"common-tags": "^1.8.0",
+	"escape-string-regexp": "^1.0.5",
+	lodash: "^4.17.10",
+	"sgr-composer": "^0.5.3",
+	"term-ng": "^0.8.4",
+	truwrap: "^0.8.2",
+	"update-notifier": "^2.5.0",
+	verbosity: "^0.10.0",
+	yargs: "^13.1.0"
+};
+const devDependencies = {
+	"@babel/core": "^7.2.2",
+	"@babel/preset-env": "^7.3.1",
+	acorn: "^6.1.0",
+	ava: "^1.2.1",
+	"babel-plugin-lodash": "^3.3.4",
+	documentation: "^9.1.1",
+	"documentation-theme-bespoke": "^0.4.5",
+	gulp: "^4.0.0",
+	"gulp-better-rollup": "^3.4.0",
+	"gulp-chmod": "^2.0.0",
+	"gulp-rename": "^1.3.0",
+	nyc: "^13.3.0",
+	"rollup-plugin-babel": "^4.3.2",
+	"rollup-plugin-commonjs": "^9.2.0",
+	"rollup-plugin-json": "^3.1.0",
+	"rollup-plugin-node-resolve": "^4.0.0",
+	"semver-regex": "^2.0.0",
+	shelljs: "^0.8.3",
+	xo: "^0.24.0"
+};
+const engines = {
+	node: ">=8.0"
+};
+const homepage = "https://github.com/MarkGriffiths/trucolor";
+const keywords = [
+	"color",
+	"24bit",
+	"truecolor",
+	"SGR",
+	"ansi",
+	"command line",
+	"fish"
+];
+const license = "MIT";
+const repository = {
+	type: "git",
+	url: "git+https://github.com/MarkGriffiths/trucolor.git"
+};
+const scripts = {
+	test: "xo && nyc ava",
+	"generate-test-fixtures": "scripts/generate-test-fixtures",
+	"generate-test-widths": "scripts/generate-test-widths",
+	"doc-serve": "documentation serve --watch --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --project-name $npm_package_name  --project-version $npm_package_version src/index.js",
+	"doc-build": "documentation build --format html --output docs --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --project-name $npm_package_name  --project-version $npm_package_version src/index.js",
+	readme: "compile-readme -u src/docs/example.md src/docs/readme.md > readme.md",
+	coverage: "nyc ava && nyc report --reporter=lcov --report-dir test/coverage; open test/coverage/lcov-report/index.html"
+};
+const xo = {
+	semicolon: false,
+	ignores: [
+		"bin/**/*",
+		"lib/**/*",
+		"docs/**",
+		"test/coverage/**",
+		"index.js"
+	]
+};
+const badges = {
+	github: "MarkGriffiths",
+	npm: "thebespokepixel",
+	name: "trucolor",
+	codeclimate: "9719f82b8a448ee68072",
+	providers: {
+		status: {
+			text: "beta",
+			color: "blue"
+		},
+		aux1: {
+			title: "github",
+			text: "source",
+			color: "4E73B6",
+			link: "https://github.com/MarkGriffiths/trucolor"
+		}
+	},
+	readme: {
+		Status: [
+			[
+				"status",
+				"npm",
+				"travis",
+				"david"
+			],
+			[
+				"code-climate",
+				"code-climate-coverage",
+				"snyk"
+			]
+		],
+		Developer: [
+			"greenkeeper",
+			"david-dev",
+			"rollup"
+		],
+		Help: [
+			"inch",
+			"gitter"
+		]
+	},
+	docs: [
+		[
+			"aux1",
+			"travis"
+		],
+		[
+			"code-climate",
+			"code-climate-coverage"
+		],
+		[
+			"snyk",
+			"david"
+		]
+	]
+};
+var pkg = {
+	name: name,
+	version: version,
+	description: description,
+	author: author,
+	main: main,
+	module: module$1,
+	bin: bin,
+	files: files,
+	bugs: bugs,
+	copyright: copyright,
+	config: config,
+	dependencies: dependencies,
+	devDependencies: devDependencies,
+	engines: engines,
+	homepage: homepage,
+	keywords: keywords,
+	license: license,
+	repository: repository,
+	scripts: scripts,
+	xo: xo,
+	badges: badges
+};
+
 const colorLevel = terminal.color.level || 0;
-function render$$1(processor, options = {}) {
+function render(processor, options = {}) {
   const {
     format: outputFormat
   } = options;
@@ -582,7 +830,7 @@ function render$$1(processor, options = {}) {
 
   switch (outputFormat) {
     case 'cli':
-      return Object.assign({
+      return _objectSpread({
         name: processor.human,
         hex: fieldSelect() || color.toHex(),
         rgb: fieldSelect() || color.toRgbString(),
@@ -591,7 +839,7 @@ function render$$1(processor, options = {}) {
       }, sgrComposer.sgr());
 
     case 'sgr':
-      return Object.assign({
+      return _objectSpread({
         name: processor.human,
         hex: fieldSelect() || color.toHex(),
         rgb: fieldSelect() || color.toRgbString(),
@@ -600,7 +848,7 @@ function render$$1(processor, options = {}) {
       }, sgrComposer.sgr());
 
     default:
-      return Object.assign({
+      return _objectSpread({
         name: processor.human,
         hex: fieldSelect() || color.toHex(),
         rgb: fieldSelect() || color.toRgbString(),
@@ -693,18 +941,15 @@ var simpleObject = {
 const console = verbosity.createConsole({
   outStream: process.stderr
 });
-const {
-  pkg
-} = readPkg.sync(__dirname);
 const metadata = meta(__dirname);
 function trucolor(color, options = {}) {
   const queue = parse(color);
 
   if (queue.length > 1) {
-    return queue.map(color => render$$1(color, options));
+    return queue.map(color => render(color, options));
   }
 
-  return render$$1(queue[0], options);
+  return render(queue[0], options);
 }
 function palette(options, palette) {
   return _mapValues(palette, color => trucolor(color, options));
@@ -720,7 +965,6 @@ function simplePalette(options) {
 }
 
 exports.console = console;
-exports.pkg = pkg;
 exports.metadata = metadata;
 exports.trucolor = trucolor;
 exports.palette = palette;
@@ -728,4 +972,4 @@ exports.chalkish = chalkish;
 exports.simple = simple;
 exports.simplePalette = simplePalette;
 exports.parse = parse;
-exports.render = render$$1;
+exports.render = render;

@@ -63,7 +63,7 @@ The `color` can be defined in any of the following formats:
   `hwb:H,W,B` where `H` is 0-360, `W` 0-100 and `B` 0-100  
   See [HWB notation @csswg](https://drafts.csswg.org/css-color/#the-hwb-notation)
 
-- __CSS named colors__
+- __CSS named colors__  
 ![Named Colors Examples](https://raw.githubusercontent.com/MarkGriffiths/trucolor/master/media/named.png)
 
 - __Special formatters__

@@ -4,7 +4,7 @@
 
 import _ from 'lodash'
 import {tinycolor, TinyColor} from '@thebespokepixel/es-tinycolor'
-import {console} from '../../main'
+import {console} from '../..'
 
 class Processor {
 	constructor(colorname) {
@@ -70,6 +70,7 @@ class Processor {
 		if (this.haveSource) {
 			return this.locked ? this.lockedName : this.interpreter.human
 		}
+
 		return this.locked ? this.lockedName : this.name
 	}
 
