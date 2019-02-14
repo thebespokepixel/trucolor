@@ -2,11 +2,11 @@
 /* TypoPRO Fira Sans Condensed ExtraBold Italic */
 @font-face {
     font-family:  'TypoPRO Fira Sans Condensed';
-    src:          url('TypoPRO-FiraSansCondensed-ExtraboldItalic.eot');
+    src:          url('TypoPRO-FiraSansCondensed-ExtraBoldItalic.eot');
     src:          local('*'),
-                  url('TypoPRO-FiraSansCondensed-ExtraboldItalic.eot?#iefix') format('embedded-opentype'),
-                  url('TypoPRO-FiraSansCondensed-ExtraboldItalic.woff') format('woff'),
-                  url('TypoPRO-FiraSansCondensed-ExtraboldItalic.ttf') format('truetype');
+                  url('TypoPRO-FiraSansCondensed-ExtraBoldItalic.eot?#iefix') format('embedded-opentype'),
+                  url('TypoPRO-FiraSansCondensed-ExtraBoldItalic.woff') format('woff'),
+                  url('TypoPRO-FiraSansCondensed-ExtraBoldItalic.ttf') format('truetype');
     font-style:   italic;
     font-weight:  800;
     font-stretch: condensed;

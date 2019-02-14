@@ -69,7 +69,6 @@
     "common-tags": "^1.8.0",
     "escape-string-regexp": "^1.0.5",
     "lodash": "^4.17.10",
-    "read-pkg-up": "^4.0.0",
     "sgr-composer": "^0.5.0",
     "term-ng": "^0.8.2",
     "truwrap": "^0.8.2",
@@ -120,8 +119,8 @@
     "test": "xo && nyc ava",
     "generate-test-fixtures": "scripts/generate-test-fixtures",
     "generate-test-widths": "scripts/generate-test-widths",
-    "doc-serve": "documentation serve --watch --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --name $npm_package_name  --project-version $npm_package_version src/index.js",
-    "doc-build": "documentation build --format html --output docs --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --name $npm_package_name  --project-version $npm_package_version src/index.js",
+    "doc-serve": "documentation serve --watch --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --project-name $npm_package_name  --project-version $npm_package_version src/index.js",
+    "doc-build": "documentation build --format html --output docs --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --project-name $npm_package_name  --project-version $npm_package_version src/index.js",
     "readme": "compile-readme -u src/docs/example.md src/docs/readme.md > readme.md",
     "coverage": "nyc ava && nyc report --reporter=lcov --report-dir test/coverage; open test/coverage/lcov-report/index.html"
   },
@@ -139,6 +138,7 @@
     "github": "MarkGriffiths",
     "npm": "thebespokepixel",
     "name": "trucolor",
+    "codeclimate": "9719f82b8a448ee68072",
     "providers": {
       "status": {
         "text": "beta",
@@ -171,7 +171,8 @@
       ],
       "Help": [
         "inch",
-        "gitter"
+        "gitter",
+        "greenkeeper"
       ]
     },
     "docs": [
@@ -184,6 +185,7 @@
         "code-climate-coverage"
       ],
       [
+        "snyk",
         "david"
       ]
     ]

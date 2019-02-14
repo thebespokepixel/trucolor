@@ -2,13 +2,13 @@
 /* TypoPRO Fira Sans Condensed SemiBold Italic */
 @font-face {
     font-family:  'TypoPRO Fira Sans Condensed';
-    src:          url('TypoPRO-FiraSansCondensed-SemiboldItalic.eot');
+    src:          url('TypoPRO-FiraSansCondensed-SemiBoldItalic.eot');
     src:          local('*'),
-                  url('TypoPRO-FiraSansCondensed-SemiboldItalic.eot?#iefix') format('embedded-opentype'),
-                  url('TypoPRO-FiraSansCondensed-SemiboldItalic.woff') format('woff'),
-                  url('TypoPRO-FiraSansCondensed-SemiboldItalic.ttf') format('truetype');
+                  url('TypoPRO-FiraSansCondensed-SemiBoldItalic.eot?#iefix') format('embedded-opentype'),
+                  url('TypoPRO-FiraSansCondensed-SemiBoldItalic.woff') format('woff'),
+                  url('TypoPRO-FiraSansCondensed-SemiBoldItalic.ttf') format('truetype');
     font-style:   italic;
-    font-weight:  bold;
+    font-weight:  600;
     font-stretch: condensed;
     font-variant: normal;
 }
