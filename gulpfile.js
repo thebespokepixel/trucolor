@@ -51,7 +51,7 @@ gulp.task('es6', () =>
 )
 
 gulp.task('cli', () =>
-	gulp.src('src/cli/main.js')
+	gulp.src('src/cli/index.js')
 		.pipe(rollup({
 			external,
 			plugins: [resolve(), json({preferConst: true}), commonjs(), babel(babelConfig)]

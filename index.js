@@ -577,7 +577,7 @@ function _objectSpread(target) {
 }
 
 const name = "trucolor";
-const version = "0.7.3";
+const version = "0.7.4";
 const description = "TTY color toolkit supporting Truecolor (24bit RGB)";
 const author = "Mark Griffiths <mark@thebespokepixel.com> (http://thebespokepixel.com/)";
 const main = "index.js";
@@ -594,7 +594,7 @@ const bugs = {
 	url: "https://github.com/MarkGriffiths/trucolor/issues"
 };
 const copyright = {
-	year: "2018",
+	year: "2019",
 	owner: "The Bespoke Pixel"
 };
 const config = {
@@ -648,7 +648,7 @@ const dependencies = {
 	lodash: "^4.17.10",
 	"sgr-composer": "^0.5.3",
 	"term-ng": "^0.8.4",
-	truwrap: "^0.8.2",
+	truwrap: "^0.8.3",
 	"update-notifier": "^2.5.0",
 	verbosity: "^0.10.0",
 	yargs: "^13.1.0"
@@ -660,7 +660,7 @@ const devDependencies = {
 	ava: "^1.2.1",
 	"babel-plugin-lodash": "^3.3.4",
 	documentation: "^9.1.1",
-	"documentation-theme-bespoke": "^0.4.5",
+	"documentation-theme-bespoke": "^0.4.7",
 	gulp: "^4.0.0",
 	"gulp-better-rollup": "^3.4.0",
 	"gulp-chmod": "^2.0.0",

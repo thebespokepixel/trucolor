@@ -386,13 +386,13 @@ export default function help(yargs, helpPage) {
 		align: 2
 	}))
 	container.write(header()).break()
-	container.write(spectrum(windowWidth, '–')).break()
+	container.write(spectrum(windowWidth, '—')).break()
 	renderer.write(synopsis).break(2)
 	renderer.write(yargs.getUsageInstance().help()).break()
 	renderer.write(page.usage).break(2)
 	renderer.write(colorReplacer`${'title|Examples:'}`).break()
 	renderer.panel(page.examples(contentWidth), page.layout(contentWidth)).break(2)
 	renderer.write(page.more).break(2)
-	container.write(`${clr.dark.in}${'–'.repeat(windowWidth)}${clr.dark.out}`)
+	container.write(`${clr.dark.in}${'—'.repeat(windowWidth)}${clr.dark.out}`)
 	renderer.write(epilogue).end()
 }
