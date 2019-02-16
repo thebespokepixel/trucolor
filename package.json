@@ -1,6 +1,6 @@
 {
   "name": "trucolor",
-  "version": "0.7.5",
+  "version": "1.0.0",
   "description": "TTY color toolkit supporting Truecolor (24bit RGB)",
   "author": "Mark Griffiths <mark@thebespokepixel.com> (http://thebespokepixel.com/)",
   "main": "index.js",
@@ -62,22 +62,22 @@
     }
   },
   "dependencies": {
-    "@thebespokepixel/es-tinycolor": "^0.3.2",
-    "@thebespokepixel/meta": "^0.2.5",
+    "@thebespokepixel/es-tinycolor": "^1.0.2",
+    "@thebespokepixel/meta": "^1.0.0",
     "@thebespokepixel/string": "^0.5.4",
     "color-convert": "^2.0.0",
     "common-tags": "^1.8.0",
     "escape-string-regexp": "^1.0.5",
     "lodash": "^4.17.10",
-    "sgr-composer": "^0.5.3",
-    "term-ng": "^0.8.5",
-    "truwrap": "^0.8.3",
+    "sgr-composer": "^1.0.0",
+    "term-ng": "^1.0.0",
+    "truwrap": "^1.0.0",
     "update-notifier": "^2.5.0",
-    "verbosity": "^0.10.1",
+    "verbosity": "^1.0.0",
     "yargs": "^13.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.2.2",
+    "@babel/core": "^7.3.3",
     "@babel/preset-env": "^7.3.1",
     "acorn": "^6.1.0",
     "ava": "^1.2.1",
@@ -94,7 +94,6 @@
     "rollup-plugin-json": "^3.1.0",
     "rollup-plugin-node-resolve": "^4.0.0",
     "semver-regex": "^2.0.0",
-    "shelljs": "^0.8.3",
     "xo": "^0.24.0"
   },
   "engines": {
@@ -140,10 +139,6 @@
     "name": "trucolor",
     "codeclimate": "9719f82b8a448ee68072",
     "providers": {
-      "status": {
-        "text": "beta",
-        "color": "blue"
-      },
       "aux1": {
         "title": "github",
         "text": "source",
@@ -154,7 +149,6 @@
     "readme": {
       "Status": [
         [
-          "status",
           "npm",
           "travis",
           "david"

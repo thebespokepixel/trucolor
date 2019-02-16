@@ -4,7 +4,7 @@
 
 ##### Status
 
-![Status](https://img.shields.io/badge/status-beta-blue.svg?style=flat) [![npm](https://img.shields.io/npm/v/trucolor.svg?style=flat&logo=npm)](https://www.npmjs.com/package/trucolor "npm") [![Travis](https://img.shields.io/travis/MarkGriffiths/trucolor.svg?branch=master&style=flat&logo=travis)](https://travis-ci.org/MarkGriffiths/trucolor "Travis") [![David](https://img.shields.io/david/MarkGriffiths/trucolor.svg?branch=master&style=flat)](https://david-dm.org/MarkGriffiths/trucolor/master "David")  
+[![npm](https://img.shields.io/npm/v/trucolor.svg?style=flat&logo=npm)](https://www.npmjs.com/package/trucolor "npm") [![Travis](https://img.shields.io/travis/MarkGriffiths/trucolor.svg?branch=master&style=flat&logo=travis)](https://travis-ci.org/MarkGriffiths/trucolor "Travis") [![David](https://img.shields.io/david/MarkGriffiths/trucolor.svg?branch=master&style=flat)](https://david-dm.org/MarkGriffiths/trucolor/master "David")  
  [![Code-climate](https://api.codeclimate.com/v1/badges/9719f82b8a448ee68072/maintainability?style=flat)](https://codeclimate.com/github/MarkGriffiths/trucolor/maintainability "Code-climate") [![Coverage](https://api.codeclimate.com/v1/badges/9719f82b8a448ee68072/test_coverage?style=flat)](https://codeclimate.com/github/MarkGriffiths/trucolor/test_coverage "Coverage") [![Snyk](https://snyk.io/test/github/MarkGriffiths/trucolor/badge.svg?style=flat)](https://snyk.io/test/github/MarkGriffiths/trucolor "Snyk")   
 
 ##### Developer
