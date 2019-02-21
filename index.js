@@ -577,7 +577,7 @@ function _objectSpread(target) {
 }
 
 const name = "trucolor";
-const version = "1.0.0";
+const version = "1.0.1";
 const description = "TTY color toolkit supporting Truecolor (24bit RGB)";
 const author = "Mark Griffiths <mark@thebespokepixel.com> (http://thebespokepixel.com/)";
 const main = "index.js";
@@ -639,19 +639,19 @@ const config = {
 	}
 };
 const dependencies = {
-	"@thebespokepixel/es-tinycolor": "^1.0.2",
-	"@thebespokepixel/meta": "^1.0.0",
-	"@thebespokepixel/string": "^0.5.4",
+	"@thebespokepixel/es-tinycolor": "^1.0.3",
+	"@thebespokepixel/meta": "^1.0.1",
+	"@thebespokepixel/string": "^0.5.5",
 	"color-convert": "^2.0.0",
 	"common-tags": "^1.8.0",
 	"escape-string-regexp": "^1.0.5",
 	lodash: "^4.17.10",
-	"sgr-composer": "^1.0.0",
-	"term-ng": "^1.0.0",
+	"sgr-composer": "^1.0.1",
+	"term-ng": "^1.0.1",
 	truwrap: "^1.0.0",
 	"update-notifier": "^2.5.0",
 	verbosity: "^1.0.0",
-	yargs: "^13.2.0"
+	yargs: "^13.2.1"
 };
 const devDependencies = {
 	"@babel/core": "^7.3.3",
@@ -660,7 +660,7 @@ const devDependencies = {
 	ava: "^1.2.1",
 	"babel-plugin-lodash": "^3.3.4",
 	documentation: "^9.1.1",
-	"documentation-theme-bespoke": "^0.4.10",
+	"documentation-theme-bespoke": "^0.4.11",
 	gulp: "^4.0.0",
 	"gulp-better-rollup": "^3.4.0",
 	"gulp-chmod": "^2.0.0",
