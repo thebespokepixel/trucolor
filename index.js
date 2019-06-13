@@ -4,6 +4,9 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
+var _mapValues = _interopDefault(require('lodash/mapValues'));
+var verbosity = require('verbosity');
+var meta = _interopDefault(require('@thebespokepixel/meta'));
 var _reduce = _interopDefault(require('lodash/reduce'));
 var esTinycolor = require('@thebespokepixel/es-tinycolor');
 var converter = _interopDefault(require('color-convert'));
@@ -12,9 +15,6 @@ var _remove = _interopDefault(require('lodash/remove'));
 var SGRcomposer = _interopDefault(require('sgr-composer'));
 var terminal = _interopDefault(require('term-ng'));
 var escStringRE = _interopDefault(require('escape-string-regexp'));
-var _mapValues = _interopDefault(require('lodash/mapValues'));
-var verbosity = require('verbosity');
-var meta = _interopDefault(require('@thebespokepixel/meta'));
 
 class Processor {
   constructor(colorname) {
@@ -423,7 +423,7 @@ function interpreter(raw) {
 let currentAutoName = 1;
 function parse (color) {
   const queue = [];
-  let processor$$1 = processor(`color_${currentAutoName++}`);
+  let processor$1 = processor(`color_${currentAutoName++}`);
 
   const refreshProcessor = processor_ => {
     if (processor_.hasSource) {
@@ -441,104 +441,104 @@ function parse (color) {
 
     switch (token) {
       case 'background':
-        processor$$1.background();
+        processor$1.background();
         break;
 
       case 'bold':
-        processor$$1.bold();
+        processor$1.bold();
         break;
 
       case 'faint':
-        processor$$1.dim();
+        processor$1.dim();
         break;
 
       case 'dim':
-        processor$$1.dim();
+        processor$1.dim();
         break;
 
       case 'italic':
-        processor$$1.italic();
+        processor$1.italic();
         break;
 
       case 'invert':
-        processor$$1.invert();
+        processor$1.invert();
         break;
 
       case 'underline':
-        processor$$1.underline();
+        processor$1.underline();
         break;
 
       case 'blink':
-        processor$$1.blink();
+        processor$1.blink();
         break;
 
       case 'saturate':
       case 'sat':
-        processor$$1.saturate({
+        processor$1.saturate({
           percent: tokens.shift()
         });
         break;
 
       case 'desaturate':
       case 'desat':
-        processor$$1.desaturate({
+        processor$1.desaturate({
           percent: tokens.shift()
         });
         break;
 
       case 'light':
-        processor$$1.lighten({
+        processor$1.lighten({
           percent: 20
         });
         break;
 
       case 'dark':
-        processor$$1.darken({
+        processor$1.darken({
           percent: 20
         });
         break;
 
       case 'lighten':
-        processor$$1.lighten({
+        processor$1.lighten({
           percent: tokens.shift()
         });
         break;
 
       case 'darken':
-        processor$$1.darken({
+        processor$1.darken({
           percent: tokens.shift()
         });
         break;
 
       case 'spin':
-        processor$$1.spin({
+        processor$1.spin({
           rotation: tokens.shift()
         });
         break;
 
       case 'mono':
-        processor$$1.mono();
+        processor$1.mono();
         break;
 
       case 'mix':
-        processor$$1.mix({
+        processor$1.mix({
           color: tokens.shift()
         });
         break;
 
       default:
         if (/^[A-Za-z0-9_-]+:$/.test(token)) {
-          processor$$1 = refreshProcessor(processor$$1);
-          processor$$1.lock(token.trim().replace(':', ''));
+          processor$1 = refreshProcessor(processor$1);
+          processor$1.lock(token.trim().replace(':', ''));
         } else {
-          processor$$1 = refreshProcessor(processor$$1);
-          processor$$1.source = interpreter(token);
+          processor$1 = refreshProcessor(processor$1);
+          processor$1.source = interpreter(token);
         }
 
     }
   }
 
-  queue.push(processor$$1);
+  queue.push(processor$1);
   return queue;
 }
 
@@ -639,36 +639,37 @@ const config = {
 	}
 };
 const dependencies = {
-	"@thebespokepixel/es-tinycolor": "^1.0.4",
-	"@thebespokepixel/meta": "^1.0.2",
-	"@thebespokepixel/string": "^0.5.6",
+	"@thebespokepixel/es-tinycolor": "^1.0.5",
+	"@thebespokepixel/meta": "^1.0.3",
+	"@thebespokepixel/string": "^0.5.7",
 	"color-convert": "^2.0.0",
 	"common-tags": "^1.8.0",
-	"escape-string-regexp": "^1.0.5",
+	"escape-string-regexp": "^2.0.0",
 	lodash: "^4.17.10",
-	"sgr-composer": "^1.0.2",
-	"term-ng": "^1.0.2",
+	"sgr-composer": "^1.0.3",
+	"term-ng": "^1.0.3",
 	truwrap: "^1.0.2",
-	"update-notifier": "^2.5.0",
-	verbosity: "^1.0.2",
-	yargs: "^13.2.1"
+	"update-notifier": "^3.0.0",
+	verbosity: "^1.1.1",
+	yargs: "^13.2.4"
 };
 const devDependencies = {
-	"@babel/core": "^7.3.3",
-	"@babel/preset-env": "^7.3.1",
-	ava: "^1.2.1",
+	"@babel/core": "^7.4.5",
+	"@babel/preset-env": "^7.4.5",
+	ava: "^2.1.0",
 	"babel-plugin-lodash": "^3.3.4",
-	"documentation-theme-bespoke": "^0.5.2",
-	gulp: "^4.0.0",
-	"gulp-better-rollup": "^3.4.0",
-	"gulp-chmod": "^2.0.0",
+	"documentation-theme-bespoke": "^0.5.6",
+	gulp: "^4.0.2",
+	"gulp-better-rollup": "^4.0.1",
+	"gulp-chmod": "^3.0.0",
 	"gulp-rename": "^1.3.0",
-	nyc: "^13.3.0",
+	nyc: "^14.1.1",
+	rollup: "^1.15.3",
 	"rollup-plugin-babel": "^4.3.2",
-	"rollup-plugin-commonjs": "^9.2.1",
-	"rollup-plugin-json": "^3.1.0",
-	"rollup-plugin-node-resolve": "^4.0.1",
-	"semver-regex": "^2.0.0",
+	"rollup-plugin-commonjs": "^10.0.0",
+	"rollup-plugin-json": "^4.0.0",
+	"rollup-plugin-node-resolve": "^5.0.2",
+	"semver-regex": "^3.1.0",
 	xo: "^0.24.0"
 };
 const engines = {
@@ -956,12 +957,12 @@ function simplePalette(options) {
   return palette(options, simpleObject);
 }
 
+exports.chalkish = chalkish;
 exports.console = console;
 exports.metadata = metadata;
-exports.trucolor = trucolor;
 exports.palette = palette;
-exports.chalkish = chalkish;
-exports.simple = simple;
-exports.simplePalette = simplePalette;
 exports.parse = parse;
 exports.render = render;
+exports.simple = simple;
+exports.simplePalette = simplePalette;
+exports.trucolor = trucolor;
