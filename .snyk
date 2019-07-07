@@ -1,0 +1,56 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.13.5
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-450202:
+    - term-ng > truwrap > trucolor > lodash:
+        patched: '2019-07-07T23:57:32.836Z'
+    - lodash:
+        patched: '2019-07-07T23:57:32.836Z'
+    - term-ng > truwrap > lodash:
+        patched: '2019-07-07T23:57:32.836Z'
+    - truwrap > @thebespokepixel/n-selector > lodash:
+        patched: '2019-07-07T23:57:32.836Z'
+    - truwrap > trucolor > lodash:
+        patched: '2019-07-07T23:57:32.836Z'
+    - term-ng > trucolor > lodash:
+        patched: '2019-07-07T23:57:32.836Z'
+    - term-ng > trucolor > truwrap > lodash:
+        patched: '2019-07-07T23:57:32.836Z'
+    - '@thebespokepixel/string > term-ng > truwrap > lodash':
+        patched: '2019-07-07T23:57:32.836Z'
+    - '@thebespokepixel/string > term-ng > trucolor > lodash':
+        patched: '2019-07-07T23:57:32.836Z'
+    - verbosity > term-ng > trucolor > lodash:
+        patched: '2019-07-07T23:57:32.836Z'
+    - term-ng > truwrap > @thebespokepixel/n-selector > lodash:
+        patched: '2019-07-07T23:57:32.836Z'
+    - verbosity > term-ng > truwrap > lodash:
+        patched: '2019-07-07T23:57:32.836Z'
+    - truwrap > lodash:
+        patched: '2019-07-07T23:57:32.836Z'
+    - truwrap > term-ng > trucolor > lodash:
+        patched: '2019-07-07T23:57:32.836Z'
+    - verbosity > term-ng > truwrap > @thebespokepixel/n-selector > lodash:
+        patched: '2019-07-07T23:57:32.836Z'
+    - truwrap > verbosity > term-ng > trucolor > lodash:
+        patched: '2019-07-07T23:57:32.836Z'
+    - verbosity > term-ng > truwrap > trucolor > lodash:
+        patched: '2019-07-07T23:57:32.836Z'
+    - truwrap > @thebespokepixel/string > term-ng > trucolor > lodash:
+        patched: '2019-07-07T23:57:32.836Z'
+    - '@thebespokepixel/string > term-ng > trucolor > truwrap > lodash':
+        patched: '2019-07-07T23:57:32.836Z'
+    - '@thebespokepixel/string > term-ng > truwrap > trucolor > lodash':
+        patched: '2019-07-07T23:57:32.836Z'
+    - verbosity > term-ng > trucolor > truwrap > lodash:
+        patched: '2019-07-07T23:57:32.836Z'
+    - term-ng > trucolor > truwrap > @thebespokepixel/n-selector > lodash:
+        patched: '2019-07-07T23:57:32.836Z'
+    - '@thebespokepixel/string > term-ng > truwrap > @thebespokepixel/n-selector > lodash':
+        patched: '2019-07-07T23:57:32.836Z'
+    - verbosity > term-ng > trucolor > truwrap > @thebespokepixel/n-selector > lodash:
+        patched: '2019-07-07T23:57:32.836Z'
+    - '@thebespokepixel/string > term-ng > trucolor > truwrap > @thebespokepixel/n-selector > lodash':
+        patched: '2019-07-07T23:57:32.836Z'
