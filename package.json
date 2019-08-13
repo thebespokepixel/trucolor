@@ -1,6 +1,6 @@
 {
   "name": "trucolor",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "TTY color toolkit supporting Truecolor (24bit RGB)",
   "author": "Mark Griffiths <mark@thebespokepixel.com> (http://thebespokepixel.com/)",
   "main": "index.js",
@@ -14,7 +14,7 @@
     "bin/"
   ],
   "bugs": {
-    "url": "https://github.com/MarkGriffiths/trucolor/issues"
+    "url": "https://github.com/thebespokepixel/trucolor/issues"
   },
   "copyright": {
     "year": "2019",
@@ -62,24 +62,24 @@
     }
   },
   "dependencies": {
-    "@thebespokepixel/es-tinycolor": "^1.0.5",
-    "@thebespokepixel/meta": "^1.0.3",
-    "@thebespokepixel/string": "^0.5.7",
+    "@thebespokepixel/es-tinycolor": "^1.0.6",
+    "@thebespokepixel/meta": "^1.0.4",
+    "@thebespokepixel/string": "^0.5.8",
     "color-convert": "^2.0.0",
     "common-tags": "^1.8.0",
     "escape-string-regexp": "^2.0.0",
-    "lodash": "^4.17.10",
-    "sgr-composer": "^1.0.3",
-    "term-ng": "^1.0.3",
-    "truwrap": "^1.0.2",
-    "update-notifier": "^3.0.0",
-    "verbosity": "^1.1.1",
-    "yargs": "^13.2.4"
+    "lodash": "^4.17.15",
+    "sgr-composer": "^1.0.4",
+    "term-ng": "^1.0.4",
+    "truwrap": "^1.0.4",
+    "update-notifier": "^3.0.1",
+    "verbosity": "^1.1.2",
+    "yargs": "^13.3.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.5",
-    "@babel/preset-env": "^7.4.5",
-    "ava": "^2.1.0",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "ava": "^2.2.0",
     "babel-plugin-lodash": "^3.3.4",
     "documentation-theme-bespoke": "^0.5.6",
     "gulp": "^4.0.2",
@@ -87,18 +87,18 @@
     "gulp-chmod": "^3.0.0",
     "gulp-rename": "^1.3.0",
     "nyc": "^14.1.1",
-    "rollup": "^1.15.3",
-    "rollup-plugin-babel": "^4.3.2",
-    "rollup-plugin-commonjs": "^10.0.0",
+    "rollup": "^1.19.4",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.0.2",
     "rollup-plugin-json": "^4.0.0",
-    "rollup-plugin-node-resolve": "^5.0.2",
+    "rollup-plugin-node-resolve": "^5.2.0",
     "semver-regex": "^3.1.0",
     "xo": "^0.24.0"
   },
   "engines": {
     "node": ">=8.0"
   },
-  "homepage": "https://github.com/MarkGriffiths/trucolor",
+  "homepage": "https://github.com/thebespokepixel/trucolor",
   "keywords": [
     "color",
     "24bit",
@@ -111,7 +111,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MarkGriffiths/trucolor.git"
+    "url": "git+https://github.com/thebespokepixel/trucolor.git"
   },
   "scripts": {
     "test": "xo && nyc ava",
@@ -133,16 +133,16 @@
     ]
   },
   "badges": {
-    "github": "MarkGriffiths",
+    "github": "thebespokepixel",
     "npm": "thebespokepixel",
     "name": "trucolor",
-    "codeclimate": "9719f82b8a448ee68072",
+    "codeclimate": "5f8c6c4143841284dc75",
     "providers": {
       "aux1": {
         "title": "github",
         "text": "source",
         "color": "4E73B6",
-        "link": "https://github.com/MarkGriffiths/trucolor"
+        "link": "https://github.com/thebespokepixel/trucolor"
       }
     },
     "readme": {
@@ -164,8 +164,7 @@
         "rollup"
       ],
       "Help": [
-        "inch",
-        "gitter"
+        "inch"
       ]
     },
     "docs": [
