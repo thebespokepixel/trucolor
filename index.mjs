@@ -551,20 +551,35 @@ function _defineProperty(obj, key, value) {
   return obj;
 }
 
-function _objectSpread(target) {
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2(target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = arguments[i] != null ? arguments[i] : {};
-    var ownKeys = Object.keys(source);
 
-    if (typeof Object.getOwnPropertySymbols === 'function') {
-      ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {
-        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
-      }));
+    if (i % 2) {
+      ownKeys(source, true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(source).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
     }
-
-    ownKeys.forEach(function (key) {
-      _defineProperty(target, key, source[key]);
-    });
   }
 
   return target;
@@ -585,7 +600,7 @@ const files = [
 	"bin/"
 ];
 const bugs = {
-	url: "https://github.com/MarkGriffiths/trucolor/issues"
+	url: "https://github.com/thebespokepixel/trucolor/issues"
 };
 const copyright = {
 	year: "2019",
@@ -633,24 +648,24 @@ const config = {
 	}
 };
 const dependencies = {
-	"@thebespokepixel/es-tinycolor": "^1.0.5",
-	"@thebespokepixel/meta": "^1.0.3",
-	"@thebespokepixel/string": "^0.5.7",
+	"@thebespokepixel/es-tinycolor": "^1.0.6",
+	"@thebespokepixel/meta": "^1.0.4",
+	"@thebespokepixel/string": "^0.5.8",
 	"color-convert": "^2.0.0",
 	"common-tags": "^1.8.0",
 	"escape-string-regexp": "^2.0.0",
-	lodash: "^4.17.10",
-	"sgr-composer": "^1.0.3",
-	"term-ng": "^1.0.3",
-	truwrap: "^1.0.2",
-	"update-notifier": "^3.0.0",
-	verbosity: "^1.1.1",
-	yargs: "^13.2.4"
+	lodash: "^4.17.15",
+	"sgr-composer": "^1.0.4",
+	"term-ng": "^1.0.4",
+	truwrap: "^1.0.4",
+	"update-notifier": "^3.0.1",
+	verbosity: "^1.1.2",
+	yargs: "^13.3.0"
 };
 const devDependencies = {
-	"@babel/core": "^7.4.5",
-	"@babel/preset-env": "^7.4.5",
-	ava: "^2.1.0",
+	"@babel/core": "^7.5.5",
+	"@babel/preset-env": "^7.5.5",
+	ava: "^2.2.0",
 	"babel-plugin-lodash": "^3.3.4",
 	"documentation-theme-bespoke": "^0.5.6",
 	gulp: "^4.0.2",
@@ -658,18 +673,18 @@ const devDependencies = {
 	"gulp-chmod": "^3.0.0",
 	"gulp-rename": "^1.3.0",
 	nyc: "^14.1.1",
-	rollup: "^1.15.3",
-	"rollup-plugin-babel": "^4.3.2",
-	"rollup-plugin-commonjs": "^10.0.0",
+	rollup: "^1.19.4",
+	"rollup-plugin-babel": "^4.3.3",
+	"rollup-plugin-commonjs": "^10.0.2",
 	"rollup-plugin-json": "^4.0.0",
-	"rollup-plugin-node-resolve": "^5.0.2",
+	"rollup-plugin-node-resolve": "^5.2.0",
 	"semver-regex": "^3.1.0",
 	xo: "^0.24.0"
 };
 const engines = {
 	node: ">=8.0"
 };
-const homepage = "https://github.com/MarkGriffiths/trucolor";
+const homepage = "https://github.com/thebespokepixel/trucolor";
 const keywords = [
 	"color",
 	"24bit",
@@ -682,7 +697,7 @@ const keywords = [
 const license = "MIT";
 const repository = {
 	type: "git",
-	url: "git+https://github.com/MarkGriffiths/trucolor.git"
+	url: "git+https://github.com/thebespokepixel/trucolor.git"
 };
 const scripts = {
 	test: "xo && nyc ava",
@@ -704,16 +719,16 @@ const xo = {
 	]
 };
 const badges = {
-	github: "MarkGriffiths",
+	github: "thebespokepixel",
 	npm: "thebespokepixel",
 	name: "trucolor",
-	codeclimate: "9719f82b8a448ee68072",
+	codeclimate: "5f8c6c4143841284dc75",
 	providers: {
 		aux1: {
 			title: "github",
 			text: "source",
 			color: "4E73B6",
-			link: "https://github.com/MarkGriffiths/trucolor"
+			link: "https://github.com/thebespokepixel/trucolor"
 		}
 	},
 	readme: {
@@ -735,8 +750,7 @@ const badges = {
 			"rollup"
 		],
 		Help: [
-			"inch",
-			"gitter"
+			"inch"
 		]
 	},
 	docs: [
@@ -817,7 +831,7 @@ function render(processor, options = {}) {
 
   switch (outputFormat) {
     case 'cli':
-      return _objectSpread({
+      return _objectSpread2({
         name: processor.human,
         hex: fieldSelect() || color.toHex(),
         rgb: fieldSelect() || color.toRgbString(),
@@ -826,7 +840,7 @@ function render(processor, options = {}) {
       }, sgrComposer.sgr());
 
     case 'sgr':
-      return _objectSpread({
+      return _objectSpread2({
         name: processor.human,
         hex: fieldSelect() || color.toHex(),
         rgb: fieldSelect() || color.toRgbString(),
@@ -835,7 +849,7 @@ function render(processor, options = {}) {
       }, sgrComposer.sgr());
 
     default:
-      return _objectSpread({
+      return _objectSpread2({
         name: processor.human,
         hex: fieldSelect() || color.toHex(),
         rgb: fieldSelect() || color.toRgbString(),

@@ -8,7 +8,7 @@ ${badges}
 ${usage}
 
 ## Documentation
-Full documentation can be found at [https://markgriffiths.github.io/trucolor/][1]
+Full documentation can be found at [https://thebespokepixel.github.io/trucolor/][1]
 
-[1]: https://markgriffiths.github.io/trucolor/
-[logo]: https://raw.githubusercontent.com/MarkGriffiths/trucolor/master/media/banner.png
+[1]: https://thebespokepixel.github.io/trucolor/
+[logo]: https://raw.githubusercontent.com/thebespokepixel/trucolor/master/media/banner.png

@@ -8,9 +8,9 @@ import updateNotifier from 'update-notifier'
 import {box} from '@thebespokepixel/string'
 import {stripIndent} from 'common-tags'
 import pkg from '../../package'
-import {console, metadata, parse, render} from '..'
 import {colorReplacer} from '../lib/colour'
 import help from './help'
+import {console, metadata, parse, render} from '..'
 
 yargs.strict().help(false).version(false).options({
 	h: {

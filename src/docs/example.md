@@ -29,7 +29,7 @@ Options:
 --color        Force color depth --color=256|16m. Disable with --no-color
 ```
 
-![Usage Examples](https://raw.githubusercontent.com/MarkGriffiths/trucolor/master/media/example.png)
+![Usage Examples](https://raw.githubusercontent.com/thebespokepixel/trucolor/master/media/example.png)
 
 In it's simplest form, `trucolor 'color'`, will take any of the color expressions listed below and transform it into a simple hexadecimal triplet string, i.e `AA00BB`, ideal for passing into fish-shell's `set_color` built-in, or providing the basis of further color processing.
 
@@ -64,7 +64,7 @@ The `color` can be defined in any of the following formats:
   See [HWB notation @csswg](https://drafts.csswg.org/css-color/#the-hwb-notation)
 
 - __CSS named colors__  
-![Named Colors Examples](https://raw.githubusercontent.com/MarkGriffiths/trucolor/master/media/named.png)
+![Named Colors Examples](https://raw.githubusercontent.com/thebespokepixel/trucolor/master/media/named.png)
 
 - __Special formatters__
 The following keywords modify the meaning or destination of the color, or provide enhanced foramtting. They only work when used with the command switches that actually output SGR codes, namely: `--message`, `--swatch`, `--in` and `--out`. When used with the default command or with the `--rgb` switch, they have no effect and the value of the base color (plus any processing) will be output.
@@ -83,7 +83,7 @@ The following keywords modify the meaning or destination of the color, or provid
 
   All of the above formatters need the correct code to end the range, either provided by using the `--out` switch, using the `reset` keyword, or simply use the `--message` option to automatically set the end range SGR code. Using `normal` alone won't fully clear the formatting.
 
-![Formatters Examples](https://raw.githubusercontent.com/MarkGriffiths/trucolor/master/media/formatters.png)
+![Formatters Examples](https://raw.githubusercontent.com/thebespokepixel/trucolor/master/media/formatters.png)
 
 ##### Color manipulation
 

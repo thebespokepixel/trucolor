@@ -96,9 +96,9 @@
             
           </ul>
         </div>
-        <div class="badges"><p><p><a href="https://github.com/MarkGriffiths/trucolor" title="Github"><img src="https://img.shields.io/badge/github-source-4E73B6.svg?style=flat" alt="Github"></a> <a href="https://travis-ci.org/MarkGriffiths/trucolor" title="Travis"><img src="https://img.shields.io/travis/MarkGriffiths/trucolor.svg?branch=master&#x26;style=flat&#x26;logo=travis" alt="Travis"></a> <br>
-</p> <p><a href="https://codeclimate.com/github/MarkGriffiths/trucolor/maintainability" title="Code-climate"><img src="https://api.codeclimate.com/v1/badges/9719f82b8a448ee68072/maintainability?style=flat" alt="Code-climate"></a> <a href="https://codeclimate.com/github/MarkGriffiths/trucolor/test_coverage" title="Coverage"><img src="https://api.codeclimate.com/v1/badges/9719f82b8a448ee68072/test_coverage?style=flat" alt="Coverage"></a> <br>
-</p> <p><a href="https://snyk.io/test/github/MarkGriffiths/trucolor" title="Snyk"><img src="https://img.shields.io/snyk/vulnerabilities/github/MarkGriffiths/trucolor.svg?style=flat&#x26;logo=npm" alt="Snyk"></a> <a href="https://david-dm.org/MarkGriffiths/trucolor/master" title="David"><img src="https://img.shields.io/david/MarkGriffiths/trucolor.svg?branch=master&#x26;style=flat" alt="David"></a> <br>
+        <div class="badges"><p><p><a href="https://github.com/thebespokepixel/trucolor" title="Github"><img src="https://img.shields.io/badge/github-source-4E73B6.svg?style=flat" alt="Github"></a> <a href="https://travis-ci.org/thebespokepixel/trucolor" title="Travis"><img src="https://img.shields.io/travis/thebespokepixel/trucolor.svg?branch=master&#x26;style=flat&#x26;logo=travis" alt="Travis"></a> <br>
+</p> <p><a href="https://codeclimate.com/github/thebespokepixel/trucolor/maintainability" title="Code-climate"><img src="https://api.codeclimate.com/v1/badges/5f8c6c4143841284dc75/maintainability?style=flat" alt="Code-climate"></a> <a href="https://codeclimate.com/github/thebespokepixel/trucolor/test_coverage" title="Coverage"><img src="https://api.codeclimate.com/v1/badges/5f8c6c4143841284dc75/test_coverage?style=flat" alt="Coverage"></a> <br>
+</p> <p><a href="https://snyk.io/test/github/thebespokepixel/trucolor" title="Snyk"><img src="https://img.shields.io/snyk/vulnerabilities/github/thebespokepixel/trucolor.svg?style=flat&#x26;logo=npm" alt="Snyk"></a> <a href="https://david-dm.org/thebespokepixel/trucolor/master" title="David"><img src="https://img.shields.io/david/thebespokepixel/trucolor.svg?branch=master&#x26;style=flat" alt="David"></a> <br>
 </p> <br>
 </p></div>
         <div class="mt1 h6 quiet">
@@ -141,7 +141,7 @@ Options:
 -r, --rgb      Output color as rgb(r, g, b).
 -s, --swatch   Output an isolated color swatch.
 --color        Force color depth --color=256|16m. Disable with --no-color</pre>
-<p><img src="https://raw.githubusercontent.com/MarkGriffiths/trucolor/master/media/example.png" alt="Usage Examples"></p>
+<p><img src="https://raw.githubusercontent.com/thebespokepixel/trucolor/master/media/example.png" alt="Usage Examples"></p>
 <p>In it's simplest form, <code>trucolor 'color'</code>, will take any of the color expressions listed below and transform it into a simple hexadecimal triplet string, i.e <code>AA00BB</code>, ideal for passing into fish-shell's <code>set_color</code> built-in, or providing the basis of further color processing.</p>
 <p>It can return color values and set terminal colors for a wide range of color assignment declarations and manipulation functions. See the examples below.</p>
 <p>When outputting SGR codes, colors will be shifted to the availalble 256 or ansi color palette if 24 bit color is unavailable or will be omitted in a monochromatic terminal to make usage across environments safe. The CLI command respects <code>--color=16m</code>, <code>--color=256</code>, <code>--color</code> and <code>--no-color</code> flags. It does not affect value based output, such as the default or <code>--rgb</code> output, it only effects the <code>--in</code>, <code>--out</code>, <code>--message</code> and <code>--swatch</code> outputs.</p>
@@ -164,7 +164,7 @@ Spaces can be incuded in rgb(R, G, B) declarations but require quoting/escaping 
 <code>hwb:H,W,B</code> where <code>H</code> is 0-360, <code>W</code> 0-100 and <code>B</code> 0-100<br>
 See <a href="https://drafts.csswg.org/css-color/#the-hwb-notation">HWB notation @csswg</a></li>
 <li><strong>CSS named colors</strong><br>
-<img src="https://raw.githubusercontent.com/MarkGriffiths/trucolor/master/media/named.png" alt="Named Colors Examples"></li>
+<img src="https://raw.githubusercontent.com/thebespokepixel/trucolor/master/media/named.png" alt="Named Colors Examples"></li>
 <li>
 <p><strong>Special formatters</strong>
 The following keywords modify the meaning or destination of the color, or provide enhanced foramtting. They only work when used with the command switches that actually output SGR codes, namely: <code>--message</code>, <code>--swatch</code>, <code>--in</code> and <code>--out</code>. When used with the default command or with the <code>--rgb</code> switch, they have no effect and the value of the base color (plus any processing) will be output.</p>
@@ -180,7 +180,7 @@ The following keywords modify the meaning or destination of the color, or provid
 <p>  All of the above formatters need the correct code to end the range, either provided by using the <code>--out</code> switch, using the <code>reset</code> keyword, or simply use the <code>--message</code> option to automatically set the end range SGR code. Using <code>normal</code> alone won't fully clear the formatting.</p>
 </li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/MarkGriffiths/trucolor/master/media/formatters.png" alt="Formatters Examples"></p>
+<p><img src="https://raw.githubusercontent.com/thebespokepixel/trucolor/master/media/formatters.png" alt="Formatters Examples"></p>
 <h5>Color manipulation</h5>
 <p>A number of color <code>operations</code> can be specified, either before or after the base color declaration.</p>
 <p><code>light</code>: lighten by 20%
@@ -264,7 +264,7 @@ apples: 005aff</pre>
     </h3>
     
     
-      <a class='pl3 pr1 right rounded github' href='https://github.com/MarkGriffiths/trucolor/blob/0e572d2b161e7984038e1fc119910df65689448a/src/index.js#L16-L29'>
+      <a class='pl3 pr1 right rounded github' href='https://github.com/thebespokepixel/trucolor/blob/4b15203bf195fea9361987d4137d2dd6b0a25a8d/src/index.js#L16-L29'>
       <span>src/index.js</span>
       </a>
     
@@ -379,7 +379,7 @@ format.
     </h3>
     
     
-      <a class='pl3 pr1 right rounded github' href='https://github.com/MarkGriffiths/trucolor/blob/0e572d2b161e7984038e1fc119910df65689448a/src/index.js#L39-L46'>
+      <a class='pl3 pr1 right rounded github' href='https://github.com/thebespokepixel/trucolor/blob/4b15203bf195fea9361987d4137d2dd6b0a25a8d/src/index.js#L39-L46'>
       <span>src/index.js</span>
       </a>
     
@@ -465,7 +465,7 @@ format.
     </h3>
     
     
-      <a class='pl3 pr1 right rounded github' href='https://github.com/MarkGriffiths/trucolor/blob/0e572d2b161e7984038e1fc119910df65689448a/src/index.js#L54-L56'>
+      <a class='pl3 pr1 right rounded github' href='https://github.com/thebespokepixel/trucolor/blob/4b15203bf195fea9361987d4137d2dd6b0a25a8d/src/index.js#L54-L56'>
       <span>src/index.js</span>
       </a>
     
@@ -550,7 +550,7 @@ format.
     </h3>
     
     
-      <a class='pl3 pr1 right rounded github' href='https://github.com/MarkGriffiths/trucolor/blob/0e572d2b161e7984038e1fc119910df65689448a/src/index.js#L63-L65'>
+      <a class='pl3 pr1 right rounded github' href='https://github.com/thebespokepixel/trucolor/blob/4b15203bf195fea9361987d4137d2dd6b0a25a8d/src/index.js#L63-L65'>
       <span>src/index.js</span>
       </a>
     
@@ -626,7 +626,7 @@ format.
     </h3>
     
     
-      <a class='pl3 pr1 right rounded github' href='https://github.com/MarkGriffiths/trucolor/blob/0e572d2b161e7984038e1fc119910df65689448a/src/index.js#L103-L105'>
+      <a class='pl3 pr1 right rounded github' href='https://github.com/thebespokepixel/trucolor/blob/4b15203bf195fea9361987d4137d2dd6b0a25a8d/src/index.js#L103-L105'>
       <span>src/index.js</span>
       </a>
     
