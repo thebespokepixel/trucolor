@@ -1,34 +1,32 @@
----
 branches:
   only:
-    - master
-    - develop
-    - /^greenkeeper/.*$/
-    - /^feature/.*$/
+  - master
+  - develop
+  - "/^greenkeeper/.*$/"
+  - "/^feature/.*$/"
 language: node_js
 node_js:
-  - stable
-  - 11
-  - 10
-  - 9
-  - 8
+- stable
+- 11
+- 10
+- 9
+- 8
 env:
   global:
-    - CC_TEST_REPORTER_ID=42271412e83fddd8f9d0486d0be2c44393111ff2bd55360df0c03698de1c99ec
+  - CC_TEST_REPORTER_ID=42271412e83fddd8f9d0486d0be2c44393111ff2bd55360df0c03698de1c99ec
 before_install:
-  - '[[ $(node -v) =~ ^v12.*$ ]] || npm install -g npm@latest'
-  - npm install -g greenkeeper-lockfile
+- "[[ $(node -v) =~ ^v12.*$ ]] || npm install -g npm@latest"
+- npm install -g greenkeeper-lockfile
 install: npm install
 before_script:
-  - greenkeeper-lockfile-update
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
+- greenkeeper-lockfile-update
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- "./cc-test-reporter before-build"
 after_script:
-  - greenkeeper-lockfile-upload
-  - "[ $TRAVIS_NODE_VERSION = stable ]
-  && nyc report --reporter=lcov
-  && ./cc-test-reporter after-build --debug -t lcov --exit-code $TRAVIS_TEST_RESULT
-  || echo 'Coverage skipped'"
+- greenkeeper-lockfile-upload
+- "[ $TRAVIS_NODE_VERSION = stable ] && nyc report --reporter=lcov && ./cc-test-reporter
+  after-build --debug -t lcov --exit-code $TRAVIS_TEST_RESULT || echo 'Coverage skipped'"
 notifications:
-  slack: thebespokepixel:XxnQflJdhsZJ1Bd4Ze74KIy4
+  slack:
+    secure: DS3q4uGQUoibKU/SJYfKKQT4GVXO7ybQhpLZoR+02xkrGnUoyr6kuC/T4eyNMQGfwqf0E6bTtyQhbJmC4fZIglfoRYkwZMItGZp/TNaQf6/pHnoFR8+ESwgDy+XHxNd6/+hKiEru0Qgh2YmO/zdl9a7/Em60RFhNfkVzAtiDQFw=
