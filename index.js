@@ -592,7 +592,7 @@ function _objectSpread2(target) {
 }
 
 const name = "trucolor";
-const version = "1.0.5";
+const version = "1.0.6";
 const description = "TTY color toolkit supporting Truecolor (24bit RGB)";
 const author = "Mark Griffiths <mark@thebespokepixel.com> (http://thebespokepixel.com/)";
 const main = "index.js";
@@ -673,7 +673,7 @@ const devDependencies = {
 	"@babel/preset-env": "^7.5.5",
 	ava: "^2.2.0",
 	"babel-plugin-lodash": "^3.3.4",
-	"documentation-theme-bespoke": "^0.5.6",
+	"documentation-theme-bespoke": "^1.0.0",
 	gulp: "^4.0.2",
 	"gulp-better-rollup": "^4.0.1",
 	"gulp-chmod": "^3.0.0",
@@ -738,31 +738,40 @@ const badges = {
 		}
 	},
 	readme: {
-		Status: [
+		"Publishing Status": [
 			[
 				"npm",
-				"travis",
 				"david"
 			],
 			[
-				"code-climate",
-				"code-climate-coverage",
-				"snyk"
+				"travis-com",
+				"rollup"
 			]
 		],
-		Developer: [
-			"greenkeeper",
-			"david-dev",
-			"rollup"
+		"Development Status": [
+			[
+				"greenkeeper",
+				"travis-com-dev"
+			],
+			[
+				"david-dev",
+				"david-devdeps-dev"
+			],
+			[
+				"snyk",
+				"code-climate",
+				"code-climate-coverage"
+			]
 		],
-		Help: [
-			"inch"
+		"Documentation/Help": [
+			"inch",
+			"twitter"
 		]
 	},
 	docs: [
 		[
 			"aux1",
-			"travis"
+			"travis-com"
 		],
 		[
 			"code-climate",
