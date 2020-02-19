@@ -64,7 +64,7 @@
   "dependencies": {
     "@thebespokepixel/es-tinycolor": "^1.0.6",
     "@thebespokepixel/meta": "^1.0.4",
-    "@thebespokepixel/string": "^0.5.8",
+    "@thebespokepixel/string": "^1.0.0",
     "color-convert": "^2.0.0",
     "common-tags": "^1.8.0",
     "escape-string-regexp": "^2.0.0",
