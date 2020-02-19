@@ -70,7 +70,7 @@
     "escape-string-regexp": "^2.0.0",
     "lodash": "^4.17.15",
     "sgr-composer": "^1.0.4",
-    "term-ng": "^1.0.4",
+    "term-ng": "^2.0.0",
     "truwrap": "^1.0.4",
     "update-notifier": "^3.0.1",
     "verbosity": "^1.1.2",
