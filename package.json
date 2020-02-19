@@ -73,7 +73,7 @@
     "term-ng": "^1.0.4",
     "truwrap": "^1.0.4",
     "update-notifier": "^3.0.1",
-    "verbosity": "^1.1.2",
+    "verbosity": "^2.0.0",
     "yargs": "^13.3.0"
   },
   "devDependencies": {
