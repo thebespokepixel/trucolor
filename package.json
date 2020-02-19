@@ -63,7 +63,7 @@
   },
   "dependencies": {
     "@thebespokepixel/es-tinycolor": "^1.0.6",
-    "@thebespokepixel/meta": "^1.0.4",
+    "@thebespokepixel/meta": "^2.0.0",
     "@thebespokepixel/string": "^0.5.8",
     "color-convert": "^2.0.0",
     "common-tags": "^1.8.0",
