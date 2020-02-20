@@ -1,6 +1,6 @@
 {
   "name": "trucolor",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "TTY color toolkit supporting Truecolor (24bit RGB)",
   "author": "Mark Griffiths <mark@thebespokepixel.com> (http://thebespokepixel.com/)",
   "main": "index.js",
