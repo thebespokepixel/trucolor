@@ -1,6 +1,6 @@
 import test from 'ava'
 import semverRegex from 'semver-regex'
-import pkg from '../package'
+import pkg from '../package.json'
 import {metadata} from '..'
 
 const expectedVersion = pkg.version
