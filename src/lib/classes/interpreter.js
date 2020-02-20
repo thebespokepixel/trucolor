@@ -55,15 +55,15 @@ class Interpreter {
 
 				case /^[0-9a-f]{8}$/i.test(raw_):
 					return {
-						input: raw_.substring(0, 6),
-						human: raw_.substring(0, 6),
+						input: raw_.slice(0, 6),
+						human: raw_.slice(0, 6),
 						space: 'HEXHEX'
 					}
 
 				case /^#[0-9a-f]{8}$/i.test(raw_):
 					return {
-						input: raw_.substring(0, 7),
-						human: raw_.substring(0, 7),
+						input: raw_.slice(0, 7),
+						human: raw_.slice(0, 7),
 						space: '#HEXHEX'
 					}
 
@@ -189,20 +189,20 @@ class Interpreter {
 		console.debug(`Color (${this.baseName}) ${this.baseColor} from ${this.source.space} as ${this.source.human}`)
 	}
 
-	set name(n) {
-		this.baseName = n
-	}
-
 	get name() {
 		return this.baseName
 	}
 
-	set rgb(rgb) {
-		this.baseColor = tinycolor(rgb)
+	set name(n) {
+		this.baseName = n
 	}
 
 	get rgb() {
 		return this.baseColor
+	}
+
+	set rgb(rgb) {
+		this.baseColor = tinycolor(rgb)
 	}
 
 	get input() {

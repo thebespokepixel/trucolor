@@ -35,6 +35,10 @@ class Processor {
 		) : 'none'
 	}
 
+	get source() {
+		return this.interpreter
+	}
+
 	set source(interpreter) {
 		this.interpreter = interpreter
 		this.baseName = this.interpreter.name
@@ -78,15 +82,15 @@ class Processor {
 		return Boolean(this.haveAttrs)
 	}
 
+	get attrs() {
+		return this.attributes
+	}
+
 	set attrs(attr) {
 		if (['background', 'bold', 'dim', 'italic', 'invert', 'underline', 'blink'].includes(attr)) {
 			this.haveAttrs = true
 			this.attributes[attr] = true
 		}
-	}
-
-	get attrs() {
-		return this.attributes
 	}
 
 	addStep(step) {

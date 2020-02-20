@@ -1,6 +1,6 @@
 import {exec} from 'child_process'
 import test from 'ava'
-import pkg from '../package'
+import pkg from '../package.json'
 
 const expectedVersion = pkg.version
 

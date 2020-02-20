@@ -36,6 +36,10 @@ class Processor {
     return this.haveSource ? _reduce(this.queue, (color, step) => step(color), tinycolor(this.rgb)) : 'none';
   }
 
+  get source() {
+    return this.interpreter;
+  }
+
   set source(interpreter) {
     this.interpreter = interpreter;
     this.baseName = this.interpreter.name;
@@ -79,15 +83,15 @@ class Processor {
     return Boolean(this.haveAttrs);
   }
 
+  get attrs() {
+    return this.attributes;
+  }
+
   set attrs(attr) {
     if (['background', 'bold', 'dim', 'italic', 'invert', 'underline', 'blink'].includes(attr)) {
       this.haveAttrs = true;
       this.attributes[attr] = true;
     }
-  }
-
-  get attrs() {
-    return this.attributes;
   }
 
   addStep(step) {
@@ -233,15 +237,15 @@ class Interpreter {
 
         case /^[0-9a-f]{8}$/i.test(raw_):
           return {
-            input: raw_.substring(0, 6),
-            human: raw_.substring(0, 6),
+            input: raw_.slice(0, 6),
+            human: raw_.slice(0, 6),
             space: 'HEXHEX'
           };
 
         case /^#[0-9a-f]{8}$/i.test(raw_):
           return {
-            input: raw_.substring(0, 7),
-            human: raw_.substring(0, 7),
+            input: raw_.slice(0, 7),
+            human: raw_.slice(0, 7),
             space: '#HEXHEX'
           };
 
@@ -376,20 +380,20 @@ class Interpreter {
     console.debug(`Color (${this.baseName}) ${this.baseColor} from ${this.source.space} as ${this.source.human}`);
   }
 
-  set name(n) {
-    this.baseName = n;
-  }
-
   get name() {
     return this.baseName;
   }
 
-  set rgb(rgb) {
-    this.baseColor = tinycolor(rgb);
+  set name(n) {
+    this.baseName = n;
   }
 
   get rgb() {
     return this.baseColor;
+  }
+
+  set rgb(rgb) {
+    this.baseColor = tinycolor(rgb);
   }
 
   get input() {
@@ -570,13 +574,13 @@ function _objectSpread2(target) {
     var source = arguments[i] != null ? arguments[i] : {};
 
     if (i % 2) {
-      ownKeys(source, true).forEach(function (key) {
+      ownKeys(Object(source), true).forEach(function (key) {
         _defineProperty(target, key, source[key]);
       });
     } else if (Object.getOwnPropertyDescriptors) {
       Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
     } else {
-      ownKeys(source).forEach(function (key) {
+      ownKeys(Object(source)).forEach(function (key) {
         Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
       });
     }
@@ -603,7 +607,7 @@ const bugs = {
 	url: "https://github.com/thebespokepixel/trucolor/issues"
 };
 const copyright = {
-	year: "2019",
+	year: "2020",
 	owner: "The Bespoke Pixel"
 };
 const config = {
@@ -648,41 +652,42 @@ const config = {
 	}
 };
 const dependencies = {
-	"@thebespokepixel/es-tinycolor": "^1.0.6",
-	"@thebespokepixel/meta": "^1.0.4",
-	"@thebespokepixel/string": "^0.5.8",
-	"color-convert": "^2.0.0",
+	"@thebespokepixel/es-tinycolor": "^2.0.0",
+	"@thebespokepixel/meta": "^2.0.1",
+	"@thebespokepixel/string": "^1.0.0",
+	"color-convert": "^2.0.1",
 	"common-tags": "^1.8.0",
 	"escape-string-regexp": "^2.0.0",
 	lodash: "^4.17.15",
-	"sgr-composer": "^1.0.4",
-	"term-ng": "^1.0.4",
-	truwrap: "^1.0.4",
-	"update-notifier": "^3.0.1",
-	verbosity: "^1.1.2",
-	yargs: "^13.3.0"
+	"sgr-composer": "^2.0.0",
+	"term-ng": "^2.0.0",
+	truwrap: "^2.0.0",
+	"update-notifier": "^4.1.0",
+	verbosity: "^2.0.0",
+	yargs: "^15.1.0"
 };
 const devDependencies = {
-	"@babel/core": "^7.5.5",
-	"@babel/preset-env": "^7.5.5",
-	ava: "^2.2.0",
+	"@ava/babel": "^1.0.1",
+	"@babel/core": "^7.8.4",
+	"@babel/preset-env": "^7.8.4",
+	ava: "^3.3.0",
 	"babel-plugin-lodash": "^3.3.4",
-	"documentation-theme-bespoke": "^1.0.0",
+	"documentation-theme-bespoke": "^1.1.2",
 	gulp: "^4.0.2",
 	"gulp-better-rollup": "^4.0.1",
 	"gulp-chmod": "^3.0.0",
-	"gulp-rename": "^1.3.0",
-	nyc: "^14.1.1",
-	rollup: "^1.19.4",
+	"gulp-rename": "^2.0.0",
+	nyc: "^15.0.0",
+	rollup: "^1.31.1",
 	"rollup-plugin-babel": "^4.3.3",
-	"rollup-plugin-commonjs": "^10.0.2",
+	"rollup-plugin-commonjs": "^10.1.0",
 	"rollup-plugin-json": "^4.0.0",
 	"rollup-plugin-node-resolve": "^5.2.0",
-	"semver-regex": "^3.1.0",
-	xo: "^0.24.0"
+	"semver-regex": "^3.1.1",
+	xo: "^0.26.1"
 };
 const engines = {
-	node: ">=8.0"
+	node: ">=10.0"
 };
 const homepage = "https://github.com/thebespokepixel/trucolor";
 const keywords = [
@@ -716,6 +721,12 @@ const xo = {
 		"docs/**",
 		"test/coverage/**",
 		"index.js"
+	]
+};
+const ava = {
+	babel: true,
+	files: [
+		"test/*.js"
 	]
 };
 const badges = {
@@ -798,6 +809,7 @@ var pkg = {
 	repository: repository,
 	scripts: scripts,
 	xo: xo,
+	ava: ava,
 	badges: badges
 };
 
