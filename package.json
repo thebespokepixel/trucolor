@@ -67,7 +67,7 @@
     "@thebespokepixel/string": "^1.0.1",
     "color-convert": "^2.0.1",
     "common-tags": "^1.8.0",
-    "escape-string-regexp": "^2.0.0",
+    "escape-string-regexp": "^3.0.0",
     "lodash": "^4.17.15",
     "sgr-composer": "^2.0.1",
     "term-ng": "^2.0.1",
