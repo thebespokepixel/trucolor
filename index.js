@@ -596,7 +596,7 @@ function _objectSpread2(target) {
 }
 
 const name = "trucolor";
-const version = "2.0.3";
+const version = "2.0.4";
 const description = "TTY color toolkit supporting Truecolor (24bit RGB)";
 const author = "Mark Griffiths <mark@thebespokepixel.com> (http://thebespokepixel.com/)";
 const main = "index.js";
