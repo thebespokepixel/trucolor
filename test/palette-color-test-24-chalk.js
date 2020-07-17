@@ -43,11 +43,11 @@ Object.keys(results).forEach(target => {
 })
 
 test(`${heading}: Chalkish : \u001B[37mwhite \u001B[31mred\u001B[37m white\u001B[39m`, t => {
-	const str = palette.white('white ' + palette.red('red') + ' white')
-	t.is(str, '\u001B[38;2;187;187;187mwhite \u001B[38;2;187;0;0mred\u001B[38;2;187;187;187m white\u001B[39m')
+	const result = palette.white('white ' + palette.red('red') + ' white')
+	t.is(result, '\u001B[38;2;187;187;187mwhite \u001B[38;2;187;0;0mred\u001B[38;2;187;187;187m white\u001B[39m')
 })
 
 test(`${heading}: Chalkish : \u001B[34mblue \u001B[3mitalic\u001B[23m blue\u001B[39m`, t => {
-	const str = palette.blue('blue ' + palette.italic('italic') + ' blue')
-	t.is(str, '\u001B[38;2;68;68;187mblue \u001B[3mitalic\u001B[23m blue\u001B[39m')
+	const result = palette.blue('blue ' + palette.italic('italic') + ' blue')
+	t.is(result, '\u001B[38;2;68;68;187mblue \u001B[3mitalic\u001B[23m blue\u001B[39m')
 })

@@ -193,63 +193,63 @@ class Interpreter {
   constructor(raw) {
     this.source = (raw_ => {
       switch (true) {
-        case /^[0-9a-f]{3}$/i.test(raw_):
+        case /^[\da-f]{3}$/i.test(raw_):
           return {
-            input: /^([0-9a-f])([0-9a-f])([0-9a-f])$/i.exec(raw_),
+            input: /^([\da-f])([\da-f])([\da-f])$/i.exec(raw_),
             human: raw_,
             space: 'HEX'
           };
 
-        case /^#[0-9a-f]{3}$/i.test(raw_):
+        case /^#[\da-f]{3}$/i.test(raw_):
           return {
-            input: /^#([0-9a-f])([0-9a-f])([0-9a-f])$/i.exec(raw_),
+            input: /^#([\da-f])([\da-f])([\da-f])$/i.exec(raw_),
             human: raw_,
             space: '#HEX'
           };
 
-        case /^[0-9a-f]{4}$/i.test(raw_):
+        case /^[\da-f]{4}$/i.test(raw_):
           return {
-            input: /^([0-9a-f])([0-9a-f])([0-9a-f])[0-9a-f]$/i.exec(raw_),
+            input: /^([\da-f])([\da-f])([\da-f])[\da-f]$/i.exec(raw_),
             human: raw_,
             space: 'HEX'
           };
 
-        case /^#[0-9a-f]{4}$/i.test(raw_):
+        case /^#[\da-f]{4}$/i.test(raw_):
           return {
-            input: /^#([0-9a-f])([0-9a-f])([0-9a-f])[0-9a-f]$/i.exec(raw_),
+            input: /^#([\da-f])([\da-f])([\da-f])[\da-f]$/i.exec(raw_),
             human: raw_,
             space: '#HEX'
           };
 
-        case /^[0-9a-f]{6}$/i.test(raw_):
+        case /^[\da-f]{6}$/i.test(raw_):
           return {
             input: raw_,
             human: raw_,
             space: 'HEXHEX'
           };
 
-        case /^#[0-9a-f]{6}$/i.test(raw_):
+        case /^#[\da-f]{6}$/i.test(raw_):
           return {
             input: raw_,
             human: raw_,
             space: '#HEXHEX'
           };
 
-        case /^[0-9a-f]{8}$/i.test(raw_):
+        case /^[\da-f]{8}$/i.test(raw_):
           return {
             input: raw_.slice(0, 6),
             human: raw_.slice(0, 6),
             space: 'HEXHEX'
           };
 
-        case /^#[0-9a-f]{8}$/i.test(raw_):
+        case /^#[\da-f]{8}$/i.test(raw_):
           return {
             input: raw_.slice(0, 7),
             human: raw_.slice(0, 7),
             space: '#HEXHEX'
           };
 
-        case /^rgb[(:]+\s?\d+,\s?\d+,\s?\d+\s?[)]*$/.test(raw_):
+        case /^rgb[(:]+(?:\s?\d+,){2}\s?\d+\s?\)*$/.test(raw_):
           return {
             input: raw_.replace(/rgb[(:]/, '').replace(/[ )]/g, '').split(','),
             human: raw_.replace(/rgb[(:]/, 'rgb-').replace(/,/g, '-').replace(/[ )]/g, ''),
@@ -419,7 +419,7 @@ function interpreter(raw) {
 }
 
 let currentAutoName = 1;
-function parse (color) {
+function parser(color) {
   const queue = [];
   let processor$1 = processor(`color_${currentAutoName++}`);
 
@@ -525,7 +525,7 @@ function parse (color) {
         break;
 
       default:
-        if (/^[A-Za-z0-9_-]+:$/.test(token)) {
+        if (/^[\w-]+:$/.test(token)) {
           processor$1 = refreshProcessor(processor$1);
           processor$1.lock(token.trim().replace(':', ''));
         } else {
@@ -652,39 +652,39 @@ const config = {
 	}
 };
 const dependencies = {
-	"@thebespokepixel/es-tinycolor": "^2.0.1",
-	"@thebespokepixel/meta": "^2.0.2",
-	"@thebespokepixel/string": "^1.0.1",
+	"@thebespokepixel/es-tinycolor": "^2.1.1",
+	"@thebespokepixel/meta": "^2.0.4",
+	"@thebespokepixel/string": "^1.0.3",
 	"color-convert": "^2.0.1",
 	"common-tags": "^1.8.0",
-	"escape-string-regexp": "^2.0.0",
-	lodash: "^4.17.15",
-	"sgr-composer": "^2.0.1",
-	"term-ng": "^2.0.1",
-	truwrap: "^2.0.2",
+	"escape-string-regexp": "^4.0.0",
+	lodash: "^4.17.19",
+	"sgr-composer": "^2.0.2",
+	"term-ng": "^2.0.2",
+	truwrap: "^2.0.4",
 	"update-notifier": "^4.1.0",
-	verbosity: "^2.0.1",
-	yargs: "^15.1.0"
+	verbosity: "^2.0.2",
+	yargs: "^15.4.1"
 };
 const devDependencies = {
 	"@ava/babel": "^1.0.1",
-	"@babel/core": "^7.8.4",
-	"@babel/preset-env": "^7.8.4",
-	ava: "^3.3.0",
+	"@babel/core": "^7.10.5",
+	"@babel/preset-env": "^7.10.4",
+	ava: "^3.10.1",
 	"babel-plugin-lodash": "^3.3.4",
-	"documentation-theme-bespoke": "^1.1.3",
+	"documentation-theme-bespoke": "^1.1.6",
 	gulp: "^4.0.2",
 	"gulp-better-rollup": "^4.0.1",
 	"gulp-chmod": "^3.0.0",
 	"gulp-rename": "^2.0.0",
-	nyc: "^15.0.0",
-	rollup: "^1.31.1",
-	"rollup-plugin-babel": "^4.3.3",
+	nyc: "^15.1.0",
+	rollup: "^2.21.0",
+	"rollup-plugin-babel": "^4.4.0",
 	"rollup-plugin-commonjs": "^10.1.0",
 	"rollup-plugin-json": "^4.0.0",
 	"rollup-plugin-node-resolve": "^5.2.0",
 	"semver-regex": "^3.1.1",
-	xo: "^0.26.1"
+	xo: "^0.32.1"
 };
 const engines = {
 	node: ">=10.0"
@@ -929,7 +929,7 @@ function chalk(palette) {
   return new Chalkish(palette);
 }
 
-var simpleObject = {
+const palette = {
   white: '#BBB',
   black: '#111',
   red: '#B00',
@@ -965,7 +965,7 @@ const console = createConsole({
 });
 const metadata = meta(__dirname);
 function trucolor(color, options = {}) {
-  const queue = parse(color);
+  const queue = parser(color);
 
   if (queue.length > 1) {
     return queue.map(color => render(color, options));
@@ -973,17 +973,17 @@ function trucolor(color, options = {}) {
 
   return render(queue[0], options);
 }
-function palette(options, palette) {
+function palette$1(options, palette) {
   return _mapValues(palette, color => trucolor(color, options));
 }
 function chalkish(palette) {
   return chalk(palette);
 }
 function simple(options) {
-  return palette(options, simpleObject);
+  return palette$1(options, palette);
 }
 function simplePalette(options) {
-  return palette(options, simpleObject);
+  return palette$1(options, palette);
 }
 
-export { chalkish, console, metadata, palette, parse, render, simple, simplePalette, trucolor };
+export { chalkish, console, metadata, palette$1 as palette, parser as parse, render, simple, simplePalette, trucolor };

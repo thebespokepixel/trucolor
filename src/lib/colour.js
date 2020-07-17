@@ -41,7 +41,7 @@ export const colorReplacer = new TemplateTag(
 
 export function spectrum(width, char) {
 	if (terminalFeatures.color.has16m) {
-		return _.map(new Array(width), (val, col) => {
+		return _.map(new Array(width), (value, col) => {
 			const scos = Math.cos((col / width) * (Math.PI / 2))
 			const ssin = Math.sin((col / width) * (Math.PI))
 			const red = (scos > 0) ? Math.floor(scos * 255) : 0

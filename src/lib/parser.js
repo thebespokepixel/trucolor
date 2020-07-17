@@ -8,7 +8,7 @@ import createInterpreter from './classes/interpreter'
 
 let currentAutoName = 1
 
-export default function (color) {
+export default function parser(color) {
 	const queue = []
 	let processor = createProcessor(`color_${currentAutoName++}`)
 	const refreshProcessor = processor_ => {
@@ -98,7 +98,7 @@ export default function (color) {
 				})
 				break
 			default:
-				if (/^[A-Za-z0-9_-]+:$/.test(token)) {
+				if (/^[\w-]+:$/.test(token)) {
 					processor = refreshProcessor(processor)
 					processor.lock(token.trim().replace(':', ''))
 				} else {
