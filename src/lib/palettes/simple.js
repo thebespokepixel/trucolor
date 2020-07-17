@@ -2,7 +2,7 @@
  │ trucolor │ Simple Shared Palette
  ╰──────────┴─────────────────────────────────────────────────────────────────── */
 
-export default {
+const palette = {
 	white: '#BBB',
 	black: '#111',
 	red: '#B00',
@@ -33,3 +33,4 @@ export default {
 	reset: 'reset'
 }
 
+export default palette

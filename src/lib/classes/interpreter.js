@@ -11,63 +11,63 @@ class Interpreter {
 	constructor(raw) {
 		this.source = (raw_ => {
 			switch (true) {
-				case /^[0-9a-f]{3}$/i.test(raw_):
+				case /^[\da-f]{3}$/i.test(raw_):
 					return {
-						input: /^([0-9a-f])([0-9a-f])([0-9a-f])$/i.exec(raw_),
+						input: /^([\da-f])([\da-f])([\da-f])$/i.exec(raw_),
 						human: raw_,
 						space: 'HEX'
 					}
 
-				case /^#[0-9a-f]{3}$/i.test(raw_):
+				case /^#[\da-f]{3}$/i.test(raw_):
 					return {
-						input: /^#([0-9a-f])([0-9a-f])([0-9a-f])$/i.exec(raw_),
+						input: /^#([\da-f])([\da-f])([\da-f])$/i.exec(raw_),
 						human: raw_,
 						space: '#HEX'
 					}
 
-				case /^[0-9a-f]{4}$/i.test(raw_):
+				case /^[\da-f]{4}$/i.test(raw_):
 					return {
-						input: /^([0-9a-f])([0-9a-f])([0-9a-f])[0-9a-f]$/i.exec(raw_),
+						input: /^([\da-f])([\da-f])([\da-f])[\da-f]$/i.exec(raw_),
 						human: raw_,
 						space: 'HEX'
 					}
 
-				case /^#[0-9a-f]{4}$/i.test(raw_):
+				case /^#[\da-f]{4}$/i.test(raw_):
 					return {
-						input: /^#([0-9a-f])([0-9a-f])([0-9a-f])[0-9a-f]$/i.exec(raw_),
+						input: /^#([\da-f])([\da-f])([\da-f])[\da-f]$/i.exec(raw_),
 						human: raw_,
 						space: '#HEX'
 					}
 
-				case /^[0-9a-f]{6}$/i.test(raw_):
+				case /^[\da-f]{6}$/i.test(raw_):
 					return {
 						input: raw_,
 						human: raw_,
 						space: 'HEXHEX'
 					}
 
-				case /^#[0-9a-f]{6}$/i.test(raw_):
+				case /^#[\da-f]{6}$/i.test(raw_):
 					return {
 						input: raw_,
 						human: raw_,
 						space: '#HEXHEX'
 					}
 
-				case /^[0-9a-f]{8}$/i.test(raw_):
+				case /^[\da-f]{8}$/i.test(raw_):
 					return {
 						input: raw_.slice(0, 6),
 						human: raw_.slice(0, 6),
 						space: 'HEXHEX'
 					}
 
-				case /^#[0-9a-f]{8}$/i.test(raw_):
+				case /^#[\da-f]{8}$/i.test(raw_):
 					return {
 						input: raw_.slice(0, 7),
 						human: raw_.slice(0, 7),
 						space: '#HEXHEX'
 					}
 
-				case /^rgb[(:]+\s?\d+,\s?\d+,\s?\d+\s?[)]*$/.test(raw_):
+				case /^rgb[(:]+(?:\s?\d+,){2}\s?\d+\s?\)*$/.test(raw_):
 					return {
 						input: raw_.replace(/rgb[(:]/, '').replace(/[ )]/g, '').split(','),
 						human: raw_.replace(/rgb[(:]/, 'rgb-').replace(/,/g, '-').replace(/[ )]/g, ''),

@@ -9,8 +9,7 @@
 
 ##### Development Status
 
-[![Greenkeeper](https://badges.greenkeeper.io/thebespokepixel/trucolor.svg)](https://greenkeeper.io/ "Greenkeeper") [![Travis](https://img.shields.io/travis/com/thebespokepixel/trucolor/develop?logo=travis)](https://travis-ci.com/thebespokepixel/trucolor "Travis")  
- [![David](https://david-dm.org/thebespokepixel/trucolor/develop/status.svg)](https://david-dm.org/thebespokepixel/trucolor/develop "David") [![David-developer](https://david-dm.org/thebespokepixel/trucolor/develop/dev-status.svg)](https://david-dm.org/thebespokepixel/trucolor/develop?type=dev "David-developer")  
+[![Travis](https://img.shields.io/travis/com/thebespokepixel/trucolor/develop?logo=travis)](https://travis-ci.com/thebespokepixel/trucolor "Travis") [![David](https://david-dm.org/thebespokepixel/trucolor/develop/status.svg)](https://david-dm.org/thebespokepixel/trucolor/develop "David") [![David-developer](https://david-dm.org/thebespokepixel/trucolor/develop/dev-status.svg)](https://david-dm.org/thebespokepixel/trucolor/develop?type=dev "David-developer")  
  [![Snyk](https://snyk.io/test/github/thebespokepixel/trucolor/badge.svg)](https://snyk.io/test/github/thebespokepixel/trucolor "Snyk") [![Code-climate](https://api.codeclimate.com/v1/badges/5f8c6c4143841284dc75/maintainability)](https://codeclimate.com/github/thebespokepixel/trucolor/maintainability "Code-climate") [![Coverage](https://api.codeclimate.com/v1/badges/5f8c6c4143841284dc75/test_coverage)](https://codeclimate.com/github/thebespokepixel/trucolor/test_coverage "Coverage")   
 
 ##### Documentation/Help

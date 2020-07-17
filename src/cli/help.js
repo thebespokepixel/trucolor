@@ -1,6 +1,7 @@
 /* ─────────────╮
  │ trucolor CLI │
  ╰──────────────┴────────────────────────────────────────────────────────────── */
+import {join} from 'path'
 import _ from 'lodash'
 import terminalFeatures from 'term-ng'
 import {stripIndent} from 'common-tags'
@@ -22,7 +23,7 @@ export default function help(yargs, helpPage) {
 				space: '\t',
 				cc: createImage({
 					name: 'logo',
-					file: `${__dirname}/../media/CCLogo.png`,
+					file: join(__dirname, '/../media/CCLogo.png'),
 					height: 3
 				})
 			}
