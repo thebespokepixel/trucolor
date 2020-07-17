@@ -1018,13 +1018,13 @@ function help(yargs, helpPage) {
     const headerText = (() => {
       switch (true) {
         case terminalFeatures.font.enhanced:
-          return [colorReplacer`${'red|━┳━╸     '}${'bright|╭──╮  ╷'}`, colorReplacer`${'green| ┃ ┏━┓╻ ╻'}${'bright|│  ╭─╮│╭─╮╭─╮'}`, colorReplacer`${'blue| ╹ ╹  ┗━┛'}${'bright|╰──╰─╯╵╰─╯╵  '}`];
+          return [colorReplacer`${'red| ━┳━╸     '}${'bright|╭──╮  ╷'}`, colorReplacer`${'blue|  ┃ ┏━┓╻ ╻'}${'bright|│  ╭─╮│╭─╮╭─╮'}`, colorReplacer`${'green|  ╹ ╹  ┗━┛'}${'bright|╰──╰─╯╵╰─╯╵  '}`];
 
         case terminalFeatures.font.basic:
-          return [colorReplacer`${'red|─┬─      '}${'bright|┌──┐  ┐'}`, colorReplacer`${'green| │ ┌─ ┐ ┌'}${'bright|│  ┌─┐│┌─╮┌─┐'}`, colorReplacer`${'blue| └ ┘  └─┘'}${'bright|└──└─┘└╰─┘┘  '}`];
+          return [colorReplacer`${'red| ─┬─      '}${'bright|┌──┐  ┐'}`, colorReplacer`${'blue|  │ ┌─ ┐ ┌'}${'bright|│  ┌─┐│┌─╮┌─┐'}`, colorReplacer`${'green|  └ ┘  └─┘'}${'bright|└──└─┘└╰─┘┘  '}`];
 
         default:
-          return [`${clr.red}___${clr.red.out}        __`, `${clr.green} | ,_${clr.green.out}     |     |   ,_`, `${clr.blue} | |  |_|${clr.blue.out} |__(_)|(_)|  `];
+          return [`${clr.red} ___${clr.red.out}        __`, `${clr.blue}  | ,_${clr.green.out}     |     |   ,_`, `${clr.green}  | |  |_|${clr.blue.out} |__(_)|(_)|  `];
       }
     })();
 
@@ -1328,8 +1328,8 @@ function help(yargs, helpPage) {
   }));
   container.write(header()).break();
   container.write(spectrum(windowWidth, '—')).break();
-  renderer.write(synopsis).break(2);
-  renderer.write(yargs.getUsageInstance().help()).break();
+  renderer.write(synopsis);
+  renderer.write(yargs.getUsageInstance().help()).break(2);
   renderer.write(page.usage).break(2);
   renderer.write(colorReplacer`${'title|Examples:'}`).break();
   renderer.panel(page.examples(contentWidth), page.layout(contentWidth)).break(2);
