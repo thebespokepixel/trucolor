@@ -68,7 +68,7 @@
     "color-convert": "^2.0.1",
     "common-tags": "^1.8.0",
     "escape-string-regexp": "^4.0.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.20",
     "sgr-composer": "^2.0.2",
     "term-ng": "^2.0.2",
     "truwrap": "^2.0.4",
