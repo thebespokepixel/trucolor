@@ -1,6 +1,6 @@
 {
   "name": "trucolor",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "TTY color toolkit supporting Truecolor (24bit RGB)",
   "author": "Mark Griffiths <mark@thebespokepixel.com> (http://thebespokepixel.com/)",
   "main": "index.js",
@@ -16,47 +16,6 @@
   "copyright": {
     "year": "2021",
     "owner": "The Bespoke Pixel"
-  },
-  "config": {
-    "cli": {
-      "selected": "direct",
-      "none": {
-        "color": "hex",
-        "background": "",
-        "bold": "",
-        "dim": "",
-        "italic": "",
-        "underline": "",
-        "blink": "",
-        "invert": "",
-        "reset": "",
-        "normal": ""
-      },
-      "direct": {
-        "color": "hex",
-        "background": "--background",
-        "bold": "--bold",
-        "dim": "--dim",
-        "italic": "--italic",
-        "underline": "--underline",
-        "blink": "--blink",
-        "invert": "--invert",
-        "reset": "reset",
-        "normal": "normal"
-      },
-      "fish": {
-        "color": "hex",
-        "background": "--background",
-        "bold": "--bold",
-        "dim": "",
-        "italic": "",
-        "underline": "--underline",
-        "blink": "",
-        "invert": "",
-        "reset": "normal",
-        "normal": "normal"
-      }
-    }
   },
   "dependencies": {
     "@thebespokepixel/es-tinycolor": "^3.0.4",
