@@ -18,7 +18,7 @@ import 'escape-string-regexp';
 import { createImage, truwrap } from 'truwrap';
 
 const name = "trucolor";
-const version = "3.0.0";
+const version = "3.0.1";
 const description = "TTY color toolkit supporting Truecolor (24bit RGB)";
 const author = "Mark Griffiths <mark@thebespokepixel.com> (http://thebespokepixel.com/)";
 const main = "index.js";
@@ -100,6 +100,7 @@ const devDependencies = {
 	"@rollup/plugin-commonjs": "^21.0.1",
 	"@rollup/plugin-json": "^4.1.0",
 	"@rollup/plugin-node-resolve": "^13.0.6",
+	"@types/estree": "^0.0.50",
 	ava: "^4.0.0-rc.1",
 	c8: "^7.10.0",
 	"documentation-theme-bespoke": "^2.0.12",
