@@ -4,7 +4,6 @@
 
 import _ from 'lodash'
 import {tinycolor, TinyColor} from '@thebespokepixel/es-tinycolor'
-import {console} from '../../index.js'
 
 class Processor {
 	constructor(colorname) {
@@ -25,7 +24,6 @@ class Processor {
 		this.haveQueue = false
 		this.namePrefix = ''
 		this.nameSuffix = ''
-		console.debug(`New Process: ${this.baseName}`)
 	}
 
 	render() {
@@ -58,7 +56,6 @@ class Processor {
 	}
 
 	lock(lockedName) {
-		console.debug(`Process name locked: ${lockedName}`)
 		this.lockedName = lockedName
 	}
 
@@ -100,86 +97,72 @@ class Processor {
 
 	background() {
 		this.attrs = 'background'
-		console.debug('Special::background')
 	}
 
 	bold() {
 		this.attrs = 'bold'
-		console.debug('Special::bold')
 	}
 
 	dim() {
 		this.attrs = 'dim'
-		console.debug('Special::dim')
 	}
 
 	italic() {
 		this.attrs = 'italic'
-		console.debug('Special::italic')
 	}
 
 	invert() {
 		this.attrs = 'invert'
-		console.debug('Special::invert')
 	}
 
 	underline() {
 		this.attrs = 'underline'
-		console.debug('Special::underline')
 	}
 
 	blink() {
 		this.attrs = 'blink'
-		console.debug('Special::blink')
 	}
 
 	saturate(args) {
 		this.addStep(color => color.saturate(args.percent))
 		this.namePrefix = `sat-${this.namePrefix}`
 		this.nameSuffix = `${this.nameSuffix}-${args.percent}`
-		console.debug('Process::saturate', args.percent)
 	}
 
 	desaturate(args) {
 		this.addStep(color => color.desaturate(args.percent))
 		this.namePrefix = `des-${this.namePrefix}`
 		this.nameSuffix = `${this.nameSuffix}-${args.percent}`
-		console.debug('Process::desaturate', args.percent)
 	}
 
 	darken(args) {
 		this.addStep(color => color.darken(args.percent))
 		this.namePrefix = `dark-${this.namePrefix}`
 		this.nameSuffix = `${this.nameSuffix}-${args.percent}`
-		console.debug('Process::darken', args.percent)
 	}
 
 	lighten(args) {
 		this.addStep(color => color.lighten(args.percent))
 		this.namePrefix = `light-${this.namePrefix}`
 		this.nameSuffix = `${this.nameSuffix}-${args.percent}`
-		console.debug('Process::lighten', args.percent)
 	}
 
 	spin(args) {
 		this.addStep(color => color.spin(-args.rotation))
 		this.namePrefix = `spin-${this.namePrefix}`
 		this.nameSuffix = `${this.nameSuffix}-${Math.abs(args.rotation)}`
-		console.debug('Process::spin', args.rotation)
 	}
 
 	mono() {
 		this.addStep(color => color.greyscale())
 		this.namePrefix = `mono-${this.namePrefix}`
 		this.nameSuffix = `${this.nameSuffix}}`
-		console.debug('Process::mono')
 	}
 
 	mix(args) {
 		this.addStep(color => TinyColor.mix(color, args.color, 50))
 		this.namePrefix = `mix-${this.namePrefix}`
 		this.nameSuffix = `${this.nameSuffix}-${args.color}`
-		console.debug('Process::mix', args.color)
 	}
 }
 

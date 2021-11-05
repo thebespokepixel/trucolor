@@ -12,15 +12,16 @@ const pkg = readPackageSync()
 
 const colorLevel = terminal.color.level || 0
 
-export default function render(processor, options = {}) {
-	const {
-		format: outputFormat,
-	} = options
+export default function render(processor, {
+	type = 'default',
+	format,
+	force,
+}) {
 	const color = processor.render()
 	const isReset = ['normal', 'reset'].includes(processor.name)
 
 	const sgrComposer = new SGRcomposer(
-		options.force || colorLevel,
+		force || colorLevel,
 		Object.assign(processor.attrs, processor.hasSource ? {
 			color: isReset ? processor.name : color.toRgbArray(),
 		} : {}),
@@ -47,9 +48,9 @@ export default function render(processor, options = {}) {
 			default:
 				return pkg.config.cli[type]
 		}
-	})(global.trucolorCLItype)
+	})(type)
 
-	switch (outputFormat) {
+	switch (format) {
 		case 'cli':
 			return {
 				name: processor.human,
