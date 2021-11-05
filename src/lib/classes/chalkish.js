@@ -8,12 +8,13 @@ import escStringRE from 'escape-string-regexp'
 class Chalkish {
 	constructor(styles) {
 		const styleFactory = (collection => {
-			Object.keys(styles).forEach(key => {
+			for (const key of Object.keys(styles)) {
 				styles[key].closeRE = new RegExp(escStringRE(styles[key].out), 'g')
 				collection[key] = {
-					get: () => makePainter.call(this._styles.concat(key))
+					get: () => makePainter.call([...this._styles, ...key]),
 				}
-			})
+			}
+
 			return collection
 		})({})
 
@@ -37,11 +38,12 @@ class Chalkish {
 		}
 
 		Object.defineProperties(Chalkish.prototype, (collection => {
-			Object.keys(styles).forEach(name => {
+			for (const name of Object.keys(styles)) {
 				collection[name] = {
-					get: () => makePainter.call(this, [name])
+					get: () => makePainter.call(this, [name]),
 				}
-			})
+			}
+
 			return collection
 		})({}))
 	}

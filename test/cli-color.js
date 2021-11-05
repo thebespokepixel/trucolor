@@ -1,90 +1,60 @@
-import {exec} from 'child_process'
+import {promisify} from 'node:util'
+import {exec} from 'node:child_process'
 import test from 'ava'
 
-test.cb('Named color is red = ff0000', t => {
-	exec('./bin/trucolor --color=16m red', (error_, out_) => {
-		t.is(error_, null)
-		t.is(out_, 'ff0000')
-		t.end()
-	})
+const execPromise = promisify(exec)
+
+test('Named color is red = ff0000', async t => {
+	const {stdout} = await execPromise('./trucolor.js --color=16m red')
+	t.is(stdout, 'ff0000')
 })
 
-test.cb('Named color is green = 008000', t => {
-	exec('./bin/trucolor --color=16m green', (error_, out_) => {
-		t.is(error_, null)
-		t.is(out_, '008000')
-		t.end()
-	})
+test('Named color is green = 008000', async t => {
+	const {stdout} = await execPromise('./trucolor.js --color=16m green')
+	t.is(stdout, '008000')
 })
 
-test.cb('Named color is blue = 0000ff', t => {
-	exec('./bin/trucolor --color=16m blue', (error_, out_) => {
-		t.is(error_, null)
-		t.is(out_, '0000ff')
-		t.end()
-	})
+test('Named color is blue = 0000ff', async t => {
+	const {stdout} = await execPromise('./trucolor.js --color=16m blue')
+	t.is(stdout, '0000ff')
 })
 
-test.cb('rgb:128,0,128 = 800080', t => {
-	exec('./bin/trucolor --color=16m rgb:128,0,128', (error_, out_) => {
-		t.is(error_, null)
-		t.is(out_, '800080')
-		t.end()
-	})
+test('rgb:128,0,128 = 800080', async t => {
+	const {stdout} = await execPromise('./trucolor.js --color=16m rgb:128,0,128')
+	t.is(stdout, '800080')
 })
 
-test.cb('hsl:120,100,50 = 00ff00', t => {
-	exec('./bin/trucolor --color=16m hsl:120,100,50', (error_, out_) => {
-		t.is(error_, null)
-		t.is(out_, '00ff00')
-		t.end()
-	})
+test('hsl:120,100,50 = 00ff00', async t => {
+	const {stdout} = await execPromise('./trucolor.js --color=16m hsl:120,100,50')
+	t.is(stdout, '00ff00')
 })
 
-test.cb('hwb:240,0,0 = 0000ff', t => {
-	exec('./bin/trucolor --color=16m hwb:240,0,0', (error_, out_) => {
-		t.is(error_, null)
-		t.is(out_, '0000ff')
-		t.end()
-	})
+test('hwb:240,0,0 = 0000ff', async t => {
+	const {stdout} = await execPromise('./trucolor.js --color=16m hwb:240,0,0')
+	t.is(stdout, '0000ff')
 })
 
-test.cb('rgb:128,0,128 lighten 10 spin 5 = a400b3', t => {
-	exec('./bin/trucolor --color=16m rgb:128,0,128 lighten 10 spin 5', (error_, out_) => {
-		t.is(error_, null)
-		t.is(out_, 'a400b3')
-		t.end()
-	})
+test('rgb:128,0,128 lighten 10 spin 5 = a400b3', async t => {
+	const {stdout} = await execPromise('./trucolor.js --color=16m rgb:128,0,128 lighten 10 spin 5')
+	t.is(stdout, 'a400b3')
 })
 
-test.cb('hsl:120,100,50 desaturate 50 = 40bf40', t => {
-	exec('./bin/trucolor --color=16m hsl:120,100,50 desaturate 50', (error_, out_) => {
-		t.is(error_, null)
-		t.is(out_, '40bf40')
-		t.end()
-	})
+test('hsl:120,100,50 desaturate 50 = 40bf40', async t => {
+	const {stdout} = await execPromise('./trucolor.js --color=16m hsl:120,100,50 desaturate 50')
+	t.is(stdout, '40bf40')
 })
 
-test.cb('blanchedalmond spin -195 lighten 5 desaturate 10 = e8ebfe', t => {
-	exec('./bin/trucolor --color=16m blanchedalmond spin -195 lighten 5 desaturate 10', (error_, out_) => {
-		t.is(error_, null)
-		t.is(out_, 'e8ebfe')
-		t.end()
-	})
+test('blanchedalmond spin -195 lighten 5 desaturate 10 = e8ebfe', async t => {
+	const {stdout} = await execPromise('./trucolor.js --color=16m blanchedalmond spin -195 lighten 5 desaturate 10')
+	t.is(stdout, 'e8ebfe')
 })
 
-test.cb('bold red = --bold ff0000', t => {
-	exec('./bin/trucolor --color=16m bold red', (error_, out_) => {
-		t.is(error_, null)
-		t.is(out_, '--bold ff0000')
-		t.end()
-	})
+test('bold red = --bold ff0000', async t => {
+	const {stdout} = await execPromise('./trucolor.js --color=16m bold red')
+	t.is(stdout, '--bold ff0000')
 })
 
-test.cb('red as rgb() = rgb(255, 0, 0)', t => {
-	exec('./bin/trucolor --color=16m --rgb red', (error_, out_) => {
-		t.is(error_, null)
-		t.is(out_, 'rgb(255, 0, 0)')
-		t.end()
-	})
+test('red as rgb() = rgb(255, 0, 0)', async t => {
+	const {stdout} = await execPromise('./trucolor.js --color=16m --rgb red')
+	t.is(stdout, 'rgb(255, 0, 0)')
 })

@@ -1,5 +1,5 @@
 import test from 'ava'
-import {palette} from '..'
+import {palette} from '../index.js'
 
 const heading = 'values via module'
 
@@ -9,7 +9,7 @@ const primaries = palette({}, {
 	blue: 'blue',
 	yellow: 'yellow',
 	cyan: 'cyan',
-	magenta: 'magenta'
+	magenta: 'magenta',
 })
 
 const primaryResults = {
@@ -18,11 +18,11 @@ const primaryResults = {
 	blue: '0000ff',
 	yellow: 'ffff00',
 	cyan: '00ffff',
-	magenta: 'ff00ff'
+	magenta: 'ff00ff',
 }
 
-Object.keys(primaryResults).forEach(target => {
+for (const target of Object.keys(primaryResults)) {
 	test(`${heading}: Primaries : ${primaries[target].toSwatch()} is ${primaryResults[target]}`, t => {
 		t.is(primaries[target].hex, primaryResults[target])
 	})
-})
+}

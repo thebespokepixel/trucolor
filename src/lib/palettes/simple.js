@@ -30,7 +30,7 @@ const palette = {
 	grey: '#808080',
 	title: 'bold #80C480',
 	normal: 'normal',
-	reset: 'reset'
+	reset: 'reset',
 }
 
 export default palette

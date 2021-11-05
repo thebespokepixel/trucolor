@@ -2,6 +2,8 @@
  │ trucolor │ 24bit color tools for the command line
  ╰──────────┴─────────────────────────────────────────────────────────────────── */
 
+import {dirname} from 'node:path'
+import {fileURLToPath} from 'node:url'
 import _ from 'lodash'
 import {createConsole} from 'verbosity'
 import meta from '@thebespokepixel/meta'
@@ -11,7 +13,7 @@ import chalk from './lib/classes/chalkish'
 import simpleObject from './lib/palettes/simple'
 
 export const console = createConsole({outStream: process.stderr})
-export const metadata = meta(__dirname)
+export const metadata = meta(dirname(fileURLToPath(import.meta.url)))
 
 /**
  * Color retreival API. Will return different values if called with a cli or sgr context.

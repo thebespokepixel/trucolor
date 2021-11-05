@@ -1,5 +1,5 @@
 import test from 'ava'
-import {chalkish, simple} from '..'
+import {chalkish, simple} from '../index.js'
 
 const heading = '8bit palette via module'
 
@@ -33,14 +33,14 @@ const results = {
 	grey: '\u001B[38;5;244mgrey\u001B[39m',
 	title: '\u001B[38;5;151;1mtitle\u001B[22;39m',
 	normal: '\u001B[0mnormal\u001B[m',
-	reset: '\u001B[0mreset\u001B[m'
+	reset: '\u001B[0mreset\u001B[m',
 }
 
-Object.keys(results).forEach(target => {
+for (const target of Object.keys(results)) {
 	test(`${heading}: Chalkish : ${palette[target](target)} is ${target}`, t => {
 		t.is(`${palette[target](target)}`, results[target])
 	})
-})
+}
 
 test(`${heading}: Chalkish : \u001B[38;5;249mwhite \u001B[38;5;160mred\u001B[38;5;249m white\u001B[39m`, t => {
 	const result = palette.white('white ' + palette.red('red') + ' white')

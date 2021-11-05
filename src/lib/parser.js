@@ -3,8 +3,8 @@
  ╰──────────┴─────────────────────────────────────────────────────────────────── */
 /* eslint complexity: 0 */
 
-import createProcessor from './classes/processor'
-import createInterpreter from './classes/interpreter'
+import createProcessor from './classes/processor.js'
+import createInterpreter from './classes/interpreter.js'
 
 let currentAutoName = 1
 
@@ -55,38 +55,38 @@ export default function parser(color) {
 			case 'saturate':
 			case 'sat':
 				processor.saturate({
-					percent: tokens.shift()
+					percent: tokens.shift(),
 				})
 				break
 			case 'desaturate':
 			case 'desat':
 				processor.desaturate({
-					percent: tokens.shift()
+					percent: tokens.shift(),
 				})
 				break
 			case 'light':
 				processor.lighten({
-					percent: 20
+					percent: 20,
 				})
 				break
 			case 'dark':
 				processor.darken({
-					percent: 20
+					percent: 20,
 				})
 				break
 			case 'lighten':
 				processor.lighten({
-					percent: tokens.shift()
+					percent: tokens.shift(),
 				})
 				break
 			case 'darken':
 				processor.darken({
-					percent: tokens.shift()
+					percent: tokens.shift(),
 				})
 				break
 			case 'spin':
 				processor.spin({
-					rotation: tokens.shift()
+					rotation: tokens.shift(),
 				})
 				break
 			case 'mono':
@@ -94,7 +94,7 @@ export default function parser(color) {
 				break
 			case 'mix':
 				processor.mix({
-					color: tokens.shift()
+					color: tokens.shift(),
 				})
 				break
 			default:
