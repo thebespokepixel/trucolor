@@ -121,108 +121,8 @@
 	
 	
 		<h4>Installation</h4>
-<h5>Global version, for CLI use</h5>
-<pre class='hljs'>npm install --global @thebespokepixel/trucolor</pre>
-<h5>Module, for programmatic use</h5>
 <pre class='hljs'>npm install --save @thebespokepixel/trucolor</pre>
-<h2>CLI Usage</h2>
-<h4>Synopsis:</h4>
-<pre class='hljs'>trucolor [options] &quot;color description&quot;...
-
-Options:
--h, --help     Display this help.
--v, --version  Return the current version on stdout. -vv Return name &amp; version.
--V, --verbose  Be verbose. -VV Be loquacious.
--m, --message  Format message with SGR codes
--i, --in       Output SGR color escape code.
--o, --out      Output cancelling SGR color escape code.
--t, --type     CLI styling flags output.
--r, --rgb      Output color as rgb(r, g, b).
--s, --swatch   Output an isolated color swatch.
---color        Force color depth --color=256|16m. Disable with --no-color</pre>
-<p><img src="https://raw.githubusercontent.com/thebespokepixel/trucolor/master/media/example.png" alt="Usage Examples"></p>
-<p>In it's simplest form, <code>trucolor 'color'</code>, will take any of the color expressions listed below and transform it into a simple hexadecimal triplet string, i.e <code>AA00BB</code>, ideal for passing into fish-shell's <code>set_color</code> built-in, or providing the basis of further color processing.</p>
-<p>It can return color values and set terminal colors for a wide range of color assignment declarations and manipulation functions. See the examples below.</p>
-<p>When outputting SGR codes, colors will be shifted to the availalble 256 or ansi color palette if 24 bit color is unavailable or will be omitted in a monochromatic terminal to make usage across environments safe. The CLI command respects <code>--color=16m</code>, <code>--color=256</code>, <code>--color</code> and <code>--no-color</code> flags. It does not affect value based output, such as the default or <code>--rgb</code> output, it only effects the <code>--in</code>, <code>--out</code>, <code>--message</code> and <code>--swatch</code> outputs.</p>
-<p>The motivation for this is to allow more sophisticated graphic visualisation using in modern, xterm-compatible terminal emulators that have added 24 bit support.</p>
-<h5>Color definition</h5>
-<p>The <code>color</code> can be defined in any of the following formats:</p>
-<ul>
-<li>
-<p><strong>CSS Hexadecimal</strong><br>
-<code>[#]RRGGBB</code> or <code>[#]RGB</code> where <code>R</code>, <code>G</code> and <code>B</code> are 0-F.</p>
-</li>
-<li>
-<p><strong>RGB</strong><br>
-<code>rgb:R,G,B</code> or <code>rgb(R,G,B)</code> where <code>R</code>,<code>G</code> and <code>B</code> are 0-255.<br>
-Spaces can be incuded in rgb(R, G, B) declarations but require quoting/escaping on the CLI.</p>
-</li>
-<li>
-<p><strong>HSL</strong> (Hue Saturation Lightness)<br>
-<code>hsl:H,S,L</code> where <code>H</code> is 0-360, <code>S</code> 0-100 and <code>L</code> 0-100</p>
-</li>
-<li>
-<p><strong>HSV</strong> (Hue Saturation Value)<br>
-<code>hsv:H,S,V</code> where <code>H</code> is 0-360, <code>S</code> 0-100 and <code>V </code>0-100</p>
-</li>
-<li>
-<p><strong>HSB</strong> (Hue Saturation Brightness) (just an alias for HSV)<br>
-<code>hsb:H,S,B</code> where <code>H</code> is 0-360, <code>S</code> 0-100 and <code>B </code>0-100</p>
-</li>
-<li>
-<p><strong>HWB</strong> (Hue White Black)
-<code>hwb:H,W,B</code> where <code>H</code> is 0-360, <code>W</code> 0-100 and <code>B</code> 0-100<br>
-See <a href="https://drafts.csswg.org/css-color/#the-hwb-notation">HWB notation @csswg</a></p>
-</li>
-<li>
-<p><strong>CSS named colors</strong><br>
-<img src="https://raw.githubusercontent.com/thebespokepixel/trucolor/master/media/named.png" alt="Named Colors Examples"></p>
-</li>
-<li>
-<p><strong>Special formatters</strong>
-The following keywords modify the meaning or destination of the color, or provide enhanced foramtting. They only work when used with the command switches that actually output SGR codes, namely: <code>--message</code>, <code>--swatch</code>, <code>--in</code> and <code>--out</code>. When used with the default command or with the <code>--rgb</code> switch, they have no effect and the value of the base color (plus any processing) will be output.</p>
-<p><strong>background</strong>: Set the background color, rather than the foreground.</p>
-<p><strong>normal</strong>: Set the color to the default foreground and background.<br>
-<strong>reset</strong>: Sets colors and special formatting back to the default.</p>
-<p><strong>bold</strong>: Set the font to bold.<br>
-<strong>italic</strong>: Set the font to italic.<br>
-<strong>underline</strong>: Set underline.<br>
-<strong>dim</strong>: Set the colour to 50% opacity.<br>
-<strong>invert</strong>: Invert the foreground and background.<br>
-<strong>blink</strong>: Annoying as a note in Comic Sans, attached to a dancing, purple dinosaur with a talking paperclip.</p>
-<p>All of the above formatters need the correct code to end the range, either provided by using the <code>--out</code> switch, using the <code>reset</code> keyword, or simply use the <code>--message</code> option to automatically set the end range SGR code. Using <code>normal</code> alone won't fully clear the formatting.</p>
-</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/thebespokepixel/trucolor/master/media/formatters.png" alt="Formatters Examples"></p>
-<h5>Color manipulation</h5>
-<p>A number of color <code>operations</code> can be specified, either before or after the base color declaration.</p>
-<p><code>light</code>: lighten by 20%
-<code>dark</code>: darken by 20%
-<code>lighten</code> percent: lighten by percent
-<code>darken</code> percent: darken by percent
-<code>mono</code>: make monochrome
-<code>saturate</code> or sat percent: saturate by percent
-<code>desaturate</code> or des percent: desaturate by percent
-<code>spin</code> degrees: spin hue by by degrees
-color <code>mix</code> color: mix colors</p>
-<h5>Multiple Inputs</h5>
-<p><code>trucolor</code> will output a list of color values if more than one base color is specified, allowing color assignment in a single block allowing easy ingest using <code>read</code>. Each color will be output on it's own line, and named according to the input base color. The names can be overridden by providing a <code>name:</code> before the base color.</p>
-<pre class='hljs'><span class="hljs-meta">&gt; </span><span class="language-bash">trucolor red yellow green purple</span>
-red: ff0000
-yellow: ffff00
-green: 008000
-purple: 800080
-<span class="hljs-meta">
-&gt; </span><span class="language-bash">trucolor Po: red LaaLaa: yellow Dipsy: green TinkyWinky: purple</span>
-Po: ff0000
-LaaLaa: ffff00
-Dipsy: 008000
-TinkyWinky: 800080
-<span class="hljs-meta">
-&gt; </span><span class="language-bash">trucolor hsl:120,100,50 apples: orange spin 180</span>
-hsl-120-100-50: 00ff00
-apples: 005aff</pre>
-<h2>Programmatic Usage</h2>
+<h2>Usage</h2>
 <pre class='hljs'>
 <span class="hljs-keyword">import</span> {trucolor, palette, chalkish, simple} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;trucolor&#x27;</span>
 
@@ -278,7 +178,7 @@ apples: 005aff</pre>
     </h3>
     
     
-      <a class='pl3 pr1 right rounded github' href='https://github.com/thebespokepixel/trucolor/blob/dfccd7997ebcbdf2eba21b211bb3653e2e1d8892/src/index.js#L18-L31'>
+      <a class='pl3 pr1 right rounded github' href='https://github.com/thebespokepixel/trucolor/blob/0a8c65dcf141a1fa567a6ca33b4d82c6fba0d22c/src/index.js#L11-L24'>
       <span>src/index.js</span>
       </a>
     
@@ -393,7 +293,7 @@ format.
     </h3>
     
     
-      <a class='pl3 pr1 right rounded github' href='https://github.com/thebespokepixel/trucolor/blob/dfccd7997ebcbdf2eba21b211bb3653e2e1d8892/src/index.js#L41-L48'>
+      <a class='pl3 pr1 right rounded github' href='https://github.com/thebespokepixel/trucolor/blob/0a8c65dcf141a1fa567a6ca33b4d82c6fba0d22c/src/index.js#L34-L41'>
       <span>src/index.js</span>
       </a>
     
@@ -479,7 +379,7 @@ format.
     </h3>
     
     
-      <a class='pl3 pr1 right rounded github' href='https://github.com/thebespokepixel/trucolor/blob/dfccd7997ebcbdf2eba21b211bb3653e2e1d8892/src/index.js#L56-L58'>
+      <a class='pl3 pr1 right rounded github' href='https://github.com/thebespokepixel/trucolor/blob/0a8c65dcf141a1fa567a6ca33b4d82c6fba0d22c/src/index.js#L49-L51'>
       <span>src/index.js</span>
       </a>
     
@@ -564,7 +464,7 @@ format.
     </h3>
     
     
-      <a class='pl3 pr1 right rounded github' href='https://github.com/thebespokepixel/trucolor/blob/dfccd7997ebcbdf2eba21b211bb3653e2e1d8892/src/index.js#L65-L67'>
+      <a class='pl3 pr1 right rounded github' href='https://github.com/thebespokepixel/trucolor/blob/0a8c65dcf141a1fa567a6ca33b4d82c6fba0d22c/src/index.js#L58-L60'>
       <span>src/index.js</span>
       </a>
     
@@ -640,7 +540,7 @@ format.
     </h3>
     
     
-      <a class='pl3 pr1 right rounded github' href='https://github.com/thebespokepixel/trucolor/blob/dfccd7997ebcbdf2eba21b211bb3653e2e1d8892/src/index.js#L105-L107'>
+      <a class='pl3 pr1 right rounded github' href='https://github.com/thebespokepixel/trucolor/blob/0a8c65dcf141a1fa567a6ca33b4d82c6fba0d22c/src/index.js#L98-L100'>
       <span>src/index.js</span>
       </a>
     
