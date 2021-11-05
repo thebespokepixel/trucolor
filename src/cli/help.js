@@ -1,13 +1,16 @@
 /* ─────────────╮
  │ trucolor CLI │
  ╰──────────────┴────────────────────────────────────────────────────────────── */
-import {join} from 'path'
+/* eslint node/prefer-global/process: [error] */
+
+import {join, dirname} from 'node:path'
+import {fileURLToPath} from 'node:url'
 import _ from 'lodash'
 import terminalFeatures from 'term-ng'
 import {stripIndent} from 'common-tags'
 import {truwrap, createImage} from 'truwrap'
 import {names} from '@thebespokepixel/es-tinycolor'
-import {clr, colorReplacer, spectrum} from '../lib/colour'
+import {clr, colorReplacer, spectrum} from '../lib/colour.js'
 import {metadata, palette} from '..'
 
 /**
@@ -23,17 +26,17 @@ export default function help(yargs, helpPage) {
 				space: '\t',
 				cc: createImage({
 					name: 'logo',
-					file: join(__dirname, '/../media/CCLogo.png'),
-					height: 3
-				})
+					file: join(dirname(fileURLToPath(import.meta.url)), '/../media/CCLogo.png'),
+					height: 3,
+				}),
 			}
 		}
 
 		return {
 			space: '',
 			cc: {
-				render: () => ''
-			}
+				render: () => '',
+			},
 		}
 	})()
 
@@ -52,19 +55,19 @@ export default function help(yargs, helpPage) {
 					return [
 						colorReplacer`${'red| ━┳━╸     '}${'bright|╭──╮  ╷'}`,
 						colorReplacer`${'blue|  ┃ ┏━┓╻ ╻'}${'bright|│  ╭─╮│╭─╮╭─╮'}`,
-						colorReplacer`${'green|  ╹ ╹  ┗━┛'}${'bright|╰──╰─╯╵╰─╯╵  '}`
+						colorReplacer`${'green|  ╹ ╹  ┗━┛'}${'bright|╰──╰─╯╵╰─╯╵  '}`,
 					]
 				case terminalFeatures.font.basic:
 					return [
 						colorReplacer`${'red| ─┬─      '}${'bright|┌──┐  ┐'}`,
 						colorReplacer`${'blue|  │ ┌─ ┐ ┌'}${'bright|│  ┌─┐│┌─╮┌─┐'}`,
-						colorReplacer`${'green|  └ ┘  └─┘'}${'bright|└──└─┘└╰─┘┘  '}`
+						colorReplacer`${'green|  └ ┘  └─┘'}${'bright|└──└─┘└╰─┘┘  '}`,
 					]
 				default:
 					return [
 						`${clr.red} ___${clr.red.out}        __`,
 						`${clr.blue}  | ,_${clr.green.out}     |     |   ,_`,
-						`${clr.green}  | |  |_|${clr.blue.out} |__(_)|(_)|  `
+						`${clr.green}  | |  |_|${clr.blue.out} |__(_)|(_)|  `,
 					]
 			}
 		})()
@@ -144,68 +147,68 @@ export default function help(yargs, helpPage) {
 				{
 					Margin: ' ',
 					Command: colorReplacer`${`command|${metadata.bin}`} ${'argument|purple'}`,
-					Result: colorReplacer`${'grey|→'} 800080`
+					Result: colorReplacer`${'grey|→'} 800080`,
 				},
 				{
 					Command: colorReplacer`${`command|${metadata.bin}`} ${'argument|bold purple'}`,
-					Result: colorReplacer`→ --bold 800080`
+					Result: colorReplacer`→ --bold 800080`,
 				},
 				{
 					Command: colorReplacer`${`command|${metadata.bin}`} ${'option|-m label'} ${'argument|purple'}`,
-					Result: colorReplacer`→ a colored, isolated message, ${'purple|label'}.`
+					Result: colorReplacer`→ a colored, isolated message, ${'purple|label'}.`,
 				},
 				{
 					Command: colorReplacer`${`command|${metadata.bin}`} ${'option|--in'} ${'argument|purple'}`,
-					Result: colorReplacer`→ ^[[38;2;128;0;128m setting the terminal ${'purple|color'}.`
+					Result: colorReplacer`→ ^[[38;2;128;0;128m setting the terminal ${'purple|color'}.`,
 				},
 				{
 					Command: colorReplacer`${`command|${metadata.bin}`} ${'option|--rgb'} ${'argument|purple'}`,
-					Result: colorReplacer`→ rgb(128, 0, 128)`
+					Result: colorReplacer`→ rgb(128, 0, 128)`,
 				},
 				{
 					Command: colorReplacer`${`command|${metadata.bin}`} ${'option|--swatch'} ${'argument|purple'}`,
-					Result: colorReplacer`→ ${'purple|\u2588\u2588'}`
+					Result: colorReplacer`→ ${'purple|\u2588\u2588'}`,
 				},
 				{
 					Command: colorReplacer`${`command|${metadata.bin}`} ${'option|--swatch'} ${'argument|purple desat 70'}`,
-					Result: colorReplacer`→ ${'purpleSwatch|\u2588\u2588'}`
+					Result: colorReplacer`→ ${'purpleSwatch|\u2588\u2588'}`,
 				},
 				{
 					Command: colorReplacer`${`command|${metadata.bin}`} ${'argument|hsb:45,100,100'}`,
-					Result: colorReplacer`→ FFBF00`
+					Result: colorReplacer`→ FFBF00`,
 				},
 				{
 					Command: colorReplacer`${`command|${metadata.bin}`} ${'option|-m label'} ${'argument|hsb:45,100,100'}`,
-					Result: colorReplacer`→ a colored, isolated message, ${'orange|label'}.`
+					Result: colorReplacer`→ a colored, isolated message, ${'orange|label'}.`,
 				},
 				{
 					Command: colorReplacer`${`command|${metadata.bin}`} ${'option|--in'} ${'argument|hsb:45,100,100'}`,
-					Result: colorReplacer`→ ^[[38;2;255;191;0m setting the terminal ${'orange|color'}.`
+					Result: colorReplacer`→ ^[[38;2;255;191;0m setting the terminal ${'orange|color'}.`,
 				},
 				{
 					Command: colorReplacer`${`command|${metadata.bin}`} ${'option|--rgb'} ${'argument|hsb:45,100,100'}`,
-					Result: colorReplacer`→ rgb(255, 191, 0)`
+					Result: colorReplacer`→ rgb(255, 191, 0)`,
 				},
 				{
 					Command: colorReplacer`${`command|${metadata.bin}`} ${'option|--swatch'} ${'argument|hsb:45,100,100'}`,
-					Result: colorReplacer`→ ${'orange|\u2588\u2588'}`
-				}
+					Result: colorReplacer`→ ${'orange|\u2588\u2588'}`,
+				},
 			],
 			layout: width => ({
 				showHeaders: false,
 				config: {
 					Margin: {
 						minWidth: 1,
-						maxWidth: 1
+						maxWidth: 1,
 					},
 					Command: {
 						minWidth: 30,
-						maxWidth: 80
+						maxWidth: 80,
 					},
 					Result: {
-						maxWidth: width - 34
-					}
-				}
+						maxWidth: width - 34,
+					},
+				},
 			}),
 			more: stripIndent(colorReplacer)`
 				${'title|Custom Names:'}
@@ -219,7 +222,7 @@ export default function help(yargs, helpPage) {
 
 					> ${`command|${metadata.bin}`} ${'option|--swatch'} ${clr.argument}bob:${clr.normal}
 					${clr.bob}\u2588\u2588${clr.normal}
-			`
+			`,
 		},
 		named: {
 			usage: stripIndent(colorReplacer)`
@@ -231,9 +234,9 @@ export default function help(yargs, helpPage) {
 				const namedArray = Object.keys(names)
 				const columns = Math.floor(width / 28)
 				const table = []
-				while (namedArray.length) {
+				while (namedArray.length > 0) {
 					const cell = {
-						margin: ' '
+						margin: ' ',
 					}
 					for (let c = 0; c < columns; c++) {
 						const src = namedArray.shift()
@@ -252,24 +255,24 @@ export default function help(yargs, helpPage) {
 				const columns = Math.floor(width / 28)
 				const grid = {
 					margin: {
-						minWidth: 2
-					}
+						minWidth: 2,
+					},
 				}
 				for (let c = 0; c < columns; c++) {
 					grid[`color_${c}`] = {
-						minWidth: 2
+						minWidth: 2,
 					}
 					grid[`name_${c}`] = {
-						minWidth: 16
+						minWidth: 16,
 					}
 				}
 
 				return {
 					showHeaders: false,
-					config: grid
+					config: grid,
 				}
 			},
-			more: ''
+			more: '',
 		},
 		special: {
 			usage: stripIndent(colorReplacer)`
@@ -296,52 +299,52 @@ export default function help(yargs, helpPage) {
 				{
 					Margin: ' ',
 					Command: colorReplacer`${`command|${metadata.bin}`} ${'option|-m "Bold yellow text"'} ${'argument|bold yellow'}`,
-					Result: colorReplacer`${'grey|→'} ${'exBold|Bold yellow text'}`
+					Result: colorReplacer`${'grey|→'} ${'exBold|Bold yellow text'}`,
 				},
 				{
 					Command: colorReplacer`${`command|${metadata.bin}`} ${'option|-m "Faint yellow text"'} ${'argument|faint yellow'}`,
-					Result: colorReplacer`${'grey|→'} ${'exFaint|Faint yellow text'}`
+					Result: colorReplacer`${'grey|→'} ${'exFaint|Faint yellow text'}`,
 				},
 				{
 					Command: colorReplacer`${`command|${metadata.bin}`} ${'option|--swatch'} ${'argument|faint yellow'}`,
-					Result: colorReplacer`${'grey|→'} ${'exFaint|\u2588\u2588'}`
+					Result: colorReplacer`${'grey|→'} ${'exFaint|\u2588\u2588'}`,
 				},
 				{
 					Command: colorReplacer`${`command|${metadata.bin}`} ${'option|-m Italics'} ${'argument|italic #33FF33'}`,
-					Result: colorReplacer`${'grey|→'} ${'exItalic|Italics'}`
+					Result: colorReplacer`${'grey|→'} ${'exItalic|Italics'}`,
 				},
 				{
 					Command: colorReplacer`${`command|${metadata.bin}`} ${'option|-m " -Inverted- "'} ${'argument|invert #7B00B1'}`,
-					Result: colorReplacer`${'grey|→'} ${'exInvert| -Inverted- '}`
+					Result: colorReplacer`${'grey|→'} ${'exInvert| -Inverted- '}`,
 				},
 				{
 					Command: colorReplacer`${`command|${metadata.bin}`} ${'option|-m " Background "'} ${'argument|background dark red'}`,
-					Result: colorReplacer`${'grey|→'} ${'exBackground| Background '}`
+					Result: colorReplacer`${'grey|→'} ${'exBackground| Background '}`,
 				},
 				{
 					Command: colorReplacer`${`command|${metadata.bin}`} ${'option|-m "Underlined"'} ${'argument|underline #fff'}`,
-					Result: colorReplacer`${'grey|→'} ${'exUnderline|Underlined'}`
+					Result: colorReplacer`${'grey|→'} ${'exUnderline|Underlined'}`,
 				},
 				{
 					Command: colorReplacer`${`command|${metadata.bin}`} ${'option|-m "Flashy Thing"'} ${'argument|blink orange'}`,
-					Result: colorReplacer`${'grey|→'} ${'exBlink|Flashy Thing'}`
-				}
+					Result: colorReplacer`${'grey|→'} ${'exBlink|Flashy Thing'}`,
+				},
 			],
 			layout: width => ({
 				showHeaders: false,
 				config: {
 					Margin: {
 						minWidth: 1,
-						maxWidth: 1
+						maxWidth: 1,
 					},
 					Command: {
 						minWidth: 30,
-						maxWidth: 80
+						maxWidth: 80,
 					},
 					Result: {
-						maxWidth: width - 34
-					}
-				}
+						maxWidth: width - 34,
+					},
+				},
 			}),
 			more: stripIndent(colorReplacer)`
 				${'title|Note:'}
@@ -350,12 +353,12 @@ export default function help(yargs, helpPage) {
 				The latest iTerm2 builds and X's XTerm have full support for everything ${`command|${metadata.bin}`} can do, and anything that supports a terminal type of 'xterm-256color' will cover a fairly complete subset.
 
 				For example, Apple's Terminal.app doesn't have 24 bit color support nor does it have support for italics, but everything else works well.
-			`
-		}
+			`,
+		},
 	}
 	const container = truwrap({
 		mode: 'container',
-		outStream: process.stderr
+		outStream: process.stderr,
 	})
 	const windowWidth = container.getWidth()
 
@@ -363,7 +366,7 @@ export default function help(yargs, helpPage) {
 		left: 2,
 		right: 0,
 		tabWidth: 2,
-		outStream: process.stderr
+		outStream: process.stderr,
 	})
 	const contentWidth = renderer.getWidth()
 
@@ -384,7 +387,7 @@ export default function help(yargs, helpPage) {
 	container.break()
 	container.write(images.cc.render({
 		nobreak: false,
-		align: 2
+		align: 2,
 	}))
 	container.write(header()).break()
 	container.write(spectrum(windowWidth, '—')).break()

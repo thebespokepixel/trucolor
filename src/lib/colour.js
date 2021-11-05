@@ -4,7 +4,7 @@
 import _ from 'lodash'
 import terminalFeatures from 'term-ng'
 import {TemplateTag, replaceSubstitutionTransformer} from 'common-tags'
-import {simple, palette} from '..'
+import {simple, palette} from '../index.js'
 
 export const clr = _.merge(simple({format: 'sgr'}), palette({format: 'sgr'}, {
 	purple: 'purple',
@@ -29,19 +29,19 @@ export const clr = _.merge(simple({format: 'sgr'}), palette({format: 'sgr'}, {
 	exItalic: 'italic #33FF33',
 	exInvert: 'invert #7B00B1',
 	exUnderline: 'underline #fff',
-	exBlink: 'blink orange'
+	exBlink: 'blink orange',
 }))
 
 export const colorReplacer = new TemplateTag(
 	replaceSubstitutionTransformer(
 		/([a-zA-Z]+?)[:/|](.+)/,
-		(match, colorName, content) => `${clr[colorName]}${content}${clr[colorName].out}`
-	)
+		(match, colorName, content) => `${clr[colorName]}${content}${clr[colorName].out}`,
+	),
 )
 
 export function spectrum(width, char) {
 	if (terminalFeatures.color.has16m) {
-		return _.map(new Array(width), (value, col) => {
+		return _.map(Array.from({length: width}), (value, col) => {
 			const scos = Math.cos((col / width) * (Math.PI / 2))
 			const ssin = Math.sin((col / width) * (Math.PI))
 			const red = (scos > 0) ? Math.floor(scos * 255) : 0

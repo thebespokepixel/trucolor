@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>trucolor 2.0.4 | Documentation</title>
+  <title>trucolor 3.0.0 | Documentation</title>
   <meta name='description' content='TTY color toolkit supporting Truecolor (24bit RGB)'>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link href="assets/css/ace.min.css" rel="stylesheet">
@@ -15,7 +15,7 @@
     <div id='split-left' class='overflow-auto fs0 height-viewport-100 sidebar'>
       <div class='py1 px2'>
         <h3 class="m0 no-anchor">trucolor</h3>
-        <div class="mb1"><code>2.0.4</code></div>
+        <div class="mb1"><code>3.0.0</code></div>
         <input
           placeholder="Filter"
           id="filter-input"
@@ -96,11 +96,11 @@
             
           </ul>
         </div>
-        <div class="badges"><p><p><a href="https://github.com/thebespokepixel/trucolor" title="Github"><img src="https://img.shields.io/badge/github-source-4E73B6" alt="Github"></a> <a href="https://travis-ci.com/thebespokepixel/trucolor" title="Travis"><img src="https://img.shields.io/travis/com/thebespokepixel/trucolor/master?logo=travis" alt="Travis"></a> <br>
-</p> <p><a href="https://codeclimate.com/github/thebespokepixel/trucolor/maintainability" title="Code-climate"><img src="https://api.codeclimate.com/v1/badges/5f8c6c4143841284dc75/maintainability" alt="Code-climate"></a> <a href="https://codeclimate.com/github/thebespokepixel/trucolor/test_coverage" title="Coverage"><img src="https://api.codeclimate.com/v1/badges/5f8c6c4143841284dc75/test_coverage" alt="Coverage"></a> <br>
-</p> <p><a href="https://snyk.io/test/github/thebespokepixel/trucolor" title="Snyk"><img src="https://snyk.io/test/github/thebespokepixel/trucolor/badge.svg" alt="Snyk"></a> <a href="https://david-dm.org/thebespokepixel/trucolor/master" title="David"><img src="https://david-dm.org/thebespokepixel/trucolor/master/status.svg" alt="David"></a> <br>
-</p> <br>
-</p></div>
+        <div class="badges"><p><p><p><a href="https://github.com/thebespokepixel/trucolor" title="github"><img src="https://img.shields.io/badge/github-source-4E73B6" alt="github" title="github"></a> </p><p><a href="https://travis-ci.com/thebespokepixel/trucolor" title="Travis"><img src="https://img.shields.io/travis/com/thebespokepixel/trucolor/master?logo=travis" alt="Travis" title="Travis"></a> </p><br>
+</p><p><p><a href="https://codeclimate.com/github/thebespokepixel/trucolor/maintainability" title="Code-Climate"><img src="https://api.codeclimate.com/v1/badges/5f8c6c4143841284dc75/maintainability" alt="Code-Climate" title="Code-Climate"></a> </p><p><a href="https://codeclimate.com/github/thebespokepixel/trucolor/test_coverage" title="Code-Climate Coverage"><img src="https://api.codeclimate.com/v1/badges/5f8c6c4143841284dc75/test_coverage" alt="Code-Climate Coverage" title="Code-Climate Coverage"></a> </p><br>
+</p><p><p><a href="https://snyk.io/test/github/thebespokepixel/trucolor" title="Snyk"><img src="https://snyk.io/test/github/thebespokepixel/trucolor/badge.svg" alt="Snyk" title="Snyk"></a> </p><p><a href="https://libraries.io/github/thebespokepixel/trucolor" title="Libraries.io"><img src="https://img.shields.io/librariesio/release/npm/trucolor/latest?&#x26;logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICA8cGF0aCBmaWxsPSIjRkZGIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik01Ljk5OTMxNDIyLDE1LjI3NyBMNiwyMyBDNiwyMy41NTIyODQ3IDUuNTUyMjg0NzUsMjQgNSwyNCBMMiwyNCBDMS40NDc3MTUyNSwyNCAxLDIzLjU1MjI4NDcgMSwyMyBMMC45OTkzMTQyMjIsMTkuMTg0IEw1Ljk5OTMxNDIyLDE1LjI3NyBaIE0xNC40OTkzMTQyLDguNjM2IEwxNC41LDIzIEMxNC41LDIzLjU1MjI4NDcgMTQuMDUyMjg0NywyNCAxMy41LDI0IEwxMC41LDI0IEM5Ljk0NzcxNTI1LDI0IDkuNSwyMy41NTIyODQ3IDkuNSwyMyBMOS40OTkzMTQyMiwxMi41NDMgTDE0LjQ5OTMxNDIsOC42MzYgWiBNMTcuOTk5MzE0Miw4LjMzNCBMMjIuOTk5MzE0MiwxMi4xMDIgTDIzLDIzIEMyMywyMy41NTIyODQ3IDIyLjU1MjI4NDcsMjQgMjIsMjQgTDE5LDI0IEMxOC40NDc3MTUzLDI0IDE4LDIzLjU1MjI4NDcgMTgsMjMgTDE3Ljk5OTMxNDIsOC4zMzQgWiBNNSwwIEM1LjU1MjI4NDc1LDAgNiwwLjQ0NzcxNTI1IDYsMSBMNS45OTkzMTQyMiwxMS40NzEgTDAuOTk5MzE0MjIyLDE1LjM3OCBMMSwxIEMxLDAuNDQ3NzE1MjUgMS40NDc3MTUyNSwwIDIsMCBMNSwwIFogTTEzLjUsMCBDMTQuMDUyMjg0NywwIDE0LjUsMC40NDc3MTUyNSAxNC41LDEgTDE0LjQ5OTMxNDIsNC44MzEgTDkuNDk5MzE0MjIsOC43MzcgTDkuNSwxIEM5LjUsMC40NDc3MTUyNSA5Ljk0NzcxNTI1LDAgMTAuNSwwIEwxMy41LDAgWiBNMjIsMCBDMjIuNTUyMjg0NywwIDIzLDAuNDQ3NzE1MjUgMjMsMSBMMjIuOTk5MzE0Miw4LjM0NyBMMTcuOTk5MzE0Miw0LjU3OSBMMTgsMSBDMTgsMC40NDc3MTUyNSAxOC40NDc3MTUzLDAgMTksMCBMMjIsMCBaIi8%2BCjwvc3ZnPgo%3D" alt="Libraries.io" title="Libraries.io"></a> </p><br>
+</p></p>
+</div>
         <div class="mt1 h6 quiet">
           <a href="http://documentation.js.org/reading-documentation.html">Need help reading this?</a>
         </div>
@@ -118,7 +118,6 @@
 	</h2>
 	
 		
-
 	
 	
 		<h4>Installation</h4>
@@ -128,7 +127,7 @@
 <pre class='hljs'>npm install --save @thebespokepixel/trucolor</pre>
 <h2>CLI Usage</h2>
 <h4>Synopsis:</h4>
-<pre class='hljs'>trucolor [options] "color description"...
+<pre class='hljs'>trucolor [options] &quot;color description&quot;...
 
 Options:
 -h, --help     Display this help.
@@ -149,35 +148,49 @@ Options:
 <h5>Color definition</h5>
 <p>The <code>color</code> can be defined in any of the following formats:</p>
 <ul>
-<li><strong>CSS Hexadecimal</strong><br>
-<code>[#]RRGGBB</code> or <code>[#]RGB</code> where <code>R</code>, <code>G</code> and <code>B</code> are 0-F.</li>
-<li><strong>RGB</strong><br>
+<li>
+<p><strong>CSS Hexadecimal</strong><br>
+<code>[#]RRGGBB</code> or <code>[#]RGB</code> where <code>R</code>, <code>G</code> and <code>B</code> are 0-F.</p>
+</li>
+<li>
+<p><strong>RGB</strong><br>
 <code>rgb:R,G,B</code> or <code>rgb(R,G,B)</code> where <code>R</code>,<code>G</code> and <code>B</code> are 0-255.<br>
-Spaces can be incuded in rgb(R, G, B) declarations but require quoting/escaping on the CLI.</li>
-<li><strong>HSL</strong> (Hue Saturation Lightness)<br>
-<code>hsl:H,S,L</code> where <code>H</code> is 0-360, <code>S</code> 0-100 and <code>L</code> 0-100</li>
-<li><strong>HSV</strong> (Hue Saturation Value)<br>
-<code>hsv:H,S,V</code> where <code>H</code> is 0-360, <code>S</code> 0-100 and <code>V </code>0-100</li>
-<li><strong>HSB</strong> (Hue Saturation Brightness) (just an alias for HSV)<br>
-<code>hsb:H,S,B</code> where <code>H</code> is 0-360, <code>S</code> 0-100 and <code>B </code>0-100</li>
-<li><strong>HWB</strong> (Hue White Black)
+Spaces can be incuded in rgb(R, G, B) declarations but require quoting/escaping on the CLI.</p>
+</li>
+<li>
+<p><strong>HSL</strong> (Hue Saturation Lightness)<br>
+<code>hsl:H,S,L</code> where <code>H</code> is 0-360, <code>S</code> 0-100 and <code>L</code> 0-100</p>
+</li>
+<li>
+<p><strong>HSV</strong> (Hue Saturation Value)<br>
+<code>hsv:H,S,V</code> where <code>H</code> is 0-360, <code>S</code> 0-100 and <code>V </code>0-100</p>
+</li>
+<li>
+<p><strong>HSB</strong> (Hue Saturation Brightness) (just an alias for HSV)<br>
+<code>hsb:H,S,B</code> where <code>H</code> is 0-360, <code>S</code> 0-100 and <code>B </code>0-100</p>
+</li>
+<li>
+<p><strong>HWB</strong> (Hue White Black)
 <code>hwb:H,W,B</code> where <code>H</code> is 0-360, <code>W</code> 0-100 and <code>B</code> 0-100<br>
-See <a href="https://drafts.csswg.org/css-color/#the-hwb-notation">HWB notation @csswg</a></li>
-<li><strong>CSS named colors</strong><br>
-<img src="https://raw.githubusercontent.com/thebespokepixel/trucolor/master/media/named.png" alt="Named Colors Examples"></li>
+See <a href="https://drafts.csswg.org/css-color/#the-hwb-notation">HWB notation @csswg</a></p>
+</li>
+<li>
+<p><strong>CSS named colors</strong><br>
+<img src="https://raw.githubusercontent.com/thebespokepixel/trucolor/master/media/named.png" alt="Named Colors Examples"></p>
+</li>
 <li>
 <p><strong>Special formatters</strong>
 The following keywords modify the meaning or destination of the color, or provide enhanced foramtting. They only work when used with the command switches that actually output SGR codes, namely: <code>--message</code>, <code>--swatch</code>, <code>--in</code> and <code>--out</code>. When used with the default command or with the <code>--rgb</code> switch, they have no effect and the value of the base color (plus any processing) will be output.</p>
-<p>  <strong>background</strong>: Set the background color, rather than the foreground.</p>
-<p>  <strong>normal</strong>: Set the color to the default foreground and background.<br>
+<p><strong>background</strong>: Set the background color, rather than the foreground.</p>
+<p><strong>normal</strong>: Set the color to the default foreground and background.<br>
 <strong>reset</strong>: Sets colors and special formatting back to the default.</p>
-<p>  <strong>bold</strong>: Set the font to bold.<br>
+<p><strong>bold</strong>: Set the font to bold.<br>
 <strong>italic</strong>: Set the font to italic.<br>
 <strong>underline</strong>: Set underline.<br>
 <strong>dim</strong>: Set the colour to 50% opacity.<br>
 <strong>invert</strong>: Invert the foreground and background.<br>
 <strong>blink</strong>: Annoying as a note in Comic Sans, attached to a dancing, purple dinosaur with a talking paperclip.</p>
-<p>  All of the above formatters need the correct code to end the range, either provided by using the <code>--out</code> switch, using the <code>reset</code> keyword, or simply use the <code>--message</code> option to automatically set the end range SGR code. Using <code>normal</code> alone won't fully clear the formatting.</p>
+<p>All of the above formatters need the correct code to end the range, either provided by using the <code>--out</code> switch, using the <code>reset</code> keyword, or simply use the <code>--message</code> option to automatically set the end range SGR code. Using <code>normal</code> alone won't fully clear the formatting.</p>
 </li>
 </ul>
 <p><img src="https://raw.githubusercontent.com/thebespokepixel/trucolor/master/media/formatters.png" alt="Formatters Examples"></p>
@@ -194,45 +207,45 @@ The following keywords modify the meaning or destination of the color, or provid
 color <code>mix</code> color: mix colors</p>
 <h5>Multiple Inputs</h5>
 <p><code>trucolor</code> will output a list of color values if more than one base color is specified, allowing color assignment in a single block allowing easy ingest using <code>read</code>. Each color will be output on it's own line, and named according to the input base color. The names can be overridden by providing a <code>name:</code> before the base color.</p>
-<pre class='hljs'><span class="hljs-meta">&gt;</span><span class="bash"> trucolor red yellow green purple</span>
+<pre class='hljs'><span class="hljs-meta">&gt; </span><span class="language-bash">trucolor red yellow green purple</span>
 red: ff0000
 yellow: ffff00
 green: 008000
 purple: 800080
 <span class="hljs-meta">
-&gt;</span><span class="bash"> trucolor Po: red LaaLaa: yellow Dipsy: green TinkyWinky: purple</span>
+&gt; </span><span class="language-bash">trucolor Po: red LaaLaa: yellow Dipsy: green TinkyWinky: purple</span>
 Po: ff0000
 LaaLaa: ffff00
 Dipsy: 008000
 TinkyWinky: 800080
 <span class="hljs-meta">
-&gt;</span><span class="bash"> trucolor hsl:120,100,50 apples: orange spin 180</span>
+&gt; </span><span class="language-bash">trucolor hsl:120,100,50 apples: orange spin 180</span>
 hsl-120-100-50: 00ff00
 apples: 005aff</pre>
 <h2>Programmatic Usage</h2>
 <pre class='hljs'>
-<span class="hljs-keyword">import</span> {trucolor, palette, chalkish, simple} <span class="hljs-keyword">from</span> <span class="hljs-string">'trucolor'</span>
+<span class="hljs-keyword">import</span> {trucolor, palette, chalkish, simple} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;trucolor&#x27;</span>
 
-<span class="hljs-keyword">const</span> simpleColor = trucolor(<span class="hljs-string">'bright red'</span>)
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${simpleColor.<span class="hljs-keyword">in</span>}</span>simpleColor<span class="hljs-subst">${simpleColor.out}</span>`</span>)
+<span class="hljs-keyword">const</span> simpleColor = <span class="hljs-title function_">trucolor</span>(<span class="hljs-string">&#x27;bright red&#x27;</span>)
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`<span class="hljs-subst">${simpleColor.<span class="hljs-keyword">in</span>}</span>simpleColor<span class="hljs-subst">${simpleColor.out}</span>`</span>)
 
-<span class="hljs-keyword">const</span> simplePalette = simple()
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${simplePalette.red}</span>simplePalette Red<span class="hljs-subst">${simplePalette.red.out}</span>`</span>)
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${simplePalette.blue}</span>simplePalette Blue<span class="hljs-subst">${simplePalette.blue.out}</span>`</span>)
+<span class="hljs-keyword">const</span> simplePalette = <span class="hljs-title function_">simple</span>()
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`<span class="hljs-subst">${simplePalette.red}</span>simplePalette Red<span class="hljs-subst">${simplePalette.red.out}</span>`</span>)
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`<span class="hljs-subst">${simplePalette.blue}</span>simplePalette Blue<span class="hljs-subst">${simplePalette.blue.out}</span>`</span>)
 
-<span class="hljs-keyword">const</span> myPalette = palette({}, {
-  <span class="hljs-attr">red</span>: <span class="hljs-string">'#F00'</span>,
-  <span class="hljs-attr">blue</span>: <span class="hljs-string">'lighten 30 blue'</span>
+<span class="hljs-keyword">const</span> myPalette = <span class="hljs-title function_">palette</span>({}, {
+  <span class="hljs-attr">red</span>: <span class="hljs-string">&#x27;#F00&#x27;</span>,
+  <span class="hljs-attr">blue</span>: <span class="hljs-string">&#x27;lighten 30 blue&#x27;</span>
 })
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${myPalette.red}</span>myPalette Red<span class="hljs-subst">${myPalette.red.out}</span>`</span>)
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${myPalette.blue}</span>myPalette Blue<span class="hljs-subst">${myPalette.blue.out}</span>`</span>)
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`<span class="hljs-subst">${myPalette.red}</span>myPalette Red<span class="hljs-subst">${myPalette.red.out}</span>`</span>)
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`<span class="hljs-subst">${myPalette.blue}</span>myPalette Blue<span class="hljs-subst">${myPalette.blue.out}</span>`</span>)
 
-<span class="hljs-keyword">const</span> myChalkishPalette = chalkish(palette({}, {
-  <span class="hljs-attr">red</span>: <span class="hljs-string">'#F00'</span>,
-  <span class="hljs-attr">blue</span>: <span class="hljs-string">'lighten 30 blue'</span>
+<span class="hljs-keyword">const</span> myChalkishPalette = <span class="hljs-title function_">chalkish</span>(<span class="hljs-title function_">palette</span>({}, {
+  <span class="hljs-attr">red</span>: <span class="hljs-string">&#x27;#F00&#x27;</span>,
+  <span class="hljs-attr">blue</span>: <span class="hljs-string">&#x27;lighten 30 blue&#x27;</span>
 }))
-<span class="hljs-built_in">console</span>.log(myChalkishPalette.red(<span class="hljs-string">'myChalkishPalette Red'</span>))
-<span class="hljs-built_in">console</span>.log(myChalkishPalette.blue(<span class="hljs-string">'myChalkishPalette Blue'</span>))
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(myChalkishPalette.<span class="hljs-title function_">red</span>(<span class="hljs-string">&#x27;myChalkishPalette Red&#x27;</span>))
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(myChalkishPalette.<span class="hljs-title function_">blue</span>(<span class="hljs-string">&#x27;myChalkishPalette Blue&#x27;</span>))
 </pre>
 
 	
@@ -247,7 +260,6 @@ apples: 005aff</pre>
 	</h2>
 	
 		
-
 	
 	
 </section>
@@ -266,7 +278,7 @@ apples: 005aff</pre>
     </h3>
     
     
-      <a class='pl3 pr1 right rounded github' href='https://github.com/thebespokepixel/trucolor/blob/bfbfbbc91ccde63323946b7c51be6f1f3c00bd0d/src/index.js#L16-L29'>
+      <a class='pl3 pr1 right rounded github' href='https://github.com/thebespokepixel/trucolor/blob/8ab8b731b8cf0bd61f4c7c08d15c2813c8ce7088/src/index.js#L18-L31'>
       <span>src/index.js</span>
       </a>
     
@@ -381,7 +393,7 @@ format.
     </h3>
     
     
-      <a class='pl3 pr1 right rounded github' href='https://github.com/thebespokepixel/trucolor/blob/bfbfbbc91ccde63323946b7c51be6f1f3c00bd0d/src/index.js#L39-L46'>
+      <a class='pl3 pr1 right rounded github' href='https://github.com/thebespokepixel/trucolor/blob/8ab8b731b8cf0bd61f4c7c08d15c2813c8ce7088/src/index.js#L41-L48'>
       <span>src/index.js</span>
       </a>
     
@@ -467,7 +479,7 @@ format.
     </h3>
     
     
-      <a class='pl3 pr1 right rounded github' href='https://github.com/thebespokepixel/trucolor/blob/bfbfbbc91ccde63323946b7c51be6f1f3c00bd0d/src/index.js#L54-L56'>
+      <a class='pl3 pr1 right rounded github' href='https://github.com/thebespokepixel/trucolor/blob/8ab8b731b8cf0bd61f4c7c08d15c2813c8ce7088/src/index.js#L56-L58'>
       <span>src/index.js</span>
       </a>
     
@@ -552,7 +564,7 @@ format.
     </h3>
     
     
-      <a class='pl3 pr1 right rounded github' href='https://github.com/thebespokepixel/trucolor/blob/bfbfbbc91ccde63323946b7c51be6f1f3c00bd0d/src/index.js#L63-L65'>
+      <a class='pl3 pr1 right rounded github' href='https://github.com/thebespokepixel/trucolor/blob/8ab8b731b8cf0bd61f4c7c08d15c2813c8ce7088/src/index.js#L65-L67'>
       <span>src/index.js</span>
       </a>
     
@@ -628,7 +640,7 @@ format.
     </h3>
     
     
-      <a class='pl3 pr1 right rounded github' href='https://github.com/thebespokepixel/trucolor/blob/bfbfbbc91ccde63323946b7c51be6f1f3c00bd0d/src/index.js#L103-L105'>
+      <a class='pl3 pr1 right rounded github' href='https://github.com/thebespokepixel/trucolor/blob/8ab8b731b8cf0bd61f4c7c08d15c2813c8ce7088/src/index.js#L105-L107'>
       <span>src/index.js</span>
       </a>
     

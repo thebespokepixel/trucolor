@@ -1,5 +1,5 @@
 import test from 'ava'
-import {simple} from '..'
+import {simple} from '../index.js'
 
 const heading = '4bit palette via module'
 
@@ -33,12 +33,12 @@ const results = {
 	grey: ['#808080', '\u001B[37m', '\u001B[39m'],
 	title: ['bold #80C480', '\u001B[97;1m', '\u001B[22;39m'],
 	normal: ['normal', '\u001B[0m', '\u001B[m'],
-	reset: ['reset', '\u001B[0m', '\u001B[m']
+	reset: ['reset', '\u001B[0m', '\u001B[m'],
 }
 
-Object.keys(results).forEach(target => {
+for (const target of Object.keys(results)) {
 	test(`${heading}: Palette : ${palette[target].toSwatch()} is ${results[target][0]}`, t => {
 		t.is(palette[target].in, results[target][1])
 		t.is(palette[target].out, results[target][2])
 	})
-})
+}

@@ -1,5 +1,5 @@
 import test from 'ava'
-import {palette} from '..'
+import {palette} from '../index.js'
 
 const heading = 'values via module'
 
@@ -10,7 +10,7 @@ const definitions = palette({}, {
 	violet: 'violet desaturate 40',
 	violetS: 'violet desat 20',
 	firebrick: 'firebrick saturate 30',
-	firebrickS: 'firebrick sat 10'
+	firebrickS: 'firebrick sat 10',
 })
 
 const definitionResults = {
@@ -20,11 +20,11 @@ const definitionResults = {
 	violet: 'd29ed2',
 	violetS: 'e090e0',
 	firebrick: 'd20202',
-	firebrickS: 'bd1717'
+	firebrickS: 'bd1717',
 }
 
-Object.keys(definitionResults).forEach(target => {
+for (const target of Object.keys(definitionResults)) {
 	test(`${heading}: Light/Dark : ${definitions[target].toSwatch()} is ${definitionResults[target]}`, t => {
 		t.is(definitions[target].hex, definitionResults[target])
 	})
-})
+}

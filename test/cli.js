@@ -1,13 +1,13 @@
-import {exec} from 'child_process'
+import {promisify} from 'node:util'
+import {exec} from 'node:child_process'
 import test from 'ava'
-import pkg from '../package.json'
+import {readPackageSync} from 'read-pkg'
 
+const pkg = readPackageSync()
 const expectedVersion = pkg.version
+const execPromise = promisify(exec)
 
-test.cb(`Module name/version is '${pkg.name} v${expectedVersion}'.`, t => {
-	exec('./bin/trucolor -vv', (code_, out_) => {
-		t.is(code_, null)
-		t.is(out_.trim(), `${pkg.name} v${expectedVersion}`)
-		t.end()
-	})
+test(`Module name/version is '${pkg.name} v${expectedVersion}'.`, async t => {
+	const {stdout} = await execPromise('./trucolor.js -vv')
+	t.is(stdout.trim(), `${pkg.name} v${expectedVersion}`)
 })

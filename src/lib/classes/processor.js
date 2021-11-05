@@ -4,7 +4,7 @@
 
 import _ from 'lodash'
 import {tinycolor, TinyColor} from '@thebespokepixel/es-tinycolor'
-import {console} from '../..'
+import {console} from '../../index.js'
 
 class Processor {
 	constructor(colorname) {
@@ -17,7 +17,7 @@ class Processor {
 			italic: false,
 			invert: false,
 			underline: false,
-			blink: false
+			blink: false,
 		}
 		this.haveAttrs = false
 		this.haveSource = false
@@ -31,7 +31,7 @@ class Processor {
 	render() {
 		return this.haveSource ? _.reduce(this.queue,
 			(color, step) => step(color),
-			tinycolor(this.rgb)
+			tinycolor(this.rgb),
 		) : 'none'
 	}
 
