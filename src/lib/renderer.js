@@ -6,14 +6,11 @@
 import _ from 'lodash'
 import SGRcomposer from 'sgr-composer'
 import terminal from 'term-ng'
-import {readPackageSync} from 'read-pkg'
-
-const pkg = readPackageSync()
 
 const colorLevel = terminal.color.level || 0
 
 export default function render(processor, {
-	type = 'default',
+	colorFlags = {},
 	format,
 	force,
 }) {
@@ -39,17 +36,6 @@ export default function render(processor, {
 		return '$\u2588\u2588'
 	}
 
-	const colorOptions = (type => {
-		switch (type) {
-			case undefined:
-				return {}
-			case 'default':
-				return pkg.config.cli[pkg.config.cli.selected]
-			default:
-				return pkg.config.cli[type]
-		}
-	})(type)
-
 	switch (format) {
 		case 'cli':
 			return {
@@ -57,9 +43,9 @@ export default function render(processor, {
 				hex: fieldSelect() || color.toHex(),
 				rgb: fieldSelect() || color.toRgbString(),
 				toString: () => stringSelect() || `${_.remove(
-					_.map(processor.attrs, (active, attr) => active === true ? colorOptions[attr] : false),
+					_.map(processor.attrs, (active, attr) => active === true ? colorFlags[attr] : false),
 				).join(' ')}${processor.hasAttrs ? ' ' : ''}${
-					colorOptions.color === 'hex'
+					colorFlags.color === 'hex'
 						? `${color.toHex()}`
 						: `${color.toRgbArray().join(' ')}`
 				}`,

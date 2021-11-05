@@ -12,8 +12,8 @@ export function chalkish(palette: any): Function;
  */
 export function palette(options: any, palette: any): any;
 declare function parser(color: any): Processor[];
-export function render(processor: any, { type, format, force, }: {
-    type?: string;
+export function render(processor: any, { colorFlags, format, force, }: {
+    colorFlags?: {};
     format: any;
     force: any;
 }): any;

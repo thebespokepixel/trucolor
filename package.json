@@ -17,47 +17,6 @@
     "year": "2021",
     "owner": "The Bespoke Pixel"
   },
-  "config": {
-    "cli": {
-      "selected": "direct",
-      "none": {
-        "color": "hex",
-        "background": "",
-        "bold": "",
-        "dim": "",
-        "italic": "",
-        "underline": "",
-        "blink": "",
-        "invert": "",
-        "reset": "",
-        "normal": ""
-      },
-      "direct": {
-        "color": "hex",
-        "background": "--background",
-        "bold": "--bold",
-        "dim": "--dim",
-        "italic": "--italic",
-        "underline": "--underline",
-        "blink": "--blink",
-        "invert": "--invert",
-        "reset": "reset",
-        "normal": "normal"
-      },
-      "fish": {
-        "color": "hex",
-        "background": "--background",
-        "bold": "--bold",
-        "dim": "",
-        "italic": "",
-        "underline": "--underline",
-        "blink": "",
-        "invert": "",
-        "reset": "normal",
-        "normal": "normal"
-      }
-    }
-  },
   "dependencies": {
     "@thebespokepixel/es-tinycolor": "^3.0.4",
     "color-convert": "^2.0.1",

@@ -3,7 +3,6 @@ import { tinycolor, TinyColor, names } from '@thebespokepixel/es-tinycolor';
 import converter from 'color-convert';
 import SGRcomposer from 'sgr-composer';
 import terminal from 'term-ng';
-import { readPackageSync } from 'read-pkg';
 import escStringRE from 'escape-string-regexp';
 
 class Processor {
@@ -425,10 +424,9 @@ function parser(color) {
 	return queue
 }
 
-const pkg = readPackageSync();
 const colorLevel = terminal.color.level || 0;
 function render(processor, {
-	type = 'default',
+	colorFlags = {},
 	format,
 	force,
 }) {
@@ -449,16 +447,6 @@ function render(processor, {
 		}
 		return '$\u2588\u2588'
 	};
-	const colorOptions = (type => {
-		switch (type) {
-			case undefined:
-				return {}
-			case 'default':
-				return pkg.config.cli[pkg.config.cli.selected]
-			default:
-				return pkg.config.cli[type]
-		}
-	})(type);
 	switch (format) {
 		case 'cli':
 			return {
@@ -466,9 +454,9 @@ function render(processor, {
 				hex: fieldSelect() || color.toHex(),
 				rgb: fieldSelect() || color.toRgbString(),
 				toString: () => stringSelect() || `${_.remove(
-					_.map(processor.attrs, (active, attr) => active === true ? colorOptions[attr] : false),
+					_.map(processor.attrs, (active, attr) => active === true ? colorFlags[attr] : false),
 				).join(' ')}${processor.hasAttrs ? ' ' : ''}${
-					colorOptions.color === 'hex'
+					colorFlags.color === 'hex'
 						? `${color.toHex()}`
 						: `${color.toRgbArray().join(' ')}`
 				}`,
