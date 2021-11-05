@@ -4,16 +4,6 @@
  * @return {function} The resultant name/function map.
  */
 export function chalkish(palette: any): Function;
-export const console: any;
-export const metadata: {
-    readonly name: string;
-    readonly description: string;
-    readonly copyright: any;
-    readonly license: string;
-    readonly bugs: string;
-    readonly bin: string;
-    version: (style?: number) => string;
-};
 /**
  * Create a map of trucolor instances from a map of name/color values.
  * @param  {Object} options Options to pass to trucolor creation.
@@ -22,7 +12,11 @@ export const metadata: {
  */
 export function palette(options: any, palette: any): any;
 declare function parser(color: any): Processor[];
-export function render(processor: any, options?: {}): any;
+export function render(processor: any, { type, format, force, }: {
+    type?: string;
+    format: any;
+    force: any;
+}): any;
 /**
  * Create a simple, sharable palette
  * @param  {Object} options Options to pass to trucolor creation.
@@ -60,7 +54,6 @@ export function render(processor: any, options?: {}): any;
  * }
  */
 export function simple(options: any): any;
-export function simplePalette(options: any): any;
 /**
  * Color retreival API. Will return different values if called with a cli or sgr context.
  * @name Trucolor

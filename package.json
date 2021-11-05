@@ -1,18 +1,14 @@
 {
   "name": "trucolor",
-  "version": "3.0.1",
+  "version": "4.0.0",
   "description": "TTY color toolkit supporting Truecolor (24bit RGB)",
   "author": "Mark Griffiths <mark@thebespokepixel.com> (http://thebespokepixel.com/)",
   "main": "index.js",
   "types": "index.d.ts",
   "type": "module",
-  "bin": {
-    "trucolor": "./bin/trucolor"
-  },
   "files": [
     "index.js",
-    "index.d.ts",
-    "bin/"
+    "index.d.ts"
   ],
   "bugs": {
     "url": "https://github.com/thebespokepixel/trucolor/issues"
@@ -80,7 +76,6 @@
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.1",
-    "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.0.6",
     "@types/estree": "^0.0.50",
     "ava": "^4.0.0-rc.1",
@@ -110,7 +105,7 @@
     "url": "git+https://github.com/thebespokepixel/trucolor.git"
   },
   "scripts": {
-    "build": "rollup -c && chmod 755 trucolor.js && npm run readme",
+    "build": "rollup -c && npm run readme",
     "test": "xo && c8 --reporter=text ava",
     "doc-serve": "documentation serve --watch --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --project-name $npm_package_name  --project-version $npm_package_version src/index.js",
     "doc-build": "documentation build --format html --output docs --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --project-name $npm_package_name  --project-version $npm_package_version src/index.js",
@@ -122,7 +117,6 @@
     "semicolon": false,
     "ignores": [
       "index.js",
-      "trucolor.js",
       "index.d.ts",
       "docs/**",
       "coverage/**"

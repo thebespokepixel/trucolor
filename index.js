@@ -1,14 +1,10 @@
-import { dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
 import _ from 'lodash';
-import { createConsole } from 'verbosity';
-import meta from '@thebespokepixel/meta';
 import { tinycolor, TinyColor, names } from '@thebespokepixel/es-tinycolor';
+import converter from 'color-convert';
 import SGRcomposer from 'sgr-composer';
 import terminal from 'term-ng';
 import { readPackageSync } from 'read-pkg';
 import escStringRE from 'escape-string-regexp';
-import converter from 'color-convert';
 
 class Processor {
 	constructor(colorname) {
@@ -29,7 +25,6 @@ class Processor {
 		this.haveQueue = false;
 		this.namePrefix = '';
 		this.nameSuffix = '';
-		console.debug(`New Process: ${this.baseName}`);
 	}
 	render() {
 		return this.haveSource ? _.reduce(this.queue,
@@ -55,7 +50,6 @@ class Processor {
 		return this.haveSource && this.interpreter.rgb
 	}
 	lock(lockedName) {
-		console.debug(`Process name locked: ${lockedName}`);
 		this.lockedName = lockedName;
 	}
 	get locked() {
@@ -88,73 +82,59 @@ class Processor {
 	}
 	background() {
 		this.attrs = 'background';
-		console.debug('Special::background');
 	}
 	bold() {
 		this.attrs = 'bold';
-		console.debug('Special::bold');
 	}
 	dim() {
 		this.attrs = 'dim';
-		console.debug('Special::dim');
 	}
 	italic() {
 		this.attrs = 'italic';
-		console.debug('Special::italic');
 	}
 	invert() {
 		this.attrs = 'invert';
-		console.debug('Special::invert');
 	}
 	underline() {
 		this.attrs = 'underline';
-		console.debug('Special::underline');
 	}
 	blink() {
 		this.attrs = 'blink';
-		console.debug('Special::blink');
 	}
 	saturate(args) {
 		this.addStep(color => color.saturate(args.percent));
 		this.namePrefix = `sat-${this.namePrefix}`;
 		this.nameSuffix = `${this.nameSuffix}-${args.percent}`;
-		console.debug('Process::saturate', args.percent);
 	}
 	desaturate(args) {
 		this.addStep(color => color.desaturate(args.percent));
 		this.namePrefix = `des-${this.namePrefix}`;
 		this.nameSuffix = `${this.nameSuffix}-${args.percent}`;
-		console.debug('Process::desaturate', args.percent);
 	}
 	darken(args) {
 		this.addStep(color => color.darken(args.percent));
 		this.namePrefix = `dark-${this.namePrefix}`;
 		this.nameSuffix = `${this.nameSuffix}-${args.percent}`;
-		console.debug('Process::darken', args.percent);
 	}
 	lighten(args) {
 		this.addStep(color => color.lighten(args.percent));
 		this.namePrefix = `light-${this.namePrefix}`;
 		this.nameSuffix = `${this.nameSuffix}-${args.percent}`;
-		console.debug('Process::lighten', args.percent);
 	}
 	spin(args) {
 		this.addStep(color => color.spin(-args.rotation));
 		this.namePrefix = `spin-${this.namePrefix}`;
 		this.nameSuffix = `${this.nameSuffix}-${Math.abs(args.rotation)}`;
-		console.debug('Process::spin', args.rotation);
 	}
 	mono() {
 		this.addStep(color => color.greyscale());
 		this.namePrefix = `mono-${this.namePrefix}`;
 		this.nameSuffix = `${this.nameSuffix}}`;
-		console.debug('Process::mono');
 	}
 	mix(args) {
 		this.addStep(color => TinyColor.mix(color, args.color, 50));
 		this.namePrefix = `mix-${this.namePrefix}`;
 		this.nameSuffix = `${this.nameSuffix}-${args.color}`;
-		console.debug('Process::mix', args.color);
 	}
 }
 function processor(name) {
@@ -317,7 +297,6 @@ class Interpreter {
 		}
 		this.baseName = source.name;
 		this.baseColor = source.space === 'SGR' ? source.name : tinycolor(source.rgb ? `rgb(${source.rgb})` : source.name);
-		console.debug(`Color (${this.baseName}) ${this.baseColor} from ${this.source.space} as ${this.source.human}`);
 	}
 	get name() {
 		return this.baseName
@@ -448,14 +427,15 @@ function parser(color) {
 
 const pkg = readPackageSync();
 const colorLevel = terminal.color.level || 0;
-function render(processor, options = {}) {
-	const {
-		format: outputFormat,
-	} = options;
+function render(processor, {
+	type = 'default',
+	format,
+	force,
+}) {
 	const color = processor.render();
 	const isReset = ['normal', 'reset'].includes(processor.name);
 	const sgrComposer = new SGRcomposer(
-		options.force || colorLevel,
+		force || colorLevel,
 		Object.assign(processor.attrs, processor.hasSource ? {
 			color: isReset ? processor.name : color.toRgbArray(),
 		} : {}),
@@ -478,8 +458,8 @@ function render(processor, options = {}) {
 			default:
 				return pkg.config.cli[type]
 		}
-	})(global.trucolorCLItype);
-	switch (outputFormat) {
+	})(type);
+	switch (format) {
 		case 'cli':
 			return {
 				name: processor.human,
@@ -587,8 +567,6 @@ const palette$1 = {
 	reset: 'reset',
 };
 
-const console = createConsole({outStream: process.stderr});
-const metadata = meta(dirname(fileURLToPath(import.meta.url)));
 /**
  * Color retreival API. Will return different values if called with a cli or sgr context.
  * @name Trucolor
@@ -674,8 +652,5 @@ function chalkish(palette) {
 function simple(options) {
 	return palette(options, palette$1)
 }
-function simplePalette(options) {
-	return palette(options, palette$1)
-}
 
-export { chalkish, console, metadata, palette, parser as parse, render, simple, simplePalette, trucolor };
+export { chalkish, palette, parser as parse, render, simple, trucolor };

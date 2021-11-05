@@ -5,7 +5,6 @@
 
 import {tinycolor, names} from '@thebespokepixel/es-tinycolor'
 import converter from 'color-convert'
-import {console} from '../../index.js'
 
 class Interpreter {
 	constructor(raw) {
@@ -181,8 +180,6 @@ class Interpreter {
 
 		this.baseName = source.name
 		this.baseColor = source.space === 'SGR' ? source.name : tinycolor(source.rgb ? `rgb(${source.rgb})` : source.name)
-
-		console.debug(`Color (${this.baseName}) ${this.baseColor} from ${this.source.space} as ${this.source.human}`)
 	}
 
 	get name() {
