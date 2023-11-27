@@ -23,7 +23,7 @@
     "escape-string-regexp": "^5.0.0",
     "lodash": "^4.17.21",
     "sgr-composer": "^3.0.0",
-    "term-ng": "^3.0.3"
+    "term-ng": "^3.0.4"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.1",
